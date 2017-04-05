@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */; };
+		7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* FeedVC.swift */; };
+		7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8ED261E9546FE00E610B9 /* Assets.xcassets */; };
+		7BD8ED2A1E9546FE00E610B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */; };
+		7BD8ED321E95473800E610B9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED311E95473800E610B9 /* Constants.swift */; };
+		7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED331E95473E00E610B9 /* ColorHexable.swift */; };
+		7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED351E95474500E610B9 /* BaseCell.swift */; };
+		7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED371E95474A00E610B9 /* BusinesCell.swift */; };
+		7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED391E957C2A00E610B9 /* BusinessModel.swift */; };
+		7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED411E957D2900E610B9 /* YelpAPI.swift */; };
+		7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED431E957EE400E610B9 /* Extensions.swift */; };
+		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeruvianFoodApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PeruvianFoodApp/AppDelegate.swift; sourceTree = "<group>"; };
+		7BD8ED211E9546FE00E610B9 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		7BD8ED261E9546FE00E610B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7BD8ED291E9546FE00E610B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7BD8ED2B1E9546FE00E610B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BD8ED311E95473800E610B9 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7BD8ED331E95473E00E610B9 /* ColorHexable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorHexable.swift; sourceTree = "<group>"; };
+		7BD8ED351E95474500E610B9 /* BaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		7BD8ED371E95474A00E610B9 /* BusinesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinesCell.swift; sourceTree = "<group>"; };
+		7BD8ED391E957C2A00E610B9 /* BusinessModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessModel.swift; sourceTree = "<group>"; };
+		7BD8ED411E957D2900E610B9 /* YelpAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpAPI.swift; sourceTree = "<group>"; };
+		7BD8ED431E957EE400E610B9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeruvianFoodApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.debug.xcconfig"; sourceTree = "<group>"; };
+		FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7BD8ED191E9546FE00E610B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7BD8ED131E9546FE00E610B9 = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */,
+				7BD8ED1E1E9546FE00E610B9 /* PeruvianFoodApp */,
+				7BD8ED1D1E9546FE00E610B9 /* Products */,
+				D481CF905B9A10FF5F81D222 /* Pods */,
+				EA921FFEB2153F1F8CDB7BFD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7BD8ED1D1E9546FE00E610B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BD8ED1E1E9546FE00E610B9 /* PeruvianFoodApp */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED401E957CFE00E610B9 /* Model */,
+				7BD8ED3F1E957CF300E610B9 /* View */,
+				7BD8ED3E1E957CE200E610B9 /* Controller */,
+				7BD8ED3D1E957CD900E610B9 /* Service */,
+				7BD8ED3C1E957CCF00E610B9 /* Helpers */,
+				7BD8ED3B1E957CC400E610B9 /* Protocols */,
+				7BD8ED261E9546FE00E610B9 /* Assets.xcassets */,
+				7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */,
+				7BD8ED2B1E9546FE00E610B9 /* Info.plist */,
+			);
+			path = PeruvianFoodApp;
+			sourceTree = "<group>";
+		};
+		7BD8ED3B1E957CC400E610B9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED331E95473E00E610B9 /* ColorHexable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		7BD8ED3C1E957CCF00E610B9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED311E95473800E610B9 /* Constants.swift */,
+				7BD8ED431E957EE400E610B9 /* Extensions.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		7BD8ED3D1E957CD900E610B9 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED411E957D2900E610B9 /* YelpAPI.swift */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		7BD8ED3E1E957CE200E610B9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		7BD8ED3F1E957CF300E610B9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED351E95474500E610B9 /* BaseCell.swift */,
+				7BD8ED371E95474A00E610B9 /* BusinesCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		7BD8ED401E957CFE00E610B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED391E957C2A00E610B9 /* BusinessModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D481CF905B9A10FF5F81D222 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */,
+				FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		EA921FFEB2153F1F8CDB7BFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7BD8ED1B1E9546FE00E610B9 /* PeruvianFoodApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BD8ED2E1E9546FE00E610B9 /* Build configuration list for PBXNativeTarget "PeruvianFoodApp" */;
+			buildPhases = (
+				5CC5131317082242643C575F /* [CP] Check Pods Manifest.lock */,
+				7BD8ED181E9546FE00E610B9 /* Sources */,
+				7BD8ED191E9546FE00E610B9 /* Frameworks */,
+				7BD8ED1A1E9546FE00E610B9 /* Resources */,
+				4B724394107419E40C3CA7AC /* [CP] Embed Pods Frameworks */,
+				F384FEF2C1D270C197660B71 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PeruvianFoodApp;
+			productName = PeruvianFoodApp;
+			productReference = 7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7BD8ED141E9546FE00E610B9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "James Rochabrun";
+				TargetAttributes = {
+					7BD8ED1B1E9546FE00E610B9 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = ULU46F325W;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7BD8ED171E9546FE00E610B9 /* Build configuration list for PBXProject "PeruvianFoodApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7BD8ED131E9546FE00E610B9;
+			productRefGroup = 7BD8ED1D1E9546FE00E610B9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7BD8ED1B1E9546FE00E610B9 /* PeruvianFoodApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7BD8ED1A1E9546FE00E610B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BD8ED2A1E9546FE00E610B9 /* LaunchScreen.storyboard in Resources */,
+				7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B724394107419E40C3CA7AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5CC5131317082242643C575F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F384FEF2C1D270C197660B71 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7BD8ED181E9546FE00E610B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
+				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
+				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
+				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
+				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
+				7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */,
+				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
+				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
+				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7BD8ED291E9546FE00E610B9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7BD8ED2C1E9546FE00E610B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7BD8ED2D1E9546FE00E610B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7BD8ED2F1E9546FE00E610B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ULU46F325W;
+				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.PeruvianFoodApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		7BD8ED301E9546FE00E610B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ULU46F325W;
+				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.PeruvianFoodApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7BD8ED171E9546FE00E610B9 /* Build configuration list for PBXProject "PeruvianFoodApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BD8ED2C1E9546FE00E610B9 /* Debug */,
+				7BD8ED2D1E9546FE00E610B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BD8ED2E1E9546FE00E610B9 /* Build configuration list for PBXNativeTarget "PeruvianFoodApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BD8ED2F1E9546FE00E610B9 /* Debug */,
+				7BD8ED301E9546FE00E610B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7BD8ED141E9546FE00E610B9 /* Project object */;
+}
