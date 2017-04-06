@@ -28,6 +28,15 @@ extension UITableViewCell: Reusable {}
 extension UICollectionViewCell: Reusable {}
 
 extension UITableView {
+        
+    typealias DataSourceCompletionHandler = (Bool) -> ()
+    func registerDatasource<T: UITableViewDataSource>(_ _datasource :T, completion: @escaping DataSourceCompletionHandler) {
+        dataSource = _datasource
+        DispatchQueue.main.async {
+            self.reloadData()
+            completion(true)
+        }
+    }
     
     func register<T: UITableViewCell>(_ :T.Type) where T: Reusable {
         register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
@@ -43,6 +52,15 @@ extension UITableView {
 
 extension UICollectionView {
     
+    typealias DataSourceCompletionHandler = (Bool) -> ()
+    func registerDatasource<T: UICollectionViewDataSource>(_ _datasource :T, completion: @escaping DataSourceCompletionHandler) {
+        dataSource = _datasource
+        DispatchQueue.main.async {
+            self.reloadData()
+            completion(true)
+        }
+    }
+    
     func register<T: UICollectionViewCell>(_ :T.Type) where T: Reusable {
         register(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
@@ -54,6 +72,11 @@ extension UICollectionView {
         return cell
     }
 }
+
+
+
+
+
 
 
 

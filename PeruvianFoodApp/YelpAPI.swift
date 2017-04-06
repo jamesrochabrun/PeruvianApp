@@ -30,7 +30,6 @@ struct YelpService: Gettable {
     typealias SearchBusinessCompletionHandler = (Result<BusinessDataSource>) -> ()
     typealias TokenCompletionhandler = (Result<Token>) -> ()
     
-    
     func getBusiness(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
@@ -97,22 +96,6 @@ protocol Gettable {
     associatedtype T
     func getBusiness(search term: String, completion: @escaping (Result<T>) -> ())
 }
-
-
-class BusinessDataSource: NSObject, JSONDecodable {
-    
-    let business: [Business]
-    
-    required init(json: JSON) throws {
-        
-        guard let businessesArray = json["businesses"].array else {
-            throw NSError(domain: "com.yelp", code: 1, userInfo: [NSLocalizedDescriptionKey: "users json not valid structure"])
-        }
-        self.business = try businessesArray.decode()
-    }
-}
-
-
 
 enum ReviewIcon: NSNumber {
     

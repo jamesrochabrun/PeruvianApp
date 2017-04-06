@@ -13,11 +13,7 @@ import SwiftyJSON
 
 class FeedVC: UITableViewController {
     
-    var businesses: [Business] = [Business]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    private var businessDataSource = BusinessDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +24,11 @@ class FeedVC: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         
-        YelpService.sharedInstance.getBusiness(search: "Peruvian") { (result) in
+        YelpService.sharedInstance.getBusiness(search: "Peruvian") { [unowned self] (result) in
             switch result {
-            case .Success(let businessDataSource) :
-                self.businesses = businessDataSource.business
+            case .Success(let businessDataSource):
+                self.businessDataSource = businessDataSource
+                self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in })
             case .Error(let error) :
                 print(error)
             }
@@ -42,26 +39,7 @@ class FeedVC: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return businesses.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinesCell
-        let business = businesses[indexPath.item]
-        let businessViewModel = BusinessCellViewModel(model: business, at: indexPath.item)
-        cell.businessCellViewModel = businessViewModel
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
 }
-
-
 
 
 
