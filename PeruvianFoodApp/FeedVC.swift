@@ -9,11 +9,17 @@ import UIKit
 import TRON
 import SwiftyJSON
 
+protocol FeedVCDelegate: class {
+    func updateDataInVC(_ vc: FeedVC)
+}
+
 class FeedVC: UITableViewController {
     
     //MARK: properties
-    private var businessDataSource = BusinessDataSource()
-    fileprivate var searchActive : Bool = false
+    fileprivate var businessDataSource = BusinessDataSource()
+    var searchActive : Bool = false
+    fileprivate var searchResults: [Business] = []
+    weak var delegate: FeedVCDelegate?
     
     //MARK: UIelements
     fileprivate lazy var feedSearchBar: UISearchBar = {
@@ -77,6 +83,7 @@ class FeedVC: UITableViewController {
             switch result {
             case .Success(let businessDataSource):
                 self.businessDataSource = businessDataSource
+                self.businessDataSource.feedVC = self
                 self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in })
                 self.feedRefreshControl.endRefreshing()
                 self.customIndicator.stopAnimating()
@@ -88,12 +95,61 @@ class FeedVC: UITableViewController {
 }
 
 
-
-
-
 extension FeedVC: UISearchBarDelegate {
     
+    private func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        feedSearchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = true
+        searchBar.endEditing(true)
+        delegate?.updateDataInVC(self)
+        reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchActive = true;
+        self.filterContentFor(textToSearch: searchText)
+        
+        if searchText != "" {
+            searchActive = true
+        } else {
+            searchActive = false
+        }
+        delegate?.updateDataInVC(self)
+        reloadData()
+    }
+    
+    func filterContentFor(textToSearch: String) {
+        
+        self.businessDataSource.searchResults = self.businessDataSource.businesses.filter({ (business) -> Bool in
+            let businessNameToFind = business.name.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
+            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            
+            return (businessNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
+        })
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        feedSearchBar.endEditing(true)
+    }
 }
+
+
+
+
+
+
+
+
 
 
 
