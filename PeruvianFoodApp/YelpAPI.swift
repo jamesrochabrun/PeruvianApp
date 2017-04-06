@@ -116,22 +116,30 @@ class BusinessDataSource: NSObject, JSONDecodable {
 
 enum ReviewIcon: NSNumber {
     
-    case zeroStar
     case oneStar
+    case oneAndHalfStar
     case twoStar
+    case twoAndHalfStar
     case threeStar
+    case threeAndHalfStar
     case fourStar
+    case fourAndHalfStar
     case fiveStar
+    case fiveAndHalfStar
     case unexpectedReview
     
     init(reviewNumber: NSNumber) {
         switch reviewNumber {
-        case 0 : self = .zeroStar
         case 1 : self = .oneStar
+        case 1.5: self = .oneAndHalfStar
         case 2 : self = .twoStar
+        case 2.5 : self = .twoAndHalfStar
         case 3 : self = .threeStar
+        case 3.5 : self = .threeAndHalfStar
         case 4 : self = .fourStar
+        case 4.5 : self = .fourAndHalfStar
         case 5 : self = .fiveStar
+        case 5.5 : self = .fiveAndHalfStar
         default: self = .unexpectedReview
         }
     }
@@ -140,12 +148,16 @@ enum ReviewIcon: NSNumber {
 extension ReviewIcon {
     var image : UIImage {
         switch self {
-        case .zeroStar: return UIImage()
         case .oneStar: return UIImage()
+        case .oneAndHalfStar: return UIImage()
         case .twoStar: return UIImage()
+        case .twoAndHalfStar: return UIImage()
         case .threeStar: return UIImage()
+        case .threeAndHalfStar: return UIImage()
         case .fourStar: return UIImage()
+        case .fourAndHalfStar: return UIImage()
         case .fiveStar: return UIImage()
+        case .fiveAndHalfStar: return UIImage()
         case .unexpectedReview: return UIImage()
         }
     }

@@ -19,13 +19,11 @@ class FeedVC: UITableViewController {
         }
     }
     
-    
-    let cellID = "cellID"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         view.backgroundColor = .red
-        tableView.register(BusinesCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
@@ -50,7 +48,7 @@ class FeedVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! BusinesCell
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinesCell
         let business = businesses[indexPath.item]
         let businessViewModel = BusinessCellViewModel(model: business, at: indexPath.item)
         cell.businessCellViewModel = businessViewModel

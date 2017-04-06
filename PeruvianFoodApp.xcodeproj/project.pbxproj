@@ -19,6 +19,7 @@
 		7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED411E957D2900E610B9 /* YelpAPI.swift */; };
 		7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED431E957EE400E610B9 /* Extensions.swift */; };
 		7BD8ED481E95BCA800E610B9 /* BusinessCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED471E95BCA800E610B9 /* BusinessCellViewModel.swift */; };
+		7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED491E95C33A00E610B9 /* Reusable.swift */; };
 		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		7BD8ED411E957D2900E610B9 /* YelpAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpAPI.swift; sourceTree = "<group>"; };
 		7BD8ED431E957EE400E610B9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7BD8ED471E95BCA800E610B9 /* BusinessCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCellViewModel.swift; sourceTree = "<group>"; };
+		7BD8ED491E95C33A00E610B9 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeruvianFoodApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		7BD8ED3B1E957CC400E610B9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7BD8ED491E95C33A00E610B9 /* Reusable.swift */,
 				7BD8ED331E95473E00E610B9 /* ColorHexable.swift */,
 			);
 			name = Protocols;
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
+				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
