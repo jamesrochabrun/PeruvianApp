@@ -23,7 +23,10 @@ struct YelpService: Gettable {
     let accessToken = "mS62uF4nkSmm0MDETma145S_DH3eNk12GpuJa9IpxBdBfHJbDjNfFbIp_90kwNhmQzKe70-7tVUMAt_el2gqoGza5xu4N20EhgMxPTO_GSHn9qNSUkC8KEXZBQPlWHYx"
     
     //MARK: properties
+    //MARK: singleton
     static let sharedInstance = YelpService()
+    private init() {}
+    //MARK: tron object
     let tron = TRON(baseURL: "https://api.yelp.com/")
     
     //MARK: TypeAliases

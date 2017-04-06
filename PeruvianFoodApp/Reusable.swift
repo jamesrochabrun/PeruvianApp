@@ -32,8 +32,8 @@ extension UITableView {
     typealias DataSourceCompletionHandler = (Bool) -> ()
     func registerDatasource<T: UITableViewDataSource>(_ _datasource :T, completion: @escaping DataSourceCompletionHandler) {
         dataSource = _datasource
-        DispatchQueue.main.async {
-            self.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.reloadData()
             completion(true)
         }
     }
