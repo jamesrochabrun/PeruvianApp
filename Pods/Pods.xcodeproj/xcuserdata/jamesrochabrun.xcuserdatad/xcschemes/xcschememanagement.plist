@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-PeruvianFoodApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>2E06DB3746FB8DCB879B1B1A904083A5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B92FF2D35C8670B27095606CCE2B2C2</key>
+		<key>8EDA1450702AB7A20322D0C2FF6611F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E4129BF32E17A7453DDF200215FDC704</key>
+		<key>9ADEAA0022EFA3FF45776ABEF82DD996</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F79CE1FAC05D7E7394AF402E819F63C8</key>
+		<key>9EFE4C70245EE2857D336B8B9FA4E825</key>
 		<dict>
 			<key>primary</key>
 			<true/>

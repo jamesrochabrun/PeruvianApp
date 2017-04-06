@@ -8,10 +8,31 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class BusinesCell: BaseCell {
     
-    let businessImageView: UIImageView = {
+    var businessCellViewModel: BusinessCellViewModel? {
+        didSet {
+            if let viewModel = businessCellViewModel {
+                businessNameLabel.text = viewModel.name
+                distanceLabel.text = viewModel.distance
+                reviewsLabel.text = viewModel.reviewsCount
+                addressLabel.text = viewModel.address
+                categoryLabel.text = viewModel.category
+                Alamofire.request(viewModel.profileImageURL).responseImage { response in
+                    if let image = response.result.value {
+                        DispatchQueue.main.async {
+                            self.businessImageView.image = image
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    var businessImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 5
@@ -162,4 +183,15 @@ class BusinesCell: BaseCell {
         dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 

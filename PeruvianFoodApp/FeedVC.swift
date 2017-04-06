@@ -13,7 +13,12 @@ import SwiftyJSON
 
 class FeedVC: UITableViewController {
     
-    var businesses: [Business] = [Business]()
+    var businesses: [Business] = [Business]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     
     let cellID = "cellID"
     override func viewDidLoad() {
@@ -25,18 +30,13 @@ class FeedVC: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         
-        YelpService.sharedInstance.getBusiness(search: "Thai") { (result) in
-            print(result)
-        //print(error)
-            
-            YelpService.sharedInstance.getToken(completion: { (result) in
-                switch result {
-                case .Success(let token) :
-                    print(token)
-                case .Error(let error) :
-                    print(error)
-                }
-            })
+        YelpService.sharedInstance.getBusiness(search: "Peruvian") { (result) in
+            switch result {
+            case .Success(let businessDataSource) :
+                self.businesses = businessDataSource.business
+            case .Error(let error) :
+                print(error)
+            }
         }
     }
     
@@ -51,6 +51,9 @@ class FeedVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! BusinesCell
+        let business = businesses[indexPath.item]
+        let businessViewModel = BusinessCellViewModel(model: business, at: indexPath.item)
+        cell.businessCellViewModel = businessViewModel
         return cell
     }
     

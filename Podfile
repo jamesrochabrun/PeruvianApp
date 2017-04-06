@@ -7,6 +7,7 @@ target 'PeruvianFoodApp' do
 
   # Pods for PeruvianFoodApp
     pod 'TRON'
+    pod 'AlamofireImage'
 
 
 end

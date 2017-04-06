@@ -84,7 +84,7 @@ struct Token: JSONDecodable {
 
 class JSONError: JSONDecodable {
     required init(json: JSON) throws {
-        print("ERROR:" , json)
+        print("ERROR")
     }
 }
 
@@ -111,6 +111,60 @@ class BusinessDataSource: NSObject, JSONDecodable {
         self.business = try businessesArray.decode()
     }
 }
+
+
+
+enum ReviewIcon: NSNumber {
+    
+    case zeroStar
+    case oneStar
+    case twoStar
+    case threeStar
+    case fourStar
+    case fiveStar
+    case unexpectedReview
+    
+    init(reviewNumber: NSNumber) {
+        switch reviewNumber {
+        case 0 : self = .zeroStar
+        case 1 : self = .oneStar
+        case 2 : self = .twoStar
+        case 3 : self = .threeStar
+        case 4 : self = .fourStar
+        case 5 : self = .fiveStar
+        default: self = .unexpectedReview
+        }
+    }
+}
+
+extension ReviewIcon {
+    var image : UIImage {
+        switch self {
+        case .zeroStar: return UIImage()
+        case .oneStar: return UIImage()
+        case .twoStar: return UIImage()
+        case .threeStar: return UIImage()
+        case .fourStar: return UIImage()
+        case .fiveStar: return UIImage()
+        case .unexpectedReview: return UIImage()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
