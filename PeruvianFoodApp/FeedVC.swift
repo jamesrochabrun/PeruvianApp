@@ -52,15 +52,6 @@ class FeedVC: UITableViewController {
         getBusinesses(fromService: YelpService.sharedInstance)
         setUpNavBar()
         setUpViews()
-        let c = CategoryService()
-        c.get { (result) in
-            switch result {
-            case .Success(let json):
-                dump(json)
-            case .Error(let error):
-                print(error)
-            }
-        }
     }
     
     private func setUpNavBar() {
