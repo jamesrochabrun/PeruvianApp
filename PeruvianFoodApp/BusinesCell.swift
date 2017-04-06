@@ -20,6 +20,8 @@ class BusinesCell: BaseCell {
                 reviewsLabel.text = viewModel.reviewsCount
                 addressLabel.text = viewModel.address
                 categoryLabel.text = viewModel.category
+                let reviewIcon = ReviewIcon(reviewNumber: viewModel.rating)
+                ratingView.image = reviewIcon.image
                 Alamofire.request(viewModel.profileImageURL).responseImage { response in
                     if let image = response.result.value {
                         DispatchQueue.main.async {
@@ -42,10 +44,9 @@ class BusinesCell: BaseCell {
     
     let ratingView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 2
-        iv.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         iv.clipsToBounds = true
         return iv
     }()

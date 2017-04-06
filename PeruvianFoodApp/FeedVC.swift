@@ -11,6 +11,7 @@ import SwiftyJSON
 
 protocol FeedVCDelegate: class {
     func updateDataInVC(_ vc: FeedVC)
+    func filterContentFor(textToSearch: String)
 }
 
 class FeedVC: UITableViewController {
@@ -51,15 +52,30 @@ class FeedVC: UITableViewController {
         getBusinesses(fromService: YelpService.sharedInstance)
         setUpNavBar()
         setUpViews()
+        let c = CategoryService()
+        c.get { (result) in
+            switch result {
+            case .Success(let json):
+                dump(json)
+            case .Error(let error):
+                print(error)
+            }
+        }
     }
     
     private func setUpNavBar() {
+        
         navigationItem.titleView = feedSearchBar
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
-    @objc private func goToFilter() {}
+    @objc private func goToFilter() {
+        
+        let filterVC = FilterVC()
+        let nc = UINavigationController(rootViewController: filterVC)
+        self.present(nc, animated: true)
+    }
     
     @objc private func goToMaps() {}
     
@@ -74,6 +90,7 @@ class FeedVC: UITableViewController {
     
     //MARK: Networking
     @objc private func refresh(_ refreshControl: UIRefreshControl) {
+        
         getBusinesses(fromService: YelpService.sharedInstance)
     }
     
@@ -83,17 +100,18 @@ class FeedVC: UITableViewController {
             switch result {
             case .Success(let businessDataSource):
                 self.businessDataSource = businessDataSource
+                //setting the feedVC property of the datasource object
                 self.businessDataSource.feedVC = self
+                //////////////////////////////////////////////////////
                 self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in })
                 self.feedRefreshControl.endRefreshing()
                 self.customIndicator.stopAnimating()
             case .Error(let error) :
-                print(error)
+                print("ERROR ON NETWORK REQUEST FROM FEEDVC: \(error)")
             }
         }
     }
 }
-
 
 extension FeedVC: UISearchBarDelegate {
     
@@ -108,6 +126,7 @@ extension FeedVC: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
         searchActive = true
         searchBar.endEditing(true)
         delegate?.updateDataInVC(self)
@@ -115,35 +134,18 @@ extension FeedVC: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchActive = true;
-        self.filterContentFor(textToSearch: searchText)
         
-        if searchText != "" {
-            searchActive = true
-        } else {
-            searchActive = false
-        }
+        searchActive = true
+        delegate?.filterContentFor(textToSearch: searchText)
+        searchActive = searchText != "" ? true : false
         delegate?.updateDataInVC(self)
         reloadData()
     }
-    
-    func filterContentFor(textToSearch: String) {
-        
-        self.businessDataSource.searchResults = self.businessDataSource.businesses.filter({ (business) -> Bool in
-            let businessNameToFind = business.name.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
-            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            
-            return (businessNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
-        })
-    }
-    
+
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         feedSearchBar.endEditing(true)
     }
 }
-
-
 
 
 

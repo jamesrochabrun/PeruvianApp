@@ -31,14 +31,7 @@ class BusinessDataSource:NSObject, UITableViewDataSource, JSONDecodable {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if searchActive {
-            print(searchResults.count)
-            return searchResults.count
-        }
-        
-//        return searchActive ? searchResults.count : businesses.count
-        return businesses.count
+        return searchActive ? searchResults.count : businesses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,5 +49,16 @@ extension BusinessDataSource: FeedVCDelegate {
     
     func updateDataInVC(_ vc: FeedVC) {
         searchActive = vc.searchActive
+    }
+    
+    func filterContentFor(textToSearch: String) {
+        
+        self.searchResults = self.businesses.filter({ (business) -> Bool in
+            let businessNameToFind = business.name.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
+            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            
+            return (businessNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
+        })
     }
 }
