@@ -42,7 +42,9 @@ struct YelpService: Gettable {
                               "longitude" : "-122.406165"]
         
         request.perform(withSuccess: { (businessDataSource) in
-            completion(.Success(businessDataSource))
+            DispatchQueue.main.async {
+                completion(.Success(businessDataSource))
+            }
         }, failure: { (error) in
             completion(.Error(error))
         })

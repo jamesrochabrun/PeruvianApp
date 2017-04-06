@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let feedVC = FeedVC()
         let navVC = UINavigationController(rootViewController: feedVC)
         window?.rootViewController = navVC
+        UINavigationBar.appearance().barTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 

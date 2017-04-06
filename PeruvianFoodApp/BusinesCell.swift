@@ -27,7 +27,6 @@ class BusinesCell: BaseCell {
                         }
                     }
                 }
-                
             }
         }
     }
