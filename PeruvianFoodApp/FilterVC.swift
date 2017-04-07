@@ -17,7 +17,6 @@ class FilterVC: UITableViewController {
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .white
@@ -62,6 +61,7 @@ class FilterVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
         let category = categoryViewModelArray[indexPath.row]
         cell.swithCategoryLabel.text = category.categoryTitle
+        cell.customSwitch.setOn(category.categorySelected, animated: false)
         cell.delegate = self
         return cell
     }
