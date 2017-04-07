@@ -22,27 +22,12 @@ class FilterVC: UITableViewController {
         tableView.backgroundColor = .white
         tableView.register(SwitchCell.self)
         setUpNavBar()
-        setUpCategories()
-    }
-    
-    func setUpCategories() {
-        let categoryService = CategoryService()
-        categoryService.get { (result) in
-            switch result {
-            case .Success(let categoryArray):
-                
-                var restaurantsCategoryArray = [Category]()
-                for category in categoryArray {
-                    if (category?.parentsArray?.contains("restaurants"))! {
-                        restaurantsCategoryArray.append(category!)
-                    }
-                }
-                self.categoryViewModelArray = restaurantsCategoryArray.map{CategoryViewModel(categorySelected: false, categoryTitle: $0.title)}
-            case .Error(let error):
-                print(error)
-            }
+
+        Category.getCategories(for: .restaurants) { [weak self] (categoryArray) in
+            self?.categoryViewModelArray = categoryArray.map{CategoryViewModel(categorySelected: false, categoryTitle: $0.title)}
         }
     }
+
     
     private func setUpNavBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelAndDismiss))
@@ -59,9 +44,8 @@ class FilterVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
-        let category = categoryViewModelArray[indexPath.row]
-        cell.swithCategoryLabel.text = category.categoryTitle
-        cell.customSwitch.setOn(category.categorySelected, animated: false)
+        let categoryViewModel = categoryViewModelArray[indexPath.row]
+        cell.setUpCell(with: categoryViewModel)
         cell.delegate = self
         return cell
     }
@@ -85,10 +69,35 @@ extension FilterVC: SwitchCellDelegate {
 }
 
 
+
+
 struct CategoryViewModel {
+    
     var categorySelected: Bool
     var categoryTitle: String
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

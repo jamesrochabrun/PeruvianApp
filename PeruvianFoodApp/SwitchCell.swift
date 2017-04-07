@@ -16,6 +16,7 @@ protocol SwitchCellDelegate: class {
 class SwitchCell: BaseCell {
     
     weak var delegate: SwitchCellDelegate?
+    
     lazy var customSwitch: UISwitch = {
         let s = UISwitch()
         s.isOn = false
@@ -39,6 +40,11 @@ class SwitchCell: BaseCell {
         delegate?.switchCell(self)
     }
     
+    func setUpCell(with viewModel: CategoryViewModel) {
+        swithCategoryLabel.text = viewModel.categoryTitle
+        customSwitch.setOn(viewModel.categorySelected, animated: false)
+    }
+    
     override func setUpViews() {
         
         addSubview(swithCategoryLabel)
@@ -53,3 +59,6 @@ class SwitchCell: BaseCell {
         customSwitch.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }
+
+
+
