@@ -148,14 +148,22 @@ class CategoryFeedVC: FeedVC {
     override func viewDidLoad() {
         tableView.register(ListCell.self)
         tableView.separatorStyle = .none
-        
-       dump(categoryDataSource)
-        
-        tableView.registerDatasource(categoryDataSource, completion: { (complete) in
-            self.customIndicator.stopAnimating()
-        })
+        tableView.dataSource = categoryDataSource
         setUpNavBar()
         setUpViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "name"), object: nil)
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "name"), object: nil);
+
+    }
+    
+    func reload() {
+        tableView.reloadData()
+        customIndicator.stopAnimating()
     }
     
     override func setUpNavBar() {
@@ -165,13 +173,18 @@ class CategoryFeedVC: FeedVC {
 
 class CategoryDataSource: NSObject, UITableViewDataSource {
     
-    var categoriesViewModelArray = [CategoryViewModel]()
+    var categoriesViewModelArray = [CategoryViewModel]() {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "name"), object: nil)
+        }
+    }
     var searchResults = [CategoryViewModel]()
     var searchActive : Bool = false
     var categoryFeedVC: CategoryFeedVC?
     
     override init() {
         super.init()
+        
         loadData()
     }
     
@@ -185,12 +198,12 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ListCell
-        cell.listNameLabel.text = categoriesViewModelArray[indexPath.row].categoryListTitle
+        cell.listNameLabel.text = searchActive ? searchResults[indexPath.row].categoryListTitle : categoriesViewModelArray[indexPath.row].categoryListTitle
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoriesViewModelArray.count
+        return searchActive ? searchResults.count : categoriesViewModelArray.count
     }
 }
 
