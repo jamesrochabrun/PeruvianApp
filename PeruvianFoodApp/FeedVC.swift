@@ -149,19 +149,19 @@ class CategoryFeedVC: FeedVC {
         tableView.register(ListCell.self)
         tableView.separatorStyle = .none
         tableView.dataSource = categoryDataSource
+        self.categoryDataSource.categoryFeedVC = self
         setUpNavBar()
         setUpViews()
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: NSNotification.Name(rawValue: "name"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVCkjk), name: NSNotification.Name(rawValue: "name"), object: nil)
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "name"), object: nil);
-
     }
     
-    func reload() {
+    func reloadDataInVC() {
         tableView.reloadData()
         customIndicator.stopAnimating()
     }
@@ -184,7 +184,6 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
     
     override init() {
         super.init()
-        
         loadData()
     }
     
@@ -197,6 +196,8 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        self.categoryFeedVC?.delegate = self
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ListCell
         cell.listNameLabel.text = searchActive ? searchResults[indexPath.row].categoryListTitle : categoriesViewModelArray[indexPath.row].categoryListTitle
         return cell
@@ -206,6 +207,31 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
         return searchActive ? searchResults.count : categoriesViewModelArray.count
     }
 }
+
+
+extension CategoryDataSource: FeedVCDelegate {
+    
+    func updateDataInVC(_ vc: FeedVC) {
+        searchActive = vc.searchActive
+    }
+    
+    func filterContentFor(textToSearch: String) {
+        
+        self.searchResults = self.categoriesViewModelArray.filter({ (category) -> Bool in
+            let categoryNameToFind = category.categoryListTitle?.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
+            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            
+            return (categoryNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
+        })
+    }
+}
+
+
+
+
+
+
 
 
 
