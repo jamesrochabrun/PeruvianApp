@@ -46,7 +46,7 @@ class FilterVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
-        let categoryViewModel = categoryViewModelArray[indexPath.row]
+//        let categoryViewModel = categoryViewModelArray[indexPath.row]
        // cell.setUpCell(with: categoryViewModel)
      //   cell.delegate = self
         return cell

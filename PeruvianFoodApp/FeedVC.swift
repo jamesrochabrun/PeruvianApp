@@ -17,25 +17,26 @@ protocol FeedVCDelegate: class {
 class FeedVC: UITableViewController {
     
     //MARK: properties
-    fileprivate var businessDataSource = BusinessDataSource()
+    var feedDataSource = BusinessDataSource()
+
     var searchActive : Bool = false
     weak var delegate: FeedVCDelegate?
     
     //MARK: UIelements
-    fileprivate lazy var feedSearchBar: UISearchBar = {
+    lazy var feedSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.sizeToFit()
         searchBar.delegate = self
         return searchBar
     }()
     
-    private lazy var feedRefreshControl: UIRefreshControl = {
+    lazy var feedRefreshControl: UIRefreshControl = {
         let rf = UIRefreshControl()
         rf.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return rf
     }()
     
-    private let customIndicator: CustomActivityIndicator = {
+    let customIndicator: CustomActivityIndicator = {
         let indicator = CustomActivityIndicator()
         return indicator
     }()
@@ -53,7 +54,7 @@ class FeedVC: UITableViewController {
         setUpViews()
     }
     
-    private func setUpNavBar() {
+    func setUpNavBar() {
         
         navigationItem.titleView = feedSearchBar
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
@@ -69,7 +70,7 @@ class FeedVC: UITableViewController {
     
     @objc private func goToMaps() {}
     
-    private func setUpViews() {
+    func setUpViews() {
         
         tableView.addSubview(customIndicator)
         customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
@@ -89,11 +90,11 @@ class FeedVC: UITableViewController {
         service.getBusiness(search: "Peruvian") { [unowned self] (result) in
             switch result {
             case .Success(let businessDataSource):
-                self.businessDataSource = businessDataSource
+                self.feedDataSource = businessDataSource
                 //setting the feedVC property of the datasource object
-                self.businessDataSource.feedVC = self
+                self.feedDataSource.feedVC = self
                 //////////////////////////////////////////////////////
-                self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in
+                self.tableView.registerDatasource(self.feedDataSource, completion: { (complete) in
                     self.feedRefreshControl.endRefreshing()
                     self.customIndicator.stopAnimating()
                 })
@@ -107,7 +108,7 @@ class FeedVC: UITableViewController {
 
 extension FeedVC: UISearchBarDelegate {
     
-    private func reloadData() {
+    func reloadData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -140,8 +141,58 @@ extension FeedVC: UISearchBarDelegate {
 }
 
 
+class CategoryFeedVC: FeedVC {
 
+    var categoryDataSource = CategoryDataSource()
+    
+    override func viewDidLoad() {
+        tableView.register(ListCell.self)
+        tableView.separatorStyle = .none
+        
+       dump(categoryDataSource)
+        
+        tableView.registerDatasource(categoryDataSource, completion: { (complete) in
+            self.customIndicator.stopAnimating()
+        })
+        setUpNavBar()
+        setUpViews()
+    }
+    
+    override func setUpNavBar() {
+        navigationItem.titleView = feedSearchBar
+    }
+}
 
+class CategoryDataSource: NSObject, UITableViewDataSource {
+    
+    var categoriesViewModelArray = [CategoryViewModel]()
+    var searchResults = [CategoryViewModel]()
+    var searchActive : Bool = false
+    var categoryFeedVC: CategoryFeedVC?
+    
+    override init() {
+        super.init()
+        loadData()
+    }
+    
+    func loadData() {
+        
+        let categoryViewModel = CategoryViewModel()
+        categoryViewModel.getAllCategoriesAsViewModel { (array) in
+            self.categoriesViewModelArray = array
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ListCell
+        cell.listNameLabel.text = categoriesViewModelArray[indexPath.row].categoryListTitle
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categoriesViewModelArray.count
+    }
+}
 
 
 
