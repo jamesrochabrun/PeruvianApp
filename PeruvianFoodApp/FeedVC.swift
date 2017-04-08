@@ -152,7 +152,7 @@ class CategoryFeedVC: FeedVC {
         self.categoryDataSource.categoryFeedVC = self
         setUpNavBar()
         setUpViews()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVCkjk), name: NSNotification.Name(rawValue: "name"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVC), name: NSNotification.Name(rawValue: "name"), object: nil)
 
     }
     
@@ -211,6 +211,7 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
 
 extension CategoryDataSource: FeedVCDelegate {
     
+    //THIS NEEDS RESEARCH FROM HERE 
     func updateDataInVC(_ vc: FeedVC) {
         searchActive = vc.searchActive
     }
