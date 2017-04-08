@@ -95,7 +95,26 @@ enum CategoryTitles: String {
     case localflavor
     case massmedia
     case publicservicesgovt
+    
+    static var categoryTitlesArray: [CategoryTitles]  {
+        return [.restaurants, .localservices, .italian, .bars, .food, .fashion, .professional, .beautysvc, .health, .physicians, .shopping, .education,
+        .nightlife, .fitness, .tours, .religiousorgs, .hotels, .auto, .transport, .hotelstravel, .airports, .active, .portuguese, .french, .petservices, .pets,
+        .realestate, .homeandgarden, .arabian, .arts, .spanish, .homeservices, .museums, .specialtyschools, .artsandcrafts, .farms, .insurance, .plumbing, .german,
+        .lawyers, .eventservices, .financialservices, .localflavor, .massmedia, .publicservicesgovt]
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

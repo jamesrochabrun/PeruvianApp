@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7B7A81961E9836AD007608FC /* CategoryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* CategoryExtension.swift */; };
+		7B7A81981E983B72007608FC /* CategoryListVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81971E983B72007608FC /* CategoryListVc.swift */; };
+		7B7A819A1E986A9A007608FC /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* ListCell.swift */; };
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		7B7A81951E9836AD007608FC /* CategoryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryExtension.swift; sourceTree = "<group>"; };
+		7B7A81971E983B72007608FC /* CategoryListVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryListVc.swift; sourceTree = "<group>"; };
+		7B7A81991E986A9A007608FC /* ListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 			children = (
 				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
 				7B8D82951E96D997005BF309 /* FilterVC.swift */,
+				7B7A81971E983B72007608FC /* CategoryListVc.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				7BD8ED471E95BCA800E610B9 /* BusinessCellViewModel.swift */,
 				7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */,
 				7B8D82911E96B2DE005BF309 /* BaseView.swift */,
+				7B7A81991E986A9A007608FC /* ListCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -323,11 +329,13 @@
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
+				7B7A81981E983B72007608FC /* CategoryListVc.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
 				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
 				7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */,
 				7B8D82961E96D997005BF309 /* FilterVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
+				7B7A819A1E986A9A007608FC /* ListCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
 				7BD8ED481E95BCA800E610B9 /* BusinessCellViewModel.swift in Sources */,
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,

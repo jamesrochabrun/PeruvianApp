@@ -23,12 +23,15 @@ class FilterVC: UITableViewController {
         tableView.register(SwitchCell.self)
         setUpNavBar()
 
-        Category.getCategories(for: .restaurants) { [weak self] (categoryArray) in
-            self?.categoryViewModelArray = categoryArray.map{CategoryViewModel(categorySelected: false, categoryTitle: $0.title)}
-        }
+//        Category.getCategories(for: .restaurants) { [weak self] (categoryArray) in
+//            self?.categoryViewModelArray = categoryArray.map{CategoryViewModel(categorySelected: false, categoryTitle: $0.title)}
+//        }
+        
+        
+
+        
     }
 
-    
     private func setUpNavBar() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelAndDismiss))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndDismiss))
@@ -69,13 +72,14 @@ extension FilterVC: SwitchCellDelegate {
 }
 
 
-
-
 struct CategoryViewModel {
     
     var categorySelected: Bool
     var categoryTitle: String
 }
+
+
+
 
 
 

@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let feedVC = FeedVC()
-        let navVC = UINavigationController(rootViewController: feedVC)
+        let listVC = CategoryListVC()
+        let navVC = UINavigationController(rootViewController: listVC)
         window?.rootViewController = navVC
         UINavigationBar.appearance().barTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
         UINavigationBar.appearance().tintColor = UIColor.white
