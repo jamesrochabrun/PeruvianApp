@@ -28,7 +28,6 @@ class FilterVC: UITableViewController {
 //        }
         
         
-
         
     }
 
@@ -48,8 +47,8 @@ class FilterVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
         let categoryViewModel = categoryViewModelArray[indexPath.row]
-        cell.setUpCell(with: categoryViewModel)
-        cell.delegate = self
+       // cell.setUpCell(with: categoryViewModel)
+     //   cell.delegate = self
         return cell
     }
     
@@ -62,21 +61,15 @@ class FilterVC: UITableViewController {
     }
 }
 
-extension FilterVC: SwitchCellDelegate {
-    
-    func switchCell(_ cell: SwitchCell) {
-        if let indexPath = tableView.indexPath(for: cell) {
-            categoryViewModelArray[(indexPath.row)].categorySelected = cell.customSwitch.isOn
-        }
-    }
-}
-
-
-struct CategoryViewModel {
-    
-    var categorySelected: Bool
-    var categoryTitle: String
-}
+//extension FilterVC: SwitchCellDelegate {
+//    
+//    func switchCell(_ cell: SwitchCell) {
+//        if let indexPath = tableView.indexPath(for: cell) {
+//            categoryViewModelArray[(indexPath.row)].categorySelected = cell.customSwitch.isOn
+//        }
+//    }
+//}
+//
 
 
 

@@ -22,7 +22,7 @@ struct Business: JSONDecodable {
     let is_closed: Bool
     let reviewsCount: NSNumber
     let url: String
-    let categories: [Category]
+    let categories: [CategoryItem]
     let distance: NSNumber
     let location: Location
     let coordinates: Coordinates
@@ -62,7 +62,7 @@ struct Business: JSONDecodable {
 }
 
 //MARK: Categories object
-struct Category: JSONDecodable {
+struct CategoryItem: JSONDecodable {
     
     let alias: String
     let title: String

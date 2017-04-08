@@ -11,7 +11,7 @@ import UIKit
 import SwiftyJSON
 import TRON
 
-class BusinessDataSource:NSObject, UITableViewDataSource, JSONDecodable {
+class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
     var businesses: [Business] = [Business]()
     var searchResults: [Business] = []

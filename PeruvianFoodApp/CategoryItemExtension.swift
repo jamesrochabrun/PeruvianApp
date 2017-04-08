@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension Category {
+extension CategoryItem {
     
     init?(dict: [String : AnyObject]) {
         
@@ -22,16 +22,25 @@ extension Category {
         self.title = title
         self.parentsArray = parentsArray
     }
+}
+
+struct CategoryViewModel {
     
-    static func getCategories(for categoryTitle:CategoryTitles, completion: @escaping ([Category]) -> Void)  {
+    var items: [CategoryItem]?
+    var categoryListTitle: String?
+    
+    //Get one specific category and convert it in a viewmodel that contains ...
+    //Category title
+    //items inside the category
+    func getCategoryAsViewModel(for categoryTitle:CategoryTitles, completion: @escaping (CategoryViewModel) -> Void)  {
         
         let categoryService = CategoryService()
         categoryService.get { (result) in
             switch result {
-            case .Success(let categoryArray):
-                var resultsArray = [Category]()
-                for category in categoryArray {
-                    if let resultCategory = category,
+            case .Success(let categoryItemsArray):
+                var resultsArray = [CategoryItem]()
+                for categoryItem in categoryItemsArray {
+                    if let resultCategory = categoryItem,
                         let parentArray = resultCategory.parentsArray {
                         if  parentArray.contains(categoryTitle.rawValue) {
                             resultsArray.append(resultCategory)
@@ -39,14 +48,32 @@ extension Category {
                     }
                 }
                 DispatchQueue.main.async {
-                    completion(resultsArray)
+                    completion(CategoryViewModel(items: resultsArray, categoryListTitle: categoryTitle.rawValue))
                 }
             case .Error(let error):
                 print(error)
             }
         }
     }
+    
+    //Get all the categories as ViewModel
+    func getAllCategoriesAsViewModel(completion: @escaping (_ categoryListViewModelArray: Array<CategoryViewModel>) -> ()) {
+        
+        var categoriyViewModelArray = Array<CategoryViewModel>()
+        for category in CategoryTitles.categoryTitlesArray {
+            
+            self.getCategoryAsViewModel(for: category, completion: { (categoryViewModel) in
+                categoriyViewModelArray.append(categoryViewModel)
+                if categoriyViewModelArray.count == CategoryTitles.categoryTitlesArray.count {
+                    DispatchQueue.main.async {
+                        completion(categoriyViewModelArray)
+                    }
+                }
+            })
+        }
+    }
 }
+
 
 enum CategoryTitles: String {
     

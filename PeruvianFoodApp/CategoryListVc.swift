@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 
+protocol CategoryListVCDelegate: class {
+    func updateDataInVC(_ vc: CategoryListVC)
+    func filterContentFor(textToSearch: String)
+}
+
 class CategoryListVC: UITableViewController {
     
-    var categoriesListViewModelArray = Array<CategoryListViewModel>() {
-        didSet {
-            self.tableView.reloadData()
-            self.customIndicator.stopAnimating()
-        }
-    }
+    //MARK: properties
+    fileprivate var categoryListDataSource = CategoryListDataSource()
+    weak var delegate: CategoryListVCDelegate?
+    var searchActive : Bool = false
     
     //MARK: UIelements
     fileprivate lazy var categorySearchBar: UISearchBar = {
@@ -35,12 +38,12 @@ class CategoryListVC: UITableViewController {
          super.viewDidLoad()
         tableView.register(ListCell.self)
         tableView.separatorStyle = .none
+       // categoryListDataSource.categoryListVC = self
+        tableView.registerDatasource(categoryListDataSource) { (complete) in
+            self.customIndicator.stopAnimating()
+        }
         setUpNavBar()
         setUpViews()
- 
-        getCategories { [weak self] (array) in
-            self?.categoriesListViewModelArray = array
-        }
     }
     
     private func setUpNavBar() {
@@ -56,38 +59,9 @@ class CategoryListVC: UITableViewController {
         customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-
-    func getCategories(completion: @escaping (_ categoryListViewModelArray: Array<CategoryListViewModel>) -> ()) {
-        
-        var categoriesListViewModelArray = Array<CategoryListViewModel>()
-        
-        for category in CategoryTitles.categoryTitlesArray {
-            Category.getCategories(for: category, completion: { (categoryArray) in
-                //each category separated by name 45 in total converted to a viewmodel
-                let categoryViewModel = CategoryListViewModel(items: categoryArray, categoryListTitle: category.rawValue)
-                categoriesListViewModelArray.append(categoryViewModel)
-                if categoriesListViewModelArray.count == CategoryTitles.categoryTitlesArray.count {
-                    DispatchQueue.main.async {
-                        completion(categoriesListViewModelArray)
-                    }
-                }
-            })
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoriesListViewModelArray.count
-    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ListCell
-        let categoryViewModel = categoriesListViewModelArray[indexPath.row]
-        cell.listNameLabel.text = categoryViewModel.categoryListTitle
-        return cell
     }
 }
 
@@ -95,13 +69,106 @@ class CategoryListVC: UITableViewController {
 
 extension CategoryListVC: UISearchBarDelegate {
     
+    private func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        categorySearchBar.endEditing(true)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchActive = true
+        searchBar.endEditing(true)
+        delegate?.updateDataInVC(self)
+        reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchActive = true
+        delegate?.filterContentFor(textToSearch: searchText)
+        searchActive = searchText != "" ? true : false
+        delegate?.updateDataInVC(self)
+        reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        categorySearchBar.endEditing(true)
+    }
 }
 
-struct CategoryListViewModel {
+class CategoryListDataSource: NSObject, UITableViewDataSource {
     
-    var items = [Category]()
-    var categoryListTitle: String
+    fileprivate var categoriesViewModelArray = [CategoryViewModel]() {
+        didSet{
+            print(categoriesViewModelArray.count)
+        }
+    }
+    
+    var searchResults = [CategoryViewModel]()
+    var searchActive : Bool = false
+    var categoryListVC: CategoryListVC?
+    
+    override init() {
+        super.init()
+        loaddata()
+    }
+    
+    private func loaddata() {
+        let categoryViewModel = CategoryViewModel()
+        categoryViewModel.getAllCategoriesAsViewModel { (array) in
+            self.categoriesViewModelArray = array
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        self.categoryListVC?.delegate = self
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ListCell
+        cell.listNameLabel.text = categoriesViewModelArray[indexPath.row].categoryListTitle
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categoriesViewModelArray.count
+    }
 }
+
+
+extension CategoryListDataSource: CategoryListVCDelegate {
+    
+    func updateDataInVC(_ vc: CategoryListVC) {
+        searchActive = vc.searchActive
+    }
+
+    func filterContentFor(textToSearch: String) {
+        
+        self.searchResults = self.categoriesViewModelArray.filter({ (category) -> Bool in
+            let categoryNameToFind = category.categoryListTitle?.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
+            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            
+            return (categoryNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

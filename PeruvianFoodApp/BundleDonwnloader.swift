@@ -12,14 +12,14 @@ import UIKit
 struct JSONDownloader {
     
     typealias JSON = [[String: AnyObject]]
-    typealias JSONTaskCompletionHandler = (BundleResult<[Category?]>) -> Void
+    typealias JSONTaskCompletionHandler = (BundleResult<[CategoryItem?]>) -> Void
     
     func jsonTaskFrom(path: String, completionHandler completion: @escaping JSONTaskCompletionHandler) {
         
         if let content = NSData.init(contentsOfFile: path) {
             do {
                 if let jsonArray = try JSONSerialization.jsonObject(with: content as Data, options: []) as? [[String: AnyObject]] {
-                    let categoryArray = jsonArray.map{Category(dict: $0)}
+                    let categoryArray = jsonArray.map{CategoryItem(dict: $0)}
                     completion(.Success(categoryArray))
                 }
             } catch {
@@ -43,7 +43,7 @@ struct CategoryService {
     
     let downloader = JSONDownloader()
     
-    typealias CategoryCompletionHandler = (BundleResult<[Category?]>) -> Void
+    typealias CategoryCompletionHandler = (BundleResult<[CategoryItem?]>) -> Void
     
     func get(completion: @escaping CategoryCompletionHandler) {
         

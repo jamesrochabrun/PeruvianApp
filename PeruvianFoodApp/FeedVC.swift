@@ -19,7 +19,6 @@ class FeedVC: UITableViewController {
     //MARK: properties
     fileprivate var businessDataSource = BusinessDataSource()
     var searchActive : Bool = false
-    fileprivate var searchResults: [Business] = []
     weak var delegate: FeedVCDelegate?
     
     //MARK: UIelements
@@ -94,9 +93,11 @@ class FeedVC: UITableViewController {
                 //setting the feedVC property of the datasource object
                 self.businessDataSource.feedVC = self
                 //////////////////////////////////////////////////////
-                self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in })
-                self.feedRefreshControl.endRefreshing()
-                self.customIndicator.stopAnimating()
+                self.tableView.registerDatasource(self.businessDataSource, completion: { (complete) in
+                    self.feedRefreshControl.endRefreshing()
+                    self.customIndicator.stopAnimating()
+                })
+      
             case .Error(let error) :
                 print("ERROR ON NETWORK REQUEST FROM FEEDVC: \(error)")
             }
