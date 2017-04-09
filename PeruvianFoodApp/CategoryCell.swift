@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ListCell: BaseCell {
+class CategoryCell: BaseCell {
     
     let listNameLabel: UILabel = {
         let l = UILabel()
