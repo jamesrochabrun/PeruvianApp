@@ -45,7 +45,6 @@ class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     }
 }
 
-
 extension BusinessDataSource: FeedVCDelegate {
     
     //Main delegate method of superclass FeedVC

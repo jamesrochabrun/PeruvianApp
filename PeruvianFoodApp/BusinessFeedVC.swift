@@ -25,6 +25,7 @@ class BusinessFeedVC: FeedVC {
     //MARK: APP lifecycle
     override func viewDidLoad() {
 
+        setUpNavBar()
         setUpTableView()
         setUpViews()
     }
@@ -40,8 +41,8 @@ class BusinessFeedVC: FeedVC {
     
     override func setUpNavBar() {
         super.setUpNavBar()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
     @objc private func goToFilter() {
@@ -70,11 +71,9 @@ class BusinessFeedVC: FeedVC {
                 })
                 
             case .Error(let error) :
-                print("ERROR ON NETWORK REQUEST FROM FEEDVC: \(error)")
+                print("ERROR ON NETWORK REQUEST FROM BUSINESSFEEDVC: \(error)")
             }
         }
-        
-        //service.getBusiness(search: "Peruvian") { [unowned self] (result) in }
     }
 }
 

@@ -34,6 +34,7 @@ class CategoryFeedVC: FeedVC {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "name"), object: nil);
     }
     
+    //MARK: triggered by notification
     func reloadDataInVC() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()

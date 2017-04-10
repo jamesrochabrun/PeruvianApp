@@ -20,17 +20,8 @@ class CategoryItemsFeedVC: FeedVC {
             }
         }
     }
+    var categoryItemsFeedDataSource: CategoryItemsFeedDataSource?
     
-    var selection: Selection?
-    
-    var categoryItemsFeedDataSource: CategoryItemsFeedDataSource? {
-        didSet {
-            if let cifds = categoryItemsFeedDataSource {
-                tableView.registerDatasource(cifds, completion: { (complete) in })
-            }
-        }
-    }
-
     override func viewDidLoad() {
         
         setUpNavBar()
@@ -41,6 +32,9 @@ class CategoryItemsFeedVC: FeedVC {
         
         tableView.backgroundColor = .white
         tableView.register(SwitchCell.self)
+        if let cifds = categoryItemsFeedDataSource {
+            tableView.registerDatasource(cifds, completion: { (complete) in })
+        }
     }
 
     override func setUpNavBar() {
@@ -51,9 +45,7 @@ class CategoryItemsFeedVC: FeedVC {
     func searchAndOpenResults() {
         
         let businessFeedVC = BusinessFeedVC()
-        businessFeedVC.selection = self.selection
-        
-        print(self.selection)
+        businessFeedVC.selection = categoryItemsFeedDataSource?.selection
         self.navigationController?.pushViewController(businessFeedVC, animated: true)
         
     }

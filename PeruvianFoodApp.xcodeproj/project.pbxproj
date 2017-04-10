@@ -33,6 +33,9 @@
 		7BD8ED481E95BCA800E610B9 /* BusinessCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED471E95BCA800E610B9 /* BusinessCellViewModel.swift */; };
 		7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED491E95C33A00E610B9 /* Reusable.swift */; };
 		7BD8ED4D1E95D82400E610B9 /* BusinessDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED4C1E95D82400E610B9 /* BusinessDataSource.swift */; };
+		7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */; };
+		7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */; };
+		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
 		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +68,9 @@
 		7BD8ED471E95BCA800E610B9 /* BusinessCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCellViewModel.swift; sourceTree = "<group>"; };
 		7BD8ED491E95C33A00E610B9 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		7BD8ED4C1E95D82400E610B9 /* BusinessDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDataSource.swift; sourceTree = "<group>"; };
+		7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemViewModel.swift; sourceTree = "<group>"; };
+		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeruvianFoodApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 		7BD8ED1E1E9546FE00E610B9 /* PeruvianFoodApp */ = {
 			isa = PBXGroup;
 			children = (
+				7BED73A61E9C12830084CA67 /* ViewModels */,
 				7BD8ED4B1E95D81100E610B9 /* DataSource */,
 				7BD8ED401E957CFE00E610B9 /* Model */,
 				7BD8ED3F1E957CF300E610B9 /* View */,
@@ -176,6 +183,7 @@
 			children = (
 				7BD8ED391E957C2A00E610B9 /* BusinessModel.swift */,
 				7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */,
+				7BED73AB1E9C137C0084CA67 /* Selection.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -188,6 +196,15 @@
 				7BD8ED4C1E95D82400E610B9 /* BusinessDataSource.swift */,
 			);
 			name = DataSource;
+			sourceTree = "<group>";
+		};
+		7BED73A61E9C12830084CA67 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */,
+				7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */,
+			);
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 		D481CF905B9A10FF5F81D222 /* Pods */ = {
@@ -331,10 +348,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */,
 				7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */,
 				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
+				7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */,
 				7BC639921E9AB4E500EB4E16 /* BusinessFeedVC.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
@@ -353,6 +372,7 @@
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,
 				7BD8ED4D1E95D82400E610B9 /* BusinessDataSource.swift in Sources */,
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
+				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

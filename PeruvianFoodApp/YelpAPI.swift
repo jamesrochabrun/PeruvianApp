@@ -34,12 +34,13 @@ struct YelpService: Gettable {
     typealias TokenCompletionhandler = (Result<Token>) -> ()
     typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessDataSource>) -> ()
     
+    //MARK: GET BUSINESSES FROM TERM
     func getBusiness(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
-        let parameters =  ["term" : "",
+        let parameters =  ["term" : term,
                            "latitude" : "37.785771",
                            "longitude" : "-122.406165",
                            "categories" : "vegetarian,thai"]
@@ -55,22 +56,15 @@ struct YelpService: Gettable {
         })
     }
     
+    //GET BUSINESS FROM SELECTION MAIN METHOD
     func getBusinessFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
                 
-        var parameters =  ["term" : "",
-                           "latitude" : "37.785771",
+        let parameters =  ["latitude" : "37.785771",
                            "longitude" : "-122.406165",
-                           "categories" : ""]
-        
-        if let categoryItems = selection.categoryItems {
-            parameters["categories"] = categoryItems.joined(separator: ",")
-        }
-        
-        if selection.categoryItems != nil && (selection.categoryItems?.count)! > 0 {
-        }
+                           "categories" : "\(selection.categoryItems.joined(separator: ","))"]
         
         request.parameters = parameters
         
@@ -83,7 +77,7 @@ struct YelpService: Gettable {
         })
     }
     
-    
+    //MARK: GET TOKEN
     func getToken(completion: @escaping TokenCompletionhandler) {
         
         let request: APIRequest<Token, JSONError> = tron.request("oauth2/token")
@@ -101,6 +95,7 @@ struct YelpService: Gettable {
     }
 }
 
+//MARK: TOKEN object
 struct Token: JSONDecodable {
     
     let access_token: String
@@ -126,11 +121,13 @@ class JSONError: JSONDecodable {
     }
 }
 
+//MARK: Enum that handles results
 enum Result <T>{
     case Success(T)
     case Error(APIError<JSONError>)
 }
 
+//MARK: Protocol for testing purposes
 protocol Gettable {
     associatedtype T
     func getBusiness(search term: String, completion: @escaping (Result<T>) -> ())

@@ -14,27 +14,30 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
     override init() {
         super.init()
     }
-    
+    //MARK: creating datasource from a Categoryview model that contains a title and an array of items
     convenience init(categoryViewModel: CategoryViewModel) {
         
         self.init()
         if let items = categoryViewModel.items {
-            self.itemViewModelArray = items.map{ItemViewModel(categoryItem: $0)}
+            self.itemViewModelArray = items.map{CategoryItemViewModel(categoryItem: $0)}
         }
     }
     
-    var itemViewModelArray = [ItemViewModel]()
-    var searchResults = [ItemViewModel]()
+    var itemViewModelArray = [CategoryItemViewModel]()
+    var searchResults = [CategoryItemViewModel]()
     var searchActive : Bool = false
+    //binding the delegate on creation
     var categoryItemsFeedVC: CategoryItemsFeedVC? {
         didSet {
             self.categoryItemsFeedVC?.delegate = self
         }
     }
     var selection = Selection()
+
     
-    func getitemViewModelArray() -> [ItemViewModel] {
-        return itemViewModelArray
+    //MARKE: EXPOSING THE SELECTION IN THE VIEWCONTROLLER
+    func getSelection() -> Selection {
+        return selection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,21 +57,22 @@ extension CategoryItemsFeedDataSource: SwitchCellDelegate {
     
     func switchCell(_ cell: SwitchCell) {
         
-        self.categoryItemsFeedVC?.selection = self.selection        
-
         if let indexPath = categoryItemsFeedVC?.tableView.indexPath(for: cell) {
             itemViewModelArray[indexPath.row].isSelected = cell.customSwitch.isOn
             
-            let itemViewModelTitle = itemViewModelArray[indexPath.row].itemTitle
+            let itemViewModelAlias = itemViewModelArray[indexPath.row].itemAlias
             if cell.customSwitch.isOn {
-                selection.categoryItems?.append(itemViewModelTitle)
+                selection.categoryItems.append(itemViewModelAlias)
+                print(selection.categoryItems.count)
             } else {
-                selection.categoryItems?.removeLast()
+                selection.categoryItems.removeLast()
+                print("remo", selection.categoryItems.count)
             }
         }
     }
 }
 
+//MAIN class FeedVC delegate method
 extension CategoryItemsFeedDataSource: FeedVCDelegate {
     
     func updateDataInVC(_ vc: FeedVC) {
@@ -86,29 +90,6 @@ extension CategoryItemsFeedDataSource: FeedVCDelegate {
         })
     }
 }
-
-struct ItemViewModel {
-    
-    var itemTitle: String
-    var isSelected: Bool
-    
-    init(categoryItem: CategoryItem) {
-        self.itemTitle = categoryItem.title
-        self.isSelected = false
-    }
-}
-
-
-struct Selection {
-    
-    init() {
-    }
-    
-    var term: String?
-    var categoryItems: [String]?
-}
-
-
 
 
 

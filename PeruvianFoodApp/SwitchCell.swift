@@ -40,7 +40,7 @@ class SwitchCell: BaseCell {
         delegate?.switchCell(self)
     }
     
-    func setUpCell(with viewModel: ItemViewModel) {
+    func setUpCell(with viewModel: CategoryItemViewModel) {
         swithCategoryLabel.text = viewModel.itemTitle
         customSwitch.setOn(viewModel.isSelected, animated: false)
     }
