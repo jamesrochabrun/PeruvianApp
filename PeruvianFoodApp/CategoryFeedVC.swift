@@ -19,6 +19,7 @@ class CategoryFeedVC: FeedVC {
         setUpViews()
         setUpTableView()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVC), name: NSNotification.Name(rawValue: "name"), object: nil)
+        
     }
     
     override func setUpTableView() {

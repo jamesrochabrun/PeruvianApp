@@ -32,15 +32,47 @@ struct YelpService: Gettable {
     //MARK: TypeAliases
     typealias SearchBusinessCompletionHandler = (Result<BusinessDataSource>) -> ()
     typealias TokenCompletionhandler = (Result<Token>) -> ()
+    typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessDataSource>) -> ()
     
     func getBusiness(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
-        request.parameters = ["term" : term,
-                              "latitude" : "37.785771",
-                              "longitude" : "-122.406165",
-                              "categories" : "vegetarian"]
+        
+        let parameters =  ["term" : "",
+                           "latitude" : "37.785771",
+                           "longitude" : "-122.406165",
+                           "categories" : "vegetarian,thai"]
+        
+        request.parameters = parameters
+        
+        request.perform(withSuccess: { (businessDataSource) in
+            DispatchQueue.main.async {
+                completion(.Success(businessDataSource))
+            }
+        }, failure: { (error) in
+            completion(.Error(error))
+        })
+    }
+    
+    func getBusinessFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
+        
+        let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
+        request.headers = ["Authorization": "Bearer \(accessToken)"]
+                
+        var parameters =  ["term" : "",
+                           "latitude" : "37.785771",
+                           "longitude" : "-122.406165",
+                           "categories" : ""]
+        
+        if let categoryItems = selection.categoryItems {
+            parameters["categories"] = categoryItems.joined(separator: ",")
+        }
+        
+        if selection.categoryItems != nil && (selection.categoryItems?.count)! > 0 {
+        }
+        
+        request.parameters = parameters
         
         request.perform(withSuccess: { (businessDataSource) in
             DispatchQueue.main.async {
@@ -102,6 +134,7 @@ enum Result <T>{
 protocol Gettable {
     associatedtype T
     func getBusiness(search term: String, completion: @escaping (Result<T>) -> ())
+    func getBusinessFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
 }
 
 

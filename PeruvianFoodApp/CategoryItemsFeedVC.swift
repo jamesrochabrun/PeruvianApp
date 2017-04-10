@@ -16,9 +16,12 @@ class CategoryItemsFeedVC: FeedVC {
             if let cvm = categoryViewModel {
                 self.categoryItemsFeedDataSource = CategoryItemsFeedDataSource(categoryViewModel: cvm)
                 self.categoryItemsFeedDataSource?.categoryItemsFeedVC = self
+                self.title = cvm.categoryListTitle
             }
         }
     }
+    
+    var selection: Selection?
     
     var categoryItemsFeedDataSource: CategoryItemsFeedDataSource? {
         didSet {
@@ -41,11 +44,17 @@ class CategoryItemsFeedVC: FeedVC {
     }
 
     override func setUpNavBar() {
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndDismiss))
+        super.setUpNavBar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndOpenResults))
     }
     
-    func searchAndDismiss() {
+    func searchAndOpenResults() {
+        
+        let businessFeedVC = BusinessFeedVC()
+        businessFeedVC.selection = self.selection
+        
+        print(self.selection)
+        self.navigationController?.pushViewController(businessFeedVC, animated: true)
         
     }
     

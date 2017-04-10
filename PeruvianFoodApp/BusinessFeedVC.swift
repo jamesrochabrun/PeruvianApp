@@ -13,11 +13,18 @@ class BusinessFeedVC: FeedVC {
     
     //MARK: properties
     var feedDataSource = BusinessDataSource()
+    var selection: Selection? {
+        didSet {
+            if let selection = selection {
+                getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+                print(selection)
+            }
+        }
+    }
     
     //MARK: APP lifecycle
     override func viewDidLoad() {
 
-        getBusinesses(fromService: YelpService.sharedInstance)
         setUpTableView()
         setUpViews()
     }
@@ -48,10 +55,9 @@ class BusinessFeedVC: FeedVC {
     }
     
     
-    
-    private func getBusinesses<S: Gettable>(fromService service: S) where S.T == BusinessDataSource {
+    private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessDataSource {
         
-        service.getBusiness(search: "Peruvian") { [unowned self] (result) in
+        service.getBusinessFrom(selection: selection) { (result) in
             switch result {
             case .Success(let businessDataSource):
                 self.feedDataSource = businessDataSource
@@ -67,6 +73,8 @@ class BusinessFeedVC: FeedVC {
                 print("ERROR ON NETWORK REQUEST FROM FEEDVC: \(error)")
             }
         }
+        
+        //service.getBusiness(search: "Peruvian") { [unowned self] (result) in }
     }
 }
 
