@@ -12,12 +12,13 @@
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
-		7B8D82961E96D997005BF309 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82951E96D997005BF309 /* FilterVC.swift */; };
+		7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */; };
 		7B8D82981E96E1C7005BF309 /* categories.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B8D82971E96E1C7005BF309 /* categories.json */; };
 		7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */; };
 		7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */; };
 		7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */; };
 		7BC639921E9AB4E500EB4E16 /* BusinessFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessFeedVC.swift */; };
+		7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */; };
 		7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */; };
 		7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* FeedVC.swift */; };
 		7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8ED261E9546FE00E610B9 /* Assets.xcassets */; };
@@ -41,12 +42,13 @@
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
-		7B8D82951E96D997005BF309 /* FilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+		7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemsFeedVC.swift; sourceTree = "<group>"; };
 		7B8D82971E96E1C7005BF309 /* categories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = categories.json; sourceTree = "<group>"; };
 		7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleDonwnloader.swift; sourceTree = "<group>"; };
 		7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFeedVC.swift; sourceTree = "<group>"; };
 		7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
 		7BC639911E9AB4E500EB4E16 /* BusinessFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessFeedVC.swift; sourceTree = "<group>"; };
+		7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemsFeedDataSource.swift; sourceTree = "<group>"; };
 		7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeruvianFoodApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PeruvianFoodApp/AppDelegate.swift; sourceTree = "<group>"; };
 		7BD8ED211E9546FE00E610B9 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -148,9 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
-				7BC639911E9AB4E500EB4E16 /* BusinessFeedVC.swift */,
 				7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */,
-				7B8D82951E96D997005BF309 /* FilterVC.swift */,
+				7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */,
+				7BC639911E9AB4E500EB4E16 /* BusinessFeedVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -183,6 +185,7 @@
 			children = (
 				7BD8ED4C1E95D82400E610B9 /* BusinessDataSource.swift */,
 				7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */,
+				7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */,
 			);
 			name = DataSource;
 			sourceTree = "<group>";
@@ -340,8 +343,9 @@
 				7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */,
 				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
 				7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */,
+				7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */,
 				7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */,
-				7B8D82961E96D997005BF309 /* FilterVC.swift in Sources */,
+				7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,

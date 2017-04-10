@@ -38,10 +38,10 @@ class BusinessFeedVC: FeedVC {
     }
     
     @objc private func goToFilter() {
-        
-        let filterVC = FilterVC()
-        let nc = UINavigationController(rootViewController: filterVC)
-        self.present(nc, animated: true)
+//        
+//        let filterVC = FilterVC()
+//        let nc = UINavigationController(rootViewController: filterVC)
+//        self.present(nc, animated: true)
     }
     
     @objc private func goToMaps() {

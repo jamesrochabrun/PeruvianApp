@@ -17,10 +17,11 @@ protocol FeedVCDelegate: class {
 class FeedVC: UITableViewController {
     
     //MARK: properties
-    var searchActive : Bool = false
+    var searchActive: Bool = false
     weak var delegate: FeedVCDelegate?
     
-    //MARK: UIelements
+    //MARK: UIElements
+    //Search Bar
     lazy var feedSearchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.sizeToFit()
@@ -28,12 +29,14 @@ class FeedVC: UITableViewController {
         return searchBar
     }()
     
+    //Refresh Control
     lazy var feedRefreshControl: UIRefreshControl = {
         let rf = UIRefreshControl()
         rf.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         return rf
     }()
     
+    //Loading Indicator
     let customIndicator: CustomActivityIndicator = {
         let indicator = CustomActivityIndicator()
         return indicator
@@ -48,6 +51,13 @@ class FeedVC: UITableViewController {
         setUpViews()
     }
     
+    func setUpNavBar() {
+        
+        navigationItem.titleView = feedSearchBar
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
+    }
+    
     func setUpTableView() {
         
         tableView.register(BusinesCell.self)
@@ -55,13 +65,6 @@ class FeedVC: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)
-    }
-    
-    func setUpNavBar() {
-        
-        navigationItem.titleView = feedSearchBar
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
     func setUpViews() {
@@ -100,6 +103,7 @@ class FeedVC: UITableViewController {
 //    }
 }
 
+//Reusable searchBar actions
 extension FeedVC: UISearchBarDelegate {
     
     func reloadData() {
@@ -128,7 +132,7 @@ extension FeedVC: UISearchBarDelegate {
         delegate?.updateDataInVC(self)
         reloadData()
     }
-
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         feedSearchBar.endEditing(true)
     }

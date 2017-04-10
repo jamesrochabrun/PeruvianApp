@@ -37,6 +37,10 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    func getCategoriesArray() -> [CategoryViewModel] {
+        return categoriesViewModelArray
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as CategoryCell

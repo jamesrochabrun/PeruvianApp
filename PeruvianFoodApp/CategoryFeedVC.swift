@@ -15,24 +15,17 @@ class CategoryFeedVC: FeedVC {
     
     override func viewDidLoad() {
         
-       // setUpNavBar()
-//        setUpViews()
+        setUpNavBar()
+        setUpViews()
+        setUpTableView()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVC), name: NSNotification.Name(rawValue: "name"), object: nil)
-    }
-    
-    override func setUpNavBar() {
-        super.setUpNavBar()
-    }
-    
-    override func setUpViews() {
-        super.setUpViews()
     }
     
     override func setUpTableView() {
         tableView.register(CategoryCell.self)
         tableView.separatorStyle = .none
         tableView.dataSource = categoryDataSource
-        self.categoryDataSource.categoryFeedVC = self
+        categoryDataSource.categoryFeedVC = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -41,14 +34,25 @@ class CategoryFeedVC: FeedVC {
     }
     
     func reloadDataInVC() {
-        tableView.reloadData()
-        customIndicator.stopAnimating()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.customIndicator.stopAnimating()
+        }
     }
     
-//    override func setUpNavBar() {
-//        navigationItem.titleView = feedSearchBar
-//    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let categoryViewModel = categoryDataSource.getCategoriesArray()[indexPath.row]
+        let categoryItemsFeedVC = CategoryItemsFeedVC()
+        categoryItemsFeedVC.categoryViewModel = categoryViewModel
+        self.navigationController?.pushViewController(categoryItemsFeedVC, animated: true)
+    }
 }
+
+
+
+
+
 
 
 
