@@ -15,24 +15,32 @@ class BusinessDetailVC: UITableViewController {
     var business: Business? {
         didSet {
             if let business = business {
-                self.businessDetailDataSource = BusinessDetailDataSource(withBusiness: business)
+                get(business: business, fromService: YelpService.sharedInstance)
             }
         }
     }
     
-    var businessDetailDataSource: BusinessDetailDataSource? {
-        didSet {
-            if let businessDetailDataSource = businessDetailDataSource {
-                tableView.registerDatasource(businessDetailDataSource) { (complete) in
-                }
-            }
-        }
-    }
+    var businessDetailDataSource = BusinessDetailDataSource()
     
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+    }
+    
+    private func get(business: Business, fromService service: YelpService) {
+        
+        service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
+            switch result {
+            case .Success(let business):
+                self?.businessDetailDataSource.businessViewModel = BusinessViewModel(model: business, at: nil)
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .Error(let error):
+                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
+            }
+        }
     }
     
     func setUpTableView() {
@@ -44,6 +52,7 @@ class BusinessDetailVC: UITableViewController {
         tableView.allowsSelection = false
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.dataSource = businessDetailDataSource
     }
     
     //MARK: Navigation
@@ -68,31 +77,20 @@ extension BusinessDetailVC {
 class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     //MARK : Properties
-    private var businessViewModel: BusinessViewModel?
+    fileprivate var businessViewModel: BusinessViewModel?
 
     //MARK: Initializers
     override init() {
         super.init()
     }
     
-    convenience init(withBusiness business: Business) {
-        self.init()
-        YelpService.sharedInstance.getBusinessFrom(id: business.businessID) { (result) in
-            switch result {
-            case .Success(let business):
-                self.businessViewModel = BusinessViewModel(model: business, at: nil)
-                dump(self.businessViewModel)
-            case .Error(let error):
-                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
-            }
-        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
-            cell.setUp(with: businessViewModel!)
+            if let b = businessViewModel {
+                cell.setUp(with: b)
+            }
             return cell
         }
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell

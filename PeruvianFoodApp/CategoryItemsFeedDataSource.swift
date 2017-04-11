@@ -28,7 +28,7 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
     var searchResults = [CategoryItemViewModel]()
     var searchActive : Bool = false
     //binding the delegate on creation
-    var categoryItemsFeedVC: CategoryItemsFeedVC? {
+    weak var categoryItemsFeedVC: CategoryItemsFeedVC? {
         didSet {
             self.categoryItemsFeedVC?.delegate = self
         }

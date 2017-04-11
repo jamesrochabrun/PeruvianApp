@@ -149,7 +149,6 @@ protocol Gettable {
     associatedtype T
     func getBusinesses(search term: String, completion: @escaping (Result<T>) -> ())
     func getBusinessesFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
-    func getBusinessFrom(id: String, completion: @escaping (Result<Business>) -> ())
 }
 
 
