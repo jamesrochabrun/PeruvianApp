@@ -118,12 +118,10 @@ extension ReviewIcon {
 }
 
 struct DistanceViewModel {
-    
     var distancePresentable: String
-    
     init(business: Business) {
         let d = CGFloat(business.distance) / 1000.0
-        distance = String(format: "%.2f mi", d)
+        distancePresentable = String(format: "%.2f mi", d)
     }
 }
 

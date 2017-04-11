@@ -44,6 +44,7 @@ class BusinessDetailVC: UITableViewController {
         
         tableView.register(HeaderCell.self)
         tableView.register(InfoCell.self)
+        tableView.register(SubInfoCell.self)
         tableView.backgroundColor = .white
         tableView?.separatorStyle = .none
         tableView.allowsSelection = false
@@ -77,7 +78,7 @@ extension BusinessDetailVC {
         } else if indexPath.row == 1 {
             return 150//tableView.rowHeight
         }
-        return 10
+        return UITableViewAutomaticDimension
     }
 }
 
@@ -131,14 +132,18 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
             cell.setUp(with: businessVM)
             return cell
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
+            cell.setUp(with: businessVM)
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
         cell.setUp(with: businessVM)
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 }
 
@@ -167,6 +172,14 @@ class HeaderCell: BaseCell {
         v.opaque(with: Constants.Colors.darkTextColor, alpha: 0.05)
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
+    }()
+    
+    let ratingImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .center
+        iv.clipsToBounds = true
+        return iv
     }()
     
     let dismissButton: CustomDismissButton = {
@@ -199,12 +212,21 @@ class HeaderCell: BaseCell {
         businessNameLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor).isActive = true
         businessNameLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor).isActive = true
         businessNameLabel.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.7).isActive = true
+        
+        addSubview(ratingImageView)
+        ratingImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        ratingImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        ratingImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
+        ratingImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
+        
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {
         businessImageView.loadImageUsingCacheWithURLString(businessViewModel.profileImageURL, placeHolder: nil) { (complete) in
         }
         businessNameLabel.text = businessViewModel.name
+        let reviewIcon = ReviewIcon(reviewNumber: businessViewModel.rating)
+        ratingImageView.image = reviewIcon.image
     }
 }
 
@@ -254,7 +276,7 @@ class InfoCell: BaseCell {
         iconsStackView.distribution = .fillEqually
         
         addSubview(iconsStackView)
-        iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
+        iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
         iconsStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
         iconsStackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -302,7 +324,51 @@ class IconIndicatorView: BaseView {
     }
 }
 
+class SubInfoCell: BaseCell {
+    
+    let addressLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textAlignment = .left
+        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return l
+    }()
+    
+    let categoryLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textAlignment = .left
+        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return l
+    }()
+    
+    override func setUpViews() {
+        
+        let marginGuide = contentView.layoutMarginsGuide
+        contentView.addSubview(addressLabel)
+        contentView.addSubview(categoryLabel)
+        
+        addressLabel.sizeToFit()
+        addressLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
+        addressLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 15).isActive = true
+        addressLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8).isActive = true
+        
+        categoryLabel.sizeToFit()
+        categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 15).isActive = true
+        categoryLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
+        categoryLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8).isActive = true
+        categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 15).isActive = true
+    }
+    
+    func setUp(with businessViewModel: BusinessViewModel) {
+        
+        addressLabel.text = businessViewModel.address
+        categoryLabel.text = businessViewModel.category
 
+    }
+}
 
 
 
