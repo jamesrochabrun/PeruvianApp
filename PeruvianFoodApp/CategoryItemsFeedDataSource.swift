@@ -34,12 +34,6 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
         }
     }
     var selection = Selection()
-
-    
-    //MARKE: EXPOSING THE SELECTION IN THE VIEWCONTROLLER
-    func getSelection() -> Selection {
-        return selection
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell

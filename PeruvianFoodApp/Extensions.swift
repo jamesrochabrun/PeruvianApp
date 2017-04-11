@@ -20,6 +20,5 @@ extension Collection where Iterator.Element == JSON {
 }
 
 extension Notification.Name {
-   //static let successDataNotification = Notification.Name("dataSuccess")
     static let dismissViewNotification = Notification.Name("dismiss")
 }

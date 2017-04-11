@@ -20,12 +20,7 @@ class CategoryFeedVC: FeedVC {
         setUpNavBar()
         setUpViews()
         setUpTableView()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataInVC), name: NSNotification.Name(rawValue: "name"), object: nil)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "name"), object: nil);
+        categoryDataSource.delegate = self
     }
     
     //MARK: FeedVC super class methods
@@ -35,8 +30,19 @@ class CategoryFeedVC: FeedVC {
         categoryDataSource.categoryFeedVC = self
     }
     
-    //MARK: triggered by notification
-    func reloadDataInVC() {
+    //MARK: triggered by delegation
+    @objc private func reloadDataInVC() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.customIndicator.stopAnimating()
+        }
+    }
+}
+
+//MARK: update data by delegation
+extension CategoryFeedVC: CategoryDataSourceDelegate {
+    
+    func updateDataInVC() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
             self?.customIndicator.stopAnimating()

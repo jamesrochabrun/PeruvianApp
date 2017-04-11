@@ -9,16 +9,21 @@
 import Foundation
 import UIKit
 
+protocol CategoryDataSourceDelegate: class {
+    func updateDataInVC()
+}
+
 class CategoryDataSource: NSObject, UITableViewDataSource {
     
+    weak var delegate: CategoryDataSourceDelegate?
     var categoriesViewModelArray = [CategoryViewModel]() {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "name"), object: nil)
+            delegate?.updateDataInVC()
         }
     }
     var searchResults = [CategoryViewModel]()
     var searchActive : Bool = false
-    //binding the delegate on creation
+    //binding the delegate on creation this delegate is in charge of the searchbar
     weak var categoryFeedVC: CategoryFeedVC? {
         didSet {
             self.categoryFeedVC?.delegate = self

@@ -32,13 +32,14 @@ struct BusinessViewModel {
     let reviewsCount: String
     let price: String
     let address: String
-    let distance: String
+    var distance: String
     let category: String
     var profileImageURL: String
     var rating: NSNumber
     var isClosed: Bool
     var photos: [String]?
     var coordinates: Coordinates
+    var textRating: String
 }
 
 extension BusinessViewModel {
@@ -61,6 +62,7 @@ extension BusinessViewModel {
         isClosed = model.is_closed
         coordinates = model.coordinates
         photos = model.photos as? [String]
+        textRating = String(describing: model.rating)
     }
 }
 
@@ -115,7 +117,15 @@ extension ReviewIcon {
     }
 }
 
-
+struct DistanceViewModel {
+    
+    var distancePresentable: String
+    
+    init(business: Business) {
+        let d = CGFloat(business.distance) / 1000.0
+        distance = String(format: "%.2f mi", d)
+    }
+}
 
 
 

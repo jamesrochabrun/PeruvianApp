@@ -83,7 +83,7 @@ class BusinessesFeedVC: FeedVC {
     //MARK: Networking
     private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessDataSource {
         
-        service.getBusinessesFrom(selection: selection) { (result) in
+        service.getBusinessesFrom(selection: selection) { [unowned self] (result) in
             switch result {
             case .Success(let businessDataSource):
                 self.feedDataSource = businessDataSource

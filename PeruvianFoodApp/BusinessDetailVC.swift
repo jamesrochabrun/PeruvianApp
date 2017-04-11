@@ -15,15 +15,21 @@ class BusinessDetailVC: UITableViewController {
     var business: Business? {
         didSet {
             if let business = business {
-                get(business: business, fromService: YelpService.sharedInstance)
+                let distance = DistanceViewModel(business: business)
+                self.businessDetailDataSource = BusinessDetailDataSource(business: business, distance: distance)
             }
         }
     }
-    var businessDetailDataSource = BusinessDetailDataSource()
+    var businessDetailDataSource: BusinessDetailDataSource? {
+        didSet {
+            self.businessDetailDataSource?.delegate = self
+        }
+    }
     
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUpTableView()
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
     }
@@ -33,7 +39,7 @@ class BusinessDetailVC: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //Mark:UI SetUP
+    //MARK: UI SetUP
     func setUpTableView() {
         
         tableView.register(HeaderCell.self)
@@ -46,26 +52,19 @@ class BusinessDetailVC: UITableViewController {
         tableView.dataSource = businessDetailDataSource
     }
     
-    //MARK: Networking
-    private func get(business: Business, fromService service: YelpService) {
-        
-        service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
-            switch result {
-            case .Success(let business):
-                self?.businessDetailDataSource.businessViewModel = BusinessViewModel(model: business, at: nil)
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-            case .Error(let error):
-                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
-            }
-        }
-    }
-    
     //MARK: Navigation
     func dismissView() {
         self.dismiss(animated: true)
-        
+    }
+}
+
+extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
+    
+    func reloadDataInVC() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            // self?.customIndicator.stopAnimating()
+        }
     }
 }
 
@@ -76,37 +75,70 @@ extension BusinessDetailVC {
         if indexPath.row == 0 {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
-            return tableView.rowHeight
+            return 150//tableView.rowHeight
         }
         return 10
     }
 }
 
+protocol BusinessDetailDataSourceDelegate: class {
+    func reloadDataInVC()
+}
+
 class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     //MARK : Properties
-    fileprivate var businessViewModel: BusinessViewModel?
-
+    weak var delegate: BusinessDetailDataSourceDelegate?
+    fileprivate var businessViewModel: BusinessViewModel? {
+        didSet {
+            delegate?.reloadDataInVC()
+        }
+    }
+    var distanceString = ""
+    
     //MARK: Initializers
     override init() {
         super.init()
     }
     
+    convenience init(business: Business, distance: DistanceViewModel) {
+        self.init()
+        get(business: business, fromService: YelpService.sharedInstance)
+        distanceString = distance.distancePresentable
+    }
+    
+    //MARK: Networking
+    private func get(business: Business, fromService service: YelpService) {
+        
+        service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
+            switch result {
+            case .Success(let business):
+                self?.businessViewModel = BusinessViewModel(model: business, at: nil)
+                self?.businessViewModel?.distance = self?.distanceString ?? ""
+            case .Error(let error):
+                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let businessVM = businessViewModel else {
+            return BaseCell()
+        }
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
-            if let b = businessViewModel {
-                cell.setUp(with: b)
-            }
+            cell.setUp(with: businessVM)
             return cell
         }
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
+        cell.setUp(with: businessVM)
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
 }
 
@@ -115,9 +147,26 @@ class HeaderCell: BaseCell {
     let businessImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .center
         iv.clipsToBounds = true
         return iv
+    }()
+    
+    let businessNameLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textColor = .white
+        l.textAlignment = .center
+        return l
+    }()
+    
+    let overlayView: UIView = {
+        let v = UIView()
+        v.blur(with : .light)
+        v.opaque(with: Constants.Colors.darkTextColor, alpha: 0.05)
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
     }()
     
     let dismissButton: CustomDismissButton = {
@@ -138,20 +187,120 @@ class HeaderCell: BaseCell {
         dismissButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
         dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight).isActive = true
         dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth).isActive = true
+        
+        addSubview(overlayView)
+        overlayView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        overlayView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        overlayView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        overlayView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        
+        addSubview(businessNameLabel)
+        businessNameLabel.sizeToFit()
+        businessNameLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor).isActive = true
+        businessNameLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor).isActive = true
+        businessNameLabel.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.7).isActive = true
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {
         businessImageView.loadImageUsingCacheWithURLString(businessViewModel.profileImageURL, placeHolder: nil) { (complete) in
         }
+        businessNameLabel.text = businessViewModel.name
     }
 }
 
 class InfoCell: BaseCell {
     
+    let starIconIndicator: IconIndicatorView = {
+        let siv = IconIndicatorView()
+        siv.indicatorImageView.image = #imageLiteral(resourceName: "star").withRenderingMode(.alwaysTemplate)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return siv
+    }()
+    
+    let priceIndicator: IconIndicatorView = {
+        let siv = IconIndicatorView()
+        siv.indicatorImageView.image = #imageLiteral(resourceName: "price").withRenderingMode(.alwaysTemplate)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return siv
+    }()
+    
+    let distanceIndicator: IconIndicatorView = {
+        let siv = IconIndicatorView()
+        siv.indicatorImageView.image = #imageLiteral(resourceName: "distance").withRenderingMode(.alwaysTemplate)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return siv
+    }()
+    
+    let dividerLine: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return v
+    }()
+    
+    override func setUpViews() {
+
+        addTopShadowWith(radius: 7.0, fromColor: .black, toColor: .white)
+        
+        addSubview(dividerLine)
+        dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        dividerLine.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        dividerLine.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+
+        let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
+        iconsStackView.translatesAutoresizingMaskIntoConstraints = false
+        iconsStackView.axis = .horizontal
+        iconsStackView.distribution = .fillEqually
+        
+        addSubview(iconsStackView)
+        iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
+        iconsStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+        iconsStackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    func setUp(with businessViewModel: BusinessViewModel) {
+        starIconIndicator.indicatorLabel.text = businessViewModel.textRating
+        priceIndicator.indicatorLabel.text = businessViewModel.price
+        distanceIndicator.indicatorLabel.text = businessViewModel.distance
+    }
 }
 
-
-
+class IconIndicatorView: BaseView {
+    
+    let indicatorImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleToFill
+        return iv
+    }()
+    
+    let indicatorLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.textAlignment = .center
+        l.numberOfLines = 0
+        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        return l
+    }()
+    
+    override func setUpViews() {
+        
+        addSubview(indicatorImageView)
+        addSubview(indicatorLabel)
+        
+        indicatorImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        indicatorImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        indicatorImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
+        indicatorImageView.widthAnchor.constraint(equalTo: indicatorImageView.heightAnchor).isActive = true
+        
+        indicatorLabel.sizeToFit()
+        indicatorLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        indicatorLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+        indicatorLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+    }
+}
 
 
 
