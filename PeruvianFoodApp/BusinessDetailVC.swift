@@ -19,15 +19,34 @@ class BusinessDetailVC: UITableViewController {
             }
         }
     }
-    
     var businessDetailDataSource = BusinessDetailDataSource()
     
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //Mark:UI SetUP
+    func setUpTableView() {
+        
+        tableView.register(HeaderCell.self)
+        tableView.register(InfoCell.self)
+        tableView.backgroundColor = .white
+        tableView?.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.dataSource = businessDetailDataSource
+    }
+    
+    //MARK: Networking
     private func get(business: Business, fromService service: YelpService) {
         
         service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
@@ -43,20 +62,9 @@ class BusinessDetailVC: UITableViewController {
         }
     }
     
-    func setUpTableView() {
-     
-        tableView.register(HeaderCell.self)
-        tableView.register(InfoCell.self)
-        tableView.backgroundColor = .white
-        tableView?.separatorStyle = .none
-        tableView.allowsSelection = false
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.dataSource = businessDetailDataSource
-    }
-    
     //MARK: Navigation
-    func dismissSelf() {
+    func dismissView() {
+        self.dismiss(animated: true)
         
     }
 }
@@ -66,7 +74,7 @@ extension BusinessDetailVC {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 250
+            return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return tableView.rowHeight
         }
@@ -108,17 +116,28 @@ class HeaderCell: BaseCell {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         return iv
+    }()
+    
+    let dismissButton: CustomDismissButton = {
+        let dbv = CustomDismissButton()
+        return dbv
     }()
     
     override func setUpViews() {
     
-        backgroundColor = .red
         addSubview(businessImageView)
         businessImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         businessImageView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         businessImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         businessImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        
+        addSubview(dismissButton)
+        dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        dismissButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight).isActive = true
+        dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth).isActive = true
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {

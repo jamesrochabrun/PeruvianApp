@@ -18,3 +18,8 @@ extension Collection where Iterator.Element == JSON {
         return try map{ try T(json: $0)}
     }
 }
+
+extension Notification.Name {
+   //static let successDataNotification = Notification.Name("dataSuccess")
+    static let dismissViewNotification = Notification.Name("dismiss")
+}
