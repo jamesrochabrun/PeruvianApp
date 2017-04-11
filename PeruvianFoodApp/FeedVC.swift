@@ -78,29 +78,7 @@ class FeedVC: UITableViewController {
     
   //  MARK: Networking
     func refresh(_ refreshControl: UIRefreshControl) {
-        
-       // getBusinesses(fromService: YelpService.sharedInstance)
     }
-//
-//    private func getBusinesses<S: Gettable>(fromService service: S) where S.T == BusinessDataSource {
-//        
-//        service.getBusiness(search: "Peruvian") { [unowned self] (result) in
-//            switch result {
-//            case .Success(let businessDataSource):
-//                self.feedDataSource = businessDataSource
-//                //setting the feedVC property of the datasource object
-//                self.feedDataSource.feedVC = self
-//                //////////////////////////////////////////////////////
-//                self.tableView.registerDatasource(self.feedDataSource, completion: { (complete) in
-//                    self.feedRefreshControl.endRefreshing()
-//                    self.customIndicator.stopAnimating()
-//                })
-//      
-//            case .Error(let error) :
-//                print("ERROR ON NETWORK REQUEST FROM FEEDVC: \(error)")
-//            }
-//        }
-//    }
 }
 
 //Reusable searchBar actions

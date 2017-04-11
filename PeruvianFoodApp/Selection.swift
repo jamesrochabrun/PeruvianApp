@@ -14,7 +14,8 @@ struct Selection {
     
     init() {
     }
-    var term: String?
+    var term: String = ""
+    var categoryParent: String = ""
     var categoryItems = [String]()
 }
 

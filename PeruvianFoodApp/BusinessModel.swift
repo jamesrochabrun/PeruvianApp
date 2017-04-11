@@ -14,6 +14,7 @@ import TRON
 //MARK: Main Object for Business
 struct Business: JSONDecodable {
     
+    let businessID: String
     let name: String
     let rating: NSNumber
     let price: String
@@ -26,9 +27,11 @@ struct Business: JSONDecodable {
     let distance: NSNumber
     let location: Location
     let coordinates: Coordinates
+    var photos: [Any]?
     
     private struct Key {
         
+        static let idKey = "id"
         static let namekey = "name"
         static let ratingKey = "rating"
         static let priceKey = "price"
@@ -42,9 +45,12 @@ struct Business: JSONDecodable {
         static let transactionsKey = "transactions"
         static let locationKey = "location"
         static let coordinatesKey = "coordinates"
+        static let photosKey = "photos"
     }
     
     init(json: JSON) throws {
+        
+        businessID = json[Key.idKey].stringValue
         name = json[Key.namekey].stringValue
         rating = json[Key.ratingKey].numberValue
         price = json[Key.priceKey].stringValue
@@ -58,6 +64,7 @@ struct Business: JSONDecodable {
         distance = json[Key.distanceKey].numberValue
         location = try Location(json: json[Key.locationKey])
         coordinates = Coordinates(json: json[Key.coordinatesKey])
+        photos = json[Key.photosKey].arrayObject
     }
 }
 

@@ -63,7 +63,7 @@ extension CategoryDataSource: FeedVCDelegate {
     func filterContentFor(textToSearch: String) {
         
         self.searchResults = self.categoriesViewModelArray.filter({ (category) -> Bool in
-            let categoryNameToFind = category.categoryListTitle?.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            let categoryNameToFind = category.categoryListTitle.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
             //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
             //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
             

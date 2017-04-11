@@ -12,7 +12,7 @@ import Alamofire
 
 class BusinesCell: BaseCell {
     
-    var businessCellViewModel: BusinessCellViewModel? {
+    var businessCellViewModel: BusinessViewModel? {
         didSet {
             if let viewModel = businessCellViewModel {
                 businessNameLabel.text = viewModel.name
@@ -20,15 +20,11 @@ class BusinesCell: BaseCell {
                 reviewsLabel.text = viewModel.reviewsCount
                 addressLabel.text = viewModel.address
                 categoryLabel.text = viewModel.category
+                priceLabel.text = viewModel.price
                 let reviewIcon = ReviewIcon(reviewNumber: viewModel.rating)
                 ratingView.image = reviewIcon.image
-                Alamofire.request(viewModel.profileImageURL).responseImage { response in
-                    if let image = response.result.value {
-                        DispatchQueue.main.async {
-                            self.businessImageView.image = image
-                        }
-                    }
-                }
+                self.businessImageView.loadImageUsingCacheWithURLString(viewModel.profileImageURL, placeHolder: nil, completion: { (complete) in
+                })
             }
         }
     }

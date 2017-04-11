@@ -19,7 +19,7 @@ struct Constants {
     struct Colors {
         static let darkTextColor: String = "#282828"
         static let grayTextColor: String = "#525252"
-        static let appMainColor: String = "#D32323"
+        static let appMainColor: String = "#ffc107"//"#D32323"
     }
 }
 

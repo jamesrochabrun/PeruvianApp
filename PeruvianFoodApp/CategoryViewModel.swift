@@ -12,7 +12,7 @@ import UIKit
 struct CategoryViewModel {
     
     var items: [CategoryItem]?
-    var categoryListTitle: String?
+    var categoryListTitle: String = ""
     
     //Get one specific category and convert it in a viewmodel that contains ...
     //Category title

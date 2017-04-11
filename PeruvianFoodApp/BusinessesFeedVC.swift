@@ -9,18 +9,28 @@
 import TRON
 import SwiftyJSON
 
-class BusinessFeedVC: FeedVC {
+class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
     var feedDataSource = BusinessDataSource()
-    var selection: Selection? {
+    var selection = Selection() {
         didSet {
-            if let selection = selection {
-                getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
-                print(selection)
-            }
+            getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
         }
     }
+    
+    //MARK: UI elements
+    private lazy var segmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl()
+        sc.selectedSegmentIndex = 0
+        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        sc.insertSegment(withTitle: "LIST", at: 0, animated: true)
+        sc.insertSegment(withTitle: "MAP", at: 1, animated: true)
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.backgroundColor = .white
+        sc.addTarget(self, action: #selector(switchPresentation), for: .valueChanged)
+        return sc
+    }()
     
     //MARK: APP lifecycle
     override func viewDidLoad() {
@@ -30,6 +40,7 @@ class BusinessFeedVC: FeedVC {
         setUpViews()
     }
     
+    //MARK: FeedVC super class methods
     override func setUpTableView() {
         
         tableView.register(BusinesCell.self)
@@ -39,12 +50,29 @@ class BusinessFeedVC: FeedVC {
         tableView.insertSubview(feedRefreshControl, at: 0)
     }
     
+    override func setUpViews() {
+        super.setUpViews()
+        
+        tableView.tableHeaderView = segmentedControl
+        segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    }
+    
     override func setUpNavBar() {
         super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
+    override func refresh(_ refreshControl: UIRefreshControl) {
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+    }
+    
+    //MARK: segmented control trigger
+    @objc private func switchPresentation() {
+        
+    }
+    
+    //MARK: navigation triggers
     @objc private func goToFilter() {
 //        
 //        let filterVC = FilterVC()
@@ -52,13 +80,10 @@ class BusinessFeedVC: FeedVC {
 //        self.present(nc, animated: true)
     }
     
-    @objc private func goToMaps() {
-    }
-    
-    
+    //MARK: Networking
     private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessDataSource {
         
-        service.getBusinessFrom(selection: selection) { (result) in
+        service.getBusinessesFrom(selection: selection) { (result) in
             switch result {
             case .Success(let businessDataSource):
                 self.feedDataSource = businessDataSource
@@ -74,6 +99,19 @@ class BusinessFeedVC: FeedVC {
                 print("ERROR ON NETWORK REQUEST FROM BUSINESSFEEDVC: \(error)")
             }
         }
+    }
+}
+
+//MARK: tableview delegate method
+extension BusinessesFeedVC {
+    
+    override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        feedSearchBar.endEditing(true)
+        let business = feedDataSource.searchActive ? feedDataSource.searchResults[indexPath.row] : feedDataSource.businesses[indexPath.row]
+        let businessDetailVC = BusinessDetailVC()
+        businessDetailVC.business = business
+        self.present(businessDetailVC, animated: true)        
     }
 }
 

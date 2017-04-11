@@ -33,9 +33,10 @@ struct YelpService: Gettable {
     typealias SearchBusinessCompletionHandler = (Result<BusinessDataSource>) -> ()
     typealias TokenCompletionhandler = (Result<Token>) -> ()
     typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessDataSource>) -> ()
+    typealias SeachBusinessFromIDCompletion = (Result<Business>) -> ()
     
-    //MARK: GET BUSINESSES FROM TERM
-    func getBusiness(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
+    //MARK: GET BUSINESSESES FROM TERM
+    func getBusinesses(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
@@ -56,21 +57,37 @@ struct YelpService: Gettable {
         })
     }
     
-    //GET BUSINESS FROM SELECTION MAIN METHOD
-    func getBusinessFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
+    //MARK: GET BUSINESSES FROM SELECTION MAIN METHOD
+    func getBusinessesFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
         let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
-                
+        
+        let categories = selection.categoryItems.count <= 0 ? selection.categoryParent : selection.categoryItems.joined(separator: ",")
+        
         let parameters =  ["latitude" : "37.785771",
                            "longitude" : "-122.406165",
-                           "categories" : "\(selection.categoryItems.joined(separator: ","))"]
+                           "categories" : categories]
         
         request.parameters = parameters
         
         request.perform(withSuccess: { (businessDataSource) in
             DispatchQueue.main.async {
                 completion(.Success(businessDataSource))
+            }
+        }, failure: { (error) in
+            completion(.Error(error))
+        })
+    }
+    
+    //MARK: GET BUSINESS FROM ID
+    func getBusinessFrom(id: String, completion: @escaping SeachBusinessFromIDCompletion) {
+        
+        let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(id)")
+        request.headers = ["Authorization": "Bearer \(accessToken)"]
+        request.perform(withSuccess: { (business) in
+            DispatchQueue.main.async {
+                completion(.Success(business))
             }
         }, failure: { (error) in
             completion(.Error(error))
@@ -130,8 +147,9 @@ enum Result <T>{
 //MARK: Protocol for testing purposes
 protocol Gettable {
     associatedtype T
-    func getBusiness(search term: String, completion: @escaping (Result<T>) -> ())
-    func getBusinessFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
+    func getBusinesses(search term: String, completion: @escaping (Result<T>) -> ())
+    func getBusinessesFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
+    func getBusinessFrom(id: String, completion: @escaping (Result<Business>) -> ())
 }
 
 

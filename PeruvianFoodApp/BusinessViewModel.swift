@@ -11,7 +11,22 @@ import UIKit
 import AlamofireImage
 import Alamofire
 
-struct BusinessCellViewModel {
+
+//let businessID: String
+//let name: String
+//let rating: NSNumber
+//let price: String
+//let imageURL: String
+//let phone: String
+//let is_closed: Bool
+//let reviewsCount: NSNumber
+//let url: String
+//let categories: [CategoryItem]
+//let distance: NSNumber
+//let location: Location
+//let coordinates: Coordinates
+
+struct BusinessViewModel {
     
     let name: String
     let reviewsCount: String
@@ -21,10 +36,16 @@ struct BusinessCellViewModel {
     let category: String
     var profileImageURL: String
     var rating: NSNumber
+    var isClosed: Bool
+    var photos: [String]?
+    var coordinates: Coordinates
+}
+
+extension BusinessViewModel {
     
-    init(model: Business, at index: Int) {
+    init(model: Business, at index: Int?) {
         
-        name = "\(index + 1) \(model.name)"
+        name = index != nil ? "\(index! + 1). \(model.name)" : model.name
         reviewsCount = "\(model.reviewsCount) Reviews"
         price = model.price
         address = model.location.address1 + ", " + model.location.city
@@ -37,6 +58,9 @@ struct BusinessCellViewModel {
         }
         profileImageURL = model.imageURL
         rating = model.rating
+        isClosed = model.is_closed
+        coordinates = model.coordinates
+        photos = model.photos as? [String]
     }
 }
 

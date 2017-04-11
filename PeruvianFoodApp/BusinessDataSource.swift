@@ -39,7 +39,7 @@ class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
         self.feedVC?.delegate = self
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinesCell
         let business = searchActive ? searchResults[indexPath.row] : businesses[indexPath.row]
-        let businessViewModel = BusinessCellViewModel(model: business, at: indexPath.item)
+        let businessViewModel = BusinessViewModel(model: business, at: indexPath.item)
         cell.businessCellViewModel = businessViewModel
         return cell
     }

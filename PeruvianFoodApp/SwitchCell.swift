@@ -47,6 +47,7 @@ class SwitchCell: BaseCell {
     
     override func setUpViews() {
         
+        selectionStyle = .none
         addSubview(swithCategoryLabel)
         addSubview(customSwitch)
         
