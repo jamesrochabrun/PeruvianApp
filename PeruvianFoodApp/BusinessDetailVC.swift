@@ -76,7 +76,7 @@ extension BusinessDetailVC {
         if indexPath.row == 0 {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
-            return 150//tableView.rowHeight
+            return 135//tableView.rowHeight
         }
         return UITableViewAutomaticDimension
     }
@@ -190,35 +190,38 @@ class HeaderCell: BaseCell {
     override func setUpViews() {
     
         addSubview(businessImageView)
-        businessImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        businessImageView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        businessImageView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        businessImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        
         addSubview(dismissButton)
-        dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-        dismissButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight).isActive = true
-        dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth).isActive = true
-        
         addSubview(overlayView)
-        overlayView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        overlayView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        overlayView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        overlayView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        
         addSubview(businessNameLabel)
         businessNameLabel.sizeToFit()
-        businessNameLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor).isActive = true
-        businessNameLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor).isActive = true
-        businessNameLabel.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.7).isActive = true
-        
         addSubview(ratingImageView)
-        ratingImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        ratingImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        ratingImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
-        ratingImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
         
+        NSLayoutConstraint.activate([
+            
+            businessImageView.widthAnchor.constraint(equalTo: widthAnchor),
+            businessImageView.heightAnchor.constraint(equalTo: heightAnchor),
+            businessImageView.leftAnchor.constraint(equalTo: leftAnchor),
+            businessImageView.topAnchor.constraint(equalTo: topAnchor),
+            
+            dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
+            dismissButton.topAnchor.constraint(equalTo: topAnchor),
+            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
+            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
+            
+            overlayView.leftAnchor.constraint(equalTo: leftAnchor),
+            overlayView.heightAnchor.constraint(equalToConstant: 100),
+            overlayView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            overlayView.widthAnchor.constraint(equalTo: widthAnchor),
+            
+            businessNameLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor),
+            businessNameLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
+            businessNameLabel.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.7),
+            
+            ratingImageView.heightAnchor.constraint(equalToConstant: 30),
+            ratingImageView.widthAnchor.constraint(equalToConstant: 150),
+            ratingImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            ratingImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15)
+            ])
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {
@@ -263,23 +266,25 @@ class InfoCell: BaseCell {
     override func setUpViews() {
 
         addTopShadowWith(radius: 7.0, fromColor: .black, toColor: .white)
-        
         addSubview(dividerLine)
-        dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerLine.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        dividerLine.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
 
         let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
         iconsStackView.translatesAutoresizingMaskIntoConstraints = false
         iconsStackView.axis = .horizontal
         iconsStackView.distribution = .fillEqually
-        
         addSubview(iconsStackView)
-        iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-        iconsStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        iconsStackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            dividerLine.heightAnchor.constraint(equalToConstant: 0.5),
+            dividerLine.centerXAnchor.constraint(equalTo: centerXAnchor),
+            dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dividerLine.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            
+            iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
+            iconsStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9),
+            iconsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {
@@ -311,16 +316,20 @@ class IconIndicatorView: BaseView {
         
         addSubview(indicatorImageView)
         addSubview(indicatorLabel)
-        
-        indicatorImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        indicatorImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        indicatorImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
-        indicatorImageView.widthAnchor.constraint(equalTo: indicatorImageView.heightAnchor).isActive = true
-        
         indicatorLabel.sizeToFit()
-        indicatorLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        indicatorLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
-        indicatorLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            
+            indicatorImageView.topAnchor.constraint(equalTo: topAnchor),
+            indicatorImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            indicatorImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65),
+            indicatorImageView.widthAnchor.constraint(equalTo: indicatorImageView.heightAnchor),
+            
+            indicatorLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            indicatorLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            indicatorLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+        
     }
 }
 
@@ -351,22 +360,25 @@ class SubInfoCell: BaseCell {
         contentView.addSubview(categoryLabel)
         
         addressLabel.sizeToFit()
-        addressLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
-        addressLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 15).isActive = true
-        addressLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8).isActive = true
-        
         categoryLabel.sizeToFit()
-        categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 15).isActive = true
-        categoryLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor).isActive = true
-        categoryLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8).isActive = true
-        categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 15).isActive = true
+        
+        NSLayoutConstraint.activate([
+            
+            addressLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor),
+            addressLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 15),
+            addressLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8),
+            
+            categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 15),
+            categoryLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor),
+            categoryLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8),
+            categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 15)
+            ])
     }
     
     func setUp(with businessViewModel: BusinessViewModel) {
         
         addressLabel.text = businessViewModel.address
         categoryLabel.text = businessViewModel.category
-
     }
 }
 

@@ -130,53 +130,58 @@ class BusinesCell: BaseCell {
         contentView.addSubview(priceLabel)
         contentView.addSubview(addressLabel)
         contentView.addSubview(categoryLabel)
-        
-        businessImageView.heightAnchor.constraint(equalToConstant: 64).isActive = true
-        businessImageView.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        businessImageView.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 8).isActive = true
-        businessImageView.leftAnchor.constraint(equalTo: marginGuide.leftAnchor).isActive = true
+        addSubview(dividerLine)
         
         businessNameLabel.sizeToFit()
-        businessNameLabel.leftAnchor.constraint(equalTo: businessImageView.rightAnchor, constant: 8).isActive = true
-        businessNameLabel.topAnchor.constraint(equalTo: businessImageView.topAnchor).isActive = true
-        businessNameLabel.rightAnchor.constraint(lessThanOrEqualTo: distanceLabel.leftAnchor, constant: -8).isActive = true
-        businessNameLabel.setContentHuggingPriority(250, for: .horizontal)
-        
         //less than 251 contenthugging
-        
+        businessNameLabel.setContentHuggingPriority(250, for: .horizontal)
         distanceLabel.sizeToFit()
-        distanceLabel.rightAnchor.constraint(equalTo: marginGuide.rightAnchor).isActive = true
-        distanceLabel.topAnchor.constraint(equalTo: businessNameLabel.topAnchor).isActive = true
-        distanceLabel.setContentCompressionResistancePriority(751, for: .horizontal)
-        
         //greater than 751 compression
-        ratingView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        ratingView.widthAnchor.constraint(equalToConstant: 90).isActive = true
-        ratingView.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor).isActive = true
-        ratingView.topAnchor.constraint(equalTo: businessNameLabel.bottomAnchor, constant: 8).isActive = true
-        
+        distanceLabel.setContentCompressionResistancePriority(751, for: .horizontal)
         reviewsLabel.sizeToFit()
-        reviewsLabel.centerYAnchor.constraint(equalTo: ratingView.centerYAnchor).isActive = true
-        reviewsLabel.leftAnchor.constraint(equalTo: ratingView.rightAnchor, constant: 8).isActive = true
-        
         priceLabel.sizeToFit()
-        priceLabel.rightAnchor.constraint(equalTo: distanceLabel.rightAnchor).isActive = true
-        priceLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 8).isActive = true
-        
         addressLabel.sizeToFit()
-        addressLabel.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor).isActive = true
-        addressLabel.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 8).isActive = true
-        addressLabel.rightAnchor.constraint(equalTo: distanceLabel.rightAnchor).isActive = true
-        
         categoryLabel.sizeToFit()
-        categoryLabel.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor).isActive = true
-        categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 8).isActive = true
-        categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
+
+
+        NSLayoutConstraint.activate([
+            
+            businessImageView.heightAnchor.constraint(equalToConstant: 64),
+            businessImageView.widthAnchor.constraint(equalToConstant: 64),
+            businessImageView.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 8),
+            businessImageView.leftAnchor.constraint(equalTo: marginGuide.leftAnchor),
+            
+            businessNameLabel.leftAnchor.constraint(equalTo: businessImageView.rightAnchor, constant: 8),
+            businessNameLabel.topAnchor.constraint(equalTo: businessImageView.topAnchor),
+            businessNameLabel.rightAnchor.constraint(lessThanOrEqualTo: distanceLabel.leftAnchor, constant: -8),
         
-        addSubview(dividerLine)
-        dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        dividerLine.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            distanceLabel.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
+            distanceLabel.topAnchor.constraint(equalTo: businessNameLabel.topAnchor),
+        
+            ratingView.heightAnchor.constraint(equalToConstant: 30),
+            ratingView.widthAnchor.constraint(equalToConstant: 90),
+            ratingView.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor),
+            ratingView.topAnchor.constraint(equalTo: businessNameLabel.bottomAnchor, constant: 8),
+            
+            reviewsLabel.centerYAnchor.constraint(equalTo: ratingView.centerYAnchor),
+            reviewsLabel.leftAnchor.constraint(equalTo: ratingView.rightAnchor, constant: 8),
+            
+            priceLabel.rightAnchor.constraint(equalTo: distanceLabel.rightAnchor),
+            priceLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor, constant: 8),
+            
+            addressLabel.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor),
+            addressLabel.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 8),
+            addressLabel.rightAnchor.constraint(equalTo: distanceLabel.rightAnchor),
+            
+            categoryLabel.leftAnchor.constraint(equalTo: businessNameLabel.leftAnchor),
+            categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 8),
+            categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor),
+            
+            dividerLine.heightAnchor.constraint(equalToConstant: 0.5),
+            dividerLine.widthAnchor.constraint(equalTo: widthAnchor),
+            dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor)
+            
+            ])
     }
 }
 

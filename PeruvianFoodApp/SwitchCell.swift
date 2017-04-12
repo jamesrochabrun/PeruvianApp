@@ -52,14 +52,24 @@ class SwitchCell: BaseCell {
         addSubview(customSwitch)
         
         swithCategoryLabel.sizeToFit()
-        swithCategoryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding).isActive = true
-        swithCategoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
         customSwitch.sizeToFit()
-        customSwitch.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.swicthCellPadding).isActive = true
-        customSwitch.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            
+            swithCategoryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
+            swithCategoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            customSwitch.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.swicthCellPadding),
+            customSwitch.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
 }
+
+
+
+
+
+
 
 
 

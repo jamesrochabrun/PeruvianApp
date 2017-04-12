@@ -24,7 +24,10 @@ class CategoryCell: BaseCell {
         
         addSubview(listNameLabel)
         listNameLabel.sizeToFit()
-        listNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        listNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding).isActive = true
+        
+        NSLayoutConstraint.activate([
+            listNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            listNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding)
+        ])
     }
 }

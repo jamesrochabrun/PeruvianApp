@@ -32,16 +32,19 @@ class CustomActivityIndicator: BaseView {
     override func setUpViews() {
         
         addSubview(containerView)
-        containerView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
         containerView.addSubview(activityIndicator)
-        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            containerView.heightAnchor.constraint(equalTo: heightAnchor),
+            containerView.widthAnchor.constraint(equalTo: widthAnchor),
+            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
+            activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+            ])
     }
     
     func stopAnimating() {
