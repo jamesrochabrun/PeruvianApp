@@ -45,6 +45,7 @@ class BusinessDetailVC: UITableViewController {
         tableView.register(HeaderCell.self)
         tableView.register(InfoCell.self)
         tableView.register(SubInfoCell.self)
+        tableView.register(HoursCell.self)
         tableView.backgroundColor = .white
         tableView?.separatorStyle = .none
         tableView.allowsSelection = false
@@ -77,8 +78,10 @@ extension BusinessDetailVC {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return 135//tableView.rowHeight
+        } else if indexPath.row == 2 {
+            return UITableViewAutomaticDimension
         }
-        return UITableViewAutomaticDimension
+        return 100//UITableViewAutomaticDimension
     }
 }
 
@@ -114,6 +117,7 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
             switch result {
             case .Success(let business):
+                
                 self?.businessViewModel = BusinessViewModel(model: business, at: nil)
                 self?.businessViewModel?.distance = self?.distanceString ?? ""
             case .Error(let error):
@@ -136,251 +140,130 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
             cell.setUp(with: businessVM)
             return cell
+        } else if indexPath.row == 2 {
+            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
+            cell.setUp(with: businessVM)
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
-        cell.setUp(with: businessVM)
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
 }
 
-class HeaderCell: BaseCell {
-    
-    let businessImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    let businessNameLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textColor = .white
-        l.textAlignment = .center
-        return l
-    }()
-    
-    let overlayView: UIView = {
-        let v = UIView()
-        v.blur(with : .light)
-        v.opaque(with: Constants.Colors.darkTextColor, alpha: 0.05)
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
-    
-    let ratingImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    let dismissButton: CustomDismissButton = {
-        let dbv = CustomDismissButton()
-        return dbv
-    }()
-    
-    override func setUpViews() {
-    
-        addSubview(businessImageView)
-        addSubview(dismissButton)
-        addSubview(overlayView)
-        addSubview(businessNameLabel)
-        businessNameLabel.sizeToFit()
-        addSubview(ratingImageView)
-        
-        NSLayoutConstraint.activate([
-            
-            businessImageView.widthAnchor.constraint(equalTo: widthAnchor),
-            businessImageView.heightAnchor.constraint(equalTo: heightAnchor),
-            businessImageView.leftAnchor.constraint(equalTo: leftAnchor),
-            businessImageView.topAnchor.constraint(equalTo: topAnchor),
-            
-            dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-            dismissButton.topAnchor.constraint(equalTo: topAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
-            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
-            
-            overlayView.leftAnchor.constraint(equalTo: leftAnchor),
-            overlayView.heightAnchor.constraint(equalToConstant: 100),
-            overlayView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            overlayView.widthAnchor.constraint(equalTo: widthAnchor),
-            
-            businessNameLabel.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor),
-            businessNameLabel.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
-            businessNameLabel.widthAnchor.constraint(equalTo: overlayView.widthAnchor, multiplier: 0.7),
-            
-            ratingImageView.heightAnchor.constraint(equalToConstant: 30),
-            ratingImageView.widthAnchor.constraint(equalToConstant: 150),
-            ratingImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            ratingImageView.rightAnchor.constraint(equalTo: rightAnchor, constant: -15)
-            ])
-    }
-    
-    func setUp(with businessViewModel: BusinessViewModel) {
-        businessImageView.loadImageUsingCacheWithURLString(businessViewModel.profileImageURL, placeHolder: nil) { (complete) in
-        }
-        businessNameLabel.text = businessViewModel.name
-        let reviewIcon = ReviewIcon(reviewNumber: businessViewModel.rating)
-        ratingImageView.image = reviewIcon.image
-    }
-}
 
-class InfoCell: BaseCell {
+class HoursCell: BaseCell, UITableViewDelegate, UITableViewDataSource {
     
-    let starIconIndicator: IconIndicatorView = {
-        let siv = IconIndicatorView()
-        siv.indicatorImageView.image = #imageLiteral(resourceName: "star").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return siv
+    lazy var datesTableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.register(HourCell.self)
+        tv.delegate = self
+        tv.dataSource = self
+        tv.allowsSelection = false
+        tv.backgroundColor = .red
+        tv.estimatedRowHeight = 100
+        tv.rowHeight = UITableViewAutomaticDimension
+        return tv
     }()
-    
-    let priceIndicator: IconIndicatorView = {
-        let siv = IconIndicatorView()
-        siv.indicatorImageView.image = #imageLiteral(resourceName: "price").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return siv
-    }()
-    
-    let distanceIndicator: IconIndicatorView = {
-        let siv = IconIndicatorView()
-        siv.indicatorImageView.image = #imageLiteral(resourceName: "distance").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return siv
-    }()
-    
-    let dividerLine: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return v
-    }()
-    
-    override func setUpViews() {
 
-        addTopShadowWith(radius: 7.0, fromColor: .black, toColor: .white)
-        addSubview(dividerLine)
-
-        let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
-        iconsStackView.translatesAutoresizingMaskIntoConstraints = false
-        iconsStackView.axis = .horizontal
-        iconsStackView.distribution = .fillEqually
-        addSubview(iconsStackView)
-        
-        NSLayoutConstraint.activate([
-            dividerLine.heightAnchor.constraint(equalToConstant: 0.5),
-            dividerLine.centerXAnchor.constraint(equalTo: centerXAnchor),
-            dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            dividerLine.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            
-            iconsStackView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6),
-            iconsStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9),
-            iconsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-    }
-    
-    func setUp(with businessViewModel: BusinessViewModel) {
-        starIconIndicator.indicatorLabel.text = businessViewModel.textRating
-        priceIndicator.indicatorLabel.text = businessViewModel.price
-        distanceIndicator.indicatorLabel.text = businessViewModel.distance
-    }
-}
-
-class IconIndicatorView: BaseView {
-    
-    let indicatorImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleToFill
-        return iv
-    }()
-    
-    let indicatorLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textAlignment = .center
-        l.numberOfLines = 0
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
-    
     override func setUpViews() {
         
-        addSubview(indicatorImageView)
-        addSubview(indicatorLabel)
-        indicatorLabel.sizeToFit()
-        
-        NSLayoutConstraint.activate([
-            
-            indicatorImageView.topAnchor.constraint(equalTo: topAnchor),
-            indicatorImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            indicatorImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.65),
-            indicatorImageView.widthAnchor.constraint(equalTo: indicatorImageView.heightAnchor),
-            
-            indicatorLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            indicatorLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            indicatorLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-        
-    }
-}
-
-class SubInfoCell: BaseCell {
-    
-    let addressLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textAlignment = .left
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
-    
-    let categoryLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textAlignment = .left
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
-    
-    override func setUpViews() {
-        
+        //MARK: laying out the tablewview dynamically
         let marginGuide = contentView.layoutMarginsGuide
-        contentView.addSubview(addressLabel)
-        contentView.addSubview(categoryLabel)
-        
-        addressLabel.sizeToFit()
-        categoryLabel.sizeToFit()
+        contentView.addSubview(datesTableView)
         
         NSLayoutConstraint.activate([
             
-            addressLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor),
-            addressLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 15),
-            addressLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8),
+            //Layout for tableview
+            datesTableView.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 10),
+            datesTableView.leftAnchor.constraint(equalTo: marginGuide.leftAnchor),
+            datesTableView.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
+            datesTableView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 10)
             
-            categoryLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 15),
-            categoryLabel.centerXAnchor.constraint(equalTo: marginGuide.centerXAnchor),
-            categoryLabel.widthAnchor.constraint(equalTo: marginGuide.widthAnchor, multiplier: 0.8),
-            categoryLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 15)
             ])
     }
     
-    func setUp(with businessViewModel: BusinessViewModel) {
-        
-        addressLabel.text = businessViewModel.address
-        categoryLabel.text = businessViewModel.category
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HourCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 }
+
+
+
+class HourCell: BaseCell {
+    
+    let dateLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.numberOfLines = 0
+        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        l.text = "Monday open between 10:00 until 4:00pm 'lkh'lkh'lkh'lkh'lkh 1990"
+        return l
+    }()
+    
+    override func setUpViews() {
+        
+        backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        contentView.addSubview(dateLabel)
+        dateLabel.sizeToFit()
+        let marginGuides = contentView.layoutMarginsGuide
+        
+        NSLayoutConstraint.activate([
+            
+            dateLabel.topAnchor.constraint(equalTo: marginGuides.topAnchor, constant: 10),
+            dateLabel.bottomAnchor.constraint(equalTo: marginGuides.bottomAnchor, constant: -10),
+            dateLabel.leftAnchor.constraint(equalTo: marginGuides.leftAnchor),
+            dateLabel.rightAnchor.constraint(equalTo: marginGuides.rightAnchor)
+            ])
+    }
+    
+}
+
+
+
+
+
+
+class HoursDataSource: NSObject, UITableViewDataSource {
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HourCell
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 7
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

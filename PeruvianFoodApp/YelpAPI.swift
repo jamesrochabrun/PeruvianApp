@@ -85,6 +85,7 @@ struct YelpService: Gettable {
         
         let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(id)")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
+                
         request.perform(withSuccess: { (business) in
             DispatchQueue.main.async {
                 completion(.Success(business))

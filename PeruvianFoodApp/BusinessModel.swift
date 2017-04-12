@@ -28,6 +28,7 @@ struct Business: JSONDecodable {
     let location: Location
     let coordinates: Coordinates
     var photos: [Any]?
+    var hours: [Hours]?
     
     private struct Key {
         
@@ -46,6 +47,7 @@ struct Business: JSONDecodable {
         static let locationKey = "location"
         static let coordinatesKey = "coordinates"
         static let photosKey = "photos"
+        static let hoursKey = "hours"
     }
     
     init(json: JSON) throws {
@@ -65,6 +67,8 @@ struct Business: JSONDecodable {
         location = try Location(json: json[Key.locationKey])
         coordinates = Coordinates(json: json[Key.coordinatesKey])
         photos = json[Key.photosKey].arrayObject
+        let hoursArray = json[Key.hoursKey].arrayValue
+        hours = try hoursArray.decode()
     }
 }
 
@@ -136,7 +140,51 @@ struct Coordinates: JSONDecodable {
     }
 }
 
+//MARK: Hours object
 
+struct Hours: JSONDecodable {
+    
+    let hours_type: String
+    let open: [OpenSchedule]
+    let is_openNow: Bool
+    
+    private struct Key {
+        static let hours_typeKey = "hours_type"
+        static let openKey = "open"
+        static let is_openNowKey = "is_open_now"
+    }
+    
+    init(json: JSON) throws {
+                
+        hours_type = json[Key.hours_typeKey].stringValue
+        let openScheduleArray = json[Key.openKey].arrayValue
+        open = try openScheduleArray.decode()
+        is_openNow = json[Key.is_openNowKey].boolValue
+    }
+}
+
+struct OpenSchedule: JSONDecodable {
+
+    let is_overnight: Bool
+    let end: NSNumber
+    let day: NSNumber
+    let start: NSNumber
+    
+    private struct Key {
+        static let is_overnightKey = "is_overnight"
+        static let endKey = "end"
+        static let daykey = "day"
+        static let startKey = "start"
+    }
+    
+    init(json: JSON) throws {
+        
+        is_overnight = json[Key.is_overnightKey].boolValue
+        end = json[Key.endKey].numberValue
+        day = json[Key.daykey].numberValue
+        start = json[Key.startKey].numberValue
+    }
+}
 
 
 

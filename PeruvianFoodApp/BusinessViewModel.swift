@@ -139,6 +139,3 @@ struct DistanceViewModel {
 
 
 
-
-
-
