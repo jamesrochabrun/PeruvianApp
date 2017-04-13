@@ -19,6 +19,7 @@ struct HoursViewModel {
 extension HoursViewModel {
     
     init(hours: Hours) {
+        
         hoursType = hours.hours_type.lowercased()
         isOpenNow = hours.is_openNow ? "Open" : "Closed"
     }
@@ -30,6 +31,7 @@ struct OpenScheduleViewModel {
     let end: String
     let day: String
     let start: String
+    let fullSchedulePresentable: String
 }
 
 //MARK: Creating a initializer in an extension to avoid override the struct memberwise initializer
@@ -42,6 +44,7 @@ extension OpenScheduleViewModel {
         day = dayOfTheWeek.dayPresentable
         end = String(describing: schedule.end)
         start = String(describing: schedule.start)
+        fullSchedulePresentable = "\(day) - \(start) until \(end)"
     }
 }
 

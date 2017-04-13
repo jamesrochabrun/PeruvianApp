@@ -26,12 +26,31 @@ class BusinessDetailVC: UITableViewController {
         }
     }
     
+    //MARK: UI
+    let calendarView: CalendarView = {
+        let v = CalendarView()
+        v.alpha = 0
+        return v
+    }()
+    
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpTableView()
+        setUpViews()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
+    }
+    
+    func setUpViews() {
+        
+        view.addSubview(calendarView)
+        calendarView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        calendarView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        calendarView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        calendarView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -55,8 +74,20 @@ class BusinessDetailVC: UITableViewController {
     }
     
     //MARK: Navigation
-    func dismissView() {
+    @objc private func dismissView() {
         self.dismiss(animated: true)
+    }
+    
+    //MARK: Notification center
+    @objc private func showSchedule(_ notification: NSNotification) {
+        //Set the calendar datasource passing the array of scheduleViewModels from ..
+        //Cell binds data from Businessdatasource and pass it to the view controller from the HoursCell through notification
+        if let openScheduleViewModelArray = notification.object as? [OpenScheduleViewModel] {
+            calendarView.openScheduleViewModelArray = openScheduleViewModelArray
+        }
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.calendarView.alpha = 1
+        })
     }
 }
 
@@ -70,7 +101,7 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     }
 }
 
-//MARK: Tableview
+//MARK: Tableview height
 extension BusinessDetailVC {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -78,12 +109,19 @@ extension BusinessDetailVC {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return 135//tableView.rowHeight
-        } else if indexPath.row == 2 {
-            return UITableViewAutomaticDimension
         }
-        return 100//UITableViewAutomaticDimension
+        return UITableViewAutomaticDimension
     }
 }
+
+
+
+
+
+
+
+
+
 
 protocol BusinessDetailDataSourceDelegate: class {
     func reloadDataInVC()
@@ -93,11 +131,12 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     //MARK : Properties
     weak var delegate: BusinessDetailDataSourceDelegate?
-    fileprivate var businessViewModel: BusinessViewModel? {
-        didSet {
-            delegate?.reloadDataInVC()
-        }
-    }
+    
+    //MARK: 3 main sources of data visual model setted in the networking call
+    fileprivate var business: Business?
+    var businessViewModel: BusinessViewModel?
+    var openScheduleViewModelArray: [OpenScheduleViewModel]?
+    //this is for the rocket icon
     var distanceString = ""
     
     //MARK: Initializers
@@ -117,9 +156,11 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
             switch result {
             case .Success(let business):
-                
                 self?.businessViewModel = BusinessViewModel(model: business, at: nil)
+                let hour = business.hours?.first
+                self?.openScheduleViewModelArray = hour?.open.map{OpenScheduleViewModel(schedule: $0)}
                 self?.businessViewModel?.distance = self?.distanceString ?? ""
+                self?.delegate?.reloadDataInVC()
             case .Error(let error):
                 print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
             }
@@ -131,7 +172,7 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         guard let businessVM = businessViewModel else {
             return BaseCell()
         }
-        
+   
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
             cell.setUp(with: businessVM)
@@ -146,6 +187,7 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             return cell
         }
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
+        cell.openScheduleViewModelArray = openScheduleViewModelArray
         return cell
     }
     
@@ -155,81 +197,130 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
 }
 
 
-class HoursCell: BaseCell, UITableViewDelegate, UITableViewDataSource {
-    
-    lazy var datesTableView: UITableView = {
-        let tv = UITableView()
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(HourCell.self)
-        tv.delegate = self
-        tv.dataSource = self
-        tv.allowsSelection = false
-        tv.backgroundColor = .red
-        tv.estimatedRowHeight = 100
-        tv.rowHeight = UITableViewAutomaticDimension
-        return tv
-    }()
 
+class CalendarView: BaseView {
+    
+    //MARK: - private constant
+    var openScheduleViewModelArray: [OpenScheduleViewModel]? {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.dateCollectionView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: - UI Element
+    lazy var dateCollectionView: UICollectionView = {
+        let layout = GridLayout()
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.alwaysBounceHorizontal = false
+        cv.alwaysBounceVertical = false
+        cv.dataSource = self
+       // cv.contentInset = UIEdgeInsetsMake(0, Constants.UI.scheduleViewPaddingSmall, 0, Constants.UI.scheduleViewPaddingSmall)
+        cv.register(ScheduleCell.self)
+        return cv
+    }()
+    
+    lazy var containerView: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
+        v.alpha = 0.8
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideSelf)))
+        return v
+    }()
+    
+    let scheduleLabel: UILabel = {
+        let l = UILabel()
+        l.text = "Schedule"
+        l.textColor = .white
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.textAlignment = .center
+        return l
+    }()
+    
+    //MARK: SET Up UI
     override func setUpViews() {
         
-        //MARK: laying out the tablewview dynamically
-        let marginGuide = contentView.layoutMarginsGuide
-        contentView.addSubview(datesTableView)
-        
+        addSubview(containerView)
+        addSubview(dateCollectionView)
+        addSubview(scheduleLabel)
+        // dateCollectionView.dataSource = calendarDataSource
+
         NSLayoutConstraint.activate([
+            containerView.widthAnchor.constraint(equalTo: widthAnchor),
+            containerView.heightAnchor.constraint(equalTo: heightAnchor),
+            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            //Layout for tableview
-            datesTableView.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 10),
-            datesTableView.leftAnchor.constraint(equalTo: marginGuide.leftAnchor),
-            datesTableView.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
-            datesTableView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 10)
+            dateCollectionView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            dateCollectionView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+            dateCollectionView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            dateCollectionView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: 20),
             
+            scheduleLabel.bottomAnchor.constraint(equalTo: dateCollectionView.topAnchor, constant: -Constants.UI.scheduleViewPadding),
+            scheduleLabel.widthAnchor.constraint(equalTo: dateCollectionView.widthAnchor),
+            scheduleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            scheduleLabel.heightAnchor.constraint(equalToConstant: 40)
             ])
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HourCell
+    //MARK: handle selectors
+    func hideSelf() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.alpha = 0
+        })
+    }
+}
+
+extension CalendarView: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as ScheduleCell
         return cell
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let count = openScheduleViewModelArray?.count else {
+            return 0
+        }
+        return count
     }
 }
 
 
-
-class HourCell: BaseCell {
+class ScheduleCell: BaseCollectionViewCell {
+    
+    let containerCircle: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        return v
+    }()
     
     let dateLabel: UILabel = {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        l.text = "Monday open between 10:00 until 4:00pm 'lkh'lkh'lkh'lkh'lkh 1990"
+        l.textColor = .white
         return l
     }()
     
-    override func setUpViews() {
-        
-        backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        contentView.addSubview(dateLabel)
-        dateLabel.sizeToFit()
-        let marginGuides = contentView.layoutMarginsGuide
-        
-        NSLayoutConstraint.activate([
-            
-            dateLabel.topAnchor.constraint(equalTo: marginGuides.topAnchor, constant: 10),
-            dateLabel.bottomAnchor.constraint(equalTo: marginGuides.bottomAnchor, constant: -10),
-            dateLabel.leftAnchor.constraint(equalTo: marginGuides.leftAnchor),
-            dateLabel.rightAnchor.constraint(equalTo: marginGuides.rightAnchor)
-            ])
-    }
+    let timeLabel: UILabel = {
+        let l = UILabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.textColor = .white
+        return l
+    }()
     
+    override func setupViews() {
+        
+        backgroundColor = .red
+        addSubview(dateLabel)
+        addSubview(timeLabel)
+        
+    }
 }
 
 
@@ -237,18 +328,16 @@ class HourCell: BaseCell {
 
 
 
-class HoursDataSource: NSObject, UITableViewDataSource {
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HourCell
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
-    }
-}
+
+
+
+
+
+
+
+
+
+
 
 
 

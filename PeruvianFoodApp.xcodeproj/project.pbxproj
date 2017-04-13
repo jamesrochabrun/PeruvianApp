@@ -23,6 +23,9 @@
 		7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */; };
 		7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */; };
 		7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F011E9EA887008C8468 /* OpenScheduleViewModel.swift */; };
+		7B9B5F041E9EE7F3008C8468 /* BaseCollectionViewCelll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */; };
+		7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */; };
+		7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F081E9EFA05008C8468 /* GridLayout.swift */; };
 		7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */; };
 		7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */; };
 		7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */; };
@@ -67,6 +70,9 @@
 		7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		7B9B5F011E9EA887008C8468 /* OpenScheduleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenScheduleViewModel.swift; sourceTree = "<group>"; };
+		7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCelll.swift; sourceTree = "<group>"; };
+		7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursCell.swift; sourceTree = "<group>"; };
+		7B9B5F081E9EFA05008C8468 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFeedVC.swift; sourceTree = "<group>"; };
 		7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
 		7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesFeedVC.swift; sourceTree = "<group>"; };
@@ -116,8 +122,18 @@
 				7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */,
 				7B9B5EF81E9E98A1008C8468 /* SubInfoCell.swift */,
 				7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */,
+				7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */,
 			);
 			name = DetailVCCells;
+			sourceTree = "<group>";
+		};
+		7B9B5F071E9EF8CC008C8468 /* BaseCells */ = {
+			isa = PBXGroup;
+			children = (
+				7BD8ED351E95474500E610B9 /* BaseCell.swift */,
+				7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */,
+			);
+			name = BaseCells;
 			sourceTree = "<group>";
 		};
 		7BD8ED131E9546FE00E610B9 = {
@@ -204,10 +220,11 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
+				7B9B5F071E9EF8CC008C8468 /* BaseCells */,
 				7B9B5EFE1E9E9922008C8468 /* DetailVCCells */,
 				7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */,
 				7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */,
-				7BD8ED351E95474500E610B9 /* BaseCell.swift */,
 				7B8D82911E96B2DE005BF309 /* BaseView.swift */,
 				7B7A81991E986A9A007608FC /* CategoryCell.swift */,
 				7B8D82931E96CE4B005BF309 /* SwitchCell.swift */,
@@ -389,12 +406,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B9B5F041E9EE7F3008C8468 /* BaseCollectionViewCelll.swift in Sources */,
 				7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */,
 				7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */,
 				7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */,
 				7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
 				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
+				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
@@ -411,6 +430,7 @@
 				7B9B5EF91E9E98A1008C8468 /* SubInfoCell.swift in Sources */,
 				7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */,
 				7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */,
+				7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */,
 				7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */,
 				7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
