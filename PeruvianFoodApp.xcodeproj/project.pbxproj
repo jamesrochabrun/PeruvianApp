@@ -26,6 +26,9 @@
 		7B9B5F041E9EE7F3008C8468 /* BaseCollectionViewCelll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */; };
 		7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */; };
 		7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F081E9EFA05008C8468 /* GridLayout.swift */; };
+		7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */; };
+		7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */; };
+		7B9B5F0F1E9F16C5008C8468 /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */; };
 		7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */; };
 		7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */; };
 		7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */; };
@@ -48,7 +51,6 @@
 		7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */; };
 		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
 		7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */; };
-		7BED73B01E9C58C10084CA67 /* ImageCachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AF1E9C58C10084CA67 /* ImageCachable.swift */; };
 		7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */; };
 		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,9 @@
 		7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCelll.swift; sourceTree = "<group>"; };
 		7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursCell.swift; sourceTree = "<group>"; };
 		7B9B5F081E9EFA05008C8468 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
+		7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
 		7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFeedVC.swift; sourceTree = "<group>"; };
 		7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
 		7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesFeedVC.swift; sourceTree = "<group>"; };
@@ -97,7 +102,6 @@
 		7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemViewModel.swift; sourceTree = "<group>"; };
 		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVC.swift; sourceTree = "<group>"; };
-		7BED73AF1E9C58C10084CA67 /* ImageCachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCachable.swift; sourceTree = "<group>"; };
 		7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDismissButton.swift; sourceTree = "<group>"; };
 		925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeruvianFoodApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 		7B9B5EFE1E9E9922008C8468 /* DetailVCCells */ = {
 			isa = PBXGroup;
 			children = (
+				7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */,
 				7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */,
 				7B9B5EF81E9E98A1008C8468 /* SubInfoCell.swift */,
 				7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */,
@@ -178,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				7B4567111E9D473D0073AD1F /* Blurrable.swift */,
-				7BED73AF1E9C58C10084CA67 /* ImageCachable.swift */,
 				7BD8ED491E95C33A00E610B9 /* Reusable.swift */,
 				7B4567131E9D47450073AD1F /* Opaqueable.swift */,
 				7BD8ED331E95473E00E610B9 /* ColorHexable.swift */,
@@ -220,7 +224,9 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */,
 				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
+				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
 				7B9B5F071E9EF8CC008C8468 /* BaseCells */,
 				7B9B5EFE1E9E9922008C8468 /* DetailVCCells */,
 				7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */,
@@ -407,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B9B5F041E9EE7F3008C8468 /* BaseCollectionViewCelll.swift in Sources */,
+				7B9B5F0F1E9F16C5008C8468 /* ListLayout.swift in Sources */,
 				7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */,
 				7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */,
 				7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */,
@@ -416,7 +423,9 @@
 				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
+				7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
+				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */,
 				7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
@@ -436,7 +445,6 @@
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
-				7BED73B01E9C58C10084CA67 /* ImageCachable.swift in Sources */,
 				7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */,
 				7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */,
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,

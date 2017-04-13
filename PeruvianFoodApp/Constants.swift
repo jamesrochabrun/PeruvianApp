@@ -23,6 +23,7 @@ struct Constants {
         static let scheduleViewPaddingSmall: CGFloat = 5.0
         static let scheduleViewPaddingBig: CGFloat = 15.0
         static let scheduleViewPadding: CGFloat = 10.0
+        static let infoCellHeight: CGFloat = 135.0
 
     }
     

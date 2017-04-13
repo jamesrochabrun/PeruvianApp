@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class BusinessDetailVC: UITableViewController {
 
@@ -20,17 +22,23 @@ class BusinessDetailVC: UITableViewController {
             }
         }
     }
-    var businessDetailDataSource: BusinessDetailDataSource? {
+    private var businessDetailDataSource: BusinessDetailDataSource? {
         didSet {
             self.businessDetailDataSource?.delegate = self
         }
     }
     
     //MARK: UI
-    let calendarView: CalendarView = {
+    private let calendarView: CalendarView = {
         let v = CalendarView()
         v.alpha = 0
         return v
+    }()
+    
+    //Loading Indicator
+    fileprivate let customIndicator: CustomActivityIndicator = {
+        let indicator = CustomActivityIndicator()
+        return indicator
     }()
     
     //MARK: App Life cycle
@@ -47,10 +55,19 @@ class BusinessDetailVC: UITableViewController {
     func setUpViews() {
         
         view.addSubview(calendarView)
-        calendarView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        calendarView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        calendarView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        calendarView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        view.addSubview(customIndicator)
+        
+        NSLayoutConstraint.activate([
+            calendarView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            calendarView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            calendarView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            calendarView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            customIndicator.heightAnchor.constraint(equalToConstant: 80),
+            customIndicator.widthAnchor.constraint(equalToConstant: 80),
+            customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -65,6 +82,7 @@ class BusinessDetailVC: UITableViewController {
         tableView.register(InfoCell.self)
         tableView.register(SubInfoCell.self)
         tableView.register(HoursCell.self)
+        tableView.register(PhotoAlbumCell.self)
         tableView.backgroundColor = .white
         tableView?.separatorStyle = .none
         tableView.allowsSelection = false
@@ -91,12 +109,13 @@ class BusinessDetailVC: UITableViewController {
     }
 }
 
+//MARK: when datasource is fetched from server perform delegate methods to update UI in VC
 extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     
     func reloadDataInVC() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
-            // self?.customIndicator.stopAnimating()
+            self?.customIndicator.stopAnimating()
         }
     }
 }
@@ -108,13 +127,13 @@ extension BusinessDetailVC {
         if indexPath.row == 0 {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
-            return 135//tableView.rowHeight
+            return Constants.UI.infoCellHeight
+        } else if indexPath.row == 4 {
+            return self.view.frame.width / 3
         }
         return UITableViewAutomaticDimension
     }
 }
-
-
 
 
 
@@ -156,6 +175,8 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
             switch result {
             case .Success(let business):
+                
+                self?.business = business
                 self?.businessViewModel = BusinessViewModel(model: business, at: nil)
                 let hour = business.hours?.first
                 self?.openScheduleViewModelArray = hour?.open.map{OpenScheduleViewModel(schedule: $0)}
@@ -185,151 +206,118 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
             cell.setUp(with: businessVM)
             return cell
+        } else if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
+            cell.openScheduleViewModelArray = openScheduleViewModelArray
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
-        cell.openScheduleViewModelArray = openScheduleViewModelArray
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PhotoAlbumCell
+        cell.photos = business?.photos as? [String]
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
 }
 
 
-
-class CalendarView: BaseView {
+class PhotoAlbumCell: BaseCell {
     
-    //MARK: - private constant
-    var openScheduleViewModelArray: [OpenScheduleViewModel]? {
+    var photos: [String]? {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.dateCollectionView.reloadData()
+            DispatchQueue.main.async {
+                self.photoCollectionView.reloadData()
             }
         }
     }
     
-    //MARK: - UI Element
-    lazy var dateCollectionView: UICollectionView = {
-        let layout = GridLayout()
+    lazy var photoCollectionView: UICollectionView = {
+        let layout = ListLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.alwaysBounceHorizontal = false
-        cv.alwaysBounceVertical = false
         cv.dataSource = self
-       // cv.contentInset = UIEdgeInsetsMake(0, Constants.UI.scheduleViewPaddingSmall, 0, Constants.UI.scheduleViewPaddingSmall)
-        cv.register(ScheduleCell.self)
+        cv.delegate = self
+        cv.alwaysBounceHorizontal = true
+        cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
+        cv.register(PhotoCell.self)
+        cv.isScrollEnabled = false
         return cv
     }()
     
-    lazy var containerView: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-        v.alpha = 0.8
-        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideSelf)))
-        return v
-    }()
-    
-    let scheduleLabel: UILabel = {
-        let l = UILabel()
-        l.text = "Schedule"
-        l.textColor = .white
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textAlignment = .center
-        return l
-    }()
-    
-    //MARK: SET Up UI
     override func setUpViews() {
         
-        addSubview(containerView)
-        addSubview(dateCollectionView)
-        addSubview(scheduleLabel)
-        // dateCollectionView.dataSource = calendarDataSource
-
+        addSubview(photoCollectionView)
         NSLayoutConstraint.activate([
-            containerView.widthAnchor.constraint(equalTo: widthAnchor),
-            containerView.heightAnchor.constraint(equalTo: heightAnchor),
-            containerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            dateCollectionView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            dateCollectionView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-            dateCollectionView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            dateCollectionView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: 20),
-            
-            scheduleLabel.bottomAnchor.constraint(equalTo: dateCollectionView.topAnchor, constant: -Constants.UI.scheduleViewPadding),
-            scheduleLabel.widthAnchor.constraint(equalTo: dateCollectionView.widthAnchor),
-            scheduleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            scheduleLabel.heightAnchor.constraint(equalToConstant: 40)
+            photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            photoCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
-    }
-    
-    //MARK: handle selectors
-    func hideSelf() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.alpha = 0
-        })
     }
 }
 
-extension CalendarView: UICollectionViewDataSource {
+extension PhotoAlbumCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as ScheduleCell
-        return cell
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = openScheduleViewModelArray?.count else {
+        guard let count = photos?.count else {
             return 0
         }
         return count
     }
-}
-
-
-class ScheduleCell: BaseCollectionViewCell {
     
-    let containerCircle: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-        return v
-    }()
-    
-    let dateLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = .white
-        return l
-    }()
-    
-    let timeLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = .white
-        return l
-    }()
-    
-    override func setupViews() {
-        
-        backgroundColor = .red
-        addSubview(dateLabel)
-        addSubview(timeLabel)
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PhotoCell
+        if let photoURL = photos?[indexPath.row] {
+            cell.setUp(photoURL: photoURL)
+        }
+        return cell
     }
 }
 
 
-
-
-
-
-
-
+class PhotoCell: BaseCollectionViewCell {
+    
+    let photoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.clipsToBounds = true
+        return iv
+    }()
+    
+    override func setupViews() {
+        addSubview(photoImageView)
+        
+        NSLayoutConstraint.activate([
+            photoImageView.topAnchor.constraint(equalTo: topAnchor),
+            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            photoImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+    }
+    
+    func setUp(photoURL: String) {
+        
+        guard let url = URL(string: photoURL) else {
+            print("INVALID URL ON CREATION PHOTOCELL")
+            return
+        }
+        self.photoImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) {[weak self] (response) in
+            guard let image = response.result.value else {
+                print("INVALID RESPONSE SETTING UP THE PHOTOCELL")
+                return
+            }
+            self?.photoImageView.image = image
+        }
+    }
+    
+    override func prepareForReuse() {
+        photoImageView.image = nil
+    }
+}
 
 
 

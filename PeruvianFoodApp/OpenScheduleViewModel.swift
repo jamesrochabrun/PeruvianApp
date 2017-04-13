@@ -38,13 +38,13 @@ struct OpenScheduleViewModel {
 extension OpenScheduleViewModel {
     
     init(schedule: OpenSchedule) {
-        
+                
         is_overnight =  schedule.is_overnight ? "Overnight" : ""
         let dayOfTheWeek = DayOfTheWeek(dayNumber: schedule.day)
         day = dayOfTheWeek.dayPresentable
         end = String(describing: schedule.end)
         start = String(describing: schedule.start)
-        fullSchedulePresentable = "\(day) - \(start) until \(end)"
+        fullSchedulePresentable = "\(day)\n\(start)\nuntil\n\(end)"
     }
 }
 

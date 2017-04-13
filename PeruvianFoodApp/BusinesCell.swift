@@ -23,8 +23,17 @@ class BusinesCell: BaseCell {
                 priceLabel.text = viewModel.price
                 let reviewIcon = ReviewIcon(reviewNumber: viewModel.rating)
                 ratingView.image = reviewIcon.image
-                self.businessImageView.loadImageUsingCacheWithURLString(viewModel.profileImageURL, placeHolder: nil, completion: { (complete) in
-                })
+                guard let url = URL(string: viewModel.profileImageURL) else {
+                    print("INVALID URL ON CREATION BASECELL")
+                    return
+                }
+                businessImageView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: true) { (response) in
+                    guard let image = response.result.value else {
+                        print("INVALID RESPONSE SETTING UP THE BASECELL")
+                        return
+                    }
+                    self.businessImageView.image = image
+                }
             }
         }
     }
@@ -182,6 +191,10 @@ class BusinesCell: BaseCell {
             dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor)
             
             ])
+    }
+    
+    override func prepareForReuse() {
+        businessImageView.image = nil
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  GridLayout.swift
+//  ListLayout.swift
 //  PeruvianFoodApp
 //
 //  Created by James Rochabrun on 4/12/17.
@@ -7,27 +7,29 @@
 //
 
 import Foundation
-
 import UIKit
 
-class GridLayout: UICollectionViewFlowLayout {
+class ListLayout: UICollectionViewFlowLayout {
     
-    let innerSpace: CGFloat = 3.0
+    let innerSpace: CGFloat = 8.0
+    let edgeInset: CGFloat = 5.0
     let numberOfItemsInRow: CGFloat = 3.0
+    
     
     override init() {
         super.init()
         minimumLineSpacing = innerSpace
-        minimumInteritemSpacing = innerSpace
-        scrollDirection = .vertical
+        scrollDirection = .horizontal
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     func itemWidth() -> CGFloat {
-        return ((self.collectionView?.frame.size.width)! / self.numberOfItemsInRow) - self.innerSpace
+        
+        let totalOfInnerSpace = self.innerSpace * (self.numberOfItemsInRow - 1)
+        let totalOfInset = self.edgeInset * 2
+        return ((self.collectionView?.frame.size.width)! - (totalOfInset + totalOfInnerSpace)) / self.numberOfItemsInRow
     }
     
     override var itemSize: CGSize {
@@ -37,10 +39,7 @@ class GridLayout: UICollectionViewFlowLayout {
             return CGSize(width: itemWidth(), height: itemWidth())
         }
     }
+    
 }
-
-
-
-
 
 

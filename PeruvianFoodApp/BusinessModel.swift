@@ -66,7 +66,7 @@ struct Business: JSONDecodable {
         distance = json[Key.distanceKey].numberValue
         location = try Location(json: json[Key.locationKey])
         coordinates = Coordinates(json: json[Key.coordinatesKey])
-        photos = json[Key.photosKey].arrayObject
+        photos = json[Key.photosKey].arrayObject        
         let hoursArray = json[Key.hoursKey].arrayValue
         hours = try hoursArray.decode()
     }
