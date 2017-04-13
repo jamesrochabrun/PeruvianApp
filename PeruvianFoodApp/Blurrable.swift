@@ -23,3 +23,27 @@ extension Blurrable where Self: UIView {
 }
 
 extension UIView: Blurrable {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

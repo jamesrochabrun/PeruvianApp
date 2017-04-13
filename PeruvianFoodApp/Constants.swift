@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct Constants {
+    
     struct UI {
         static let businessCellPadding: CGFloat = 8.0
         static let businessProfileImage: CGFloat = 64.0
@@ -23,20 +24,14 @@ struct Constants {
         static let scheduleViewPaddingSmall: CGFloat = 5.0
         static let scheduleViewPaddingBig: CGFloat = 15.0
         static let scheduleViewPadding: CGFloat = 10.0
-        static let infoCellHeight: CGFloat = 135.0
-
+        static let infoCellHeight: CGFloat = 100.0
     }
     
     struct Colors {
-        static let darkTextColor: String = "#08102b"//"#282828"
-        static let grayTextColor: String = "#525252"
+        static let darkTextColor: String = "#232b2b"//"#282828"
+        static let grayTextColor: String = "#353839"
         static let appMainColor: String =  "#fb7300"//"#34cd63"//"#ffc107"//"#D32323"
         static let shadowColor: String = "#65737e"
-
-    }
-    
-    struct Fonts {
-        
     }
 }
 

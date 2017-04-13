@@ -21,6 +21,8 @@ class CategoryFeedVC: FeedVC {
         setUpViews()
         setUpTableView()
         categoryDataSource.delegate = self
+        LabelBuilder.printFonts()
+
     }
     
     //MARK: FeedVC super class methods

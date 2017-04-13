@@ -25,31 +25,23 @@ class HoursCell: BaseCell {
         let b = UIButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("Show Schedule", for: .normal)
-        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        b.setTitleColor(.white, for: .normal)
+        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.appMainColor), for: .normal)
         b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
-        b.layer.cornerRadius = 15.0
-        b.layer.masksToBounds = true
+        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor).cgColor
+        b.layer.borderWidth = 1.0
         return b
     }()
     
-    let isOpenNowLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textAlignment = .center
-        l.text = "CLOSED"
-        return l
-    }()
+    let isOpenNowLabel = LabelBuilder.headerLabel(textColor: .grayTextColor, textAlignment: .center, sizeToFit: true).build()
     
     override func setUpViews() {
         
         let marginGuide = contentView.layoutMarginsGuide
         contentView.addSubview(isOpenNowLabel)
-        isOpenNowLabel.sizeToFit()
         contentView.addSubview(scheduleButton)
         NSLayoutConstraint.activate([
             
-            isOpenNowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: Constants.UI.hourcellHeightVerticalPadding),
+            isOpenNowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor),
             isOpenNowLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             scheduleButton.heightAnchor.constraint(equalToConstant: Constants.UI.buttonHourCellHeight),
             

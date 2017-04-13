@@ -56,63 +56,13 @@ class BusinesCell: BaseCell {
         return iv
     }()
     
-    let businessNameLabel: UILabel = {
-        let l = UILabel()
-        l.numberOfLines = 0
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-        //l.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-        return l
-    }()
-    
-    let distanceLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        // l.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        l.textAlignment = .left
-        return l
-    }()
-    
-    let reviewsLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        // l.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-        return l
-    }()
-    
-    let priceLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        //l.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
-        return l
-    }()
-    
-    let addressLabel: UILabel = {
-        let l = UILabel()
-        l.numberOfLines = 0
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.subheadline)
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        //l.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
-        return l
-    }()
-    
-    let categoryLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-        // l.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        return l
-    }()
-    
+    let businessNameLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: nil, sizeToFit: true).build()
+    let distanceLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: .right, sizeToFit: true).build()
+    let reviewsLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+    let priceLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: .right, sizeToFit: true).build()
+    let addressLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+    let categoryLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+
     let dividerLine: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -141,17 +91,10 @@ class BusinesCell: BaseCell {
         contentView.addSubview(categoryLabel)
         addSubview(dividerLine)
         
-        businessNameLabel.sizeToFit()
         //less than 251 contenthugging
         businessNameLabel.setContentHuggingPriority(250, for: .horizontal)
-        distanceLabel.sizeToFit()
         //greater than 751 compression
         distanceLabel.setContentCompressionResistancePriority(751, for: .horizontal)
-        reviewsLabel.sizeToFit()
-        priceLabel.sizeToFit()
-        addressLabel.sizeToFit()
-        categoryLabel.sizeToFit()
-
 
         NSLayoutConstraint.activate([
             

@@ -20,32 +20,9 @@ class SubInfoCell: BaseCell {
         }
     }
     
-    let addressLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textAlignment = .left
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
-    
-    let categoryLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textAlignment = .left
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
-    
-    let phoneLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textAlignment = .left
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
+    let addressLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+    let categoryLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+    let phoneLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
     
     let phoneImageViewIcon: UIImageView = {
         let iv = UIImageView()
@@ -82,19 +59,15 @@ class SubInfoCell: BaseCell {
         contentView.addSubview(addressViewIcon)
         contentView.addSubview(phoneImageViewIcon)
         contentView.addSubview(categoryViewIcon)
-        
-        addressLabel.sizeToFit()
-        phoneLabel.sizeToFit()
-        categoryLabel.sizeToFit()
-        
+
         NSLayoutConstraint.activate([
             
-            addressViewIcon.leftAnchor.constraint(equalTo: marginGuide.leftAnchor, constant: 10),
+            addressViewIcon.leftAnchor.constraint(equalTo: marginGuide.leftAnchor, constant: 15),
             addressViewIcon.heightAnchor.constraint(equalToConstant: 25),
             addressViewIcon.widthAnchor.constraint(equalToConstant: 25),
             addressViewIcon.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5),
             
-            addressLabel.leftAnchor.constraint(equalTo: addressViewIcon.rightAnchor, constant: 5),
+            addressLabel.leftAnchor.constraint(equalTo: addressViewIcon.rightAnchor, constant: 8),
             addressLabel.centerYAnchor.constraint(equalTo: addressViewIcon.centerYAnchor),
             addressLabel.rightAnchor.constraint(equalTo: marginGuide.rightAnchor, constant: -10),
             

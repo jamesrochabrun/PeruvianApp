@@ -80,7 +80,6 @@ class BusinessDetailVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
     }
-
     
     func setUpViews() {
         
@@ -114,14 +113,12 @@ class BusinessDetailVC: UIViewController {
             ])
     }
     
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
     
-    
-    //MARK: UI SetUP
+    //MARK: UI SetUP Tableview
     func setUpTableView() {
         
         tableView.register(HeaderCell.self)
@@ -174,7 +171,6 @@ extension BusinessDetailVC: UITableViewDelegate {
         } 
         return UITableViewAutomaticDimension
     }
-    
 }
 
 
@@ -192,10 +188,10 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     //MARK : Properties
     weak var delegate: BusinessDetailDataSourceDelegate?
     
-    //MARK: 3 main sources of data visual model setted in the networking call
+    //MARK: 2 main sources of data visual model setted in the networking call
     fileprivate var business: Business?
-    var businessViewModel: BusinessViewModel?
     //this is for the rocket icon
+    //busines don't provide distancein business detail api call
     var distanceViewModel: DistanceViewModel?
     
     //MARK: Initializers
@@ -217,7 +213,6 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             case .Success(let business):
                 
                 self?.business = business
-                self?.businessViewModel = BusinessViewModel(model: business, at: nil)
                 self?.delegate?.reloadDataInVC()
             case .Error(let error):
                 print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")

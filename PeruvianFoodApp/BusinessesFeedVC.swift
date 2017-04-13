@@ -8,6 +8,7 @@
 
 import TRON
 import SwiftyJSON
+import MapKit
 
 class BusinessesFeedVC: FeedVC {
     
@@ -39,7 +40,7 @@ class BusinessesFeedVC: FeedVC {
         setUpTableView()
         setUpViews()
     }
-    
+        
     //MARK: FeedVC super class methods
     override func setUpTableView() {
         

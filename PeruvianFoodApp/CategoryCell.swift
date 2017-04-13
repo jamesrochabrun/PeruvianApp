@@ -11,23 +11,15 @@ import UIKit
 
 class CategoryCell: BaseCell {
     
-    let listNameLabel: UILabel = {
-        let l = UILabel()
-        l.numberOfLines = 0
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-//        l.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-        return l
-    }()
-    
+    let listNameLabel = LabelBuilder.headerLabel(textColor: .darkTextColor , textAlignment: nil, sizeToFit: true).build()
+
     override func setUpViews() {
         
         addSubview(listNameLabel)
-        listNameLabel.sizeToFit()
         
         NSLayoutConstraint.activate([
             listNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            listNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding)
+            listNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
         ])
     }
 }

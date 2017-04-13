@@ -18,20 +18,12 @@ class IconIndicatorView: BaseView {
         return iv
     }()
     
-    let indicatorLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textAlignment = .center
-        l.numberOfLines = 0
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        return l
-    }()
+    let indicatorLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: .center, sizeToFit: true).build()
     
     override func setUpViews() {
         
         addSubview(indicatorImageView)
         addSubview(indicatorLabel)
-        indicatorLabel.sizeToFit()
         
         NSLayoutConstraint.activate([
             
@@ -44,7 +36,6 @@ class IconIndicatorView: BaseView {
             indicatorLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
             indicatorLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
             ])
-        
     }
 }
 

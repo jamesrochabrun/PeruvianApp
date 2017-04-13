@@ -23,20 +23,12 @@ class HeaderCell: BaseCell {
     let businessImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
-    let businessNameLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textColor = .white
-        l.textAlignment = .center
-        return l
-    }()
+    let businessNameLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
     let overlayView: UIView = {
         let v = UIView()
