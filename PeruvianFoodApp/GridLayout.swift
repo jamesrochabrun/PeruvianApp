@@ -12,7 +12,7 @@ import UIKit
 
 class GridLayout: UICollectionViewFlowLayout {
     
-    let innerSpace: CGFloat = 1.0
+    let innerSpace: CGFloat = 4
     let numberOfItemsInRow: CGFloat = 4.0
     
     override init() {
