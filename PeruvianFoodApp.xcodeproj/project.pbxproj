@@ -10,6 +10,8 @@
 		7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567111E9D473D0073AD1F /* Blurrable.swift */; };
 		7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567131E9D47450073AD1F /* Opaqueable.swift */; };
 		7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567191E9D94680073AD1F /* Shadowable.swift */; };
+		7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */; };
+		7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */; };
 		7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
@@ -59,6 +61,8 @@
 		7B4567111E9D473D0073AD1F /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
 		7B4567131E9D47450073AD1F /* Opaqueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opaqueable.swift; sourceTree = "<group>"; };
 		7B4567191E9D94680073AD1F /* Shadowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadowable.swift; sourceTree = "<group>"; };
+		7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCell.swift; sourceTree = "<group>"; };
 		7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemExtension.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
@@ -123,6 +127,8 @@
 		7B9B5EFE1E9E9922008C8468 /* DetailVCCells */ = {
 			isa = PBXGroup;
 			children = (
+				7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */,
+				7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */,
 				7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */,
 				7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */,
 				7B9B5EF81E9E98A1008C8468 /* SubInfoCell.swift */,
@@ -426,6 +432,7 @@
 				7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
+				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */,
 				7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
@@ -445,6 +452,7 @@
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
+				7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */,
 				7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */,
 				7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */,
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,
@@ -568,7 +576,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
@@ -583,7 +591,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;

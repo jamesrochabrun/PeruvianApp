@@ -11,7 +11,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class BusinessDetailVC: UITableViewController {
+class BusinessDetailVC: UIViewController {
 
     //MARK: properties
     var business: Business? {
@@ -28,11 +28,40 @@ class BusinessDetailVC: UITableViewController {
         }
     }
     
-    //MARK: UI
-    private let calendarView: CalendarView = {
+    //MARK: UI Elements
+    private lazy var calendarView: CalendarView = {
         let v = CalendarView()
         v.alpha = 0
         return v
+    }()
+    
+    let statusBarBackgroundView: BaseView = {
+        let v = BaseView()
+        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        return v
+    }()
+    
+    let dismissButton: CustomDismissButton = {
+        let dbv = CustomDismissButton()
+        return dbv
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.delegate = self
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = .white
+        tv.estimatedRowHeight = 100
+        tv.allowsSelection = false
+        tv.rowHeight = UITableViewAutomaticDimension
+        tv.separatorStyle = .none
+        tv.register(HeaderCell.self)
+        tv.register(InfoCell.self)
+        tv.register(SubInfoCell.self)
+        tv.register(HoursCell.self)
+        tv.register(PhotoAlbumCell.self)
+        tv.dataSource = self.businessDetailDataSource
+        return tv
     }()
     
     //Loading Indicator
@@ -45,24 +74,39 @@ class BusinessDetailVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableView()
+       // setUpTableView()
         setUpViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
     }
+
     
     func setUpViews() {
         
+        view.addSubview(tableView)
+        view.addSubview(statusBarBackgroundView)
+        view.addSubview(dismissButton)
         view.addSubview(calendarView)
         view.addSubview(customIndicator)
         
         NSLayoutConstraint.activate([
+            
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 22),
+            statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            dismissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            dismissButton.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
+            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
+            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 22),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             calendarView.heightAnchor.constraint(equalTo: view.heightAnchor),
             calendarView.widthAnchor.constraint(equalTo: view.widthAnchor),
             calendarView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calendarView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            
             customIndicator.heightAnchor.constraint(equalToConstant: 80),
             customIndicator.widthAnchor.constraint(equalToConstant: 80),
             customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -70,10 +114,12 @@ class BusinessDetailVC: UITableViewController {
             ])
     }
     
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
+    
     
     //MARK: UI SetUP
     func setUpTableView() {
@@ -83,11 +129,6 @@ class BusinessDetailVC: UITableViewController {
         tableView.register(SubInfoCell.self)
         tableView.register(HoursCell.self)
         tableView.register(PhotoAlbumCell.self)
-        tableView.backgroundColor = .white
-        tableView?.separatorStyle = .none
-        tableView.allowsSelection = false
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataSource = businessDetailDataSource
     }
     
@@ -121,20 +162,20 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
 }
 
 //MARK: Tableview height
-extension BusinessDetailVC {
+extension BusinessDetailVC: UITableViewDelegate {
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return Constants.UI.infoCellHeight
         } else if indexPath.row == 4 {
             return self.view.frame.width / 3
-        }
+        } 
         return UITableViewAutomaticDimension
     }
+    
 }
-
 
 
 
@@ -221,103 +262,6 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     }
 }
 
-
-class PhotoAlbumCell: BaseCell {
-    
-    var photos: [String]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.photoCollectionView.reloadData()
-            }
-        }
-    }
-    
-    lazy var photoCollectionView: UICollectionView = {
-        let layout = ListLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .clear
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.dataSource = self
-        cv.delegate = self
-        cv.alwaysBounceHorizontal = true
-        cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
-        cv.register(PhotoCell.self)
-        cv.isScrollEnabled = false
-        return cv
-    }()
-    
-    override func setUpViews() {
-        
-        addSubview(photoCollectionView)
-        NSLayoutConstraint.activate([
-            photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
-            photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            photoCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-    }
-}
-
-extension PhotoAlbumCell: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = photos?.count else {
-            return 0
-        }
-        return count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PhotoCell
-        if let photoURL = photos?[indexPath.row] {
-            cell.setUp(photoURL: photoURL)
-        }
-        return cell
-    }
-}
-
-
-class PhotoCell: BaseCollectionViewCell {
-    
-    let photoImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    override func setupViews() {
-        addSubview(photoImageView)
-        
-        NSLayoutConstraint.activate([
-            photoImageView.topAnchor.constraint(equalTo: topAnchor),
-            photoImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            photoImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            photoImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ])
-    }
-    
-    func setUp(photoURL: String) {
-        
-        guard let url = URL(string: photoURL) else {
-            print("INVALID URL ON CREATION PHOTOCELL")
-            return
-        }
-        self.photoImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) {[weak self] (response) in
-            guard let image = response.result.value else {
-                print("INVALID RESPONSE SETTING UP THE PHOTOCELL")
-                return
-            }
-            self?.photoImageView.image = image
-        }
-    }
-    
-    override func prepareForReuse() {
-        photoImageView.image = nil
-    }
-}
 
 
 

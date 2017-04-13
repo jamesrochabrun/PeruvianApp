@@ -45,15 +45,9 @@ class HeaderCell: BaseCell {
         return iv
     }()
     
-    let dismissButton: CustomDismissButton = {
-        let dbv = CustomDismissButton()
-        return dbv
-    }()
-    
     override func setUpViews() {
         
         addSubview(businessImageView)
-        addSubview(dismissButton)
         addSubview(overlayView)
         addSubview(businessNameLabel)
         businessNameLabel.sizeToFit()
@@ -65,11 +59,6 @@ class HeaderCell: BaseCell {
             businessImageView.heightAnchor.constraint(equalTo: heightAnchor),
             businessImageView.leftAnchor.constraint(equalTo: leftAnchor),
             businessImageView.topAnchor.constraint(equalTo: topAnchor),
-            
-            dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-            dismissButton.topAnchor.constraint(equalTo: topAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
-            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
             
             overlayView.leftAnchor.constraint(equalTo: leftAnchor),
             overlayView.heightAnchor.constraint(equalToConstant: 100),

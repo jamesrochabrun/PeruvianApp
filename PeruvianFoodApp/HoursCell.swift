@@ -20,6 +20,8 @@ class HoursCell: BaseCell {
         b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
         b.setTitleColor(.white, for: .normal)
         b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
+        b.layer.cornerRadius = 15.0
+        b.layer.masksToBounds = true
         return b
     }()
     
@@ -37,7 +39,6 @@ class HoursCell: BaseCell {
         contentView.addSubview(isOpenNowLabel)
         isOpenNowLabel.sizeToFit()
         contentView.addSubview(scheduleButton)
-        backgroundColor = #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
         NSLayoutConstraint.activate([
             
             isOpenNowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: Constants.UI.hourcellHeightVerticalPadding),

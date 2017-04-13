@@ -41,7 +41,7 @@ class InfoCell: BaseCell {
     
     override func setUpViews() {
         
-        addTopShadowWith(radius: 7.0, fromColor: .black, toColor: .white)
+        addTopShadowWith(radius: 7.0, fromColor: UIColor.hexStringToUIColor(Constants.Colors.appMainColor), toColor: .white)
         addSubview(dividerLine)
         
         let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])

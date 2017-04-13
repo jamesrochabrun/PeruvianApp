@@ -40,6 +40,7 @@ struct BusinessViewModel {
     var photos: [String]?
     var coordinates: Coordinates
     var textRating: String
+    let phone: String
 }
 
 extension BusinessViewModel {
@@ -63,6 +64,7 @@ extension BusinessViewModel {
         coordinates = model.coordinates
         photos = model.photos as? [String]
         textRating = String(describing: model.rating)
+        phone = model.phone
     }
 }
 
