@@ -11,6 +11,23 @@ import UIKit
 
 class InfoCell: BaseCell {
     
+    var business: Business? {
+        didSet {
+            if let business = business {
+                let businessViewModel = BusinessViewModel(model: business, at: nil)
+                self.setUp(with: businessViewModel)
+            }
+        }
+    }
+    
+    var distanceViewModel: DistanceViewModel? {
+        didSet {
+            if let distanceViewModel = distanceViewModel {
+                distanceIndicator.indicatorLabel.text = distanceViewModel.distancePresentable
+            }
+        }
+    }
+    
     let starIconIndicator: IconIndicatorView = {
         let siv = IconIndicatorView()
         siv.indicatorImageView.image = #imageLiteral(resourceName: "star").withRenderingMode(.alwaysTemplate)
@@ -41,7 +58,7 @@ class InfoCell: BaseCell {
     
     override func setUpViews() {
         
-        addTopShadowWith(radius: 7.0, fromColor: UIColor.hexStringToUIColor(Constants.Colors.appMainColor), toColor: .white)
+        addTopShadowWith(radius: 7.0, fromColor: UIColor.hexStringToUIColor(Constants.Colors.shadowColor), toColor: .white)
         addSubview(dividerLine)
         
         let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
@@ -63,9 +80,8 @@ class InfoCell: BaseCell {
             ])
     }
     
-    func setUp(with businessViewModel: BusinessViewModel) {
+    private func setUp(with businessViewModel: BusinessViewModel) {
         starIconIndicator.indicatorLabel.text = businessViewModel.textRating
         priceIndicator.indicatorLabel.text = businessViewModel.price
-        distanceIndicator.indicatorLabel.text = businessViewModel.distance
     }
 }

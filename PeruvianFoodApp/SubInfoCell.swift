@@ -11,6 +11,15 @@ import UIKit
 
 class SubInfoCell: BaseCell {
     
+    var business: Business? {
+        didSet {
+            if let business = business {
+                let businessViewModel = BusinessViewModel(model: business, at: nil)
+                self.setUp(with: businessViewModel)
+            }
+        }
+    }
+    
     let addressLabel: UILabel = {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +101,7 @@ class SubInfoCell: BaseCell {
             phoneImageViewIcon.leftAnchor.constraint(equalTo: addressViewIcon.leftAnchor),
             phoneImageViewIcon.heightAnchor.constraint(equalTo: addressViewIcon.heightAnchor),
             phoneImageViewIcon.widthAnchor.constraint(equalTo: addressViewIcon.widthAnchor),
-            phoneImageViewIcon.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 8),
+            phoneImageViewIcon.topAnchor.constraint(equalTo: addressViewIcon.bottomAnchor, constant: 8),
             
             phoneLabel.centerYAnchor.constraint(equalTo: phoneImageViewIcon.centerYAnchor),
             phoneLabel.leftAnchor.constraint(equalTo: addressLabel.leftAnchor),
@@ -101,7 +110,7 @@ class SubInfoCell: BaseCell {
             categoryViewIcon.leftAnchor.constraint(equalTo: addressViewIcon.leftAnchor),
             categoryViewIcon.heightAnchor.constraint(equalTo: addressViewIcon.heightAnchor),
             categoryViewIcon.widthAnchor.constraint(equalTo: addressViewIcon.widthAnchor),
-            categoryViewIcon.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 8),
+            categoryViewIcon.topAnchor.constraint(equalTo: phoneImageViewIcon.bottomAnchor, constant: 8),
             
             categoryLabel.centerYAnchor.constraint(equalTo: categoryViewIcon.centerYAnchor),
             categoryLabel.leftAnchor.constraint(equalTo: addressLabel.leftAnchor),
@@ -110,7 +119,7 @@ class SubInfoCell: BaseCell {
             ])
     }
     
-    func setUp(with businessViewModel: BusinessViewModel) {
+    private func setUp(with businessViewModel: BusinessViewModel) {
         
         addressLabel.text = businessViewModel.address
         categoryLabel.text = businessViewModel.category

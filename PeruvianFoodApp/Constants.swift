@@ -31,6 +31,8 @@ struct Constants {
         static let darkTextColor: String = "#08102b"//"#282828"
         static let grayTextColor: String = "#525252"
         static let appMainColor: String =  "#fb7300"//"#34cd63"//"#ffc107"//"#D32323"
+        static let shadowColor: String = "#65737e"
+
     }
     
     struct Fonts {
