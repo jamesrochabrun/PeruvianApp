@@ -35,6 +35,13 @@ class BusinessDetailVC: UIViewController {
         return v
     }()
     
+    fileprivate lazy var gradientView: UIView = {
+        let g = UIView(frame: self.view.bounds)
+        g.gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: false, isFlipped: false)
+        g.alpha = 0
+        return g
+    }()
+    
     let statusBarBackgroundView: BaseView = {
         let v = BaseView()
         v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
@@ -50,7 +57,7 @@ class BusinessDetailVC: UIViewController {
         let tv = UITableView()
         tv.delegate = self
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = .white
+        tv.backgroundColor = .clear
         tv.estimatedRowHeight = 100
         tv.allowsSelection = false
         tv.rowHeight = UITableViewAutomaticDimension
@@ -73,21 +80,15 @@ class BusinessDetailVC: UIViewController {
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       // setUpTableView()
+
+        setUpTableView()
         setUpViews()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
     }
     
-    func setUpViews() {
-        
-        view.addSubview(tableView)
-        view.addSubview(statusBarBackgroundView)
-        view.addSubview(dismissButton)
-        view.addSubview(calendarView)
-        view.addSubview(customIndicator)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
         NSLayoutConstraint.activate([
             
@@ -119,7 +120,7 @@ class BusinessDetailVC: UIViewController {
     }
     
     //MARK: UI SetUP Tableview
-    func setUpTableView() {
+    private func setUpTableView() {
         
         tableView.register(HeaderCell.self)
         tableView.register(InfoCell.self)
@@ -127,6 +128,17 @@ class BusinessDetailVC: UIViewController {
         tableView.register(HoursCell.self)
         tableView.register(PhotoAlbumCell.self)
         tableView.dataSource = businessDetailDataSource
+    }
+    
+    private func setUpViews() {
+        
+        view.backgroundColor = .white
+        view.addSubview(gradientView)
+        view.addSubview(tableView)
+        view.addSubview(statusBarBackgroundView)
+        view.addSubview(dismissButton)
+        view.addSubview(calendarView)
+        view.addSubview(customIndicator)
     }
     
     //MARK: Navigation
@@ -154,6 +166,9 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
             self?.customIndicator.stopAnimating()
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+                self?.gradientView.alpha = 1
+            })
         }
     }
 }
@@ -172,9 +187,6 @@ extension BusinessDetailVC: UITableViewDelegate {
         return UITableViewAutomaticDimension
     }
 }
-
-
-
 
 
 

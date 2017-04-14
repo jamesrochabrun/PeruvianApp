@@ -24,7 +24,7 @@ class BusinessesFeedVC: FeedVC {
     private lazy var segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl()
         sc.selectedSegmentIndex = 0
-        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
         sc.insertSegment(withTitle: "LIST", at: 0, animated: true)
         sc.insertSegment(withTitle: "MAP", at: 1, animated: true)
         sc.translatesAutoresizingMaskIntoConstraints = false

@@ -20,16 +20,16 @@ class SubInfoCell: BaseCell {
         }
     }
     
-    let addressLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
-    let categoryLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
-    let phoneLabel = LabelBuilder.subHeaderLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
+    let addressLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
+    let categoryLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
+    let phoneLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     
     let phoneImageViewIcon: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "phone").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return iv
     }()
     let categoryViewIcon: UIImageView = {
@@ -37,13 +37,13 @@ class SubInfoCell: BaseCell {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.image = #imageLiteral(resourceName: "category").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return iv
     }()
     let addressViewIcon: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         return iv

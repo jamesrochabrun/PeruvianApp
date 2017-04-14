@@ -187,19 +187,46 @@ struct OpenSchedule: JSONDecodable {
 }
 
 
+struct Review {
+    
+    let rating: NSNumber
+    let user: User
+    let text: String
+    let reviewURL: String
+    
+    private struct Key {
+        static let ratingKey = "rating"
+        static let userKey = "user"
+        static let textKey = "text"
+        static let reviewURLKey = "url"
+    }
+    
+    init(json: JSON) throws {
+        rating = json[Key.ratingKey].numberValue
+        user =  User(json: json[Key.userKey])
+        text = json[Key.textKey].stringValue
+        reviewURL = json[Key.reviewURLKey].stringValue
+    }
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
+struct User {
+    
+    var imageProfileURL: String?
+    let name: String
+    
+    private struct Key {
+        static let imageProfileKey = "image_url"
+        static let nameKey = "name"
+    }
+    
+    init(json: JSON) {
+        imageProfileURL = json[Key.imageProfileKey].stringValue
+        name = json[Key.nameKey].stringValue
+    }
+}
 
 
 

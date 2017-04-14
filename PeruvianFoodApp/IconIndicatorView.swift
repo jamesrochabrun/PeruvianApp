@@ -18,7 +18,7 @@ class IconIndicatorView: BaseView {
         return iv
     }()
     
-    let indicatorLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: .center, sizeToFit: true).build()
+    let indicatorLabel = LabelBuilder.caption1(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
     override func setUpViews() {
         

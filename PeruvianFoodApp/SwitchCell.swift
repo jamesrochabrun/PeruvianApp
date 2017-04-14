@@ -21,7 +21,7 @@ class SwitchCell: BaseCell {
         let s = UISwitch()
         s.isOn = false
         s.translatesAutoresizingMaskIntoConstraints = false
-        s.thumbTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        s.thumbTintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
         s.addTarget(self, action: #selector(switchValue), for: .valueChanged)
         s.onImage = #imageLiteral(resourceName: "Yelp_burst_positive_RGB")
         s.offImage = #imageLiteral(resourceName: "Yelp_burst_negative_RGB")

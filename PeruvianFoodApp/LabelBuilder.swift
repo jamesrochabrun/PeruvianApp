@@ -35,7 +35,7 @@ enum LabelBuilder {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.font = UIFont(name: Font.regularFont, size: Font.h1FonstSize)
+        l.font = UIFont(name: Constants.Font.regularFont, size: Constants.Font.h1FonstSize)
         l.textColor = textColor.color()
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
@@ -48,7 +48,7 @@ enum LabelBuilder {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.font = UIFont(name: Font.regularFont, size: Font.h2FontSize)
+        l.font = UIFont(name: Constants.Font.regularFont, size: Constants.Font.h2FontSize)
         l.textColor = textColor.color()
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
@@ -61,7 +61,7 @@ enum LabelBuilder {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.font = UIFont(name: Font.lightFont, size: Font.caption1)
+        l.font = UIFont(name: Constants.Font.lightFont, size: Constants.Font.caption1)
         l.textColor = textColor.color()
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
@@ -74,7 +74,7 @@ enum LabelBuilder {
         let l = UILabel()
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
-        l.font = UIFont(name: Font.lightFont, size: Font.caption2)
+        l.font = UIFont(name: Constants.Font.lightFont, size: Constants.Font.caption2)
         l.textColor = textColor.color()
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
@@ -96,41 +96,6 @@ enum LabelBuilder {
 }
 
 
-struct Font {
-    
-    static let regularFont: String = "HelveticaNeue"
-    static let mediumFont: String = "HelveticaNeue-Medium"
-    static let lightFont: String = "HelveticaNeue-Light"
-    static let h1FonstSize: CGFloat = 18.0
-    static let h2FontSize: CGFloat = 16.0
-    static let caption1: CGFloat = 14.0
-    static let caption2: CGFloat = 12.0
-}
-
-
-enum Colors {
-    
-    case appMainColor
-    case darkTextColor
-    case grayTextColor
-    case shadowColor
-    case white
-    
-    func color() -> UIColor {
-        switch self {
-        case .appMainColor:
-            return UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        case .darkTextColor:
-            return UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-        case .grayTextColor:
-            return UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
-        case .shadowColor:
-            return UIColor.hexStringToUIColor(Constants.Colors.shadowColor)
-        case .white:
-            return UIColor.white
-        }
-    }
-}
 
 
 
