@@ -207,18 +207,3 @@ struct OpenSchedule: JSONDecodable {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

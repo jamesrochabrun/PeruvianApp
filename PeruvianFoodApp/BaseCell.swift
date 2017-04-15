@@ -14,6 +14,7 @@ class BaseCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpViews()
+        backgroundColor = .clear
     }
     
     required init?(coder aDecoder: NSCoder) {

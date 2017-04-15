@@ -12,46 +12,99 @@ import UIKit
 class HoursCell: BaseCell {
     
     var openScheduleViewModelArray: [OpenScheduleViewModel]?
+    var business: Business? {
+        didSet {
+            if let business = business, let hour = business.hours?.first  {
+                self.openScheduleViewModelArray = hour.open.map{OpenScheduleViewModel(schedule: $0)}
+                isOpenNowLabel.text = HoursViewModel(hours: hour).isOpenNow
+            }
+        }
+    }
     
+//    lazy var scheduleButton: UIButton = {
+//        let b = UIButton()
+//        b.translatesAutoresizingMaskIntoConstraints = false
+//        b.setTitle("SHOW SCHEDULE", for: .normal)
+//        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
+//        b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
+//       // b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor).cgColor
+//      //  b.layer.borderWidth = 1.0
+//        b.layer.cornerRadius = 20
+//        b.layer.masksToBounds = true
+//        return b
+//    }()
+    
+    //MARK: UI Elements
     lazy var scheduleButton: UIButton = {
         let b = UIButton()
         b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("Show Schedule", for: .normal)
-        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        b.setTitleColor(.white, for: .normal)
+        b.setTitle("SHOW SCHEDULE", for: .normal)
+        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
         b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
+        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.white).cgColor
+        b.layer.borderWidth = 1.0
+//        b.layer.cornerRadius = 20
+//        b.layer.masksToBounds = true
         return b
     }()
     
-    let isOpenNowLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textAlignment = .center
-        l.text = "CLOSED"
-        return l
+    lazy var reviewsButton: UIButton = {
+        let b = UIButton()
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.setTitle("SHOW REVIEWS", for: .normal)
+        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
+        b.addTarget(self, action: #selector(showReviews), for: .touchUpInside)
+        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.white).cgColor
+        b.layer.borderWidth = 1.0
+        //        b.layer.cornerRadius = 20
+        //        b.layer.masksToBounds = true
+        return b
     }()
+    
+    let isOpenNowLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
     override func setUpViews() {
         
-        let marginGuide = contentView.layoutMarginsGuide
         contentView.addSubview(isOpenNowLabel)
-        isOpenNowLabel.sizeToFit()
         contentView.addSubview(scheduleButton)
-        backgroundColor = #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
+        contentView.addSubview(reviewsButton)
+        let marginGuide = contentView.layoutMarginsGuide
+        
         NSLayoutConstraint.activate([
             
-            isOpenNowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: Constants.UI.hourcellHeightVerticalPadding),
+            isOpenNowLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor),
             isOpenNowLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             scheduleButton.heightAnchor.constraint(equalToConstant: Constants.UI.buttonHourCellHeight),
-            
             scheduleButton.topAnchor.constraint(equalTo: isOpenNowLabel.bottomAnchor, constant: Constants.UI.hourcellHeightVerticalPadding),
-            scheduleButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.6),
+            scheduleButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7),
             scheduleButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            scheduleButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -Constants.UI.hourcellHeightVerticalPadding)
+            
+            reviewsButton.topAnchor.constraint(equalTo: scheduleButton.bottomAnchor, constant: Constants.UI.hourcellHeightVerticalPadding + 5),
+            reviewsButton.widthAnchor.constraint(equalTo: scheduleButton.widthAnchor),
+            reviewsButton.heightAnchor.constraint(equalTo: scheduleButton.heightAnchor),
+            reviewsButton.centerXAnchor.constraint(equalTo: scheduleButton.centerXAnchor),
+            reviewsButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -Constants.UI.hourcellHeightVerticalPadding)
             ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+      //  scheduleButton.gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: true, isFlipped: false)
     }
     
     @objc private func showSchedule() {
         NotificationCenter.default.post(name: Notification.Name.showScheduleNotification, object: openScheduleViewModelArray)
     }
+    
+    @objc private func showReviews() {
+        NotificationCenter.default.post(name: Notification.Name.showReviewsNotification, object: nil)
+    }
+    
 }
+
+
+
+
+
+
+

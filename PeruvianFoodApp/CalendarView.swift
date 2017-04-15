@@ -11,7 +11,7 @@ import UIKit
 
 class CalendarView: BaseView {
     
-    //MARK: - private constant
+    //MARK: - properties
     var openScheduleViewModelArray: [OpenScheduleViewModel]? {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -79,8 +79,8 @@ class CalendarView: BaseView {
     
     //MARK: handle selectors
     func hideSelf() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.alpha = 0
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.alpha = 0
         })
     }
 }

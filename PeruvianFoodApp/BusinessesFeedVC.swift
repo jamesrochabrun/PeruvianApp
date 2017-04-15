@@ -12,7 +12,11 @@ import SwiftyJSON
 class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
-    var feedDataSource = BusinessDataSource()
+    var feedDataSource = BusinessDataSource() {
+        didSet {
+            self.feedDataSource.delegate = self
+        }
+    }
     var selection = Selection() {
         didSet {
             getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
@@ -23,7 +27,7 @@ class BusinessesFeedVC: FeedVC {
     private lazy var segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl()
         sc.selectedSegmentIndex = 0
-        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
         sc.insertSegment(withTitle: "LIST", at: 0, animated: true)
         sc.insertSegment(withTitle: "MAP", at: 1, animated: true)
         sc.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +43,7 @@ class BusinessesFeedVC: FeedVC {
         setUpTableView()
         setUpViews()
     }
-    
+        
     //MARK: FeedVC super class methods
     override func setUpTableView() {
         
@@ -53,6 +57,7 @@ class BusinessesFeedVC: FeedVC {
     override func setUpViews() {
         super.setUpViews()
         
+        segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
         segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         segmentedControl.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -60,6 +65,7 @@ class BusinessesFeedVC: FeedVC {
     
     override func setUpNavBar() {
         super.setUpNavBar()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
     }
     
@@ -87,6 +93,7 @@ class BusinessesFeedVC: FeedVC {
             switch result {
             case .Success(let businessDataSource):
                 self.feedDataSource = businessDataSource
+                
                 //setting the feedVC property of the datasource object
                 self.feedDataSource.feedVC = self
                 //////////////////////////////////////////////////////
@@ -111,7 +118,15 @@ extension BusinessesFeedVC {
         let business = feedDataSource.searchActive ? feedDataSource.searchResults[indexPath.row] : feedDataSource.businesses[indexPath.row]
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.business = business
-        self.present(businessDetailVC, animated: true)        
+        self.present(businessDetailVC, animated: true)
+    }
+}
+
+//MARK: BusinessDatasourcedelegate
+extension BusinessesFeedVC: BusinessDataSourceDelegate {
+    
+    func handleNoResults() {
+        print("test")
     }
 }
 

@@ -21,7 +21,7 @@ class SwitchCell: BaseCell {
         let s = UISwitch()
         s.isOn = false
         s.translatesAutoresizingMaskIntoConstraints = false
-        s.thumbTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        s.thumbTintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
         s.addTarget(self, action: #selector(switchValue), for: .valueChanged)
         s.onImage = #imageLiteral(resourceName: "Yelp_burst_positive_RGB")
         s.offImage = #imageLiteral(resourceName: "Yelp_burst_negative_RGB")
@@ -29,12 +29,7 @@ class SwitchCell: BaseCell {
         return s
     }()
     
-    let swithCategoryLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-        return label
-    }()
+    let swithCategoryLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: nil, sizeToFit: true).build()
     
     func switchValue() {
         delegate?.switchCell(self)
@@ -50,15 +45,12 @@ class SwitchCell: BaseCell {
         selectionStyle = .none
         addSubview(swithCategoryLabel)
         addSubview(customSwitch)
-        
-        swithCategoryLabel.sizeToFit()
         customSwitch.sizeToFit()
         
         NSLayoutConstraint.activate([
             
             swithCategoryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
             swithCategoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
             customSwitch.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.swicthCellPadding),
             customSwitch.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

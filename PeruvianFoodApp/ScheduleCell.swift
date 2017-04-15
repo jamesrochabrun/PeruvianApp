@@ -11,14 +11,7 @@ import UIKit
 
 class ScheduleCell: BaseCollectionViewCell {
     
-    let dateLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.textColor = .white
-        l.textAlignment = .center
-        l.numberOfLines = 0
-        return l
-    }()
+    let dateLabel = LabelBuilder.caption1(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
     override func setupViews() {
         
@@ -27,7 +20,6 @@ class ScheduleCell: BaseCollectionViewCell {
         backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
         
         addSubview(dateLabel)
-        dateLabel.sizeToFit()
         
         NSLayoutConstraint.activate([
             dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

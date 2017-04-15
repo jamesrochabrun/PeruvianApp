@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct Constants {
+    
     struct UI {
         static let businessCellPadding: CGFloat = 8.0
         static let businessProfileImage: CGFloat = 64.0
@@ -18,23 +19,70 @@ struct Constants {
         static let dismissButtonHeight: CGFloat = 48.0
         static let headerCellHeight: CGFloat = 300
         static let hourCellHeight: CGFloat = 30.0
-        static let buttonHourCellHeight: CGFloat = 44.0
-        static let hourcellHeightVerticalPadding: CGFloat = 8.0
+        static let buttonHourCellHeight: CGFloat = 50.0
+        static let hourcellHeightVerticalPadding: CGFloat = 10.0
         static let scheduleViewPaddingSmall: CGFloat = 5.0
         static let scheduleViewPaddingBig: CGFloat = 15.0
         static let scheduleViewPadding: CGFloat = 10.0
-        static let infoCellHeight: CGFloat = 135.0
-
+        static let infoCellHeight: CGFloat = 100.0
     }
     
     struct Colors {
-        static let darkTextColor: String = "#08102b"//"#282828"
-        static let grayTextColor: String = "#525252"
-        static let appMainColor: String = "#34cd63"//"#ffc107"//"#D32323"
+        static let darkTextColor: String = "#232b2b"//"#282828"
+        static let grayTextColor: String = "#353839"
+        static let appMainColor: String =  "#662d8c"//"#fbb03b"
+        static let appSecondaryColor: String = "#ed1e79"//"#d4145a"
+        static let shadowColor: String = "#65737e"
+        static let white: String  = "#ffffff"
     }
     
-    struct Fonts {
+    struct Font {
         
+        static let regularFont: String = "HelveticaNeue"
+        static let mediumFont: String = "HelveticaNeue-Medium"
+        static let lightFont: String = "HelveticaNeue-Light"
+        static let h1FonstSize: CGFloat = 18.0
+        static let h2FontSize: CGFloat = 16.0
+        static let caption1: CGFloat = 14.0
+        static let caption2: CGFloat = 12.0
     }
 }
+
+
+enum Colors {
+    
+    case appMainColor
+    case darkTextColor
+    case grayTextColor
+    case shadowColor
+    case white
+    case appSecondaryColor
+    
+    func color() -> UIColor {
+        switch self {
+        case .appMainColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        case .darkTextColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
+        case .grayTextColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        case .shadowColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.shadowColor)
+        case .white:
+            return UIColor.hexStringToUIColor(Constants.Colors.white)
+        case .appSecondaryColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
 

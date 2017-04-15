@@ -11,38 +11,60 @@ import UIKit
 
 class InfoCell: BaseCell {
     
+    var business: Business? {
+        didSet {
+            if let business = business {
+                let businessViewModel = BusinessViewModel(model: business, at: nil)
+                self.setUp(with: businessViewModel)
+            }
+        }
+    }
+    
+    var distanceViewModel: DistanceViewModel? {
+        didSet {
+            if let distanceViewModel = distanceViewModel {
+                distanceIndicator.indicatorLabel.text = distanceViewModel.distancePresentable
+            }
+        }
+    }
+    
     let starIconIndicator: IconIndicatorView = {
         let siv = IconIndicatorView()
         siv.indicatorImageView.image = #imageLiteral(resourceName: "star").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return siv
     }()
     
     let priceIndicator: IconIndicatorView = {
         let siv = IconIndicatorView()
         siv.indicatorImageView.image = #imageLiteral(resourceName: "price").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return siv
     }()
     
     let distanceIndicator: IconIndicatorView = {
         let siv = IconIndicatorView()
         siv.indicatorImageView.image = #imageLiteral(resourceName: "distance").withRenderingMode(.alwaysTemplate)
-        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        siv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return siv
     }()
     
     let dividerLine: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.grayTextColor)
+        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.white)
         return v
     }()
     
     override func setUpViews() {
         
-        addTopShadowWith(radius: 7.0, fromColor: .black, toColor: .white)
         addSubview(dividerLine)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        //        addTopShadowWith(radius: 7.0, fromColor: UIColor.hexStringToUIColor(Constants.Colors.shadowColor), toColor: .white)
+//        gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: true, isFlipped: false)
         
         let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
         iconsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,9 +85,8 @@ class InfoCell: BaseCell {
             ])
     }
     
-    func setUp(with businessViewModel: BusinessViewModel) {
+    private func setUp(with businessViewModel: BusinessViewModel) {
         starIconIndicator.indicatorLabel.text = businessViewModel.textRating
         priceIndicator.indicatorLabel.text = businessViewModel.price
-        distanceIndicator.indicatorLabel.text = businessViewModel.distance
     }
 }

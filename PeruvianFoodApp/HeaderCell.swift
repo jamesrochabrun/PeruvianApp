@@ -11,23 +11,24 @@ import UIKit
 
 class HeaderCell: BaseCell {
     
+    var business: Business? {
+        didSet {
+            if let business = business {
+                let businessViewModel = BusinessViewModel(model: business, at: nil)
+                self.setUp(with: businessViewModel)
+            }
+        }
+    }
+    
     let businessImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
-    let businessNameLabel: UILabel = {
-        let l = UILabel()
-        l.translatesAutoresizingMaskIntoConstraints = false
-        l.numberOfLines = 0
-        l.textColor = .white
-        l.textAlignment = .center
-        return l
-    }()
+    let businessNameLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
     let overlayView: UIView = {
         let v = UIView()
@@ -45,15 +46,9 @@ class HeaderCell: BaseCell {
         return iv
     }()
     
-    let dismissButton: CustomDismissButton = {
-        let dbv = CustomDismissButton()
-        return dbv
-    }()
-    
     override func setUpViews() {
         
         addSubview(businessImageView)
-        addSubview(dismissButton)
         addSubview(overlayView)
         addSubview(businessNameLabel)
         businessNameLabel.sizeToFit()
@@ -65,11 +60,6 @@ class HeaderCell: BaseCell {
             businessImageView.heightAnchor.constraint(equalTo: heightAnchor),
             businessImageView.leftAnchor.constraint(equalTo: leftAnchor),
             businessImageView.topAnchor.constraint(equalTo: topAnchor),
-            
-            dismissButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-            dismissButton.topAnchor.constraint(equalTo: topAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
-            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
             
             overlayView.leftAnchor.constraint(equalTo: leftAnchor),
             overlayView.heightAnchor.constraint(equalToConstant: 100),
@@ -87,7 +77,7 @@ class HeaderCell: BaseCell {
             ])
     }
     
-    func setUp(with businessViewModel: BusinessViewModel) {
+    private func setUp(with businessViewModel: BusinessViewModel) {
 
         guard let url = URL(string: businessViewModel.profileImageURL) else {
             print("INVALID URL ON CREATION HEADERCELL")
@@ -100,10 +90,8 @@ class HeaderCell: BaseCell {
             }
             self?.businessImageView.image = image
         }
-
         businessNameLabel.text = businessViewModel.name
-        let reviewIcon = ReviewIcon(reviewNumber: businessViewModel.rating)
-        ratingImageView.image = reviewIcon.image
+        ratingImageView.image = businessViewModel.ratingImage
     }
 }
 
