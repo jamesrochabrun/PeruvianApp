@@ -35,6 +35,8 @@ class ReviewsDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ReviewCell
+        let review = reviews[indexPath.row]
+        cell.review = review
         return cell
     }
 }

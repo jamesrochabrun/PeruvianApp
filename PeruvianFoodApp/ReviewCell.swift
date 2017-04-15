@@ -12,7 +12,29 @@ import UIKit
 
 class ReviewCell: BaseCell {
     
-    var review: Review?
+    var review: Review? {
+        didSet {
+            guard let review = review else {
+                print("NO REVIEW OBJECT")
+                return
+            }
+            let reviewViewModel = ReviewViewModel(review: review)
+            if let profileImageURL = reviewViewModel.profileImageURL {
+                profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
+                    guard let image = response.result.value else {
+                        print("INVALID RESPONSE SETTING UP THE REVIEWCELL")
+                        return
+                    }
+                    self?.profileImageView.image = image
+                }
+            }
+            ratingImageView.image = reviewViewModel.ratingImage
+            reviewNameLabel.text = reviewViewModel.userName
+            reviewTextLabel.text = reviewViewModel.text
+            reviewDateLabel.text = reviewViewModel.timeCreated
+            //open url missing
+        }
+    }
     
     let profileImageView: UIImageView = {
         let iv = UIImageView()
@@ -26,14 +48,16 @@ class ReviewCell: BaseCell {
     let ratingImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         return iv
     }()
     
     lazy var moreReviewsButton: UIButton = {
         let b = UIButton(type: .custom)
-        b.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor), for: .normal)
+        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor).cgColor
+        b.layer.borderWidth = 1.5
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("View More", for: .normal)
         b.addTarget(self, action: #selector(performHandler), for: .touchUpInside)
@@ -46,16 +70,15 @@ class ReviewCell: BaseCell {
     let reviewDateLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: .right, sizeToFit: true).build()
     
     override func setUpViews() {
-        
+        selectionStyle = .none
         let marginGuide = contentView.layoutMarginsGuide
         
         contentView.addSubview(profileImageView)
-        contentView.addSubview(ratingImageView)
         contentView.addSubview(reviewNameLabel)
-        contentView.addSubview(reviewTextLabel)
         contentView.addSubview(reviewDateLabel)
-        moreReviewsButton.sizeToFit()
-        
+        contentView.addSubview(reviewTextLabel)
+        contentView.addSubview(ratingImageView)
+        contentView.addSubview(moreReviewsButton)
         
         //less than 251 contenthugging
         reviewNameLabel.setContentHuggingPriority(250, for: .horizontal)
@@ -81,17 +104,19 @@ class ReviewCell: BaseCell {
             reviewTextLabel.topAnchor.constraint(equalTo: reviewNameLabel.bottomAnchor, constant: 8),
             
             ratingImageView.heightAnchor.constraint(equalToConstant: 20),
-            ratingImageView.widthAnchor.constraint(equalToConstant: 100),
+            ratingImageView.widthAnchor.constraint(equalToConstant: 110),
             ratingImageView.topAnchor.constraint(equalTo: reviewTextLabel.bottomAnchor, constant: 8),
             ratingImageView.leftAnchor.constraint(equalTo: reviewNameLabel.leftAnchor),
             
             moreReviewsButton.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
+            moreReviewsButton.widthAnchor.constraint(equalToConstant: 110),
+            moreReviewsButton.topAnchor.constraint(equalTo: ratingImageView.topAnchor),
             moreReviewsButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor)
             ])
     }
     
     @objc private func performHandler() {
-        
+        //open url here
     }
 }
 

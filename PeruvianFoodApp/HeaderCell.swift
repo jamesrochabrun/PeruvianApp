@@ -90,10 +90,8 @@ class HeaderCell: BaseCell {
             }
             self?.businessImageView.image = image
         }
-
         businessNameLabel.text = businessViewModel.name
-        let reviewIcon = ReviewIcon(reviewNumber: businessViewModel.rating)
-        ratingImageView.image = reviewIcon.image
+        ratingImageView.image = businessViewModel.ratingImage
     }
 }
 

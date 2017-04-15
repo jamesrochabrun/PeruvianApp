@@ -187,22 +187,6 @@ struct OpenSchedule: JSONDecodable {
 }
 
 
-//struct Reviews : JSONDecodable {
-//    
-//    let reviews: [Review]
-//    
-//    private struct Key {
-//        static let reviewsKey = "reviews"
-//    }
-//    init(json: JSON) throws {
-//        let reviewsArray = json[Key.reviewsKey].arrayValue
-//        reviews = try reviewsArray.decode()
-//    }
-//}
-
-
-
-
 
 
 

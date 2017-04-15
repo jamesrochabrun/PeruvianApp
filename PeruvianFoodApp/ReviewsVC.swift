@@ -47,7 +47,6 @@ class ReviewsVC: UITableViewController {
         super.viewWillLayoutSubviews()
         
         NSLayoutConstraint.activate([
-
             customIndicator.heightAnchor.constraint(equalToConstant: 80),
             customIndicator.widthAnchor.constraint(equalToConstant: 80),
             customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -60,7 +59,9 @@ class ReviewsVC: UITableViewController {
     }
     
     func setUpTableView() {
-        self.tableView.register(ReviewCell.self)
+        tableView.register(ReviewCell.self)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
     }
     
     private func getReviewsFrom(business: Business, fromService service: YelpService) {
@@ -69,13 +70,14 @@ class ReviewsVC: UITableViewController {
             switch result {
             case .Success(let reviewsDataSource):
                 self.reviewsDataSource = reviewsDataSource
-                self.tableView.reloadData()
-                self.customIndicator.stopAnimating()
+                self.tableView.registerDatasource(self.reviewsDataSource, completion: { (complete) in
+                    self.tableView.reloadData()
+                    self.customIndicator.stopAnimating()
+                })     
             case .Error(let error):
                 print("ERROR ON NETWORK REQUEST FROM REVIEWSVC: \(error)")
             }
         }
-        
     }
 }
 

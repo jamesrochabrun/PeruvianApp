@@ -35,7 +35,7 @@ struct BusinessViewModel {
     var distance: String
     let category: String
     var profileImageURL: String
-    var rating: NSNumber
+    var ratingImage: UIImage
     var isClosed: Bool
     var photos: [String]?
     var coordinates: Coordinates
@@ -59,7 +59,7 @@ extension BusinessViewModel {
             self.category = "No category"
         }
         profileImageURL = model.imageURL
-        rating = model.rating
+        ratingImage = ReviewIcon(reviewNumber: model.rating).image
         isClosed = model.is_closed
         coordinates = model.coordinates
         photos = model.photos as? [String]
@@ -126,8 +126,6 @@ struct DistanceViewModel {
         distancePresentable = String(format: "%.2f mi", d)
     }
 }
-
-
 
 
 

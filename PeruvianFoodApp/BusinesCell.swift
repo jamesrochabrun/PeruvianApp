@@ -21,8 +21,7 @@ class BusinesCell: BaseCell {
                 addressLabel.text = viewModel.address
                 categoryLabel.text = viewModel.category
                 priceLabel.text = viewModel.price
-                let reviewIcon = ReviewIcon(reviewNumber: viewModel.rating)
-                ratingView.image = reviewIcon.image
+                ratingView.image = viewModel.ratingImage
                 guard let url = URL(string: viewModel.profileImageURL) else {
                     print("INVALID URL ON CREATION BASECELL")
                     return

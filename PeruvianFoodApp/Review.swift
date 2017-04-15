@@ -17,12 +17,14 @@ struct Review: JSONDecodable {
     let user: User
     let text: String
     let reviewURL: String
+    let timeCreated: String
     
     private struct Key {
         static let ratingKey = "rating"
         static let userKey = "user"
         static let textKey = "text"
         static let reviewURLKey = "url"
+        static let timeCreatedKey = "time_created"
     }
     
     init(json: JSON) throws {
@@ -31,6 +33,7 @@ struct Review: JSONDecodable {
         user =  try User(json: json[Key.userKey])
         text = json[Key.textKey].stringValue
         reviewURL = json[Key.reviewURLKey].stringValue
+        timeCreated = json[Key.timeCreatedKey].stringValue
     }
 }
 
@@ -49,18 +52,4 @@ struct User: JSONDecodable {
         name = json[Key.nameKey].stringValue
     }
 }
-
-//
-//struct Reviews : JSONDecodable {
-//
-//    let reviews: [Review]
-//
-//    private struct Key {
-//        static let reviewsKey = "reviews"
-//    }
-//    init(json: JSON) throws {
-//        let reviewsArray = json[Key.reviewsKey].arrayValue
-//        reviews = try reviewsArray.decode()
-//    }
-//}
 
