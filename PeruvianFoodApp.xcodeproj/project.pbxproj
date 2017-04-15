@@ -17,6 +17,10 @@
 		7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636671EA038450020EFC8 /* LabelBuilder.swift */; };
 		7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366B1EA152220020EFC8 /* Gradientable.swift */; };
 		7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366D1EA17F0F0020EFC8 /* Review.swift */; };
+		7B8636701EA19A890020EFC8 /* BusinessDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */; };
+		7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636711EA19FD30020EFC8 /* ReviewCell.swift */; };
+		7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */; };
+		7B8636761EA1A05C0020EFC8 /* ReviewsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636751EA1A05C0020EFC8 /* ReviewsDataSource.swift */; };
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
@@ -71,6 +75,10 @@
 		7B8636671EA038450020EFC8 /* LabelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		7B86366B1EA152220020EFC8 /* Gradientable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradientable.swift; sourceTree = "<group>"; };
 		7B86366D1EA17F0F0020EFC8 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailDataSource.swift; sourceTree = "<group>"; };
+		7B8636711EA19FD30020EFC8 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsVC.swift; sourceTree = "<group>"; };
+		7B8636751EA1A05C0020EFC8 /* ReviewsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDataSource.swift; sourceTree = "<group>"; };
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -226,11 +234,13 @@
 		7BD8ED3E1E957CE200E610B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7B8636751EA1A05C0020EFC8 /* ReviewsDataSource.swift */,
 				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
 				7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */,
 				7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */,
 				7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
+				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -238,6 +248,7 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B8636711EA19FD30020EFC8 /* ReviewCell.swift */,
 				7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */,
 				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
 				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
@@ -268,6 +279,7 @@
 		7BD8ED4B1E95D81100E610B9 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */,
 				7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */,
 				7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */,
 				7BD8ED4C1E95D82400E610B9 /* BusinessDataSource.swift */,
@@ -440,12 +452,14 @@
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
+				7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */,
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
 				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */,
 				7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
+				7B8636701EA19A890020EFC8 /* BusinessDetailDataSource.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
@@ -461,6 +475,7 @@
 				7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */,
 				7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */,
 				7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */,
+				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
@@ -468,6 +483,7 @@
 				7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */,
 				7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */,
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,
+				7B8636761EA1A05C0020EFC8 /* ReviewsDataSource.swift in Sources */,
 				7BD8ED4D1E95D82400E610B9 /* BusinessDataSource.swift in Sources */,
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
 				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,

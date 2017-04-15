@@ -8,8 +8,7 @@
 
 import Foundation
 import UIKit
-import Alamofire
-import AlamofireImage
+
 
 class BusinessDetailVC: UIViewController {
 
@@ -85,6 +84,7 @@ class BusinessDetailVC: UIViewController {
         setUpViews()
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -148,6 +148,7 @@ class BusinessDetailVC: UIViewController {
     
     //MARK: Notification center
     @objc private func showSchedule(_ notification: NSNotification) {
+        
         //Set the calendar datasource passing the array of scheduleViewModels from ..
         //Cell binds data from Businessdatasource and pass it to the view controller from the HoursCell through notification
         if let openScheduleViewModelArray = notification.object as? [OpenScheduleViewModel] {
@@ -156,6 +157,14 @@ class BusinessDetailVC: UIViewController {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.calendarView.alpha = 1
         })
+    }
+    
+    func showReviews() {
+        
+        let reviewsVC = ReviewsVC()
+        let navVC = UINavigationController(rootViewController: reviewsVC)
+        reviewsVC.business = business
+        
     }
 }
 
@@ -191,80 +200,9 @@ extension BusinessDetailVC: UITableViewDelegate {
 
 
 
-protocol BusinessDetailDataSourceDelegate: class {
-    func reloadDataInVC()
-}
 
-class BusinessDetailDataSource: NSObject, UITableViewDataSource {
-    
-    //MARK : Properties
-    weak var delegate: BusinessDetailDataSourceDelegate?
-    
-    //MARK: 2 main sources of data visual model setted in the networking call
-    fileprivate var business: Business?
-    //this is for the rocket icon
-    //busines don't provide distancein business detail api call
-    var distanceViewModel: DistanceViewModel?
-    
-    //MARK: Initializers
-    override init() {
-        super.init()
-    }
-    
-    convenience init(business: Business, distance: DistanceViewModel) {
-        self.init()
-        get(business: business, fromService: YelpService.sharedInstance)
-        distanceViewModel = distance
-    }
-    
-    //MARK: Networking
-    private func get(business: Business, fromService service: YelpService) {
-        
-        service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
-            switch result {
-            case .Success(let business):
-                
-                self?.business = business
-                self?.delegate?.reloadDataInVC()
-            case .Error(let error):
-                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let business = business else {
-            return BaseCell()
-        }
-   
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
-            cell.business = business
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
-            cell.distanceViewModel = distanceViewModel
-            cell.business = business
-            return cell
-        } else if indexPath.row == 2 {
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
-            cell.business = business
-            return cell
-        } else if indexPath.row == 3 {
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
-            cell.business = business
-            return cell
-        }
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PhotoAlbumCell
-        cell.photos = business.photos as? [String]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-}
+
+
 
 
 

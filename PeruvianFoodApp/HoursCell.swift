@@ -53,7 +53,7 @@ class HoursCell: BaseCell {
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle("SHOW REVIEWS", for: .normal)
         b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
-        b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
+        b.addTarget(self, action: #selector(showReviews), for: .touchUpInside)
         b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.white).cgColor
         b.layer.borderWidth = 1.0
         //        b.layer.cornerRadius = 20
@@ -96,6 +96,9 @@ class HoursCell: BaseCell {
         NotificationCenter.default.post(name: Notification.Name.showScheduleNotification, object: openScheduleViewModelArray)
     }
     
+    @objc private func showReviews() {
+        NotificationCenter.default.post(name: Notification.Name.showReviewsNotification, object: nil)
+    }
     
 }
 

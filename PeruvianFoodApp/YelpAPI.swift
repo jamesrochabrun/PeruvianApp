@@ -34,6 +34,7 @@ struct YelpService: Gettable {
     typealias TokenCompletionhandler = (Result<Token>) -> ()
     typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessDataSource>) -> ()
     typealias SeachBusinessFromIDCompletion = (Result<Business>) -> ()
+    typealias BusinessReviewsCompletion = (Result<ReviewsDataSource>) -> ()
     
     //MARK: GET BUSINESSESES FROM TERM
     func getBusinesses(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
@@ -80,6 +81,7 @@ struct YelpService: Gettable {
         })
     }
     
+    //NO REQUIRED METHODS
     //MARK: GET BUSINESS FROM ID
     func getBusinessFrom(id: String, completion: @escaping SeachBusinessFromIDCompletion) {
         
@@ -90,6 +92,19 @@ struct YelpService: Gettable {
             DispatchQueue.main.async {
                 completion(.Success(business))
             }
+        }, failure: { (error) in
+            completion(.Error(error))
+        })
+    }
+    
+    //MARK: GET BUSINESS REVIEW FROM ID
+    func getReviewsFrom(businessID id: String, completion: @escaping BusinessReviewsCompletion) {
+        
+        let request: APIRequest<ReviewsDataSource, JSONError> = tron.request("v3/businesses/\(id)/reviews")
+        request.headers = ["Authorization": "Bearer \(accessToken)"]
+        
+        request.perform(withSuccess: { (reviews) in
+            completion(.Success(reviews))
         }, failure: { (error) in
             completion(.Error(error))
         })
@@ -135,7 +150,7 @@ struct Token: JSONDecodable {
 
 class JSONError: JSONDecodable {
     required init(json: JSON) throws {
-        print("ERROR")
+        print("ERROR ->", json)
     }
 }
 
