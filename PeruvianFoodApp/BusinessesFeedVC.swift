@@ -52,7 +52,7 @@ class BusinessesFeedVC: FeedVC {
     
     override func setUpViews() {
         super.setUpViews()
-        
+        segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
         segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         segmentedControl.heightAnchor.constraint(equalToConstant: 35).isActive = true
@@ -111,7 +111,7 @@ extension BusinessesFeedVC {
         let business = feedDataSource.searchActive ? feedDataSource.searchResults[indexPath.row] : feedDataSource.businesses[indexPath.row]
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.business = business
-        self.present(businessDetailVC, animated: true)        
+        self.present(businessDetailVC, animated: true)
     }
 }
 

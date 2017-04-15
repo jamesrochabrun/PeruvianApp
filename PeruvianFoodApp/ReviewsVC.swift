@@ -29,18 +29,17 @@ class ReviewsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpNavBar()
         setUpViews()
         setUpTableView()
-        NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    private func setUpNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissView))
     }
     
     //MARK: Navigation
-    func dismissView() {
+    @objc private func dismissView() {
         self.dismiss(animated: true)
     }
     

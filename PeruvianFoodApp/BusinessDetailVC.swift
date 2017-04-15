@@ -82,6 +82,10 @@ class BusinessDetailVC: UIViewController {
 
         setUpTableView()
         setUpViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
@@ -162,9 +166,10 @@ class BusinessDetailVC: UIViewController {
     func showReviews() {
         
         let reviewsVC = ReviewsVC()
-        let navVC = UINavigationController(rootViewController: reviewsVC)
         reviewsVC.business = business
-        
+        //add a navigation controller
+        let navController = UINavigationController(rootViewController: reviewsVC)
+        present(navController, animated: true, completion: nil)
     }
 }
 
