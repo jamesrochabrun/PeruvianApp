@@ -12,7 +12,11 @@ import SwiftyJSON
 class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
-    var feedDataSource = BusinessDataSource()
+    var feedDataSource = BusinessDataSource() {
+        didSet {
+            self.feedDataSource.delegate = self
+        }
+    }
     var selection = Selection() {
         didSet {
             getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
@@ -52,6 +56,7 @@ class BusinessesFeedVC: FeedVC {
     
     override func setUpViews() {
         super.setUpViews()
+        
         segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
         segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -60,6 +65,7 @@ class BusinessesFeedVC: FeedVC {
     
     override func setUpNavBar() {
         super.setUpNavBar()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
     }
     
@@ -87,6 +93,7 @@ class BusinessesFeedVC: FeedVC {
             switch result {
             case .Success(let businessDataSource):
                 self.feedDataSource = businessDataSource
+                
                 //setting the feedVC property of the datasource object
                 self.feedDataSource.feedVC = self
                 //////////////////////////////////////////////////////
@@ -112,6 +119,14 @@ extension BusinessesFeedVC {
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.business = business
         self.present(businessDetailVC, animated: true)
+    }
+}
+
+//MARK: BusinessDatasourcedelegate
+extension BusinessesFeedVC: BusinessDataSourceDelegate {
+    
+    func handleNoResults() {
+        print("test")
     }
 }
 

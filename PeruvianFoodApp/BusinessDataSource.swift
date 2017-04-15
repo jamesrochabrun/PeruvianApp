@@ -11,12 +11,17 @@ import UIKit
 import SwiftyJSON
 import TRON
 
+protocol BusinessDataSourceDelegate: class {
+    func handleNoResults()
+}
+
 class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
     var businesses: [Business] = [Business]()
     var searchResults: [Business] = []
     var searchActive : Bool = false
     var feedVC: FeedVC?
+    weak var delegate: BusinessDataSourceDelegate?
     
     override init() {
         super.init()
@@ -30,7 +35,12 @@ class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
         self.businesses = try businessesArray.decode()
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if searchResults.count <= 0 && searchActive || businesses.count <= 0 {
+            self.delegate?.handleNoResults()
+        }
         return searchActive ? searchResults.count : businesses.count
     }
     
