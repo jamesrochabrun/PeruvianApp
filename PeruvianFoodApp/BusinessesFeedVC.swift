@@ -36,6 +36,12 @@ class BusinessesFeedVC: FeedVC {
         return sc
     }()
     
+    let alertView: AlertView = {
+        let av = AlertView(message: "No food results", image: #imageLiteral(resourceName: "Jelly"))
+        av.alpha = 0
+        return av
+    }()
+    
     //MARK: APP lifecycle
     override func viewDidLoad() {
 
@@ -59,8 +65,20 @@ class BusinessesFeedVC: FeedVC {
         
         segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
-        segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        segmentedControl.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        tableView.addSubview(alertView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        NSLayoutConstraint.activate([
+            segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 35),
+            alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            alertView.topAnchor.constraint(equalTo: view.topAnchor)
+            ])
     }
     
     override func setUpNavBar() {
@@ -126,18 +144,10 @@ extension BusinessesFeedVC {
 extension BusinessesFeedVC: BusinessDataSourceDelegate {
     
     func handleNoResults() {
-        print("test")
+        alertView.alpha = 1
+        alertView.performAnimation()
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

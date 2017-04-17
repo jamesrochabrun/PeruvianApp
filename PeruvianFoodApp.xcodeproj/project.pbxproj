@@ -21,6 +21,9 @@
 		7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636711EA19FD30020EFC8 /* ReviewCell.swift */; };
 		7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */; };
 		7B8636761EA1A05C0020EFC8 /* ReviewsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636751EA1A05C0020EFC8 /* ReviewsDataSource.swift */; };
+		7B865B631EA480180048E513 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B621EA480180048E513 /* AlertView.swift */; };
+		7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B641EA4809B0048E513 /* Jitterable.swift */; };
+		7B865B671EA480C00048E513 /* Flashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B661EA480C00048E513 /* Flashable.swift */; };
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
@@ -80,6 +83,9 @@
 		7B8636711EA19FD30020EFC8 /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsVC.swift; sourceTree = "<group>"; };
 		7B8636751EA1A05C0020EFC8 /* ReviewsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsDataSource.swift; sourceTree = "<group>"; };
+		7B865B621EA480180048E513 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		7B865B641EA4809B0048E513 /* Jitterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jitterable.swift; sourceTree = "<group>"; };
+		7B865B661EA480C00048E513 /* Flashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flashable.swift; sourceTree = "<group>"; };
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -210,6 +216,8 @@
 				7B4567131E9D47450073AD1F /* Opaqueable.swift */,
 				7BD8ED331E95473E00E610B9 /* ColorHexable.swift */,
 				7B4567191E9D94680073AD1F /* Shadowable.swift */,
+				7B865B661EA480C00048E513 /* Flashable.swift */,
+				7B865B641EA4809B0048E513 /* Jitterable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B865B621EA480180048E513 /* AlertView.swift */,
 				7B8636711EA19FD30020EFC8 /* ReviewCell.swift */,
 				7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */,
 				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
@@ -451,6 +460,7 @@
 				7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
 				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
+				7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */,
 				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
@@ -467,6 +477,7 @@
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
+				7B865B631EA480180048E513 /* AlertView.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
 				7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */,
 				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
@@ -494,6 +505,7 @@
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
+				7B865B671EA480C00048E513 /* Flashable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,7 +81,6 @@ struct YelpService: Gettable {
         })
     }
     
-    //NO REQUIRED METHODS
     //MARK: GET BUSINESS FROM ID
     func getBusinessFrom(id: String, completion: @escaping SeachBusinessFromIDCompletion) {
         
