@@ -51,7 +51,7 @@ class CategoryItemsFeedVC: FeedVC {
         feedSearchBar.endEditing(true)
         let businessFeedVC = BusinessesFeedVC()
         if let categoryItemsFeedDataSource = categoryItemsFeedDataSource {
-            businessFeedVC.selection = categoryItemsFeedDataSource.selection
+            businessFeedVC.selection = categoryItemsFeedDataSource.getSelection()
         }
         self.navigationController?.pushViewController(businessFeedVC, animated: true)
     }

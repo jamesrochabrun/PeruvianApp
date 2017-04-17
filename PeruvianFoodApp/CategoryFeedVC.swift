@@ -56,7 +56,7 @@ extension CategoryFeedVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
-        let categoryViewModel = categoryDataSource.searchActive ? categoryDataSource.searchResults[indexPath.row] : categoryDataSource.getCategoriesArray()[indexPath.row]
+        let categoryViewModel = categoryDataSource.getCategoryViewModelFromIndexpath(indexPath)
         let categoryItemsFeedVC = CategoryItemsFeedVC()
         categoryItemsFeedVC.categoryViewModel = categoryViewModel
         self.navigationController?.pushViewController(categoryItemsFeedVC, animated: true)

@@ -115,7 +115,7 @@ extension BusinessesFeedVC {
     override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
-        let business = feedDataSource.searchActive ? feedDataSource.searchResults[indexPath.row] : feedDataSource.businesses[indexPath.row]
+        let business = feedDataSource.getBusinessFromIndexpath(indexPath)
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.business = business
         self.present(businessDetailVC, animated: true)

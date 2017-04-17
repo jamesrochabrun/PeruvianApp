@@ -16,7 +16,6 @@ extension Gradientable where Self: UIView {
     func gradient(withStartColor startColor: Colors, endColor: Colors, isHorizontal: Bool, isFlipped: Bool) {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
-        print("FRAME GRADIENT:",gradient.frame)
         gradient.isGeometryFlipped = isFlipped
         gradient.colors = [startColor.color().cgColor , endColor.color().cgColor]
         layer.insertSublayer(gradient, at: 0)

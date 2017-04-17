@@ -16,13 +16,13 @@ protocol CategoryDataSourceDelegate: class {
 class CategoryDataSource: NSObject, UITableViewDataSource {
     
     weak var delegate: CategoryDataSourceDelegate?
-    var categoriesViewModelArray = [CategoryViewModel]() {
+    fileprivate var categoriesViewModelArray = [CategoryViewModel]() {
         didSet {
             delegate?.updateDataInVC()
         }
     }
-    var searchResults = [CategoryViewModel]()
-    var searchActive : Bool = false
+    fileprivate var searchResults = [CategoryViewModel]()
+    fileprivate var searchActive : Bool = false
     //binding the delegate on creation this delegate is in charge of the searchbar
     weak var categoryFeedVC: CategoryFeedVC? {
         didSet {
@@ -43,19 +43,24 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
         }
     }
     
-    func getCategoriesArray() -> [CategoryViewModel] {
-        return categoriesViewModelArray
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as CategoryCell
-        cell.listNameLabel.text = searchActive ? searchResults[indexPath.row].categoryListTitle : categoriesViewModelArray[indexPath.row].categoryListTitle
+        cell.listNameLabel.text = getCategoryViewModelFromIndexpath(indexPath).categoryListTitle
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchActive ? searchResults.count : categoriesViewModelArray.count
+    }
+}
+
+//MARK: Helper methods
+extension CategoryDataSource {
+    
+    func getCategoryViewModelFromIndexpath(_ indexPath: IndexPath) -> CategoryViewModel {
+        
+        return searchActive ? searchResults[indexPath.row] : categoriesViewModelArray[indexPath.row]
     }
 }
 

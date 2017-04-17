@@ -17,9 +17,9 @@ protocol BusinessDataSourceDelegate: class {
 
 class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
-    var businesses: [Business] = [Business]()
-    var searchResults: [Business] = []
-    var searchActive : Bool = false
+    fileprivate var businesses: [Business] = [Business]()
+    fileprivate var searchResults: [Business] = []
+    fileprivate var searchActive : Bool = false
     var feedVC: FeedVC?
     weak var delegate: BusinessDataSourceDelegate?
     
@@ -52,6 +52,14 @@ class BusinessDataSource: NSObject, UITableViewDataSource, JSONDecodable {
         let businessViewModel = BusinessViewModel(model: business, at: indexPath.item)
         cell.businessCellViewModel = businessViewModel
         return cell
+    }
+}
+
+//MARK: Helper methods
+extension BusinessDataSource {
+    
+    func getBusinessFromIndexpath(_ indexPath: IndexPath) -> Business {
+      return searchActive ? searchResults[indexPath.row] : businesses[indexPath.row]
     }
 }
 

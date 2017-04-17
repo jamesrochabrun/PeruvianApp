@@ -24,21 +24,21 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
         }
     }
     
-    var itemViewModelArray = [CategoryItemViewModel]()
-    var searchResults = [CategoryItemViewModel]()
-    var searchActive : Bool = false
+    fileprivate var itemViewModelArray = [CategoryItemViewModel]()
+    fileprivate var searchResults = [CategoryItemViewModel]()
+    fileprivate var searchActive : Bool = false
     //binding the delegate on creation
     weak var categoryItemsFeedVC: CategoryItemsFeedVC? {
         didSet {
             self.categoryItemsFeedVC?.delegate = self
         }
     }
-    var selection = Selection()
+    fileprivate var selection = Selection()
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
-        let itemViewModel = searchActive ? searchResults[indexPath.row] : itemViewModelArray[indexPath.row]
-        cell.setUpCell(with: itemViewModel)
+        let categoryItemViewModel = getItemViewModelFromIndexpath(indexPath)
+        cell.setUpCell(with: categoryItemViewModel)
         cell.delegate = self
         return cell
     }
@@ -48,6 +48,20 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
     }
 }
 
+//MARK: Helper methods
+extension CategoryItemsFeedDataSource {
+    
+    func getItemViewModelFromIndexpath(_ indexPath: IndexPath) -> CategoryItemViewModel {
+        
+        return searchActive ? searchResults[indexPath.row] : itemViewModelArray[indexPath.row]
+    }
+    
+    func getSelection() -> Selection {
+        return selection
+    }
+}
+
+//MARK Switchcelldelegate
 extension CategoryItemsFeedDataSource: SwitchCellDelegate {
     
     func switchCell(_ cell: SwitchCell) {
@@ -67,7 +81,7 @@ extension CategoryItemsFeedDataSource: SwitchCellDelegate {
     }
 }
 
-//MAIN class FeedVC delegate method
+//MARK: MAIN class FeedVC delegate method
 extension CategoryItemsFeedDataSource: FeedVCDelegate {
     
     func updateDataInVC(_ vc: FeedVC) {

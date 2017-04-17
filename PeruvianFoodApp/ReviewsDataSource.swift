@@ -14,7 +14,7 @@ import SwiftyJSON
 
 class ReviewsDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
-    var reviews: [Review] = [Review]()
+    private var reviews: [Review] = [Review]()
     
     override init() {
         super.init()
