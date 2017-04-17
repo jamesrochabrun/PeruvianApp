@@ -11,15 +11,6 @@ import UIKit
 
 class HeaderCell: BaseCell {
     
-    var business: Business? {
-        didSet {
-            if let business = business {
-                let businessViewModel = BusinessViewModel(model: business, at: nil)
-                self.setUp(with: businessViewModel)
-            }
-        }
-    }
-    
     let businessImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +68,7 @@ class HeaderCell: BaseCell {
             ])
     }
     
-    private func setUp(with businessViewModel: BusinessViewModel) {
+    func setUp(with businessViewModel: BusinessViewModel) {
 
         guard let url = URL(string: businessViewModel.profileImageURL) else {
             print("INVALID URL ON CREATION HEADERCELL")

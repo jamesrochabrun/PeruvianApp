@@ -11,11 +11,11 @@ import UIKit
 
 class ReviewsVC: UITableViewController {
     
-    var reviewsDataSource = ReviewsDataSource()
+    var reviewsDataSource = ReviewsViewModelDataSource()
     
-    var business: Business? {
+    var businessViewModel: BusinessViewModel? {
         didSet {
-            if let business = business {
+            if let business = businessViewModel {
                 getReviewsFrom(business: business, fromService: YelpService.sharedInstance)
             }
         }
@@ -25,6 +25,12 @@ class ReviewsVC: UITableViewController {
     private let customIndicator: CustomActivityIndicator = {
         let indicator = CustomActivityIndicator()
         return indicator
+    }()
+    
+    let alertView: AlertView = {
+        let av = AlertView(message: "No Reviews", image: #imageLiteral(resourceName: "Jelly"))
+        av.alpha = 0
+        return av
     }()
     
     override func viewDidLoad() {
@@ -50,12 +56,17 @@ class ReviewsVC: UITableViewController {
             customIndicator.heightAnchor.constraint(equalToConstant: 80),
             customIndicator.widthAnchor.constraint(equalToConstant: 80),
             customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            alertView.topAnchor.constraint(equalTo: view.topAnchor)
             ])
     }
     
     func setUpViews() {
         view.addSubview(customIndicator)
+        tableView.addSubview(alertView)
     }
     
     func setUpTableView() {
@@ -64,7 +75,7 @@ class ReviewsVC: UITableViewController {
         tableView.estimatedRowHeight = 100
     }
     
-    private func getReviewsFrom(business: Business, fromService service: YelpService) {
+    private func getReviewsFrom(business: BusinessViewModel, fromService service: YelpService) {
         
         service.getReviewsFrom(businessID: business.businessID) { (result) in
             switch result {

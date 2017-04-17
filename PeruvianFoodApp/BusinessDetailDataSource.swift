@@ -19,30 +19,26 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     weak var delegate: BusinessDetailDataSourceDelegate?
     
     //MARK: 2 main sources of data visual model setted in the networking call
-    fileprivate var business: Business?
+    fileprivate var businessViewModel: BusinessViewModel?
     //this is for the rocket icon
-    //busines don't provide distancein business detail api call
-    var distanceViewModel: DistanceViewModel?
     
     //MARK: Initializers
     override init() {
         super.init()
     }
     
-    convenience init(business: Business, distance: DistanceViewModel) {
+    convenience init(businessViewModel: BusinessViewModel) {
         self.init()
-        get(business: business, fromService: YelpService.sharedInstance)
-        distanceViewModel = distance
+        get(business: businessViewModel, fromService: YelpService.sharedInstance)
     }
     
     //MARK: Networking
-    private func get(business: Business, fromService service: YelpService) {
+    private func get(business: BusinessViewModel, fromService service: YelpService) {
         
         service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
             switch result {
             case .Success(let business):
-                
-                self?.business = business
+                self?.businessViewModel = BusinessViewModel(model: business)
                 self?.delegate?.reloadDataInVC()
             case .Error(let error):
                 print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
@@ -52,30 +48,29 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let business = business else {
+        guard let businessViewModel = businessViewModel else {
             return BaseCell()
         }
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HeaderCell
-            cell.business = business
+            cell.setUp(with: businessViewModel)
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as InfoCell
-            cell.distanceViewModel = distanceViewModel
-            cell.business = business
+            cell.setUp(with: businessViewModel)
             return cell
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SubInfoCell
-            cell.business = business
+            cell.setUp(with: businessViewModel)
             return cell
         } else if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
-            cell.business = business
+            cell.setUp(with: businessViewModel)
             return cell
         }
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PhotoAlbumCell
-        cell.photos = business.photos as? [String]
+        cell.photos = businessViewModel.photos 
         return cell
     }
     

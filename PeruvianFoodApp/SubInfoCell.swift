@@ -11,15 +11,6 @@ import UIKit
 
 class SubInfoCell: BaseCell {
     
-    var business: Business? {
-        didSet {
-            if let business = business {
-                let businessViewModel = BusinessViewModel(model: business, at: nil)
-                self.setUp(with: businessViewModel)
-            }
-        }
-    }
-    
     let addressLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     let categoryLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     let phoneLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
@@ -92,13 +83,19 @@ class SubInfoCell: BaseCell {
             ])
     }
     
-    private func setUp(with businessViewModel: BusinessViewModel) {
+    func setUp(with businessViewModel: BusinessViewModel) {
         
         addressLabel.text = businessViewModel.address
         categoryLabel.text = businessViewModel.category
         phoneLabel.text = businessViewModel.phone
     }
 }
+
+
+
+
+
+
 
 
 

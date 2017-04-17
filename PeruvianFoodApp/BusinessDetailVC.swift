@@ -13,11 +13,10 @@ import UIKit
 class BusinessDetailVC: UIViewController {
 
     //MARK: properties
-    var business: Business? {
+    var businessViewModel: BusinessViewModel? {
         didSet {
-            if let business = business {
-                let distance = DistanceViewModel(business: business)
-                self.businessDetailDataSource = BusinessDetailDataSource(business: business, distance: distance)
+            if let businessViewModel = businessViewModel {
+                self.businessDetailDataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
             }
         }
     }
@@ -166,7 +165,7 @@ class BusinessDetailVC: UIViewController {
     func showReviews() {
         
         let reviewsVC = ReviewsVC()
-        reviewsVC.business = business
+        reviewsVC.businessViewModel = businessViewModel
         //add a navigation controller
         let navController = UINavigationController(rootViewController: reviewsVC)
         present(navController, animated: true, completion: nil)

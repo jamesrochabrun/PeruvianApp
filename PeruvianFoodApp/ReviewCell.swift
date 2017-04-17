@@ -12,30 +12,6 @@ import UIKit
 
 class ReviewCell: BaseCell {
     
-    var review: Review? {
-        didSet {
-            guard let review = review else {
-                print("NO REVIEW OBJECT")
-                return
-            }
-            let reviewViewModel = ReviewViewModel(review: review)
-            if let profileImageURL = reviewViewModel.profileImageURL {
-                profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
-                    guard let image = response.result.value else {
-                        print("INVALID RESPONSE SETTING UP THE REVIEWCELL")
-                        return
-                    }
-                    self?.profileImageView.image = image
-                }
-            }
-            ratingImageView.image = reviewViewModel.ratingImage
-            reviewNameLabel.text = reviewViewModel.userName
-            reviewTextLabel.text = reviewViewModel.text
-            reviewDateLabel.text = reviewViewModel.timeCreated
-            //open url missing
-        }
-    }
-    
     let profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +89,25 @@ class ReviewCell: BaseCell {
             moreReviewsButton.topAnchor.constraint(equalTo: ratingImageView.topAnchor),
             moreReviewsButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor)
             ])
+    }
+    
+    
+    func setUp(with viewModel: ReviewViewModel) {
+        
+        if let profileImageURL = viewModel.profileImageURL {
+            profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
+                guard let image = response.result.value else {
+                    print("INVALID RESPONSE SETTING UP THE REVIEWCELL")
+                    return
+                }
+                self?.profileImageView.image = image
+            }
+        }
+        ratingImageView.image = viewModel.ratingImage
+        reviewNameLabel.text = viewModel.userName
+        reviewTextLabel.text = viewModel.text
+        reviewDateLabel.text = viewModel.timeCreated
+        //open url missing
     }
     
     @objc private func performHandler() {

@@ -30,16 +30,16 @@ struct YelpService: Gettable {
     let tron = TRON(baseURL: "https://api.yelp.com/")
     
     //MARK: TypeAliases
-    typealias SearchBusinessCompletionHandler = (Result<BusinessDataSource>) -> ()
+    typealias SearchBusinessCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
     typealias TokenCompletionhandler = (Result<Token>) -> ()
-    typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessDataSource>) -> ()
+    typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
     typealias SeachBusinessFromIDCompletion = (Result<Business>) -> ()
-    typealias BusinessReviewsCompletion = (Result<ReviewsDataSource>) -> ()
+    typealias BusinessReviewsCompletion = (Result<ReviewsViewModelDataSource>) -> ()
     
     //MARK: GET BUSINESSESES FROM TERM
     func getBusinesses(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
-        let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
+        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         let parameters =  ["term" : term,
@@ -61,7 +61,7 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESSES FROM SELECTION MAIN METHOD
     func getBusinessesFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
-        let request: APIRequest<BusinessDataSource, JSONError> = tron.request("v3/businesses/search")
+        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request("v3/businesses/search")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         let categories = selection.categoryItems.count <= 0 ? selection.categoryParent : selection.categoryItems.joined(separator: ",")
@@ -87,9 +87,9 @@ struct YelpService: Gettable {
         let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(id)")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
                 
-        request.perform(withSuccess: { (business) in
+        request.perform(withSuccess: { (businessVieModel) in
             DispatchQueue.main.async {
-                completion(.Success(business))
+                completion(.Success(businessVieModel))
             }
         }, failure: { (error) in
             completion(.Error(error))
@@ -99,11 +99,11 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESS REVIEW FROM ID
     func getReviewsFrom(businessID id: String, completion: @escaping BusinessReviewsCompletion) {
         
-        let request: APIRequest<ReviewsDataSource, JSONError> = tron.request("v3/businesses/\(id)/reviews")
+        let request: APIRequest<ReviewsViewModelDataSource, JSONError> = tron.request("v3/businesses/\(id)/reviews")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
-        request.perform(withSuccess: { (reviews) in
-            completion(.Success(reviews))
+        request.perform(withSuccess: { (reviewsViewModel) in
+            completion(.Success(reviewsViewModel))
         }, failure: { (error) in
             completion(.Error(error))
         })

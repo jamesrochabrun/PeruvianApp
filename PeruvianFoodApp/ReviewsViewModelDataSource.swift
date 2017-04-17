@@ -12,9 +12,9 @@ import TRON
 import SwiftyJSON
 
 
-class ReviewsDataSource: NSObject, UITableViewDataSource, JSONDecodable {
+class ReviewsViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
-    private var reviews: [Review] = [Review]()
+    private var reviewsViewModel: [ReviewViewModel] = [ReviewViewModel]()
     
     override init() {
         super.init()
@@ -25,18 +25,19 @@ class ReviewsDataSource: NSObject, UITableViewDataSource, JSONDecodable {
         guard let reviewsArray = json["reviews"].array else {
             throw NSError(domain: "com.yelp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Business JSON not valid structure"])
         }
-        self.reviews = try reviewsArray.decode()
+        let reviews: [Review] = try reviewsArray.decode()
+        self.reviewsViewModel = reviews.map{ReviewViewModel(review: $0)}
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviews.count
+        return reviewsViewModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as ReviewCell
-        let review = reviews[indexPath.row]
-        cell.review = review
+        let reviewViewModel = reviewsViewModel[indexPath.row]
+        cell.setUp(with: reviewViewModel)
         return cell
     }
 }

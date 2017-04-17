@@ -12,14 +12,6 @@ import UIKit
 class HoursCell: BaseCell {
     
     var openScheduleViewModelArray: [OpenScheduleViewModel]?
-    var business: Business? {
-        didSet {
-            if let business = business, let hour = business.hours?.first  {
-                self.openScheduleViewModelArray = hour.open.map{OpenScheduleViewModel(schedule: $0)}
-                isOpenNowLabel.text = HoursViewModel(hours: hour).isOpenNow
-            }
-        }
-    }
     
 //    lazy var scheduleButton: UIButton = {
 //        let b = UIButton()
@@ -90,6 +82,14 @@ class HoursCell: BaseCell {
     override func layoutSubviews() {
         super.layoutSubviews()
       //  scheduleButton.gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: true, isFlipped: false)
+    }
+    
+    func setUp(with viewModel: BusinessViewModel) {
+
+        if let hours = viewModel.hours?.first  {
+            self.openScheduleViewModelArray = hours.open.map{OpenScheduleViewModel(schedule: $0)}
+            isOpenNowLabel.text = HoursViewModel(hours: hours).isOpenNow
+        }
     }
     
     @objc private func showSchedule() {

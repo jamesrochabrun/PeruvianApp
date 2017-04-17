@@ -12,7 +12,7 @@ import SwiftyJSON
 class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
-    var feedDataSource = BusinessDataSource() {
+    var feedDataSource = BusinessViewModelDataSource() {
         didSet {
             self.feedDataSource.delegate = self
         }
@@ -105,12 +105,12 @@ class BusinessesFeedVC: FeedVC {
     }
     
     //MARK: Networking
-    private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessDataSource {
+    private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
         service.getBusinessesFrom(selection: selection) { [unowned self] (result) in
             switch result {
-            case .Success(let businessDataSource):
-                self.feedDataSource = businessDataSource
+            case .Success(let businessViewModelDataSource):
+                self.feedDataSource = businessViewModelDataSource
                 
                 //setting the feedVC property of the datasource object
                 self.feedDataSource.feedVC = self
@@ -133,15 +133,15 @@ extension BusinessesFeedVC {
     override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
-        let business = feedDataSource.getBusinessFromIndexpath(indexPath)
+        let businessViewModel = feedDataSource.getBusinessViewModelFromIndexpath(indexPath)
         let businessDetailVC = BusinessDetailVC()
-        businessDetailVC.business = business
+        businessDetailVC.businessViewModel = businessViewModel
         self.present(businessDetailVC, animated: true)
     }
 }
 
 //MARK: BusinessDatasourcedelegate
-extension BusinessesFeedVC: BusinessDataSourceDelegate {
+extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
         alertView.alpha = 1

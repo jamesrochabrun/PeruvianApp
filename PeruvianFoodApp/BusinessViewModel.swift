@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import AlamofireImage
 import Alamofire
+import TRON
+import SwiftyJSON
 
 
 //let businessID: String
@@ -29,6 +31,7 @@ import Alamofire
 struct BusinessViewModel {
     
     let name: String
+    let businessID: String
     let reviewsCount: String
     let price: String
     let address: String
@@ -41,13 +44,15 @@ struct BusinessViewModel {
     var coordinates: Coordinates
     var textRating: String
     let phone: String
+    let hours: [Hours]?
 }
 
 extension BusinessViewModel {
     
-    init(model: Business, at index: Int?) {
+    init(model: Business) {
         
-        name = index != nil ? "\(index! + 1). \(model.name)" : model.name
+        name = model.name
+        businessID = model.businessID
         reviewsCount = "\(model.reviewsCount) Reviews"
         price = model.price
         address = model.location.address1 + ", " + model.location.city
@@ -65,6 +70,7 @@ extension BusinessViewModel {
         photos = model.photos as? [String]
         textRating = String(describing: model.rating)
         phone = model.phone
+        hours = model.hours
     }
 }
 
@@ -119,16 +125,16 @@ extension ReviewIcon {
     }
 }
 
-struct DistanceViewModel {
-    var distancePresentable: String
-    init(business: Business) {
-        let d = CGFloat(business.distance) / 1000.0
-        distancePresentable = String(format: "%.2f mi", d)
-    }
-}
-
-
-
+//struct DistanceViewModel {
+//    var distancePresentable: String
+//    init(business: Business) {
+//        let d = CGFloat(business.distance) / 1000.0
+//        distancePresentable = String(format: "%.2f mi", d)
+//    }
+//}
+//
+//
+//
 
 
 
