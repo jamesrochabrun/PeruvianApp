@@ -55,7 +55,7 @@ extension BusinessViewModel {
         businessID = model.businessID
         reviewsCount = "\(model.reviewsCount) Reviews"
         price = model.price
-        address = model.location.address1 + ", " + model.location.city
+        address = model.location.address1 != "" ? model.location.address1 + ", " + model.location.city : model.location.city
         let d = CGFloat(model.distance) / 1000.0
         distance = String(format: "%.2f mi", d)
         if let category = model.categories.first {

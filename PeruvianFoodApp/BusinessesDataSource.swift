@@ -21,7 +21,7 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
     fileprivate var businessesViewModel: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchResults: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchActive : Bool = false
-    var feedVC: FeedVC?
+    weak var feedVC: FeedVC?
     weak var delegate: BusinessViewModelDataSourceDelegate?
     
     override init() {

@@ -65,11 +65,18 @@ class BusinessesFeedVC: FeedVC {
         setUpTableView()
         setUpViews()
     }
-        
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        feedSearchBar.endEditing(true)
+        performDismissFilterView()
+    }
+    
     //MARK: FeedVC super class methods
     override func setUpTableView() {
-        super.setUpTableView()
         
+        view.addSubview(tableView)
+        tableView.addSubview(customIndicator)
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
@@ -78,7 +85,6 @@ class BusinessesFeedVC: FeedVC {
     }
     
     override func setUpViews() {
-        super.setUpViews()
         
         segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
@@ -91,6 +97,12 @@ class BusinessesFeedVC: FeedVC {
         filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
         filterViewTopAnchor?.isActive = true
+        
+        customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        customIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
     }
     
     override func viewWillLayoutSubviews() {
@@ -103,7 +115,10 @@ class BusinessesFeedVC: FeedVC {
             alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
             alertView.topAnchor.constraint(equalTo: view.topAnchor),
-
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             ])
     }
     
@@ -124,17 +139,22 @@ class BusinessesFeedVC: FeedVC {
     //MARK: Networking
     fileprivate func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
-        service.getBusinessesFrom(selection: selection) { [unowned self] (result) in
+        service.getBusinessesFrom(selection: selection) { [weak self] (result) in
+            
+            guard let strongSelf = self else {
+                print("SELF IS NIL IN BUSINESSFEEDVC")
+                return }
+            
             switch result {
             case .Success(let businessViewModelDataSource):
-                self.feedDataSource = businessViewModelDataSource
+                strongSelf.feedDataSource = businessViewModelDataSource
                 
                 //setting the feedVC property of the datasource object
-                self.feedDataSource.feedVC = self
+                strongSelf.feedDataSource.feedVC = self
                 //////////////////////////////////////////////////////
-                self.tableView.registerDatasource(self.feedDataSource, completion: { (complete) in
-                    self.feedRefreshControl.endRefreshing()
-                    self.customIndicator.stopAnimating()
+                strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
+                    strongSelf.feedRefreshControl.endRefreshing()
+                    strongSelf.customIndicator.stopAnimating()
                 })
                 
             case .Error(let error) :
@@ -159,7 +179,7 @@ extension BusinessesFeedVC: FilterViewDelegate {
     }
     //triggered by delegation
     func cancelWasPressed() {
-        performDismiss()
+        performDismissFilterView()
     }
     
     func searchWasPressedToUpdateSelection(_ selection: Selection) {
@@ -167,15 +187,18 @@ extension BusinessesFeedVC: FilterViewDelegate {
         customIndicator.startAnimating()
         alertView.alpha = 0
         getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
-        performDismiss()
+        performDismissFilterView()
     }
     
     //helper Method
-    private func performDismiss() {
-       filterViewTopAnchor?.constant = view.frame.size.height
-        UIView.animate(withDuration: 0.8, animations: {
-            self.view.layoutIfNeeded()
-        })
+    fileprivate func performDismissFilterView() {
+        
+        filterViewTopAnchor?.constant = view.frame.size.height
+        DispatchQueue.main.async { [weak self] in
+            UIView.animate(withDuration: 0.8, animations: {
+                self?.view.layoutIfNeeded()
+            })
+        }
     }
 }
 

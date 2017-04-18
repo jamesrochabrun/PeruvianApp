@@ -87,14 +87,14 @@ struct YelpService: Gettable {
     }
     
     //MARK: GET BUSINESS FROM ID
-    func getBusinessFrom(id: String, completion: @escaping SeachBusinessFromIDCompletion) {
+    func getBusinessFrom(_ businessViewModel: BusinessViewModel, completion: @escaping SeachBusinessFromIDCompletion) {
         
-        let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(id)")
+        let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(businessViewModel.businessID)")
         request.headers = ["Authorization": "Bearer \(accessToken)"]
                 
-        request.perform(withSuccess: { (businessVieModel) in
+        request.perform(withSuccess: { (business) in
             DispatchQueue.main.async {
-                completion(.Success(businessVieModel))
+                completion(.Success(business))
             }
         }, failure: { (error) in
             completion(.Error(error))

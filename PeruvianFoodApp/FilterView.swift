@@ -44,6 +44,7 @@ class FilterView: BaseView {
     
     let containerView: BaseView = {
         let v = BaseView()
+        v.backgroundColor = .white
         return v
     }()
     

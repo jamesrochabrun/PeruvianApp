@@ -29,22 +29,25 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     convenience init(businessViewModel: BusinessViewModel) {
         self.init()
-        get(business: businessViewModel, fromService: YelpService.sharedInstance)
+        getBusinessFrom(businessViewModel, fromService: YelpService.sharedInstance)
     }
     
     //MARK: Networking
-    private func get(business: BusinessViewModel, fromService service: YelpService) {
-        
-        service.getBusinessFrom(id: business.businessID) { [weak self] (result) in
+    
+    func getBusinessFrom(_ businessViewModel: BusinessViewModel, fromService service: YelpService) {
+      
+        service.getBusinessFrom(businessViewModel) { [weak self] (result) in
             switch result {
             case .Success(let business):
                 self?.businessViewModel = BusinessViewModel(model: business)
+                self?.businessViewModel?.distance = businessViewModel.distance
                 self?.delegate?.reloadDataInVC()
             case .Error(let error):
                 print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
             }
         }
     }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

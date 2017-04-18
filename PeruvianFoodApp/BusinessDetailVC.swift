@@ -20,6 +20,7 @@ class BusinessDetailVC: UIViewController {
             }
         }
     }
+    
     private var businessDetailDataSource: BusinessDetailDataSource? {
         didSet {
             self.businessDetailDataSource?.delegate = self
