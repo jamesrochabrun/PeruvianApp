@@ -69,7 +69,7 @@ extension BusinessViewModel {
         coordinates = model.coordinates
         photos = model.photos as? [String]
         textRating = String(describing: model.rating)
-        phone = model.phone
+        phone = model.phone != "" ? model.phone : "No phone"
         hours = model.hours
     }
 }

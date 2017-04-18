@@ -164,6 +164,28 @@ class BusinessesFeedVC: FeedVC {
     }
 }
 
+//MARK: tableview delegate method
+extension BusinessesFeedVC {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        feedSearchBar.endEditing(true)
+        let businessViewModel = feedDataSource.getBusinessViewModelFromIndexpath(indexPath)
+        let businessDetailVC = BusinessDetailVC()
+        businessDetailVC.businessViewModel = businessViewModel
+        self.present(businessDetailVC, animated: true)
+    }
+}
+
+//MARK: BusinessDatasourcedelegate
+extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
+    
+    func handleNoResults() {
+        alertView.alpha = 1
+        alertView.performAnimation()
+    }
+}
+
 //MARK: Show filter view
 
 extension BusinessesFeedVC: FilterViewDelegate {
@@ -173,9 +195,11 @@ extension BusinessesFeedVC: FilterViewDelegate {
         
         filterView.selection = selection
         filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
-        UIView.animate(withDuration: 0.4, animations: {
-            self.view.layoutIfNeeded()
-        })
+        DispatchQueue.main.async { [weak self] in
+            UIView.animate(withDuration: 0.4, animations: {
+                self?.view.layoutIfNeeded()
+            })
+        }
     }
     //triggered by delegation
     func cancelWasPressed() {
@@ -199,28 +223,6 @@ extension BusinessesFeedVC: FilterViewDelegate {
                 self?.view.layoutIfNeeded()
             })
         }
-    }
-}
-
-//MARK: tableview delegate method
-extension BusinessesFeedVC {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        feedSearchBar.endEditing(true)
-        let businessViewModel = feedDataSource.getBusinessViewModelFromIndexpath(indexPath)
-        let businessDetailVC = BusinessDetailVC()
-        businessDetailVC.businessViewModel = businessViewModel
-        self.present(businessDetailVC, animated: true)
-    }
-}
-
-//MARK: BusinessDatasourcedelegate
-extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
-    
-    func handleNoResults() {
-        alertView.alpha = 1
-        alertView.performAnimation()
     }
 }
 
