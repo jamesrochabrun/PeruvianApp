@@ -14,7 +14,7 @@ protocol FeedVCDelegate: class {
     func filterContentFor(textToSearch: String)
 }
 
-class FeedVC: UITableViewController {
+class FeedVC: UIViewController, UITableViewDelegate {
     
     //MARK: properties
     var searchActive: Bool = false
@@ -27,6 +27,14 @@ class FeedVC: UITableViewController {
         searchBar.sizeToFit()
         searchBar.delegate = self
         return searchBar
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.delegate = self
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = .white
+        return tv
     }()
     
     //Refresh Control
@@ -58,22 +66,25 @@ class FeedVC: UITableViewController {
         //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
+    //call this method if customindicator is needed
     func setUpTableView() {
         
-        tableView.register(BusinesCell.self)
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.separatorStyle = .none
-        tableView.insertSubview(feedRefreshControl, at: 0)
+        view.addSubview(tableView)
+        tableView.addSubview(customIndicator)
+        
+        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            customIndicator.heightAnchor.constraint(equalToConstant: 80),
+            customIndicator.widthAnchor.constraint(equalToConstant: 80),
+            customIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            customIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
+            ])
     }
     
     func setUpViews() {
-        
-        tableView.addSubview(customIndicator)
-        customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
   //  MARK: Networking
@@ -90,7 +101,7 @@ extension FeedVC: UISearchBarDelegate {
         }
     }
     
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         feedSearchBar.endEditing(true)
     }
     

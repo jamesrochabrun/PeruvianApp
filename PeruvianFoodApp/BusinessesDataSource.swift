@@ -41,9 +41,9 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if searchResults.count <= 0 && searchActive || businessesViewModel.count <= 0 {
+        if businessesViewModel.count == 0 {
             self.delegate?.handleNoResults()
-        }
+        } 
         return searchActive ? searchResults.count : businessesViewModel.count
     }
     

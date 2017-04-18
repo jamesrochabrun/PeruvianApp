@@ -19,9 +19,19 @@ class BusinessesFeedVC: FeedVC {
     }
     var selection = Selection() {
         didSet {
+            resetPriceAndRadius()
+            self.filterView.selection = selection
             getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
         }
     }
+    
+    //MARK: clean radius and price for default search
+    private func resetPriceAndRadius() {
+        selection.radius = nil
+        selection.price = nil
+    }
+    
+    var filterViewTopAnchor: NSLayoutConstraint?
     
     //MARK: UI elements
     private lazy var segmentedControl: UISegmentedControl = {
@@ -34,6 +44,12 @@ class BusinessesFeedVC: FeedVC {
         sc.backgroundColor = .white
         sc.addTarget(self, action: #selector(switchPresentation), for: .valueChanged)
         return sc
+    }()
+    
+    lazy var filterView: FilterView = {
+        let v = FilterView()
+        v.delegate = self
+        return v
     }()
     
     let alertView: AlertView = {
@@ -52,6 +68,7 @@ class BusinessesFeedVC: FeedVC {
         
     //MARK: FeedVC super class methods
     override func setUpTableView() {
+        super.setUpTableView()
         
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -65,7 +82,15 @@ class BusinessesFeedVC: FeedVC {
         
         segmentedControl.selectedSegmentIndex = 0
         tableView.tableHeaderView = segmentedControl
-        tableView.addSubview(alertView)
+        view.addSubview(alertView)
+        view.addSubview(filterView)
+        
+        //add the constraints here to avoid the call to layout if needed during animation
+        filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
+        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        filterViewTopAnchor?.isActive = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -77,14 +102,14 @@ class BusinessesFeedVC: FeedVC {
             alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
             alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            alertView.topAnchor.constraint(equalTo: view.topAnchor)
+            alertView.topAnchor.constraint(equalTo: view.topAnchor),
+
             ])
     }
     
     override func setUpNavBar() {
         super.setUpNavBar()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(showFilterView))
     }
     
     override func refresh(_ refreshControl: UIRefreshControl) {
@@ -96,16 +121,8 @@ class BusinessesFeedVC: FeedVC {
         
     }
     
-    //MARK: navigation triggers
-    @objc private func goToFilter() {
-//        
-//        let filterVC = FilterVC()
-//        let nc = UINavigationController(rootViewController: filterVC)
-//        self.present(nc, animated: true)
-    }
-    
     //MARK: Networking
-    private func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
+    fileprivate func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
         service.getBusinessesFrom(selection: selection) { [unowned self] (result) in
             switch result {
@@ -127,10 +144,45 @@ class BusinessesFeedVC: FeedVC {
     }
 }
 
+//MARK: Show filter view
+
+extension BusinessesFeedVC: FilterViewDelegate {
+    
+    //triggered by vc nav bar button
+    @objc fileprivate func showFilterView() {
+        
+        filterView.selection = selection
+        filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    //triggered by delegation
+    func cancelWasPressed() {
+        performDismiss()
+    }
+    
+    func searchWasPressedToUpdateSelection(_ selection: Selection) {
+        
+        customIndicator.startAnimating()
+        alertView.alpha = 0
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+        performDismiss()
+    }
+    
+    //helper Method
+    private func performDismiss() {
+       filterViewTopAnchor?.constant = view.frame.size.height
+        UIView.animate(withDuration: 0.8, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+}
+
 //MARK: tableview delegate method
 extension BusinessesFeedVC {
     
-    override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
         let businessViewModel = feedDataSource.getBusinessViewModelFromIndexpath(indexPath)

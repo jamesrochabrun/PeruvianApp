@@ -30,10 +30,23 @@ class CategoryItemsFeedVC: FeedVC {
         setUpTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     //MARK: FeedVC super class methods
+    //overriding method to avoid customindicator
     override func setUpTableView() {
         
-        tableView.backgroundColor = .white
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            ])
+
         tableView.register(SwitchCell.self)
         if let cifds = categoryItemsFeedDataSource {
             tableView.registerDatasource(cifds, completion: { (complete) in })
@@ -55,12 +68,15 @@ class CategoryItemsFeedVC: FeedVC {
         }
         self.navigationController?.pushViewController(businessFeedVC, animated: true)
     }
+    
+    //MARK: helper method reset the state of selection for new search
+
 }
 
 //MARK: tableview methods
 extension CategoryItemsFeedVC {
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 }

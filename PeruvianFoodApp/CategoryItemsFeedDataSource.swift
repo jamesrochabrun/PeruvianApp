@@ -72,10 +72,8 @@ extension CategoryItemsFeedDataSource: SwitchCellDelegate {
             let itemViewModelAlias = itemViewModelArray[indexPath.row].itemAlias
             if cell.customSwitch.isOn {
                 selection.categoryItems.append(itemViewModelAlias)
-                print(selection.categoryItems.count)
             } else {
                 selection.categoryItems.removeLast()
-                print("remo", selection.categoryItems.count)
             }
         }
     }

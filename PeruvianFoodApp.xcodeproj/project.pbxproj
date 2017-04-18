@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
 		7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567111E9D473D0073AD1F /* Blurrable.swift */; };
 		7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567131E9D47450073AD1F /* Opaqueable.swift */; };
 		7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567191E9D94680073AD1F /* Shadowable.swift */; };
@@ -69,6 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		7B4567111E9D473D0073AD1F /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
 		7B4567131E9D47450073AD1F /* Opaqueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opaqueable.swift; sourceTree = "<group>"; };
 		7B4567191E9D94680073AD1F /* Shadowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadowable.swift; sourceTree = "<group>"; };
@@ -146,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B11D65D1EA57B0F002E851B /* CollectionViewLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
+				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
+			);
+			name = CollectionViewLayouts;
+			sourceTree = "<group>";
+		};
 		7B9B5EFE1E9E9922008C8468 /* DetailVCCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,13 +268,12 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B11D65D1EA57B0F002E851B /* CollectionViewLayouts */,
+				7B9B5F071E9EF8CC008C8468 /* BaseCells */,
+				7B9B5EFE1E9E9922008C8468 /* DetailVCCells */,
 				7B865B621EA480180048E513 /* AlertView.swift */,
 				7B8636711EA19FD30020EFC8 /* ReviewCell.swift */,
 				7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */,
-				7B9B5F081E9EFA05008C8468 /* GridLayout.swift */,
-				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
-				7B9B5F071E9EF8CC008C8468 /* BaseCells */,
-				7B9B5EFE1E9E9922008C8468 /* DetailVCCells */,
 				7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */,
 				7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */,
 				7B8D82911E96B2DE005BF309 /* BaseView.swift */,
@@ -271,6 +281,7 @@
 				7B8D82931E96CE4B005BF309 /* SwitchCell.swift */,
 				7BD8ED371E95474A00E610B9 /* BusinesCell.swift */,
 				7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */,
+				7B11D65B1EA55841002E851B /* FilterView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -479,6 +490,7 @@
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
 				7B865B631EA480180048E513 /* AlertView.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
+				7B11D65C1EA55841002E851B /* FilterView.swift in Sources */,
 				7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */,
 				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
 				7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */,

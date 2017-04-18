@@ -18,13 +18,15 @@ class CategoryFeedVC: FeedVC {
     override func viewDidLoad() {
         
         setUpNavBar()
-        setUpViews()
         setUpTableView()
+        setUpViews()
         categoryDataSource.delegate = self
     }
     
     //MARK: FeedVC super class methods
     override func setUpTableView() {
+        super.setUpTableView()
+        
         tableView.register(CategoryCell.self)
         tableView.dataSource = categoryDataSource
         categoryDataSource.categoryFeedVC = self
@@ -53,7 +55,7 @@ extension CategoryFeedVC: CategoryDataSourceDelegate {
 //MARK: tableview delegate
 extension CategoryFeedVC {
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
         let categoryViewModel = categoryDataSource.getCategoryViewModelFromIndexpath(indexPath)
@@ -62,7 +64,7 @@ extension CategoryFeedVC {
         self.navigationController?.pushViewController(categoryItemsFeedVC, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 }

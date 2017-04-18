@@ -65,10 +65,15 @@ struct YelpService: Gettable {
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         let categories = selection.categoryItems.count <= 0 ? selection.categoryParent : selection.categoryItems.joined(separator: ",")
+        let price: String = selection.price != nil ? selection.price!.rawValue : ""
+        let radius = selection.radius != nil ? selection.radius!.rawValue : 20000
         
         let parameters =  ["latitude" : "37.785771",
                            "longitude" : "-122.406165",
-                           "categories" : categories]
+                           "categories" : categories,
+                           "price" : price,
+                           "radius" : radius,
+                           "sort_by" : "distance"] as [String : Any]
         
         request.parameters = parameters
         

@@ -24,3 +24,18 @@ extension Notification.Name {
     static let showScheduleNotification = Notification.Name("showSchedule")
     static let showReviewsNotification = Notification.Name("showReviews")
 }
+
+
+extension UIButton {
+    
+    func with(title: String ,target:Any, selector:(Selector), cornerRadius: CGFloat, font: String, fontSize: CGFloat, color: String, titleColor: String) {
+        self.setTitle(title, for: .normal)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.setTitleColor(UIColor.hexStringToUIColor(titleColor), for: .normal)
+        self.layer.cornerRadius = cornerRadius
+        self.titleLabel?.font = UIFont(name: font, size: fontSize)
+        self.addTarget(target, action: selector, for: .touchUpInside)
+        self.backgroundColor = UIColor.hexStringToUIColor(color)
+        self.layer.masksToBounds = true
+    }
+}

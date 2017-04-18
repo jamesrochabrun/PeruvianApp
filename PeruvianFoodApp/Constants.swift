@@ -25,6 +25,7 @@ struct Constants {
         static let scheduleViewPaddingBig: CGFloat = 15.0
         static let scheduleViewPadding: CGFloat = 10.0
         static let infoCellHeight: CGFloat = 100.0
+        static let filterViewHeight: CGFloat = 280.0
     }
     
     struct Colors {
