@@ -13,21 +13,6 @@ import Alamofire
 import TRON
 import SwiftyJSON
 
-
-//let businessID: String
-//let name: String
-//let rating: NSNumber
-//let price: String
-//let imageURL: String
-//let phone: String
-//let is_closed: Bool
-//let reviewsCount: NSNumber
-//let url: String
-//let categories: [CategoryItem]
-//let distance: NSNumber
-//let location: Location
-//let coordinates: Coordinates
-
 struct BusinessViewModel {
     
     let name: String
@@ -37,14 +22,14 @@ struct BusinessViewModel {
     let address: String
     var distance: String
     let category: String
-    var profileImageURL: String
-    var ratingImage: UIImage
-    var isClosed: Bool
+    let profileImageURL: String
+    let ratingImage: UIImage
+    let isClosed: Bool
     var photos: [String]?
-    var coordinates: Coordinates
-    var textRating: String
+    let coordinates: CoordinateViewModel
+    let textRating: String
     let phone: String
-    let hours: [Hours]?
+    var hours: [Hours]?
 }
 
 extension BusinessViewModel {
@@ -66,11 +51,24 @@ extension BusinessViewModel {
         profileImageURL = model.imageURL
         ratingImage = ReviewIcon(reviewNumber: model.rating).image
         isClosed = model.is_closed
-        coordinates = model.coordinates
+        coordinates = CoordinateViewModel(model: model.coordinates)
         photos = model.photos as? [String]
         textRating = String(describing: model.rating)
         phone = model.phone != "" ? model.phone : "No phone"
         hours = model.hours
+    }
+}
+
+struct CoordinateViewModel {
+    let latitude: Double
+    let longitude: Double
+}
+
+extension CoordinateViewModel {
+    
+    init(model: Coordinates) {
+        latitude = Double(model.latitude)
+        longitude = Double(model.longitude)
     }
 }
 

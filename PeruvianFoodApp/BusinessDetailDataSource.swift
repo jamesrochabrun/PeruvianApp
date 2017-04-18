@@ -67,6 +67,10 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             cell.setUp(with: businessViewModel)
             return cell
         } else if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as MapCell
+            cell.setUpGoogleMapWith(businessViewModel)
+            return cell
+        } else if indexPath.row == 4 {
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as HoursCell
             cell.setUp(with: businessViewModel)
             return cell
@@ -77,7 +81,13 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
 }
+
+
+
+
+
+
 

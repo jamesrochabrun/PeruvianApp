@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import GoogleMaps
 
 class BusinessDetailVC: UIViewController {
 
@@ -26,7 +26,7 @@ class BusinessDetailVC: UIViewController {
             self.businessDetailDataSource?.delegate = self
         }
     }
-    //MARK: Zoom frame
+    //MARK: Zoom frame UI
     var startingFrame: CGRect?
     var backgroundOverlay: UIView?
     var startingImageView: UIImageView?
@@ -74,7 +74,6 @@ class BusinessDetailVC: UIViewController {
         return tv
     }()
     
-    //Loading Indicator
     fileprivate let customIndicator: CustomActivityIndicator = {
         let indicator = CustomActivityIndicator()
         return indicator
@@ -83,7 +82,6 @@ class BusinessDetailVC: UIViewController {
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpTableView()
         setUpViews()
     }
@@ -137,6 +135,7 @@ class BusinessDetailVC: UIViewController {
         tableView.register(SubInfoCell.self)
         tableView.register(HoursCell.self)
         tableView.register(PhotoAlbumCell.self)
+        tableView.register(MapCell.self)
         tableView.dataSource = businessDetailDataSource
     }
     
@@ -201,9 +200,11 @@ extension BusinessDetailVC: UITableViewDelegate {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return Constants.UI.infoCellHeight
-        } else if indexPath.row == 4 {
+        } else if indexPath.row == 5 {
             return self.view.frame.width / 3
-        } 
+        } else if indexPath.row == 3 {
+            return 140
+        }
         return UITableViewAutomaticDimension
     }
 }
@@ -232,11 +233,12 @@ extension BusinessDetailVC {
                 keyWindow.addSubview(backgroundOverlay!)
                 keyWindow.addSubview(zoomingImageView)
                 
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
                     
-                    self.backgroundOverlay?.alpha = 0.7
-                    let height = self.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame)
-                    zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                    self?.backgroundOverlay?.alpha = 0.7
+                    if let height = self?.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame) {
+                        zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                    }
                     zoomingImageView.center = keyWindow.center
     
                 }, completion: { (complete) in
@@ -256,8 +258,11 @@ extension BusinessDetailVC {
                 zoomOutImageView.frame = startingFrame
                 overlay.alpha = 0
             }, completion: { (complete) in
-                zoomOutImageView.removeFromSuperview()
-                self.startingImageView?.isHidden = false
+                
+                DispatchQueue.main.async { [weak self] in
+                    zoomOutImageView.removeFromSuperview()
+                    self?.startingImageView?.isHidden = false
+                }
             })
         }
     }
@@ -286,6 +291,68 @@ extension BusinessDetailVC {
 
 
 
+
+
+
+
+class MapCell: BaseCell {
+    
+    var googleMap = GMSMapView()
+    lazy var actionView: BaseView = {
+        let v = BaseView()
+        v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnMap)))
+        v.isUserInteractionEnabled = true
+        return v
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        NSLayoutConstraint.activate([
+            
+            actionView.topAnchor.constraint(equalTo: topAnchor),
+            actionView.leftAnchor.constraint(equalTo: leftAnchor),
+            actionView.widthAnchor.constraint(equalTo: widthAnchor),
+            actionView.heightAnchor.constraint(equalTo: heightAnchor),
+            googleMap.topAnchor.constraint(equalTo: topAnchor),
+            googleMap.leftAnchor.constraint(equalTo: leftAnchor),
+            googleMap.widthAnchor.constraint(equalTo: widthAnchor),
+            googleMap.heightAnchor.constraint(equalTo: heightAnchor)
+            ])
+    }
+    
+    func setUpGoogleMapWith(_ viewModel: BusinessViewModel) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude, zoom: 16)
+        googleMap = GMSMapView.map(withFrame: .zero, camera: camera)
+        googleMap.mapType = .normal
+        googleMap.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(googleMap)
+        addSubview(actionView)
+        setUpMarkerDataWith(viewModel)
+    }
+    
+    private func setUpMarkerDataWith(_ viewModel: BusinessViewModel) {
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude)
+        marker.appearAnimation = .pop
+        marker.icon = #imageLiteral(resourceName: "markerIcon")
+        marker.map = nil
+        draw(marker)
+    }
+    
+    private func draw(_ marker: GMSMarker) {
+        
+        if marker.map == nil {
+            marker.map = self.googleMap
+        }
+    }
+    
+    @objc private func handleTapOnMap() {
+        
+    }
+}
 
 
 

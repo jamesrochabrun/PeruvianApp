@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    private static let googleApiKey = "AIzaSyCwxGJ4a98QPPwVJBVHqLm2savfWZeD5RM"
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,11 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let listVC = CategoryFeedVC()
         let navVC = UINavigationController(rootViewController: listVC)
         window?.rootViewController = navVC
+        setUPAppereance()
+        handleGoogleMap()
+ 
+        return true
+    }
+    
+    private func handleGoogleMap() {
+        GMSServices.provideAPIKey(AppDelegate.googleApiKey)
+    }
+    
+    private func setUPAppereance() {
         UINavigationBar.appearance().barTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         UIApplication.shared.statusBarStyle = .lightContent
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

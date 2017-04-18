@@ -195,11 +195,9 @@ extension BusinessesFeedVC: FilterViewDelegate {
         
         filterView.selection = selection
         filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.4, animations: {
-                self?.view.layoutIfNeeded()
-            })
-        }
+        UIView.animate(withDuration: 0.4, animations: { [weak self] in
+            self?.view.layoutIfNeeded()
+        })
     }
     //triggered by delegation
     func cancelWasPressed() {
@@ -218,11 +216,9 @@ extension BusinessesFeedVC: FilterViewDelegate {
     fileprivate func performDismissFilterView() {
         
         filterViewTopAnchor?.constant = view.frame.size.height
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.8, animations: {
+            UIView.animate(withDuration: 0.8, animations: { [weak self] in
                 self?.view.layoutIfNeeded()
             })
-        }
     }
 }
 

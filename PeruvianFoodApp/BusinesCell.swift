@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import CoreImage
 
 class BusinesCell: BaseCell {
 
@@ -178,7 +179,6 @@ class BusinesCell: BaseCell {
             }
             self.businessImageView.image = image
         }
-        
     }
 }
 
