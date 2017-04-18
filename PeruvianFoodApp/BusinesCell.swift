@@ -152,9 +152,7 @@ class BusinesCell: BaseCell {
             dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor)
             
             ])
-        
     }
-    
     
     override func prepareForReuse() {
         businessImageView.image = nil
