@@ -12,11 +12,13 @@ import UIKit
 
 class PhotoCell: BaseCollectionViewCell {
     
-    let photoImageView: UIImageView = {
+    lazy var photoImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.clipsToBounds = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+        iv.isUserInteractionEnabled = true
         return iv
     }()
     
@@ -44,6 +46,14 @@ class PhotoCell: BaseCollectionViewCell {
             }
             self?.photoImageView.image = image
         }
+    }
+    
+    func handleTap(tapGesture: UITapGestureRecognizer) {
+        
+        guard let imageView = tapGesture.view as? UIImageView else {
+            return
+        }
+        NotificationCenter.default.post(name: Notification.Name.performZoomNotification, object: imageView)
     }
     
     override func prepareForReuse() {

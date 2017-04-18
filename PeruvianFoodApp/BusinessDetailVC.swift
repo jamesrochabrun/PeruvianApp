@@ -89,6 +89,8 @@ class BusinessDetailVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(performZoomInForStartingImageView(_ :)), name: NSNotification.Name.performZoomNotification, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -180,7 +182,7 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
             self?.customIndicator.stopAnimating()
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            UIView.animate(withDuration: 0.3, animations: { 
                 self?.gradientView.alpha = 1
             })
         }
@@ -199,6 +201,46 @@ extension BusinessDetailVC: UITableViewDelegate {
             return self.view.frame.width / 3
         } 
         return UITableViewAutomaticDimension
+    }
+}
+
+//MARK: custom zoom logic
+extension BusinessDetailVC {
+    
+    func performZoomInForStartingImageView(_ notification: NSNotification) {
+        
+        guard let startingImageView = notification.object as? UIImageView  else {
+            return
+        }
+        if let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
+            let zoomingImageView = UIImageView(frame: startingFrame)
+            zoomingImageView.contentMode = .scaleAspectFill
+            zoomingImageView.image = startingImageView.image
+            
+            if let keyWindow = UIApplication.shared.keyWindow {
+                keyWindow.addSubview(zoomingImageView)
+                
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: { 
+                    
+                    let height = self.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame)
+                    
+                    let h1 = startingFrame.height  / startingFrame.width * keyWindow.frame.width
+                                        
+                    zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: h1)
+                    zoomingImageView.center = keyWindow.center
+                    
+                })
+            }
+        }
+    }
+    
+    //MARK: helper method
+    func getTheHeight(frame1: CGRect, frame2: CGRect) -> CGFloat {
+        
+        //MATH?
+        //h2 / w2 = h1 /w1
+        //h2 = h1 / w1 * w2
+        return frame1.height / frame1.width * frame2.width
     }
 }
 
