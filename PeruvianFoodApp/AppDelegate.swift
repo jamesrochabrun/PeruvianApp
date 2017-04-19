@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navVC
         setUPAppereance()
         handleGoogleMap()
- 
         return true
     }
     
