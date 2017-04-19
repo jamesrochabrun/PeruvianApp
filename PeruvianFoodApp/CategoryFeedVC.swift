@@ -13,6 +13,7 @@ class CategoryFeedVC: FeedVC {
     
     //MARK: Properties
     var categoryDataSource = CategoryDataSource()
+    var locationManager = LocationManager()
     
     //MARK: APP lyfecycle
     override func viewDidLoad() {
@@ -21,6 +22,8 @@ class CategoryFeedVC: FeedVC {
         setUpTableView()
         setUpViews()
         categoryDataSource.delegate = self
+        locationManager.delegate = self
+        
     }
     
     //MARK: FeedVC super class methods
@@ -66,6 +69,15 @@ extension CategoryFeedVC {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+}
+
+extension CategoryFeedVC: LocationManagerDelegate {
+    
+    func displayInVC(_ alertController: UIAlertController) {
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
 }
 

@@ -2,6 +2,11 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - GoogleMaps (2.2.0):
+    - GoogleMaps/Maps (= 2.2.0)
+  - GoogleMaps/Base (2.2.0)
+  - GoogleMaps/Maps (2.2.0):
+    - GoogleMaps/Base
   - SwiftyJSON (3.1.4)
   - TRON (3.0.1):
     - Alamofire (~> 4.1)
@@ -15,14 +20,16 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireImage
+  - GoogleMaps
   - TRON
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  GoogleMaps: 104c418d61ab8a05dff06ed0784c25ea9d37da45
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TRON: 6b4e8bfc5d5d50d3b5b579e8109ccc4029c1681c
 
-PODFILE CHECKSUM: 18970b5f746d9f38c1ae1594425f092c40d61d75
+PODFILE CHECKSUM: 6f1c34d9d8b745c3f8b7e4a2ad0e2b464d112ee9
 
 COCOAPODS: 1.1.1

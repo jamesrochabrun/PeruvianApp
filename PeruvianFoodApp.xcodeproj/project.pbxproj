@@ -66,6 +66,12 @@
 		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
 		7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */; };
 		7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */; };
+		7BFAB9BE1EA6BA6600294438 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9BD1EA6BA6600294438 /* MapCell.swift */; };
+		7BFAB9C01EA6C1BD00294438 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */; };
+		7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9C11EA6D25400294438 /* LocationManager.swift */; };
+		7BFAB9C41EA6DD9A00294438 /* KAPPSettingsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9C31EA6DD9A00294438 /* KAPPSettingsEnum.swift */; };
+		7BFAB9C61EA721BD00294438 /* MarkerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9C51EA721BD00294438 /* MarkerDetailView.swift */; };
+		7BFAB9C81EA7223A00294438 /* GoogleMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9C71EA7223A00294438 /* GoogleMapService.swift */; };
 		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +137,12 @@
 		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVC.swift; sourceTree = "<group>"; };
 		7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDismissButton.swift; sourceTree = "<group>"; };
+		7BFAB9BD1EA6BA6600294438 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
+		7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		7BFAB9C11EA6D25400294438 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		7BFAB9C31EA6DD9A00294438 /* KAPPSettingsEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KAPPSettingsEnum.swift; sourceTree = "<group>"; };
+		7BFAB9C51EA721BD00294438 /* MarkerDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerDetailView.swift; sourceTree = "<group>"; };
+		7BFAB9C71EA7223A00294438 /* GoogleMapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapService.swift; sourceTree = "<group>"; };
 		925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeruvianFoodApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeruvianFoodApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-PeruvianFoodApp/Pods-PeruvianFoodApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +172,7 @@
 		7B9B5EFE1E9E9922008C8468 /* DetailVCCells */ = {
 			isa = PBXGroup;
 			children = (
+				7BFAB9BD1EA6BA6600294438 /* MapCell.swift */,
 				7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */,
 				7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */,
 				7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */,
@@ -236,6 +249,8 @@
 		7BD8ED3C1E957CCF00E610B9 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7BFAB9C11EA6D25400294438 /* LocationManager.swift */,
+				7BFAB9C31EA6DD9A00294438 /* KAPPSettingsEnum.swift */,
 				7B8636671EA038450020EFC8 /* LabelBuilder.swift */,
 				7BD8ED311E95473800E610B9 /* Constants.swift */,
 				7BD8ED431E957EE400E610B9 /* Extensions.swift */,
@@ -246,6 +261,7 @@
 		7BD8ED3D1E957CD900E610B9 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				7BFAB9C71EA7223A00294438 /* GoogleMapService.swift */,
 				7BD8ED411E957D2900E610B9 /* YelpAPI.swift */,
 				7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */,
 			);
@@ -261,6 +277,7 @@
 				7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
 				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
+				7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -282,6 +299,7 @@
 				7BD8ED371E95474A00E610B9 /* BusinesCell.swift */,
 				7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */,
 				7B11D65B1EA55841002E851B /* FilterView.swift */,
+				7BFAB9C51EA721BD00294438 /* MarkerDetailView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -467,6 +485,7 @@
 				7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */,
 				7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */,
 				7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */,
+				7BFAB9C01EA6C1BD00294438 /* MapVC.swift in Sources */,
 				7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */,
 				7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
@@ -476,6 +495,7 @@
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */,
+				7BFAB9C81EA7223A00294438 /* GoogleMapService.swift in Sources */,
 				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
 				7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */,
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
@@ -484,10 +504,12 @@
 				7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
+				7BFAB9C61EA721BD00294438 /* MarkerDetailView.swift in Sources */,
 				7B8636701EA19A890020EFC8 /* BusinessDetailDataSource.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
+				7BFAB9C41EA6DD9A00294438 /* KAPPSettingsEnum.swift in Sources */,
 				7B865B631EA480180048E513 /* AlertView.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
 				7B11D65C1EA55841002E851B /* FilterView.swift in Sources */,
@@ -497,6 +519,7 @@
 				7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */,
 				7B9B5EF91E9E98A1008C8468 /* SubInfoCell.swift in Sources */,
 				7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */,
+				7BFAB9BE1EA6BA6600294438 /* MapCell.swift in Sources */,
 				7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */,
 				7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */,
 				7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */,
@@ -514,6 +537,7 @@
 				7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */,
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
 				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,
+				7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */,
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
@@ -632,7 +656,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
@@ -647,7 +671,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;

@@ -8,6 +8,8 @@ target 'PeruvianFoodApp' do
   # Pods for PeruvianFoodApp
     pod 'TRON'
     pod 'AlamofireImage'
+    pod 'GoogleMaps'
+
 
 
 end

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 struct JSONDownloader {
     
@@ -64,6 +65,16 @@ struct CategoryService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

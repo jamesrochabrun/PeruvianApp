@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class BusinessDetailVC: UIViewController {
 
     //MARK: properties
@@ -26,7 +25,7 @@ class BusinessDetailVC: UIViewController {
             self.businessDetailDataSource?.delegate = self
         }
     }
-    //MARK: Zoom frame
+    //MARK: Zoom frame UI
     var startingFrame: CGRect?
     var backgroundOverlay: UIView?
     var startingImageView: UIImageView?
@@ -74,7 +73,6 @@ class BusinessDetailVC: UIViewController {
         return tv
     }()
     
-    //Loading Indicator
     fileprivate let customIndicator: CustomActivityIndicator = {
         let indicator = CustomActivityIndicator()
         return indicator
@@ -83,7 +81,6 @@ class BusinessDetailVC: UIViewController {
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpTableView()
         setUpViews()
     }
@@ -93,8 +90,8 @@ class BusinessDetailVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(performZoomInForStartingImageView(_ :)), name: NSNotification.Name.performZoomNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(goToMapVC), name: Notification.Name.openMapVCNotification, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -137,6 +134,7 @@ class BusinessDetailVC: UIViewController {
         tableView.register(SubInfoCell.self)
         tableView.register(HoursCell.self)
         tableView.register(PhotoAlbumCell.self)
+        tableView.register(MapCell.self)
         tableView.dataSource = businessDetailDataSource
     }
     
@@ -201,9 +199,11 @@ extension BusinessDetailVC: UITableViewDelegate {
             return Constants.UI.headerCellHeight
         } else if indexPath.row == 1 {
             return Constants.UI.infoCellHeight
-        } else if indexPath.row == 4 {
+        } else if indexPath.row == 5 {
             return self.view.frame.width / 3
-        } 
+        } else if indexPath.row == 3 {
+            return 140
+        }
         return UITableViewAutomaticDimension
     }
 }
@@ -232,11 +232,12 @@ extension BusinessDetailVC {
                 keyWindow.addSubview(backgroundOverlay!)
                 keyWindow.addSubview(zoomingImageView)
                 
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
                     
-                    self.backgroundOverlay?.alpha = 0.7
-                    let height = self.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame)
-                    zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                    self?.backgroundOverlay?.alpha = 0.7
+                    if let height = self?.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame) {
+                        zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                    }
                     zoomingImageView.center = keyWindow.center
     
                 }, completion: { (complete) in
@@ -256,8 +257,11 @@ extension BusinessDetailVC {
                 zoomOutImageView.frame = startingFrame
                 overlay.alpha = 0
             }, completion: { (complete) in
-                zoomOutImageView.removeFromSuperview()
-                self.startingImageView?.isHidden = false
+                
+                DispatchQueue.main.async { [weak self] in
+                    zoomOutImageView.removeFromSuperview()
+                    self?.startingImageView?.isHidden = false
+                }
             })
         }
     }
@@ -282,6 +286,16 @@ extension BusinessDetailVC {
     }
 }
 
+//MARK: Triggered by notification form Mapcell
+extension BusinessDetailVC {
+    
+    @objc fileprivate func goToMapVC() {
+        
+        let mapVC = MapVC()
+        mapVC.businessViewModel = businessViewModel
+        self.present(mapVC, animated: true)
+    }
+}
 
 
 
