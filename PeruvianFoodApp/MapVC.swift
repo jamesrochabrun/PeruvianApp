@@ -129,6 +129,13 @@ extension MapVC: GMSMapViewDelegate {
         return MarkerDetailView(frame: frame, marker: marker)
     }
     
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        GoogleMapService.getDirectionsFrom(mapView: mapView, marker: marker) { (result) in
+            
+        
+        }
+    }
+    
 }
 
 

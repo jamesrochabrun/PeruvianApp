@@ -23,6 +23,7 @@ class CategoryFeedVC: FeedVC {
         setUpViews()
         categoryDataSource.delegate = self
         locationManager.delegate = self
+        
     }
     
     //MARK: FeedVC super class methods
