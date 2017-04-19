@@ -51,7 +51,7 @@ class LocationManager: NSObject {
     
     func displayAlertIfAuthorizationIsDenied() {
         
-        let alertController = UIAlertController(title: "This app needs access to your location", message: "Allow to show you the best options around you!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "This app needs access to your location", message: "Go to your settings and allow to share your location", preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (action) in
