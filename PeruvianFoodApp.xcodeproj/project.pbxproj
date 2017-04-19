@@ -61,6 +61,7 @@
 		7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED471E95BCA800E610B9 /* BusinessViewModel.swift */; };
 		7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED491E95C33A00E610B9 /* Reusable.swift */; };
 		7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */; };
+		7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */; };
 		7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */; };
 		7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */; };
 		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
@@ -132,6 +133,7 @@
 		7BD8ED471E95BCA800E610B9 /* BusinessViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 		7BD8ED491E95C33A00E610B9 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesDataSource.swift; sourceTree = "<group>"; };
+		7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemViewModel.swift; sourceTree = "<group>"; };
 		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				7B8636671EA038450020EFC8 /* LabelBuilder.swift */,
 				7BD8ED311E95473800E610B9 /* Constants.swift */,
 				7BD8ED431E957EE400E610B9 /* Extensions.swift */,
+				7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
 				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,
 				7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */,
+				7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */,
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
@@ -656,7 +660,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
@@ -671,7 +675,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;

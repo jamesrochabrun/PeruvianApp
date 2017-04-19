@@ -35,6 +35,7 @@ struct Constants {
         static let appSecondaryColor: String = "#ed1e79"//"#d4145a"
         static let shadowColor: String = "#65737e"
         static let white: String  = "#ffffff"
+        static let streetViewBackgroundColor: String = "#595959"
     }
     
     struct Font {
