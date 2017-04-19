@@ -12,6 +12,7 @@ import UIKit
 
 class MapVC: UIViewController {
     
+    //MARK: Properties
     var businessViewModel: BusinessViewModel? {
         didSet {
             if let viewModel = businessViewModel {
@@ -19,6 +20,7 @@ class MapVC: UIViewController {
             }
         }
     }
+    var polyline: GMSPolyline?
     var googleMap = GMSMapView()
     
     //MARK: UI Elements
@@ -41,6 +43,7 @@ class MapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
+        googleMap.selectedMarker = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -130,74 +133,40 @@ extension MapVC: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        if self.polyline != nil { return }
+        
         GoogleMapService.getDirectionsFrom(mapView: mapView, marker: marker) { (result) in
             
-        
+            self.polyline?.map = nil
+            self.polyline = nil
+            switch result {
+            case .Success(let path):
+                self.polyline = GMSPolyline.init(path: path)
+                self.polyline?.strokeColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+                self.polyline?.strokeWidth = 3.0
+                self.polyline?.map = self.googleMap
+            case .Error(let error):
+                print("Error: \(error)")
+            }
         }
     }
     
-}
-
-
-
-
-
-
-
-
-
-
-class MarkerDetailView: BaseView {
-    
-    let headerLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.white)
-        l.textAlignment = .center
-        return l
-    }()
-    
-    let subHeaderLabel: UILabel = {
-        let l = UILabel()
-        l.textColor = UIColor.hexStringToUIColor(Constants.Colors.white)
-        l.textAlignment = .center
-        l.numberOfLines = 0
-        return l
-    }()
-    
-    convenience init(frame: CGRect, marker: GMSMarker) {
-        self.init(frame: frame)
-        headerLabel.text = marker.title
-        subHeaderLabel.text = marker.snippet
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-        backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        alpha = 0.8
-    }
-    
-    override func setUpViews() {
-        
-        addSubview(headerLabel)
-        addSubview(subHeaderLabel)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        var frame = headerLabel.frame
-        frame.origin.y = self.frame.origin.y + 8
-        frame.size.height = 20
-        frame.size.width = self.frame.size.width * 0.7
-        frame.origin.x = (self.frame.size.width - frame.size.width) / 2
-        headerLabel.frame = frame
-        
-        frame = subHeaderLabel.frame
-        frame.origin.y = headerLabel.frame.maxY + 7
-        frame.size.width = headerLabel.frame.size.width
-        frame.size.height = headerLabel.frame.size.height
-        frame.origin.x = (self.frame.size.width - frame.size.width) / 2
-        subHeaderLabel.frame = frame
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        self.polyline?.map = nil
+        self.polyline = nil
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
