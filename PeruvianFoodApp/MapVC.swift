@@ -21,7 +21,7 @@ class MapVC: UIViewController {
         }
     }
     var polyline: GMSPolyline?
-    var googleMap = GMSMapView()
+    var googleMap: GMSMapView?
     let circularTransition = CircularTransition()
     
     //MARK: UI Elements
@@ -56,12 +56,13 @@ class MapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
-        googleMap.selectedMarker = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        googleMap?.selectedMarker = nil
+        googleMap = nil
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,10 +77,6 @@ class MapVC: UIViewController {
             dismissButton.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
             dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
             dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
-            googleMap.topAnchor.constraint(equalTo: view.topAnchor),
-            googleMap.heightAnchor.constraint(equalTo: view.heightAnchor),
-            googleMap.widthAnchor.constraint(equalTo: view.widthAnchor),
-            googleMap.leftAnchor.constraint(equalTo: view.leftAnchor),
             transitionButton.heightAnchor.constraint(equalToConstant: 70),
             transitionButton.widthAnchor.constraint(equalToConstant: 70),
             transitionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -92,19 +89,19 @@ class MapVC: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func goToStreetView() {
+    @objc private func goToStreetView() {
         
         let streetVC = StreetViewVC()
         streetVC.transitioningDelegate = self
         streetVC.modalPresentationStyle = .custom
         streetVC.businessViewModel = businessViewModel
         present(streetVC, animated: true)
-        
     }
     
     //MARK: setup UI
     fileprivate func setUpViews() {
-        view.addSubview(googleMap)
+       // view.addSubview(googleMap)
+        view = googleMap
         view.addSubview(statusBarBackgroundView)
         view.addSubview(dismissButton)
         view.addSubview(transitionButton)
@@ -118,13 +115,12 @@ extension MapVC {
         
         let camera = GMSCameraPosition.camera(withLatitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude, zoom: 16)
         googleMap = GMSMapView.map(withFrame: .zero, camera: camera)
-        googleMap.mapType = .normal
-        googleMap.delegate = self
-        googleMap.isMyLocationEnabled = true
-        googleMap.settings.compassButton = true
-        googleMap.settings.myLocationButton = true
-        googleMap.setMinZoom(10, maxZoom: 18)
-        googleMap.translatesAutoresizingMaskIntoConstraints = false
+        googleMap?.mapType = .normal
+        googleMap?.delegate = self
+        googleMap?.isMyLocationEnabled = true
+        googleMap?.settings.compassButton = true
+        googleMap?.settings.myLocationButton = true
+        googleMap?.setMinZoom(10, maxZoom: 18)
         setUpViews()
         setUpMarkerDataWith(viewModel)
     }
@@ -187,6 +183,7 @@ extension MapVC: GMSMapViewDelegate {
     }
 }
 
+//MARK: Trabsition delegate
 extension MapVC: UIViewControllerTransitioningDelegate {
     
     
@@ -206,107 +203,6 @@ extension MapVC: UIViewControllerTransitioningDelegate {
 }
 
 
-
-class StreetViewVC: UIViewController {
-    
-    //MARK: properties
-    var businessViewModel: BusinessViewModel? {
-        didSet {
-            if let viewModel = businessViewModel {
-                setUpStreetViewWith(viewModel)
-            }
-        }
-    }
-
-    //MARK: UI Elements
-    lazy var dismissButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
-        b.layer.cornerRadius = 35
-        b.layer.masksToBounds = true
-        b.setTitle("X", for: .normal)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white) , for: .normal)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-        return b
-    }()
-    
-    let panoramaView: GMSPanoramaView = {
-        let pv = GMSPanoramaView()
-        pv.translatesAutoresizingMaskIntoConstraints = false
-        return pv
-    }()
-    
-    let statusBarBackgroundView: BaseView = {
-        let v = BaseView()
-        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        return v
-    }()
-    
-    //MARK: APP lyfe cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
-        setUpViews()
-    }
-    
-    //MARK: Setup UI
-    fileprivate func setUpViews() {
-        view.addSubview(statusBarBackgroundView)
-        view.addSubview(panoramaView)
-        view.addSubview(dismissButton)
-        NSLayoutConstraint.activate([
-            statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 22),
-            statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: 70),
-            dismissButton.widthAnchor.constraint(equalToConstant: 70),
-            dismissButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dismissButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            panoramaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            panoramaView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            panoramaView.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
-            panoramaView.leftAnchor.constraint(equalTo: view.leftAnchor)
-            ])
-    }
-    
-    //MARK: navigation
-    @objc private func dismissView() {
-        dismiss(animated: true)
-    }
-}
-
-//MARK: Streetview handler
-extension StreetViewVC {
-    
-    fileprivate func setUpStreetViewWith(_ viewModel: BusinessViewModel) {
-        
-        let panoramaService = GMSPanoramaService()
-        let coordinate = CLLocationCoordinate2DMake(viewModel.coordinates.latitude, viewModel.coordinates.longitude)
-        panoramaService.requestPanoramaNearCoordinate(coordinate) { [weak self] (panorama, error) in
-            
-            let camera = GMSPanoramaCamera.init(heading: 180, pitch: 0, zoom: 1, fov: 90)
-            self?.panoramaView.camera = camera
-            self?.panoramaView.panorama = panorama
-            if self?.panoramaView.panorama == nil {
-                self?.alertUserIfPanoramaIsNil()
-            }
-        }
-    }
-    
-    private func alertUserIfPanoramaIsNil() {
-  
-        DispatchQueue.main.async { [weak self] in
-            let alertController = UIAlertController(title: "No data Available", message: "Sorry, Google can't show data for this point.", preferredStyle: .alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: .default) { (action) in
-                alertController.dismiss(animated: true)
-            }
-            alertController.addAction(dismissAction)
-            self?.present(alertController, animated: true)
-        }
-    }
-}
 
 
 

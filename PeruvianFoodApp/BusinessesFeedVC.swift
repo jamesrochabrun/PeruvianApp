@@ -9,6 +9,8 @@
 import TRON
 import SwiftyJSON
 
+import GoogleMaps
+
 class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
@@ -58,6 +60,12 @@ class BusinessesFeedVC: FeedVC {
         return av
     }()
     
+    let mapView: MapManagerView = {
+        let mv = MapManagerView()
+        mv.isHidden = true
+        return mv
+    }()
+    
     //MARK: APP lifecycle
     override func viewDidLoad() {
 
@@ -80,6 +88,7 @@ class BusinessesFeedVC: FeedVC {
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)
     }
@@ -87,7 +96,8 @@ class BusinessesFeedVC: FeedVC {
     override func setUpViews() {
         
         segmentedControl.selectedSegmentIndex = 0
-        tableView.tableHeaderView = segmentedControl
+        view.addSubview(mapView)
+        view.addSubview(segmentedControl)
         view.addSubview(alertView)
         view.addSubview(filterView)
         
@@ -111,6 +121,8 @@ class BusinessesFeedVC: FeedVC {
         NSLayoutConstraint.activate([
             segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 35),
+            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
             alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
@@ -118,7 +130,11 @@ class BusinessesFeedVC: FeedVC {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            mapView.widthAnchor.constraint(equalTo: view.widthAnchor)
             ])
     }
     
@@ -134,6 +150,10 @@ class BusinessesFeedVC: FeedVC {
     //MARK: segmented control trigger
     @objc private func switchPresentation() {
         
+        mapView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
+        if segmentedControl.selectedSegmentIndex == 1 {
+            mapView.mapDataSource = feedDataSource
+        }
     }
     
     //MARK: Networking
@@ -147,16 +167,17 @@ class BusinessesFeedVC: FeedVC {
             
             switch result {
             case .Success(let businessViewModelDataSource):
-                strongSelf.feedDataSource = businessViewModelDataSource
-                
-                //setting the feedVC property of the datasource object
-                strongSelf.feedDataSource.feedVC = self
-                //////////////////////////////////////////////////////
-                strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
-                    strongSelf.feedRefreshControl.endRefreshing()
-                    strongSelf.customIndicator.stopAnimating()
-                })
-                
+                DispatchQueue.main.async {
+                    strongSelf.feedDataSource = businessViewModelDataSource
+                   // strongSelf.mapView.mapDataSource = businessViewModelDataSource
+                    //setting the feedVC property of the datasource object
+                    strongSelf.feedDataSource.feedVC = self
+                    //////////////////////////////////////////////////////
+                    strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
+                        strongSelf.feedRefreshControl.endRefreshing()
+                        strongSelf.customIndicator.stopAnimating()
+                    })
+                }
             case .Error(let error) :
                 print("ERROR ON NETWORK REQUEST FROM BUSINESSFEEDVC: \(error)")
             }
@@ -221,6 +242,108 @@ extension BusinessesFeedVC: FilterViewDelegate {
             })
     }
 }
+
+
+class MapManagerView: BaseView {
+    
+    var mapDataSource: BusinessViewModelDataSource? {
+        didSet {
+            if let mapDataSource = mapDataSource {
+                setUpMapWith(mapDataSource)
+            }
+        }
+    }
+    var markerArray = [GMSMarker]()
+    var mapView: GMSMapView?
+    
+    override func setUpViews() {
+        
+        mapView = GMSMapView()
+        mapView?.mapType = .normal
+        mapView?.isMyLocationEnabled = true
+        mapView?.settings.compassButton = true
+        mapView?.settings.myLocationButton = true
+        mapView?.setMinZoom(10, maxZoom: 18)
+        mapView?.translatesAutoresizingMaskIntoConstraints = false
+
+        if mapView == nil { return }
+        addSubview(mapView!)
+        NSLayoutConstraint.activate([
+            mapView!.topAnchor.constraint(equalTo: topAnchor),
+            mapView!.leftAnchor.constraint(equalTo: leftAnchor),
+            mapView!.widthAnchor.constraint(equalTo: widthAnchor),
+            mapView!.heightAnchor.constraint(equalTo: heightAnchor)
+            ])
+    }
+    
+    private func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
+        
+        let dataSourceArray = dataSource.getBusinessesForMap()
+        guard let closestBusiness = dataSourceArray.first else {
+            print("No first business founded")
+            return
+        }
+        setUpCameraPositionFromClosestBusiness(closestBusiness)
+        resetAndDrawMarkersWith(dataSourceArray)
+    }
+    
+    private func setUpCameraPositionFromClosestBusiness(_ business: BusinessViewModel) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: business.coordinates.latitude, longitude: business.coordinates.longitude, zoom: 16)
+        mapView?.camera = camera
+    }
+    
+    private func resetAndDrawMarkersWith(_ dataSourceArray: [BusinessViewModel]) {
+        
+        if markerArray.count <= 0 {
+            _ = dataSourceArray.map{setUpMarkerDataWith($0)}
+           // _ = markerArray.map{draw($0)}
+        } else {
+            for i in 0..<markerArray.count {
+                let marker = markerArray[i]
+                marker.map = nil
+            }
+            markerArray.removeAll()
+            _ = dataSourceArray.map{setUpMarkerDataWith($0)}
+          //  _ = markerArray.map{draw($0)}
+        }
+    }
+    
+    private func setUpMarkerDataWith(_ viewModel: BusinessViewModel) {
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude)
+        marker.appearAnimation = .pop
+        marker.icon = #imageLiteral(resourceName: "markerIcon")
+        marker.map = nil
+        
+        let geoCoder = GMSGeocoder()
+        geoCoder.reverseGeocodeCoordinate(marker.position) { (response, error) in
+            marker.title = viewModel.name
+            marker.snippet = response?.firstResult()?.thoroughfare
+        }
+        markerArray.append(marker)
+        draw(marker)
+    }
+    
+    private func draw(_ marker: GMSMarker) {
+        if marker.map == nil {
+            marker.map = self.mapView
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

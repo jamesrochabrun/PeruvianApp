@@ -40,7 +40,6 @@ class SubInfoCell: BaseCell {
         return iv
     }()
     
-    
     override func setUpViews() {
         
         let marginGuide = contentView.layoutMarginsGuide
@@ -51,6 +50,9 @@ class SubInfoCell: BaseCell {
         contentView.addSubview(phoneImageViewIcon)
         contentView.addSubview(categoryViewIcon)
 
+        phoneLabel.isUserInteractionEnabled = true
+        phoneLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(performCall)))
+        
         NSLayoutConstraint.activate([
             
             addressViewIcon.leftAnchor.constraint(equalTo: marginGuide.leftAnchor, constant: 15),
@@ -83,6 +85,13 @@ class SubInfoCell: BaseCell {
             ])
     }
     
+    @objc private func performCall() {
+        
+        guard let numberText = phoneLabel.text else { return }
+        guard let number = URL(string: "telprompt://" + numberText) else { return }
+        UIApplication.shared.open(number, options: [:], completionHandler: nil)
+    }
+
     func setUp(with businessViewModel: BusinessViewModel) {
         
         addressLabel.text = businessViewModel.address
