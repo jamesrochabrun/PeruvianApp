@@ -255,6 +255,7 @@ class MapManagerView: BaseView {
     }
     var markerArray = [GMSMarker]()
     var mapView: GMSMapView?
+    var dataSourceArray: [BusinessViewModel]?
     
     override func setUpViews() {
         
@@ -264,6 +265,7 @@ class MapManagerView: BaseView {
         mapView?.settings.compassButton = true
         mapView?.settings.myLocationButton = true
         mapView?.setMinZoom(10, maxZoom: 18)
+        mapView?.delegate = self
         mapView?.translatesAutoresizingMaskIntoConstraints = false
 
         if mapView == nil { return }
@@ -278,15 +280,16 @@ class MapManagerView: BaseView {
     
     private func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
         
-        let dataSourceArray = dataSource.getBusinessesForMap()
-        guard let closestBusiness = dataSourceArray.first else {
+        dataSourceArray = dataSource.getBusinessesForMap()
+        guard let closestBusiness = dataSourceArray?.first else {
             print("No first business founded")
             return
         }
         setUpCameraPositionFromClosestBusiness(closestBusiness)
-        resetAndDrawMarkersWith(dataSourceArray)
+        resetAndDrawMarkersWith(dataSourceArray!)
     }
     
+    //MARK: Helper methods
     private func setUpCameraPositionFromClosestBusiness(_ business: BusinessViewModel) {
         
         let camera = GMSCameraPosition.camera(withLatitude: business.coordinates.latitude, longitude: business.coordinates.longitude, zoom: 16)
@@ -297,7 +300,6 @@ class MapManagerView: BaseView {
         
         if markerArray.count <= 0 {
             _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-           // _ = markerArray.map{draw($0)}
         } else {
             for i in 0..<markerArray.count {
                 let marker = markerArray[i]
@@ -305,7 +307,6 @@ class MapManagerView: BaseView {
             }
             markerArray.removeAll()
             _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-          //  _ = markerArray.map{draw($0)}
         }
     }
     
@@ -333,7 +334,24 @@ class MapManagerView: BaseView {
     }
 }
 
-
+extension MapManagerView: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        
+        print(marker.title)
+        let frame = CGRect(x: 0, y: 0, width: 200, height: 70)
+        return MarkerDetailView(frame: frame, marker: marker)
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        let businessViewModel = dataSourceArray?.filter{$0.coordinates.longitude == marker.position.longitude && $0.coordinates.latitude == marker.position.latitude}
+        let business = businessViewModel?.first
+        
+        print(business?.name)
+        
+    }
+}
 
 
 
