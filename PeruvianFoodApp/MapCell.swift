@@ -12,7 +12,7 @@ import GoogleMaps
 
 class MapCell: BaseCell {
     
-    var googleMap = GMSMapView()
+    lazy var googleMap = GMSMapView()
     lazy var actionView: BaseView = {
         let v = BaseView()
         v.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapOnMap)))

@@ -155,8 +155,18 @@ class BusinessesFeedVC: FeedVC {
         feedSearchBar.endEditing(true)
         mapView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
         if segmentedControl.selectedSegmentIndex == 1 {
-            mapView.mapDataSource = feedDataSource
+            updateMapWithDataSource()
         }
+    }
+    
+    //MARK: update markers in map
+    fileprivate func updateMapWithDataSource() {
+        mapView.mapDataSource = feedDataSource
+    }
+    
+    //handle by delegation
+    func updateDataInMap() {
+        updateMapWithDataSource()
     }
     
     //MARK: Networking
@@ -236,6 +246,8 @@ extension BusinessesFeedVC: FilterViewDelegate {
         alertView.alpha = 0
         getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
         performDismissFilterView()
+        mapView.mapDataSource = feedDataSource
+        
     }
     
     //helper Method
@@ -256,6 +268,11 @@ extension BusinessesFeedVC: MapManagerDelegate {
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.businessViewModel = viewModel
         self.present(businessDetailVC, animated: true)
+    }
+    
+    func hideKeyBoard() {
+        feedSearchBar.endEditing(true)
+        performDismissFilterView()
     }
 }
 

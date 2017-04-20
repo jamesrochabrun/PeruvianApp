@@ -12,6 +12,7 @@ import GoogleMaps
 
 protocol MapManagerDelegate: class {
     func openDetailVCFromMarkerViewWith(_ viewModel: BusinessViewModel)
+    func hideKeyBoard()
 }
 
 class MapManagerView: BaseView {
@@ -48,6 +49,7 @@ class MapManagerView: BaseView {
             ])
     }
     
+    //MARK: getbusinessesformap function updates a new array every time the BusinessViewModelDataSource is setted
     private func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
         
         dataSourceArray = dataSource.getBusinessesForMap()
@@ -121,6 +123,18 @@ extension MapManagerView: GMSMapViewDelegate {
         }
         delegate?.openDetailVCFromMarkerViewWith(businessViewModel)
     }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        if gesture {
+            delegate?.hideKeyBoard()
+        }
+    }
 }
+
+
+
+
+
+
 
 
