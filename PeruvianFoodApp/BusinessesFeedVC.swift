@@ -9,6 +9,8 @@ git //
 import TRON
 import SwiftyJSON
 
+import GoogleMaps
+
 class BusinessesFeedVC: FeedVC {
     
     //MARK: properties
@@ -58,6 +60,13 @@ class BusinessesFeedVC: FeedVC {
         return av
     }()
     
+    lazy var mapView: MapManagerView = {
+        let mv = MapManagerView()
+        mv.isHidden = true
+        mv.delegate = self
+        return mv
+    }()
+    
     //MARK: APP lifecycle
     override func viewDidLoad() {
 
@@ -80,6 +89,7 @@ class BusinessesFeedVC: FeedVC {
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)
     }
@@ -87,7 +97,8 @@ class BusinessesFeedVC: FeedVC {
     override func setUpViews() {
         
         segmentedControl.selectedSegmentIndex = 0
-        tableView.tableHeaderView = segmentedControl
+        view.addSubview(mapView)
+        view.addSubview(segmentedControl)
         view.addSubview(alertView)
         view.addSubview(filterView)
         
@@ -111,6 +122,8 @@ class BusinessesFeedVC: FeedVC {
         NSLayoutConstraint.activate([
             segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 35),
+            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
             alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
@@ -118,7 +131,11 @@ class BusinessesFeedVC: FeedVC {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            mapView.widthAnchor.constraint(equalTo: view.widthAnchor)
             ])
     }
     
@@ -128,12 +145,18 @@ class BusinessesFeedVC: FeedVC {
     }
     
     override func refresh(_ refreshControl: UIRefreshControl) {
+        
         getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
     }
     
     //MARK: segmented control trigger
     @objc private func switchPresentation() {
         
+        feedSearchBar.endEditing(true)
+        mapView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
+        if segmentedControl.selectedSegmentIndex == 1 {
+            mapView.mapDataSource = feedDataSource
+        }
     }
     
     //MARK: Networking
@@ -147,16 +170,17 @@ class BusinessesFeedVC: FeedVC {
             
             switch result {
             case .Success(let businessViewModelDataSource):
-                strongSelf.feedDataSource = businessViewModelDataSource
-                
-                //setting the feedVC property of the datasource object
-                strongSelf.feedDataSource.feedVC = self
-                //////////////////////////////////////////////////////
-                strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
-                    strongSelf.feedRefreshControl.endRefreshing()
-                    strongSelf.customIndicator.stopAnimating()
-                })
-                
+                DispatchQueue.main.async {
+                    strongSelf.feedDataSource = businessViewModelDataSource
+                   // strongSelf.mapView.mapDataSource = businessViewModelDataSource
+                    //setting the feedVC property of the datasource object
+                    strongSelf.feedDataSource.feedVC = self
+                    //////////////////////////////////////////////////////
+                    strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
+                        strongSelf.feedRefreshControl.endRefreshing()
+                        strongSelf.customIndicator.stopAnimating()
+                    })
+                }
             case .Error(let error) :
                 print("ERROR ON NETWORK REQUEST FROM BUSINESSFEEDVC: \(error)")
             }
@@ -181,6 +205,7 @@ extension BusinessesFeedVC {
 extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
+        
         alertView.alpha = 1
         alertView.performAnimation()
     }
@@ -201,6 +226,7 @@ extension BusinessesFeedVC: FilterViewDelegate {
     }
     //triggered by delegation
     func cancelWasPressed() {
+        
         performDismissFilterView()
     }
     
@@ -221,6 +247,27 @@ extension BusinessesFeedVC: FilterViewDelegate {
             })
     }
 }
+
+extension BusinessesFeedVC: MapManagerDelegate {
+    
+    func openDetailVCFromMarkerViewWith(_ viewModel: BusinessViewModel) {
+        
+        feedSearchBar.endEditing(true)
+        let businessDetailVC = BusinessDetailVC()
+        businessDetailVC.businessViewModel = viewModel
+        self.present(businessDetailVC, animated: true)
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

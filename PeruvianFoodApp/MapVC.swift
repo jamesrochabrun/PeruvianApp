@@ -21,7 +21,8 @@ class MapVC: UIViewController {
         }
     }
     var polyline: GMSPolyline?
-    var googleMap = GMSMapView()
+    var googleMap: GMSMapView?
+    let circularTransition = CircularTransition()
     
     //MARK: UI Elements
     let statusBarBackgroundView: BaseView = {
@@ -35,6 +36,18 @@ class MapVC: UIViewController {
         return dbv
     }()
     
+    lazy var transitionButton: UIButton = {
+        let b = UIButton()
+        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
+        b.layer.cornerRadius = 35
+        b.layer.masksToBounds = true
+        b.setTitle("S", for: .normal)
+        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white) , for: .normal)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(self, action: #selector(goToStreetView), for: .touchUpInside)
+        return b
+    }()
+    
     //MARK: APP lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +56,13 @@ class MapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
-        googleMap.selectedMarker = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        googleMap?.selectedMarker = nil
+        googleMap = nil
     }
     
     override func viewWillLayoutSubviews() {
@@ -63,10 +77,10 @@ class MapVC: UIViewController {
             dismissButton.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
             dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
             dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
-            googleMap.topAnchor.constraint(equalTo: view.topAnchor),
-            googleMap.heightAnchor.constraint(equalTo: view.heightAnchor),
-            googleMap.widthAnchor.constraint(equalTo: view.widthAnchor),
-            googleMap.leftAnchor.constraint(equalTo: view.leftAnchor)
+            transitionButton.heightAnchor.constraint(equalToConstant: 70),
+            transitionButton.widthAnchor.constraint(equalToConstant: 70),
+            transitionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
             ])
     }
     
@@ -75,28 +89,38 @@ class MapVC: UIViewController {
         self.dismiss(animated: true)
     }
     
+    @objc private func goToStreetView() {
+        
+        let streetVC = StreetViewVC()
+        streetVC.transitioningDelegate = self
+        streetVC.modalPresentationStyle = .custom
+        streetVC.businessViewModel = businessViewModel
+        present(streetVC, animated: true)
+    }
+    
     //MARK: setup UI
     fileprivate func setUpViews() {
-        view.addSubview(googleMap)
+       // view.addSubview(googleMap)
+        view = googleMap
         view.addSubview(statusBarBackgroundView)
         view.addSubview(dismissButton)
+        view.addSubview(transitionButton)
     }
 }
 
-//MARK: google maps handlers
+//MARK: google maps handlers setup
 extension MapVC {
     
     fileprivate func setUpGoogleMapWith(_ viewModel: BusinessViewModel) {
         
         let camera = GMSCameraPosition.camera(withLatitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude, zoom: 16)
         googleMap = GMSMapView.map(withFrame: .zero, camera: camera)
-        googleMap.mapType = .normal
-        googleMap.delegate = self
-        googleMap.isMyLocationEnabled = true
-        googleMap.settings.compassButton = true
-        googleMap.settings.myLocationButton = true
-        googleMap.setMinZoom(10, maxZoom: 18)
-        googleMap.translatesAutoresizingMaskIntoConstraints = false
+        googleMap?.mapType = .normal
+        googleMap?.delegate = self
+        googleMap?.isMyLocationEnabled = true
+        googleMap?.settings.compassButton = true
+        googleMap?.settings.myLocationButton = true
+        googleMap?.setMinZoom(10, maxZoom: 18)
         setUpViews()
         setUpMarkerDataWith(viewModel)
     }
@@ -132,6 +156,7 @@ extension MapVC: GMSMapViewDelegate {
         return MarkerDetailView(frame: frame, marker: marker)
     }
     
+    //MARK: Polyline
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
         if self.polyline != nil { return }
@@ -158,7 +183,24 @@ extension MapVC: GMSMapViewDelegate {
     }
 }
 
-
+//MARK: Trabsition delegate
+extension MapVC: UIViewControllerTransitioningDelegate {
+    
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        circularTransition.transitionMode = .present
+        circularTransition.startingPoint = transitionButton.center
+        circularTransition.circleColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor) //transitionButton.backgroundColor!
+        return circularTransition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        circularTransition.transitionMode = .dismiss
+        circularTransition.startingPoint = transitionButton.center
+        circularTransition.circleColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)//transitionButton.backgroundColor!
+        return circularTransition
+    }
+}
 
 
 

@@ -156,30 +156,34 @@ class BusinesCell: BaseCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         businessImageView.image = nil
     }
     
     func setUpCell(with viewModel: BusinessViewModel) {
         
-        businessNameLabel.text = viewModel.name
-        distanceLabel.text = viewModel.distance
-        reviewsLabel.text = viewModel.reviewsCount
-        addressLabel.text = viewModel.address
-        categoryLabel.text = viewModel.category
-        priceLabel.text = viewModel.price
-        ratingView.image = viewModel.ratingImage
-        guard let url = URL(string: viewModel.profileImageURL) else {
-            print("INVALID URL ON CREATION BASECELL")
-            return
-        }
-        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: true) { (response) in
-            guard let image = response.result.value else {
-                print("INVALID RESPONSE SETTING UP THE BASECELL")
+            businessNameLabel.text = viewModel.name
+            distanceLabel.text = viewModel.distance
+            reviewsLabel.text = viewModel.reviewsCount
+            addressLabel.text = viewModel.address
+            categoryLabel.text = viewModel.category
+            priceLabel.text = viewModel.price
+            ratingView.image = viewModel.ratingImage
+            guard let url = URL(string: viewModel.profileImageURL) else {
+                print("INVALID URL ON CREATION BASECELL")
                 return
             }
-            self.businessImageView.image = image
-        }
+            businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) {[weak self] (response) in
+                guard let image = response.result.value else {
+                    print("INVALID RESPONSE SETTING UP THE BASECELL")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self?.businessImageView.image = image
+                }
+            }
     }
+    
 }
 
 

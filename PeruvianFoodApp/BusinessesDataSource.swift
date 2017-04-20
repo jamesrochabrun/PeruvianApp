@@ -38,7 +38,6 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
         self.businessesViewModel = businesses.map{BusinessViewModel(model: $0)}
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if businessesViewModel.count == 0 {
@@ -62,6 +61,10 @@ extension BusinessViewModelDataSource {
     
     func getBusinessViewModelFromIndexpath(_ indexPath: IndexPath) -> BusinessViewModel {
       return searchActive ? searchResults[indexPath.row] : businessesViewModel[indexPath.row]
+    }
+    
+    func getBusinessesForMap() -> [BusinessViewModel] {
+        return searchActive ? searchResults : businessesViewModel
     }
 }
 

@@ -21,7 +21,7 @@ struct GoogleMapService {
     static func getDirectionsFrom(mapView: GMSMapView, marker: GMSMarker, completion: @escaping DirectionsCompletionHandler) {
         
         guard let startLatitude = mapView.myLocation?.coordinate.latitude, let startLongitude = mapView.myLocation?.coordinate.longitude else {
-            print("NO starting point of user")
+            completion(.Error(.locationServiceDisable))
             return
         }
         let startLocation = "\(startLatitude),\(startLongitude)"
@@ -79,6 +79,7 @@ enum GoogleError: Error {
     case statusFailure
     case pointsNotFoundedError
     case invalidPath
+    case locationServiceDisable
 }
 
 
