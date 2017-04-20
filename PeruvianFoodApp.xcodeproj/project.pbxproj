@@ -63,6 +63,7 @@
 		7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */; };
 		7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */; };
 		7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */; };
+		7BE026C41EA8871E00CC701C /* MapManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C31EA8871E00CC701C /* MapManagerView.swift */; };
 		7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */; };
 		7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */; };
 		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
@@ -136,6 +137,7 @@
 		7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesDataSource.swift; sourceTree = "<group>"; };
 		7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewVC.swift; sourceTree = "<group>"; };
+		7BE026C31EA8871E00CC701C /* MapManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManagerView.swift; sourceTree = "<group>"; };
 		7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemViewModel.swift; sourceTree = "<group>"; };
 		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */,
 				7B11D65B1EA55841002E851B /* FilterView.swift */,
 				7BFAB9C51EA721BD00294438 /* MarkerDetailView.swift */,
+				7BE026C31EA8871E00CC701C /* MapManagerView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				7BFAB9C61EA721BD00294438 /* MarkerDetailView.swift in Sources */,
 				7B8636701EA19A890020EFC8 /* BusinessDetailDataSource.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
+				7BE026C41EA8871E00CC701C /* MapManagerView.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
 				7BFAB9C41EA6DD9A00294438 /* KAPPSettingsEnum.swift in Sources */,

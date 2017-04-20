@@ -28,6 +28,14 @@ class MarkerDetailView: BaseView {
         return l
     }()
     
+//    let ratingImageView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.translatesAutoresizingMaskIntoConstraints = false
+//        iv.contentMode = .center
+//        iv.clipsToBounds = true
+//        return iv
+//    }()
+    
     convenience init(frame: CGRect, marker: GMSMarker) {
         self.init(frame: frame)
         headerLabel.text = marker.title

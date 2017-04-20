@@ -60,9 +60,10 @@ class BusinessesFeedVC: FeedVC {
         return av
     }()
     
-    let mapView: MapManagerView = {
+    lazy var mapView: MapManagerView = {
         let mv = MapManagerView()
         mv.isHidden = true
+        mv.delegate = self
         return mv
     }()
     
@@ -144,12 +145,14 @@ class BusinessesFeedVC: FeedVC {
     }
     
     override func refresh(_ refreshControl: UIRefreshControl) {
+        
         getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
     }
     
     //MARK: segmented control trigger
     @objc private func switchPresentation() {
         
+        feedSearchBar.endEditing(true)
         mapView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
         if segmentedControl.selectedSegmentIndex == 1 {
             mapView.mapDataSource = feedDataSource
@@ -202,6 +205,7 @@ extension BusinessesFeedVC {
 extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
+        
         alertView.alpha = 1
         alertView.performAnimation()
     }
@@ -222,6 +226,7 @@ extension BusinessesFeedVC: FilterViewDelegate {
     }
     //triggered by delegation
     func cancelWasPressed() {
+        
         performDismissFilterView()
     }
     
@@ -243,113 +248,14 @@ extension BusinessesFeedVC: FilterViewDelegate {
     }
 }
 
-
-class MapManagerView: BaseView {
+extension BusinessesFeedVC: MapManagerDelegate {
     
-    var mapDataSource: BusinessViewModelDataSource? {
-        didSet {
-            if let mapDataSource = mapDataSource {
-                setUpMapWith(mapDataSource)
-            }
-        }
-    }
-    var markerArray = [GMSMarker]()
-    var mapView: GMSMapView?
-    var dataSourceArray: [BusinessViewModel]?
-    
-    override func setUpViews() {
+    func openDetailVCFromMarkerViewWith(_ viewModel: BusinessViewModel) {
         
-        mapView = GMSMapView()
-        mapView?.mapType = .normal
-        mapView?.isMyLocationEnabled = true
-        mapView?.settings.compassButton = true
-        mapView?.settings.myLocationButton = true
-        mapView?.setMinZoom(10, maxZoom: 18)
-        mapView?.delegate = self
-        mapView?.translatesAutoresizingMaskIntoConstraints = false
-
-        if mapView == nil { return }
-        addSubview(mapView!)
-        NSLayoutConstraint.activate([
-            mapView!.topAnchor.constraint(equalTo: topAnchor),
-            mapView!.leftAnchor.constraint(equalTo: leftAnchor),
-            mapView!.widthAnchor.constraint(equalTo: widthAnchor),
-            mapView!.heightAnchor.constraint(equalTo: heightAnchor)
-            ])
-    }
-    
-    private func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
-        
-        dataSourceArray = dataSource.getBusinessesForMap()
-        guard let closestBusiness = dataSourceArray?.first else {
-            print("No first business founded")
-            return
-        }
-        setUpCameraPositionFromClosestBusiness(closestBusiness)
-        resetAndDrawMarkersWith(dataSourceArray!)
-    }
-    
-    //MARK: Helper methods
-    private func setUpCameraPositionFromClosestBusiness(_ business: BusinessViewModel) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: business.coordinates.latitude, longitude: business.coordinates.longitude, zoom: 16)
-        mapView?.camera = camera
-    }
-    
-    private func resetAndDrawMarkersWith(_ dataSourceArray: [BusinessViewModel]) {
-        
-        if markerArray.count <= 0 {
-            _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-        } else {
-            for i in 0..<markerArray.count {
-                let marker = markerArray[i]
-                marker.map = nil
-            }
-            markerArray.removeAll()
-            _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-        }
-    }
-    
-    private func setUpMarkerDataWith(_ viewModel: BusinessViewModel) {
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude)
-        marker.appearAnimation = .pop
-        marker.icon = #imageLiteral(resourceName: "markerIcon")
-        marker.map = nil
-        
-        let geoCoder = GMSGeocoder()
-        geoCoder.reverseGeocodeCoordinate(marker.position) { (response, error) in
-            marker.title = viewModel.name
-            marker.snippet = response?.firstResult()?.thoroughfare
-        }
-        markerArray.append(marker)
-        draw(marker)
-    }
-    
-    private func draw(_ marker: GMSMarker) {
-        if marker.map == nil {
-            marker.map = self.mapView
-        }
-    }
-}
-
-extension MapManagerView: GMSMapViewDelegate {
-    
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
-        print(marker.title)
-        let frame = CGRect(x: 0, y: 0, width: 200, height: 70)
-        return MarkerDetailView(frame: frame, marker: marker)
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        
-        let businessViewModel = dataSourceArray?.filter{$0.coordinates.longitude == marker.position.longitude && $0.coordinates.latitude == marker.position.latitude}
-        let business = businessViewModel?.first
-        
-        print(business?.name)
-        
+        feedSearchBar.endEditing(true)
+        let businessDetailVC = BusinessDetailVC()
+        businessDetailVC.businessViewModel = viewModel
+        self.present(businessDetailVC, animated: true)
     }
 }
 
