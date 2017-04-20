@@ -87,6 +87,11 @@ class FeedVC: UIViewController, UITableViewDelegate {
     func setUpViews() {
     }
     
+    //MARK: Scrollview draggin 
+    func scrollViewIsDragging() {
+        feedSearchBar.endEditing(true)
+    }
+    
   //  MARK: Networking
     func refresh(_ refreshControl: UIRefreshControl) {
     }
@@ -102,7 +107,7 @@ extension FeedVC: UISearchBarDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        feedSearchBar.endEditing(true)
+        scrollViewIsDragging()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

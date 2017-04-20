@@ -28,18 +28,21 @@ class MarkerDetailView: BaseView {
         return l
     }()
     
-//    let ratingImageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.translatesAutoresizingMaskIntoConstraints = false
-//        iv.contentMode = .center
-//        iv.clipsToBounds = true
-//        return iv
-//    }()
+    let ratingImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .center
+        iv.clipsToBounds = true
+        return iv
+    }()
     
     convenience init(frame: CGRect, marker: GMSMarker) {
         self.init(frame: frame)
         headerLabel.text = marker.title
-        subHeaderLabel.text = marker.snippet
+        if let snippet = marker.snippet,
+            let double = Double(snippet) {
+            let numberIcon = NSNumber(value: double)
+            ratingImageView.image = ReviewIcon(reviewNumber: numberIcon).image
+        }
         layer.cornerRadius = 10
         layer.masksToBounds = true
         backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
@@ -49,7 +52,7 @@ class MarkerDetailView: BaseView {
     override func setUpViews() {
         
         addSubview(headerLabel)
-        addSubview(subHeaderLabel)
+        addSubview(ratingImageView)
     }
     
     override func layoutSubviews() {
@@ -62,11 +65,18 @@ class MarkerDetailView: BaseView {
         frame.origin.x = (self.frame.size.width - frame.size.width) / 2
         headerLabel.frame = frame
         
-        frame = subHeaderLabel.frame
+        frame = ratingImageView.frame
         frame.origin.y = headerLabel.frame.maxY + 7
-        frame.size.width = headerLabel.frame.size.width
-        frame.size.height = headerLabel.frame.size.height
+        frame.size.width = self.frame.size.width * 0.7
+        frame.size.height = 28
         frame.origin.x = (self.frame.size.width - frame.size.width) / 2
-        subHeaderLabel.frame = frame
+        ratingImageView.frame = frame
     }
 }
+
+
+
+
+
+
+

@@ -94,7 +94,7 @@ class MapManagerView: BaseView {
         
         DispatchQueue.main.async {
             marker.title = viewModel.name
-            marker.snippet = viewModel.address
+            marker.snippet = viewModel.textRating
         }
         markerArray.append(marker)
         draw(marker)
