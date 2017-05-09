@@ -132,12 +132,8 @@ extension MapVC {
         marker.appearAnimation = .pop
         marker.icon = #imageLiteral(resourceName: "markerIcon")
         marker.map = nil
-        
-        let geoCoder = GMSGeocoder()
-        geoCoder.reverseGeocodeCoordinate(marker.position) { (response, error) in
-            marker.title = response?.firstResult()?.locality
-            marker.snippet = response?.firstResult()?.thoroughfare
-        }
+        marker.title = viewModel.name
+        marker.snippet = viewModel.textRating
         draw(marker)
     }
     

@@ -81,41 +81,6 @@ class BusinessesFeedVC: FeedVC {
         performDismissFilterView()
     }
     
-    //MARK: FeedVC super class methods
-    override func setUpTableView() {
-        
-        view.addSubview(tableView)
-        tableView.addSubview(customIndicator)
-        tableView.register(BusinesCell.self)
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 100
-        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
-        tableView.separatorStyle = .none
-        tableView.insertSubview(feedRefreshControl, at: 0)
-    }
-    
-    override func setUpViews() {
-        
-        segmentedControl.selectedSegmentIndex = 0
-        view.addSubview(mapView)
-        view.addSubview(segmentedControl)
-        view.addSubview(alertView)
-        view.addSubview(filterView)
-        
-        //add the constraints here to avoid the call to layout if needed during animation
-        filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
-        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
-        filterViewTopAnchor?.isActive = true
-        
-        customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -139,6 +104,42 @@ class BusinessesFeedVC: FeedVC {
             ])
     }
     
+    //MARK: FeedVC super class methods
+    override func setUpTableView() {
+        
+        view.addSubview(tableView)
+        //tableView.addSubview(customIndicator)
+        tableView.register(BusinesCell.self)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
+        tableView.separatorStyle = .none
+        tableView.insertSubview(feedRefreshControl, at: 0)
+    }
+    
+    override func setUpViews() {
+        
+        segmentedControl.selectedSegmentIndex = 0
+        view.addSubview(mapView)
+        view.addSubview(customIndicator)
+        view.addSubview(segmentedControl)
+        view.addSubview(alertView)
+        view.addSubview(filterView)
+        
+        //add the constraints here to avoid the call to layout if needed during animation
+        filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
+        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        filterViewTopAnchor?.isActive = true
+        
+        customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        customIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+    }
+    
     override func setUpNavBar() {
         super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(showFilterView))
@@ -149,14 +150,31 @@ class BusinessesFeedVC: FeedVC {
         getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
     }
     
+    override func scrollViewIsDragging() {
+        super.scrollViewIsDragging()
+        performDismissFilterView()
+    }
+    
+    /////////Super class FeedVC methods End
+    
     //MARK: segmented control trigger
     @objc private func switchPresentation() {
         
         feedSearchBar.endEditing(true)
         mapView.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
         if segmentedControl.selectedSegmentIndex == 1 {
-            mapView.mapDataSource = feedDataSource
+            updateMapWithDataSource()
         }
+    }
+    
+    //MARK: update markers in map
+    fileprivate func updateMapWithDataSource() {
+        mapView.mapDataSource = feedDataSource
+    }
+    
+    //handle by delegation
+    func updateDataInMap() {
+        updateMapWithDataSource()
     }
     
     //MARK: Networking
@@ -172,7 +190,7 @@ class BusinessesFeedVC: FeedVC {
             case .Success(let businessViewModelDataSource):
                 DispatchQueue.main.async {
                     strongSelf.feedDataSource = businessViewModelDataSource
-                   // strongSelf.mapView.mapDataSource = businessViewModelDataSource
+                    strongSelf.mapView.mapDataSource = businessViewModelDataSource
                     //setting the feedVC property of the datasource object
                     strongSelf.feedDataSource.feedVC = self
                     //////////////////////////////////////////////////////
@@ -256,6 +274,11 @@ extension BusinessesFeedVC: MapManagerDelegate {
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.businessViewModel = viewModel
         self.present(businessDetailVC, animated: true)
+    }
+    
+    func hideKeyBoard() {
+        feedSearchBar.endEditing(true)
+        performDismissFilterView()
     }
 }
 

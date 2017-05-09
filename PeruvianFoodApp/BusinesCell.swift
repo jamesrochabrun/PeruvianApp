@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import CoreImage
+import AlamofireImage
 
 class BusinesCell: BaseCell {
 
@@ -173,6 +174,7 @@ class BusinesCell: BaseCell {
                 print("INVALID URL ON CREATION BASECELL")
                 return
             }
+        
             businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) {[weak self] (response) in
                 guard let image = response.result.value else {
                     print("INVALID RESPONSE SETTING UP THE BASECELL")
@@ -183,7 +185,6 @@ class BusinesCell: BaseCell {
                 }
             }
     }
-    
 }
 
 

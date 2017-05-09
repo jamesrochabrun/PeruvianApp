@@ -13,6 +13,7 @@ import TRON
 
 protocol BusinessViewModelDataSourceDelegate: class {
     func handleNoResults()
+    func updateDataInMap()
 }
 
 class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
@@ -68,11 +69,13 @@ extension BusinessViewModelDataSource {
     }
 }
 
+//MARK: this delegate handles all the updates in VC from tableview and mapview
 extension BusinessViewModelDataSource: FeedVCDelegate {
     
     //Main delegate method of superclass FeedVC
     func updateDataInVC(_ vc: FeedVC) {
         searchActive = vc.searchActive
+        delegate?.updateDataInMap()
     }
     
     func filterContentFor(textToSearch: String) {
@@ -81,8 +84,15 @@ extension BusinessViewModelDataSource: FeedVCDelegate {
             let businessNameToFind = business.name.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
             //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
             //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            
             return (businessNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
         })
     }
 }
+
+
+
+
+
+
+
+
