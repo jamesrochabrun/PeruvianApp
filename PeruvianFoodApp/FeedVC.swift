@@ -62,8 +62,6 @@ class FeedVC: UIViewController, UITableViewDelegate {
     func setUpNavBar() {
         
         navigationItem.titleView = feedSearchBar
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(goToFilter))
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "MAP", style: .plain, target: self, action: #selector(goToMaps))
     }
     
     //call this method if customindicator is needed

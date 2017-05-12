@@ -69,10 +69,8 @@ class BusinessesFeedVC: FeedVC {
     
     //MARK: APP lifecycle
     override func viewDidLoad() {
+        super.viewDidLoad()
 
-        setUpNavBar()
-        setUpTableView()
-        setUpViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

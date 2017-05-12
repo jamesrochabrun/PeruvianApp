@@ -68,9 +68,6 @@ class CategoryItemsFeedVC: FeedVC {
         }
         self.navigationController?.pushViewController(businessFeedVC, animated: true)
     }
-    
-    //MARK: helper method reset the state of selection for new search
-
 }
 
 //MARK: tableview methods

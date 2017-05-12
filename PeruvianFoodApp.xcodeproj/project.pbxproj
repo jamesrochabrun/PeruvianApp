@@ -16,6 +16,8 @@
 		7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
 		7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104931EC5474F001C1A2C /* Endpoint.swift */; };
+		7B8104961EC56E55001C1A2C /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104951EC56E55001C1A2C /* CustomTabBarController.swift */; };
+		7B8104991EC573F5001C1A2C /* NearbyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104981EC573F5001C1A2C /* NearbyVC.swift */; };
 		7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636671EA038450020EFC8 /* LabelBuilder.swift */; };
 		7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366B1EA152220020EFC8 /* Gradientable.swift */; };
 		7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366D1EA17F0F0020EFC8 /* Review.swift */; };
@@ -100,6 +102,8 @@
 		7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemExtension.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		7B8104931EC5474F001C1A2C /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		7B8104951EC56E55001C1A2C /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		7B8104981EC573F5001C1A2C /* NearbyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyVC.swift; sourceTree = "<group>"; };
 		7B8636671EA038450020EFC8 /* LabelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		7B86366B1EA152220020EFC8 /* Gradientable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradientable.swift; sourceTree = "<group>"; };
 		7B86366D1EA17F0F0020EFC8 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -196,6 +200,14 @@
 				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
 			);
 			name = CollectionViewLayouts;
+			sourceTree = "<group>";
+		};
+		7B8104971EC573E6001C1A2C /* Nearby */ = {
+			isa = PBXGroup;
+			children = (
+				7B8104981EC573F5001C1A2C /* NearbyVC.swift */,
+			);
+			name = Nearby;
 			sourceTree = "<group>";
 		};
 		7B8CFB411EC153AD001624A4 /* PeruvianFoodAppTests */ = {
@@ -313,6 +325,7 @@
 		7BD8ED3E1E957CE200E610B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7B8104971EC573E6001C1A2C /* Nearby */,
 				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
 				7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */,
 				7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */,
@@ -328,6 +341,7 @@
 		7BD8ED3F1E957CF300E610B9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B8104951EC56E55001C1A2C /* CustomTabBarController.swift */,
 				7B8D82911E96B2DE005BF309 /* BaseView.swift */,
 				7BF5DC901EA900A1006C47D9 /* MapCustomViews */,
 				7BF5DC8F1EA90060006C47D9 /* Cells */,
@@ -353,10 +367,10 @@
 		7BD8ED4B1E95D81100E610B9 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */,
 				7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */,
 				7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */,
 				7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */,
+				7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */,
 				7B8636751EA1A05C0020EFC8 /* ReviewsViewModelDataSource.swift */,
 			);
 			name = DataSource;
@@ -597,6 +611,7 @@
 				7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */,
 				7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
+				7B8104961EC56E55001C1A2C /* CustomTabBarController.swift in Sources */,
 				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
 				7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */,
 				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
@@ -654,6 +669,7 @@
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
 				7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */,
 				7B865B671EA480C00048E513 /* Flashable.swift in Sources */,
+				7B8104991EC573F5001C1A2C /* NearbyVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
