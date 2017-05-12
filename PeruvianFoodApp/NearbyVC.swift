@@ -4,7 +4,6 @@
 //
 //  Created by James Rochabrun on 5/11/17.
 //  Copyright © 2017 James Rochabrun. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -22,6 +21,7 @@ class NearbyVC: BusinessesFeedVC {
         let selection = Selection()
         selection.categoryParent = "restaurants"
         super.getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+        bubbleContainer.setUpStreetViewWith(nil)
     }
     
     override func setUpNavBar() {
@@ -33,44 +33,47 @@ class NearbyVC: BusinessesFeedVC {
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        self.automaticallyAdjustsScrollViewInsets = false
         tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+
     }
     
     override func viewWillLayoutSubviews() {
         
         NSLayoutConstraint.activate([
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            bubbleContainer.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            bubbleContainer.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bubbleContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            bubbleContainer.heightAnchor.constraint(equalToConstant: view.frame.size.width / 3),
+            
+            tableView.bottomAnchor.constraint(equalTo: (tabBarController?.tabBar.topAnchor)!),
             tableView.topAnchor.constraint(equalTo: bubbleContainer.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
             customIndicator.heightAnchor.constraint(equalToConstant: 80),
             customIndicator.widthAnchor.constraint(equalToConstant: 80),
             customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            bubbleContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
-            bubbleContainer.widthAnchor.constraint(equalTo: view.widthAnchor),
-            bubbleContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
-            bubbleContainer.heightAnchor.constraint(equalToConstant: view.frame.size.width / 3)
+            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
     }
     
     override func setUpViews() {
-        
-        view.addSubview(customIndicator)
         view.addSubview(bubbleContainer)
-
+        tableView.addSubview(customIndicator)
     }
 }
 
-
-
+import GoogleMaps
 
 class BubbleContainer: BaseView {
     
     fileprivate let bubbleCategories = ["Restaurants", "Bars", "Food"]
     
     lazy var photoCollectionView: UICollectionView = {
-        let layout = ListLayout()        
+        let layout = ListLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -83,16 +86,59 @@ class BubbleContainer: BaseView {
         return cv
     }()
     
+    let panoramaView: GMSPanoramaView = {
+        let pv = GMSPanoramaView()
+        pv.translatesAutoresizingMaskIntoConstraints = false
+        return pv
+    }()
+    
     override func setUpViews() {
         
+        addSubview(panoramaView)
         addSubview(photoCollectionView)
+
         NSLayoutConstraint.activate([
+            panoramaView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            panoramaView.widthAnchor.constraint(equalTo: widthAnchor),
+            panoramaView.topAnchor.constraint(equalTo: bottomAnchor),
+            panoramaView.leftAnchor.constraint(equalTo: leftAnchor),
             photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
             photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             photoCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
     }
+}
+
+
+extension BubbleContainer {
+    
+    fileprivate func setUpStreetViewWith(_ viewModel: BusinessViewModel?) {
+        
+        let panoramaService = GMSPanoramaService()
+        let coordinate = CLLocationCoordinate2DMake(37.785771, -122.406165)
+        panoramaService.requestPanoramaNearCoordinate(coordinate) { [weak self] (panorama, error) in
+            
+            let camera = GMSPanoramaCamera.init(heading: 180, pitch: 0, zoom: 1, fov: 90)
+            self?.panoramaView.camera = camera
+            self?.panoramaView.panorama = panorama
+            if self?.panoramaView.panorama == nil {
+              //  self?.alertUserIfPanoramaIsNil()
+            }
+        }
+    }
+    
+//    private func alertUserIfPanoramaIsNil() {
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            let alertController = UIAlertController(title: "No data Available", message: "Sorry, Google can't show data for this point.", preferredStyle: .alert)
+//            let dismissAction = UIAlertAction(title: "Dismiss", style: .default) { (action) in
+//                alertController.dismiss(animated: true)
+//            }
+//            alertController.addAction(dismissAction)
+//            self?.present(alertController, animated: true)
+//        }
+//    }
 }
 
 extension BubbleContainer: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -109,7 +155,6 @@ extension BubbleContainer: UICollectionViewDataSource, UICollectionViewDelegate 
 }
 
 class BubbleCell: BaseCollectionViewCell {
-    
     
     let categoryImageview: UIImageView = {
        let iv = UIImageView()
