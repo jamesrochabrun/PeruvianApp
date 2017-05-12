@@ -15,6 +15,7 @@
 		7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */; };
 		7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
+		7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104931EC5474F001C1A2C /* Endpoint.swift */; };
 		7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636671EA038450020EFC8 /* LabelBuilder.swift */; };
 		7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366B1EA152220020EFC8 /* Gradientable.swift */; };
 		7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366D1EA17F0F0020EFC8 /* Review.swift */; };
@@ -25,6 +26,7 @@
 		7B865B631EA480180048E513 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B621EA480180048E513 /* AlertView.swift */; };
 		7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B641EA4809B0048E513 /* Jitterable.swift */; };
 		7B865B671EA480C00048E513 /* Flashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B865B661EA480C00048E513 /* Flashable.swift */; };
+		7B8CFB431EC153AD001624A4 /* PeruvianFoodAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8CFB421EC153AD001624A4 /* PeruvianFoodAppTests.swift */; };
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
@@ -78,6 +80,16 @@
 		EB1010D599861F9605EAA279 /* Pods_PeruvianFoodApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 925BBB88647B67011160F239 /* Pods_PeruvianFoodApp.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7B8CFB451EC153AD001624A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BD8ED141E9546FE00E610B9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BD8ED1B1E9546FE00E610B9;
+			remoteInfo = PeruvianFoodApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		7B4567111E9D473D0073AD1F /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
@@ -87,6 +99,7 @@
 		7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCell.swift; sourceTree = "<group>"; };
 		7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemExtension.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		7B8104931EC5474F001C1A2C /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		7B8636671EA038450020EFC8 /* LabelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		7B86366B1EA152220020EFC8 /* Gradientable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradientable.swift; sourceTree = "<group>"; };
 		7B86366D1EA17F0F0020EFC8 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -97,6 +110,9 @@
 		7B865B621EA480180048E513 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		7B865B641EA4809B0048E513 /* Jitterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jitterable.swift; sourceTree = "<group>"; };
 		7B865B661EA480C00048E513 /* Flashable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flashable.swift; sourceTree = "<group>"; };
+		7B8CFB401EC153AD001624A4 /* PeruvianFoodAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeruvianFoodAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B8CFB421EC153AD001624A4 /* PeruvianFoodAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeruvianFoodAppTests.swift; sourceTree = "<group>"; };
+		7B8CFB441EC153AD001624A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
@@ -155,6 +171,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7B8CFB3D1EC153AD001624A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BD8ED191E9546FE00E610B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -173,6 +196,15 @@
 				7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */,
 			);
 			name = CollectionViewLayouts;
+			sourceTree = "<group>";
+		};
+		7B8CFB411EC153AD001624A4 /* PeruvianFoodAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				7B8CFB421EC153AD001624A4 /* PeruvianFoodAppTests.swift */,
+				7B8CFB441EC153AD001624A4 /* Info.plist */,
+			);
+			path = PeruvianFoodAppTests;
 			sourceTree = "<group>";
 		};
 		7B9B5EFE1E9E9922008C8468 /* DetailVCCells */ = {
@@ -204,6 +236,7 @@
 			children = (
 				7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */,
 				7BD8ED1E1E9546FE00E610B9 /* PeruvianFoodApp */,
+				7B8CFB411EC153AD001624A4 /* PeruvianFoodAppTests */,
 				7BD8ED1D1E9546FE00E610B9 /* Products */,
 				D481CF905B9A10FF5F81D222 /* Pods */,
 				EA921FFEB2153F1F8CDB7BFD /* Frameworks */,
@@ -214,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */,
+				7B8CFB401EC153AD001624A4 /* PeruvianFoodAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +305,7 @@
 				7BFAB9C71EA7223A00294438 /* GoogleMapService.swift */,
 				7BD8ED411E957D2900E610B9 /* YelpAPI.swift */,
 				7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */,
+				7B8104931EC5474F001C1A2C /* Endpoint.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -392,6 +427,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7B8CFB3F1EC153AD001624A4 /* PeruvianFoodAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B8CFB491EC153AD001624A4 /* Build configuration list for PBXNativeTarget "PeruvianFoodAppTests" */;
+			buildPhases = (
+				7B8CFB3C1EC153AD001624A4 /* Sources */,
+				7B8CFB3D1EC153AD001624A4 /* Frameworks */,
+				7B8CFB3E1EC153AD001624A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7B8CFB461EC153AD001624A4 /* PBXTargetDependency */,
+			);
+			name = PeruvianFoodAppTests;
+			productName = PeruvianFoodAppTests;
+			productReference = 7B8CFB401EC153AD001624A4 /* PeruvianFoodAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7BD8ED1B1E9546FE00E610B9 /* PeruvianFoodApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7BD8ED2E1E9546FE00E610B9 /* Build configuration list for PBXNativeTarget "PeruvianFoodApp" */;
@@ -422,6 +475,12 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "James Rochabrun";
 				TargetAttributes = {
+					7B8CFB3F1EC153AD001624A4 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = ULU46F325W;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 7BD8ED1B1E9546FE00E610B9;
+					};
 					7BD8ED1B1E9546FE00E610B9 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = ULU46F325W;
@@ -443,11 +502,19 @@
 			projectRoot = "";
 			targets = (
 				7BD8ED1B1E9546FE00E610B9 /* PeruvianFoodApp */,
+				7B8CFB3F1EC153AD001624A4 /* PeruvianFoodAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7B8CFB3E1EC153AD001624A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BD8ED1A1E9546FE00E610B9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -509,6 +576,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7B8CFB3C1EC153AD001624A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B8CFB431EC153AD001624A4 /* PeruvianFoodAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BD8ED181E9546FE00E610B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,11 +652,20 @@
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
+				7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */,
 				7B865B671EA480C00048E513 /* Flashable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7B8CFB461EC153AD001624A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7BD8ED1B1E9546FE00E610B9 /* PeruvianFoodApp */;
+			targetProxy = 7B8CFB451EC153AD001624A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */ = {
@@ -595,6 +679,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7B8CFB471EC153AD001624A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = ULU46F325W;
+				INFOPLIST_FILE = PeruvianFoodAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.PeruvianFoodAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeruvianFoodApp.app/PeruvianFoodApp";
+			};
+			name = Debug;
+		};
+		7B8CFB481EC153AD001624A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = ULU46F325W;
+				INFOPLIST_FILE = PeruvianFoodAppTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.speedelo.PeruvianFoodAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeruvianFoodApp.app/PeruvianFoodApp";
+			};
+			name = Release;
+		};
 		7BD8ED2C1E9546FE00E610B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -721,6 +835,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7B8CFB491EC153AD001624A4 /* Build configuration list for PBXNativeTarget "PeruvianFoodAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B8CFB471EC153AD001624A4 /* Debug */,
+				7B8CFB481EC153AD001624A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7BD8ED171E9546FE00E610B9 /* Build configuration list for PBXProject "PeruvianFoodApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

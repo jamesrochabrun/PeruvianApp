@@ -27,7 +27,7 @@ struct YelpService: Gettable {
     static let sharedInstance = YelpService()
     private init() {}
     //MARK: tron object
-    let tron = TRON(baseURL: "https://api.yelp.com/")
+    let tron = TRON(baseURL: Yelp.base)
     
     //MARK: TypeAliases
     typealias SearchBusinessCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
@@ -39,7 +39,7 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESSESES FROM TERM
     func getBusinesses(search term: String, completion: @escaping SearchBusinessCompletionHandler) {
         
-        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request("v3/businesses/search")
+        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(Yelp.searchBusinesses.path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         let parameters =  ["term" : term,
@@ -61,12 +61,12 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESSES FROM SELECTION MAIN METHOD
     func getBusinessesFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
-        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request("v3/businesses/search")
+        let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(Yelp.searchBusinesses.path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         let categories = selection.categoryItems.count <= 0 ? selection.categoryParent : selection.categoryItems.joined(separator: ",")
         let price: String = selection.price != nil ? selection.price!.rawValue : ""
-        let radius = selection.radius != nil ? selection.radius!.rawValue : 20000
+        let radius = selection.radius != nil ? selection.radius!.rawValue : 20000 //default distance
         
         let parameters =  ["latitude" : "37.785771",
                            "longitude" : "-122.406165",
@@ -76,6 +76,8 @@ struct YelpService: Gettable {
                            "sort_by" : "distance"] as [String : Any]
         
         request.parameters = parameters
+        
+        print(request.path)
         
         request.perform(withSuccess: { (businessDataSource) in
             DispatchQueue.main.async {
@@ -89,7 +91,7 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESS FROM ID
     func getBusinessFrom(_ businessViewModel: BusinessViewModel, completion: @escaping SeachBusinessFromIDCompletion) {
         
-        let request: APIRequest<Business, JSONError> = tron.request("v3/businesses/\(businessViewModel.businessID)")
+        let request: APIRequest<Business, JSONError> = tron.request(Yelp.searchWith(id: businessViewModel.businessID).path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
                 
         request.perform(withSuccess: { (business) in
@@ -104,7 +106,7 @@ struct YelpService: Gettable {
     //MARK: GET BUSINESS REVIEW FROM ID
     func getReviewsFrom(businessID id: String, completion: @escaping BusinessReviewsCompletion) {
         
-        let request: APIRequest<ReviewsViewModelDataSource, JSONError> = tron.request("v3/businesses/\(id)/reviews")
+        let request: APIRequest<ReviewsViewModelDataSource, JSONError> = tron.request(Yelp.reviews(id: id).path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
         request.perform(withSuccess: { (reviewsViewModel) in
@@ -117,7 +119,7 @@ struct YelpService: Gettable {
     //MARK: GET TOKEN
     func getToken(completion: @escaping TokenCompletionhandler) {
         
-        let request: APIRequest<Token, JSONError> = tron.request("oauth2/token")
+        let request: APIRequest<Token, JSONError> = tron.request(Yelp.token.path)
         request.method = .post
         request.parameters = [YelpService.keyClientID: YelpService.clientID,
                               YelpService.keyClientSecret: YelpService.clientSecret,
