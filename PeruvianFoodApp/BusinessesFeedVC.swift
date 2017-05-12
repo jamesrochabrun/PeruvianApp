@@ -70,7 +70,6 @@ class BusinessesFeedVC: FeedVC {
     //MARK: APP lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -110,9 +109,9 @@ class BusinessesFeedVC: FeedVC {
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)
+        tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
     }
     
     override func setUpViews() {
@@ -176,7 +175,7 @@ class BusinessesFeedVC: FeedVC {
     }
     
     //MARK: Networking
-    fileprivate func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
+    func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
         service.getBusinessesFrom(selection: selection) { [weak self] (result) in
             

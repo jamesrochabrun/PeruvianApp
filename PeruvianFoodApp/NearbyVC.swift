@@ -9,98 +9,63 @@
 import Foundation
 import UIKit
 
-class NearbyVC: FeedVC {
+class NearbyVC: BusinessesFeedVC {
     
-    //MARK: properties
-    var dataSource = NearbyVCDataSource()
+    let bubbleContainer: BubbleContainer = {
+        let b = BubbleContainer()
+        return b
+    }()
     
     override func viewDidLoad() {
          super.viewDidLoad()
-        tableView.registerDatasource(dataSource) { (_) in
-        }
+        
+        let selection = Selection()
+        selection.categoryParent = "restaurants"
+        super.getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+    }
+    
+    override func setUpNavBar() {
+        navigationItem.titleView = feedSearchBar
     }
     
     override func setUpTableView() {
         view.addSubview(tableView)
-        tableView.register(BubbleContainerCell.self)
-        tableView.register(UITableViewCell.self) //remove
+        tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-        tableView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
         tableView.separatorStyle = .none
     }
     
     override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
         
         NSLayoutConstraint.activate([
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: bubbleContainer.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            customIndicator.heightAnchor.constraint(equalToConstant: 80),
+            customIndicator.widthAnchor.constraint(equalToConstant: 80),
+            customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            bubbleContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: 64),
+            bubbleContainer.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bubbleContainer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            bubbleContainer.heightAnchor.constraint(equalToConstant: view.frame.size.width / 3)
             ])
     }
     
     override func setUpViews() {
         
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if indexPath.section == 0 {
-            return view.frame.width / 3
-        } else {
-            return UITableViewAutomaticDimension
-        }
+        view.addSubview(customIndicator)
+        view.addSubview(bubbleContainer)
+
     }
 }
 
 
 
 
-class NearbyVCDataSource: NSObject, UITableViewDataSource {
-    
-    fileprivate var businessesViewModel: [BusinessViewModel] = [BusinessViewModel]()
-    fileprivate var searchResults: [BusinessViewModel] = [BusinessViewModel]()
-    fileprivate var searchActive : Bool = false
-
-    override init() {
-        super.init()
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BubbleContainerCell
-            return cell
-        } 
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as UITableViewCell
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0 {
-            return 1
-        } else {
-            return searchActive ? searchResults.count : businessesViewModel.count
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-class BubbleContainerCell: BaseCell {
+class BubbleContainer: BaseView {
     
     fileprivate let bubbleCategories = ["Restaurants", "Bars", "Food"]
     
@@ -130,7 +95,7 @@ class BubbleContainerCell: BaseCell {
     }
 }
 
-extension BubbleContainerCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension BubbleContainer: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bubbleCategories.count
