@@ -100,8 +100,9 @@ class BubbleContainer: BaseView {
         NSLayoutConstraint.activate([
             panoramaView.bottomAnchor.constraint(equalTo: bottomAnchor),
             panoramaView.widthAnchor.constraint(equalTo: widthAnchor),
-            panoramaView.topAnchor.constraint(equalTo: bottomAnchor),
+            panoramaView.topAnchor.constraint(equalTo: topAnchor),
             panoramaView.leftAnchor.constraint(equalTo: leftAnchor),
+            
             photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
             photoCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             photoCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
