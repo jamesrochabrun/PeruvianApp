@@ -46,7 +46,7 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as CategoryCell
-        cell.listNameLabel.text = getCategoryViewModelFromIndexpath(indexPath).categoryListTitle
+        cell.listNameLabel.text = getCategoryViewModelFrom(indexPath).mainCategory.rawValue
         return cell
     }
     
@@ -58,7 +58,7 @@ class CategoryDataSource: NSObject, UITableViewDataSource {
 //MARK: Helper methods
 extension CategoryDataSource {
     
-    func getCategoryViewModelFromIndexpath(_ indexPath: IndexPath) -> CategoryViewModel {
+    func getCategoryViewModelFrom(_ indexPath: IndexPath) -> CategoryViewModel {
         
         return searchActive ? searchResults[indexPath.row] : categoriesViewModelArray[indexPath.row]
     }
@@ -73,7 +73,7 @@ extension CategoryDataSource: FeedVCDelegate {
     func filterContentFor(textToSearch: String) {
         
         self.searchResults = self.categoriesViewModelArray.filter({ (category) -> Bool in
-            let categoryNameToFind = category.categoryListTitle.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
+            let categoryNameToFind = category.mainCategory.rawValue.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
             //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
             //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
             
@@ -81,6 +81,11 @@ extension CategoryDataSource: FeedVCDelegate {
         })
     }
 }
+
+
+
+
+
 
 
 

@@ -15,7 +15,7 @@ class Selection {
     init() {
     }
     var term: String = ""
-    var categoryParent: String = ""
+    var mainCategory: MainCategory = MainCategory()
     var categoryItems = [String]()
     var radius: Radius?
     var price: Price?
@@ -36,3 +36,21 @@ enum Price: String {
     case threeDollarIcon = "3"
     case fourDollarIcon = "4"
 }
+
+//MARK: Main categories, default to restaurants
+enum MainCategory: String {
+
+    case restaurants
+    case bars
+    case food
+    
+    static var categories: [MainCategory] {
+        return [.restaurants, .bars, .food]
+    }
+    
+    init() {
+        self = .restaurants
+    }
+}
+
+

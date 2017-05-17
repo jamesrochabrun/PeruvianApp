@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
+		7B2E3D1D1ECB9788007911CA /* BubbleContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */; };
+		7B2E3D1F1ECB97C4007911CA /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */; };
+		7B2E3D211ECB9A4C007911CA /* BubbleContainerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */; };
 		7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567111E9D473D0073AD1F /* Blurrable.swift */; };
 		7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567131E9D47450073AD1F /* Opaqueable.swift */; };
 		7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567191E9D94680073AD1F /* Shadowable.swift */; };
@@ -94,6 +97,9 @@
 
 /* Begin PBXFileReference section */
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainer.swift; sourceTree = "<group>"; };
+		7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
+		7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainerDataSource.swift; sourceTree = "<group>"; };
 		7B4567111E9D473D0073AD1F /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
 		7B4567131E9D47450073AD1F /* Opaqueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opaqueable.swift; sourceTree = "<group>"; };
 		7B4567191E9D94680073AD1F /* Shadowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadowable.swift; sourceTree = "<group>"; };
@@ -206,6 +212,9 @@
 			isa = PBXGroup;
 			children = (
 				7B8104981EC573F5001C1A2C /* NearbyVC.swift */,
+				7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */,
+				7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */,
+				7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */,
 			);
 			name = Nearby;
 			sourceTree = "<group>";
@@ -654,11 +663,13 @@
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
+				7B2E3D1D1ECB9788007911CA /* BubbleContainer.swift in Sources */,
 				7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */,
 				7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */,
 				7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */,
 				7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */,
 				7B8636761EA1A05C0020EFC8 /* ReviewsViewModelDataSource.swift in Sources */,
+				7B2E3D211ECB9A4C007911CA /* BubbleContainerDataSource.swift in Sources */,
 				7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */,
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
 				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,
@@ -668,6 +679,7 @@
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
 				7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */,
+				7B2E3D1F1ECB97C4007911CA /* BubbleCell.swift in Sources */,
 				7B865B671EA480C00048E513 /* Flashable.swift in Sources */,
 				7B8104991EC573F5001C1A2C /* NearbyVC.swift in Sources */,
 			);

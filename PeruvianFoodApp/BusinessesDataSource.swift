@@ -18,7 +18,6 @@ protocol BusinessViewModelDataSourceDelegate: class {
 
 class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
-   // fileprivate var businesses: [Business] = [Business]()
     fileprivate var businessesViewModel: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchResults: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchActive : Bool = false

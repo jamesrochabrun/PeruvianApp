@@ -18,7 +18,7 @@ class CategoryItemsFeedDataSource: NSObject, UITableViewDataSource {
     convenience init(categoryViewModel: CategoryViewModel) {
         
         self.init()
-        selection.categoryParent = categoryViewModel.categoryListTitle
+        selection.mainCategory = categoryViewModel.mainCategory
         if let items = categoryViewModel.items {
             self.itemViewModelArray = items.map{CategoryItemViewModel(categoryItem: $0)}
         }

@@ -16,6 +16,9 @@ struct CategoryItemViewModel {
     var itemTitle: String
     var itemAlias: String
     var isSelected: Bool
+}
+
+extension CategoryItemViewModel {
     
     init(categoryItem: CategoryItem) {
         self.itemTitle = categoryItem.title

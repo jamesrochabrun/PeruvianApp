@@ -17,7 +17,7 @@ class CategoryItemsFeedVC: FeedVC {
             if let cvm = categoryViewModel {
                 self.categoryItemsFeedDataSource = CategoryItemsFeedDataSource(categoryViewModel: cvm)
                 self.categoryItemsFeedDataSource?.categoryItemsFeedVC = self
-                self.title = cvm.categoryListTitle
+                self.title = cvm.mainCategory.rawValue
             }
         }
     }

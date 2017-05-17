@@ -89,24 +89,24 @@ extension StreetViewVC {
         let coordinate = CLLocationCoordinate2DMake(viewModel.coordinates.latitude, viewModel.coordinates.longitude)
         panoramaService.requestPanoramaNearCoordinate(coordinate) { [weak self] (panorama, error) in
             
-            let camera = GMSPanoramaCamera.init(heading: 180, pitch: 0, zoom: 1, fov: 90)
-            self?.panoramaView.camera = camera
-            self?.panoramaView.panorama = panorama
-            if self?.panoramaView.panorama == nil {
-                self?.alertUserIfPanoramaIsNil()
+            DispatchQueue.main.async {
+                let camera = GMSPanoramaCamera.init(heading: 180, pitch: 0, zoom: 1, fov: 90)
+                self?.panoramaView.camera = camera
+                self?.panoramaView.panorama = panorama
+                if self?.panoramaView.panorama == nil {
+                    self?.alertUserIfPanoramaIsNil()
+                }
             }
         }
     }
     
     private func alertUserIfPanoramaIsNil() {
         
-        DispatchQueue.main.async { [weak self] in
             let alertController = UIAlertController(title: "No data Available", message: "Sorry, Google can't show data for this point.", preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: .default) { (action) in
                 alertController.dismiss(animated: true)
             }
             alertController.addAction(dismissAction)
-            self?.present(alertController, animated: true)
-        }
+            self.present(alertController, animated: true)
     }
 }

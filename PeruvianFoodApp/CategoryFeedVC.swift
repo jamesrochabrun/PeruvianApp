@@ -20,10 +20,8 @@ class CategoryFeedVC: FeedVC {
         
         setUpNavBar()
         setUpTableView()
-        setUpViews()
         categoryDataSource.delegate = self
         locationManager.delegate = self
-        
     }
     
     //MARK: FeedVC super class methods
@@ -61,7 +59,7 @@ extension CategoryFeedVC {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
-        let categoryViewModel = categoryDataSource.getCategoryViewModelFromIndexpath(indexPath)
+        let categoryViewModel = categoryDataSource.getCategoryViewModelFrom(indexPath)
         let categoryItemsFeedVC = CategoryItemsFeedVC()
         categoryItemsFeedVC.categoryViewModel = categoryViewModel
         self.navigationController?.pushViewController(categoryItemsFeedVC, animated: true)

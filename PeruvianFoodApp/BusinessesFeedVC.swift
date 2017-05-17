@@ -27,7 +27,7 @@ class BusinessesFeedVC: FeedVC {
         }
     }
     
-    //MARK: clean radius and price for default search
+    //MARK: reset radius and price state for default search
     private func resetPriceAndRadius() {
         selection.radius = nil
         selection.price = nil
@@ -114,7 +114,7 @@ class BusinessesFeedVC: FeedVC {
         tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
     }
     
-    override func setUpViews() {
+    func setUpViews() {
         
         segmentedControl.selectedSegmentIndex = 0
         view.addSubview(mapView)
@@ -123,7 +123,7 @@ class BusinessesFeedVC: FeedVC {
         view.addSubview(alertView)
         view.addSubview(filterView)
         
-        //add the constraints here to avoid the call to layout if needed during animation
+        //MARK: add the constraints here to avoid the call of layout if needed during animation
         filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
         filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -152,7 +152,7 @@ class BusinessesFeedVC: FeedVC {
         performDismissFilterView()
     }
     
-    /////////Super class FeedVC methods End
+    //MARK: Super class FeedVC methods End 
     
     //MARK: segmented control trigger
     @objc private func switchPresentation() {
@@ -177,6 +177,7 @@ class BusinessesFeedVC: FeedVC {
     //MARK: Networking
     func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
+        customIndicator.startAnimating()
         service.getBusinessesFrom(selection: selection) { [weak self] (result) in
             
             guard let strongSelf = self else {

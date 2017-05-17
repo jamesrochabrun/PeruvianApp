@@ -14,6 +14,10 @@ protocol FeedVCDelegate: class {
     func filterContentFor(textToSearch: String)
 }
 
+//MARK: this class contains different elements that can be used by subclassess based on their own specifications.
+//this class provides UI and methods for update Table View content base on search, also provides a custom Indicator for loading.
+
+
 class FeedVC: UIViewController, UITableViewDelegate {
     
     //MARK: properties
@@ -29,6 +33,7 @@ class FeedVC: UIViewController, UITableViewDelegate {
         return searchBar
     }()
     
+    //tableView
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.delegate = self
@@ -56,19 +61,10 @@ class FeedVC: UIViewController, UITableViewDelegate {
 
         setUpNavBar()
         setUpTableView()
-        setUpViews()
     }
     
-    func setUpNavBar() {
-        
-        navigationItem.titleView = feedSearchBar
-    }
-    
-    //call this method if customindicator is needed
-    func setUpTableView() {
-        
-        view.addSubview(tableView)
-        tableView.addSubview(customIndicator)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
         NSLayoutConstraint.activate([
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -82,7 +78,14 @@ class FeedVC: UIViewController, UITableViewDelegate {
             ])
     }
     
-    func setUpViews() {
+    func setUpNavBar() {
+        navigationItem.titleView = feedSearchBar
+    }
+    
+    func setUpTableView() {
+        
+        view.addSubview(tableView)
+        tableView.addSubview(customIndicator)
     }
     
     //MARK: Scrollview draggin 
@@ -90,7 +93,7 @@ class FeedVC: UIViewController, UITableViewDelegate {
         feedSearchBar.endEditing(true)
     }
     
-  //  MARK: Networking
+    //MARK: Networking, override this method
     func refresh(_ refreshControl: UIRefreshControl) {
     }
 }

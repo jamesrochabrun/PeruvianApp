@@ -64,7 +64,7 @@ struct YelpService: Gettable {
         let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(Yelp.searchBusinesses.path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
         
-        let categories = selection.categoryItems.count <= 0 ? selection.categoryParent : selection.categoryItems.joined(separator: ",")
+        let categories = selection.categoryItems.count <= 0 ? selection.mainCategory.rawValue : selection.categoryItems.joined(separator: ",")
         let price: String = selection.price != nil ? selection.price!.rawValue : ""
         let radius = selection.radius != nil ? selection.radius!.rawValue : 20000 //default distance
         

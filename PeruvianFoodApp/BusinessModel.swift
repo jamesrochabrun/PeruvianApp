@@ -29,6 +29,9 @@ struct Business: JSONDecodable {
     let coordinates: Coordinates
     var photos: [Any]?
     var hours: [Hours]?
+}
+
+extension Business {
     
     private struct Key {
         
@@ -66,7 +69,7 @@ struct Business: JSONDecodable {
         distance = json[Key.distanceKey].numberValue
         location = try Location(json: json[Key.locationKey])
         coordinates = Coordinates(json: json[Key.coordinatesKey])
-        photos = json[Key.photosKey].arrayObject        
+        photos = json[Key.photosKey].arrayObject
         let hoursArray = json[Key.hoursKey].arrayValue
         hours = try hoursArray.decode()
     }
@@ -78,6 +81,9 @@ struct CategoryItem: JSONDecodable {
     let alias: String
     let title: String
     var parentsArray: [String]?
+}
+
+extension CategoryItem {
     
     struct Key {
         static let categoryAliasKey = "alias"
@@ -101,6 +107,9 @@ struct Location: JSONDecodable {
     let address3: String
     let state: String
     let zip_code: String
+}
+
+extension Location {
     
     private struct Key {
         static let locationCityKey = "city"
@@ -128,6 +137,9 @@ struct Coordinates: JSONDecodable {
     
     let latitude: NSNumber
     let longitude: NSNumber
+}
+
+extension Coordinates {
     
     private struct  Key {
         static let latitudeKey = "latitude"
@@ -141,12 +153,14 @@ struct Coordinates: JSONDecodable {
 }
 
 //MARK: Hours object
-
 struct Hours: JSONDecodable {
     
     let hours_type: String
     let open: [OpenSchedule]
     let is_openNow: Bool
+}
+
+extension Hours {
     
     private struct Key {
         static let hours_typeKey = "hours_type"
@@ -155,7 +169,7 @@ struct Hours: JSONDecodable {
     }
     
     init(json: JSON) throws {
-                
+        
         hours_type = json[Key.hours_typeKey].stringValue
         let openScheduleArray = json[Key.openKey].arrayValue
         open = try openScheduleArray.decode()
@@ -169,6 +183,9 @@ struct OpenSchedule: JSONDecodable {
     let end: NSNumber
     let day: NSNumber
     let start: NSNumber
+}
+
+extension OpenSchedule {
     
     private struct Key {
         static let is_overnightKey = "is_overnight"
@@ -185,14 +202,6 @@ struct OpenSchedule: JSONDecodable {
         start = json[Key.startKey].numberValue
     }
 }
-
-
-
-
-
-
-
-
 
 
 
