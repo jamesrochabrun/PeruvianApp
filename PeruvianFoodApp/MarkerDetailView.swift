@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-
+//MARK: Custom view for marker information
 class MarkerDetailView: BaseView {
     
     let headerLabel: UILabel = {
@@ -45,7 +45,7 @@ class MarkerDetailView: BaseView {
         }
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        backgroundColor = Colors.appMainColor.color() 
         alpha = 0.8
     }
     

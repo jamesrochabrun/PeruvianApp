@@ -11,8 +11,10 @@ import UIKit
 
 class ScheduleCell: BaseCollectionViewCell {
     
+    //MARK: UI Elements
     let dateLabel = LabelBuilder.caption1(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
+    //MARK: Set up UI
     override func setupViews() {
         
         layer.cornerRadius = 10
@@ -27,6 +29,7 @@ class ScheduleCell: BaseCollectionViewCell {
             ])
     }
     
+    //MARK: helper method to setup Cell
     func setUp(schedule: OpenScheduleViewModel) {
         dateLabel.text = schedule.fullSchedulePresentable
     }

@@ -30,16 +30,6 @@ struct JSONDownloader {
     }
 }
 
-enum BundleResult<T>{
-    case Success(T)
-    case Error(PathError)
-}
-
-enum PathError: Error {
-    case invalidPath
-    case invalidJSON
-}
-
 struct CategoryService {
     
     let downloader = JSONDownloader()
@@ -64,6 +54,16 @@ struct CategoryService {
             }
         }
     }
+}
+
+enum BundleResult<T>{
+    case Success(T)
+    case Error(PathError)
+}
+
+enum PathError: Error {
+    case invalidPath
+    case invalidJSON
 }
 
 

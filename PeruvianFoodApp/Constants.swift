@@ -12,6 +12,8 @@ import UIKit
 struct Constants {
     
     struct UI {
+        
+        static let statusBarHeight: CGFloat = 22.0
         static let businessCellPadding: CGFloat = 8.0
         static let businessProfileImage: CGFloat = 64.0
         static let swicthCellPadding: CGFloat = 12.0
@@ -31,9 +33,11 @@ struct Constants {
         static let customIndicatorDefault: CGFloat = 80.0
         static let bubbleContainerHeight: CGFloat = 150.0
         static let mapCellHeight: CGFloat = 140.0
+        static let circleButtonSize: CGFloat = 70.0
     }
     
     struct Colors {
+        
         static let darkTextColor: String = "#232b2b"//"#282828"
         static let grayTextColor: String = "#353839"
         static let appMainColor: String =  "#662d8c"//"#fbb03b"

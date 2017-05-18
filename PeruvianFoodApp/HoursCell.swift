@@ -11,18 +11,19 @@ import UIKit
 
 class HoursCell: BaseCell {
     
-    var openScheduleViewModelArray: [OpenScheduleViewModel]?
+    //MARK: Properties
+    fileprivate var openScheduleViewModelArray: [OpenScheduleViewModel]?
     
+    //MARK: UI Elements
     lazy var scheduleButton: UIButton = {
         return ButtonBuilder.buttonWithBorder(color: .white, width: 1.0, text: "SHOW SCHEDULE", textColor: .white, target: self, selector: #selector(showSchedule)).build()
     }()
-    
     lazy var reviewsButton: UIButton = {
         return ButtonBuilder.buttonWithBorder(color: .white, width: 1.0, text: "SHOW REVIEWS", textColor: .white, target: self, selector: #selector(showReviews)).build()
     }()
-    
     let isOpenNowLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
+    //MARK: Setup UI
     override func setUpViews() {
         
         contentView.addSubview(isOpenNowLabel)
@@ -47,14 +48,16 @@ class HoursCell: BaseCell {
             ])
     }
 
+    //MARK: Helper method to set up data cell
     func setUp(with viewModel: BusinessViewModel) {
 
         if let hours = viewModel.hours?.first  {
-            self.openScheduleViewModelArray = hours.open.map{OpenScheduleViewModel(schedule: $0)}
+            self.openScheduleViewModelArray = hours.open.map{ OpenScheduleViewModel(schedule: $0) }
             isOpenNowLabel.text = HoursViewModel(hours: hours).isOpenNow
         }
     }
     
+    //MARK: Notification Center
     @objc private func showSchedule() {
         NotificationCenter.default.post(name: Notification.Name.showScheduleNotification, object: openScheduleViewModelArray)
     }

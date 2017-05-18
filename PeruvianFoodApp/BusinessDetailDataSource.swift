@@ -11,6 +11,7 @@ import UIKit
 
 protocol BusinessDetailDataSourceDelegate: class {
     func reloadDataInVC()
+    func alertUserOfError()
 }
 
 class BusinessDetailDataSource: NSObject, UITableViewDataSource {
@@ -35,14 +36,16 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     //MARK: Networking
     func getBusinessFrom(_ businessViewModel: BusinessViewModel, fromService service: YelpService) {
       
-        service.getBusinessFrom(businessViewModel) { [weak self] (result) in
+        let id = businessViewModel.businessID
+        service.getBusinessWithID(id) { [weak self] (result) in
             switch result {
             case .Success(let business):
                 self?.businessViewModel = BusinessViewModel(model: business)
                 self?.businessViewModel?.distance = businessViewModel.distance
                 self?.delegate?.reloadDataInVC()
             case .Error(let error):
-                print("ERROR ON BUSINESDETAILDATASOURCE: \(error)")
+                print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
+                self?.delegate?.alertUserOfError()
             }
         }
     }

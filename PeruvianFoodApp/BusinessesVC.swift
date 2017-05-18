@@ -99,8 +99,8 @@ final class BusinessesVC: SearchVC {
     
     //MARK: Overriding SearchVC super class methods
     override func setUpTableView() {
-        super.setUpTableView()
         
+        view.addSubview(tableView)
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
@@ -131,6 +131,7 @@ final class BusinessesVC: SearchVC {
         
         segmentedControl.selectedSegmentIndex = 0
         view.addSubview(mapView)
+        view.addSubview(customIndicator)
         view.addSubview(segmentedControl)
         view.addSubview(alertView)
         view.addSubview(filterView)
@@ -167,7 +168,7 @@ final class BusinessesVC: SearchVC {
             case .Success(let businessViewModelDataSource):
                 DispatchQueue.main.async {
                     strongSelf.dataSource = businessViewModelDataSource
-                    strongSelf.mapView.mapDataSource = businessViewModelDataSource
+                    strongSelf.mapView.dataSource = businessViewModelDataSource
                     
                     //setting the searchVC property of the datasource object to make the dataSource object adopt SearchVC delegation
                     strongSelf.dataSource.searchVC = self
@@ -194,7 +195,7 @@ extension BusinessesVC {
     
     //MARK: update markers in map
     fileprivate func updateMapWithDataSource() {
-        mapView.mapDataSource = dataSource
+        mapView.setUpMapWith(dataSource)
     }
 }
 
@@ -219,6 +220,8 @@ extension BusinessesVC: BusinessViewModelDataSourceDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.alertView.alpha = 1
             self?.alertView.performAnimation()
+            self?.navigationItem.rightBarButtonItem = nil
+            self?.navigationItem.titleView = nil
         }
     }
     

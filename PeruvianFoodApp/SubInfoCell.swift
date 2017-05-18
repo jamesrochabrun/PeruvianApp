@@ -11,35 +11,17 @@ import UIKit
 
 class SubInfoCell: BaseCell {
     
+    //MARK: UI Elements
     let addressLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     let categoryLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     let phoneLabel = LabelBuilder.subHeaderLabel(textColor: .white, textAlignment: nil, sizeToFit: true).build()
     
-    let phoneImageViewIcon: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.image = #imageLiteral(resourceName: "phone").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
-        return iv
-    }()
-    let categoryViewIcon: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.image = #imageLiteral(resourceName: "category").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
-        return iv
-    }()
-    let addressViewIcon: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "location").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.hexStringToUIColor(Constants.Colors.white)
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
+    let phoneImageViewIcon = ImageViewBuilder.imageWithRenderMode(image: #imageLiteral(resourceName: "phone"), radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false, tintColor: .white).build()
+    let categoryViewIcon = ImageViewBuilder.imageWithRenderMode(image: #imageLiteral(resourceName: "category"), radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false, tintColor: .white).build()
+
+    let addressViewIcon = ImageViewBuilder.imageWithRenderMode(image: #imageLiteral(resourceName: "location"), radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false, tintColor: .white).build()
     
+    //MARK: Set up UI
     override func setUpViews() {
         
         let marginGuide = contentView.layoutMarginsGuide
@@ -85,6 +67,7 @@ class SubInfoCell: BaseCell {
             ])
     }
     
+    //MARK: call handler
     @objc private func performCall() {
         
         guard let numberText = phoneLabel.text else { return }
@@ -92,6 +75,7 @@ class SubInfoCell: BaseCell {
         UIApplication.shared.open(number, options: [:], completionHandler: nil)
     }
 
+    //MARK: Helper method to setup Cell
     func setUp(with businessViewModel: BusinessViewModel) {
         
         addressLabel.text = businessViewModel.address

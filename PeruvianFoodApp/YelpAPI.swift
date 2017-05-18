@@ -14,6 +14,7 @@ import SwiftyJSON
 struct YelpService: Gettable {
     
     //MARK: constants
+    //THIS INFORMATION MUST BE SAVED ON KEYCHAIN ON PRODUCTION.
     static let clientID: String = "2f5-nq6WiXCN89EdEo6j9Q"
     static let clientSecret: String = "uzW9fTnBTuOEvzb3bPx1aHMxR5ADq76RK7WMeyyznwgAETUTqq5M9l4Uw2q2TSyL"
     static let grantType: String = "client_credentials"
@@ -33,7 +34,7 @@ struct YelpService: Gettable {
     typealias SearchBusinessCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
     typealias TokenCompletionhandler = (Result<Token>) -> ()
     typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
-    typealias SeachBusinessFromIDCompletion = (Result<Business>) -> ()
+    typealias SearchBusinessFromIDCompletion = (Result<Business>) -> ()
     typealias BusinessReviewsCompletion = (Result<ReviewsViewModelDataSource>) -> ()
     
     //MARK: GET BUSINESSESES FROM TERM
@@ -76,9 +77,6 @@ struct YelpService: Gettable {
                            "sort_by" : "distance"] as [String : Any]
         
         request.parameters = parameters
-        
-        print(request.path)
-        
         request.perform(withSuccess: { (businessDataSource) in
             DispatchQueue.main.async {
                 completion(.Success(businessDataSource))
@@ -89,9 +87,9 @@ struct YelpService: Gettable {
     }
     
     //MARK: GET BUSINESS FROM ID
-    func getBusinessFrom(_ businessViewModel: BusinessViewModel, completion: @escaping SeachBusinessFromIDCompletion) {
+    func getBusinessWithID(_ id: String, completion: @escaping SearchBusinessFromIDCompletion) {
         
-        let request: APIRequest<Business, JSONError> = tron.request(Yelp.searchWith(id: businessViewModel.businessID).path)
+        let request: APIRequest<Business, JSONError> = tron.request(Yelp.searchWith(id: id).path)
         request.headers = ["Authorization": "Bearer \(accessToken)"]
                 
         request.perform(withSuccess: { (business) in
@@ -134,28 +132,8 @@ struct YelpService: Gettable {
     }
 }
 
-//MARK: TOKEN object
-struct Token: JSONDecodable {
-    
-    let access_token: String
-    let token_type: String
-    let expires_in: NSNumber
-    
-    private struct Key {
-        static let keyAccessToken = "access_token"
-        static let keyTokenType = "token_type"
-        static let keyExpiresIn = "expires_in"
-    }
-    
+struct JSONError: JSONDecodable {
     init(json: JSON) throws {
-        access_token = json[Key.keyAccessToken].stringValue
-        token_type = json[Key.keyTokenType].stringValue
-        expires_in = json[Key.keyExpiresIn].numberValue
-    }
-}
-
-class JSONError: JSONDecodable {
-    required init(json: JSON) throws {
         print("ERROR ->", json)
     }
 }

@@ -11,38 +11,24 @@ import UIKit
 
 class HeaderCell: BaseCell {
     
-    let businessImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFill
-        return iv
-    }()
-    
+    //MARK: UI Elements
+    let businessImageView = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
     let businessNameLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
-    let overlayView: UIView = {
-        let v = UIView()
+    let overlayView: BaseView = {
+        let v = BaseView()
         v.blur(with : .light)
         v.opaque(with: Constants.Colors.darkTextColor, alpha: 0.05)
-        v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
+    let ratingImageView = ImageViewBuilder.imageView(radius: nil, contentMode: .center, clipsToBounds: true, userInteractionEnabled: false).build()
     
-    let ratingImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .center
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
+    //MARK: Set up UI
     override func setUpViews() {
         
         addSubview(businessImageView)
         addSubview(overlayView)
         addSubview(businessNameLabel)
-        businessNameLabel.sizeToFit()
         addSubview(ratingImageView)
         
         NSLayoutConstraint.activate([
@@ -68,18 +54,19 @@ class HeaderCell: BaseCell {
             ])
     }
     
+    //MARK: Helper method to set up cell data
     func setUp(with businessViewModel: BusinessViewModel) {
 
         guard let url = URL(string: businessViewModel.profileImageURL) else {
             print("INVALID URL ON CREATION HEADERCELL")
             return
         }
-        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
+        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [unowned self] (response) in
             guard let image = response.result.value else {
                 print("INVALID RESPONSE SETTING UP THE HEADERCELL")
                 return
             }
-            self?.businessImageView.image = image
+            self.businessImageView.image = image
         }
         businessNameLabel.text = businessViewModel.name
         ratingImageView.image = businessViewModel.ratingImage

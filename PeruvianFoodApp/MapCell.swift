@@ -12,6 +12,7 @@ import GoogleMaps
 
 class MapCell: BaseCell {
     
+    //MARK: UI elements
     lazy var googleMap = GMSMapView()
     lazy var actionView: BaseView = {
         let v = BaseView()
@@ -20,6 +21,7 @@ class MapCell: BaseCell {
         return v
     }()
     
+    //MARK: Life Cycle
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -36,6 +38,7 @@ class MapCell: BaseCell {
             ])
     }
     
+    //MARK: Helper method to setup data cell
     func setUpGoogleMapWith(_ viewModel: BusinessViewModel) {
         
         let camera = GMSCameraPosition.camera(withLatitude: viewModel.coordinates.latitude, longitude: viewModel.coordinates.longitude, zoom: 16)
@@ -47,6 +50,7 @@ class MapCell: BaseCell {
         setUpMarkerDataWith(viewModel)
     }
     
+    //MARK: Markers life Cycle
     private func setUpMarkerDataWith(_ viewModel: BusinessViewModel) {
         
         let marker = GMSMarker()
@@ -64,6 +68,7 @@ class MapCell: BaseCell {
         }
     }
     
+    //MARK: Notification Center
     @objc private func handleTapOnMap() {
         NotificationCenter.default.post(name: Notification.Name.openMapVCNotification, object: nil)
     }

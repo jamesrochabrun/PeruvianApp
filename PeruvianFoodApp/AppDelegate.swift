@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleGoogleMap()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = CustomTabBarController()
+        let categoryVC = MainCategoriesVC()
+        let categoryNavController = UINavigationController(rootViewController: categoryVC)
+        window?.rootViewController = categoryNavController
         setUPAppereance()
         return true
     }

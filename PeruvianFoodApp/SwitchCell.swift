@@ -15,45 +15,46 @@ protocol SwitchCellDelegate: class {
 
 class SwitchCell: BaseCell {
     
+    //MARK: properties
     weak var delegate: SwitchCellDelegate?
     
+    //MARK: UI elements
     lazy var customSwitch: UISwitch = {
         let s = UISwitch()
         s.isOn = false
+        s.sizeToFit()
         s.translatesAutoresizingMaskIntoConstraints = false
-        s.thumbTintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
+        s.thumbTintColor = Colors.appSecondaryColor.color()
         s.addTarget(self, action: #selector(switchValue), for: .valueChanged)
-        s.onImage = #imageLiteral(resourceName: "Yelp_burst_positive_RGB")
-        s.offImage = #imageLiteral(resourceName: "Yelp_burst_negative_RGB")
-        s.onTintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        s.onTintColor = Colors.appMainColor.color()
         return s
     }()
-    
     let swithCategoryLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: nil, sizeToFit: true).build()
     
-    func switchValue() {
-        delegate?.switchCell(self)
-    }
-    
-    func setUpCell(with viewModel: SubCategoryViewModel) {
-        swithCategoryLabel.text = viewModel.itemTitle
-        customSwitch.setOn(viewModel.isSelected, animated: false)
-    }
-    
+    //MARK: SetUp UI
     override func setUpViews() {
         
         selectionStyle = .none
         addSubview(swithCategoryLabel)
         addSubview(customSwitch)
-        customSwitch.sizeToFit()
         
         NSLayoutConstraint.activate([
-            
             swithCategoryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
             swithCategoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             customSwitch.rightAnchor.constraint(equalTo: rightAnchor, constant: -Constants.UI.swicthCellPadding),
             customSwitch.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
+    }
+    
+    //MARK: Helper method for set up cell data
+    func setUpCell(with viewModel: SubCategoryViewModel) {
+        swithCategoryLabel.text = viewModel.itemTitle
+        customSwitch.setOn(viewModel.isSelected, animated: false)
+    }
+    
+    //MARK: delegate method
+    func switchValue() {
+        delegate?.switchCell(self)
     }
 }
 

@@ -15,7 +15,6 @@ class ListLayout: UICollectionViewFlowLayout {
     let edgeInset: CGFloat = 5.0
     let numberOfItemsInRow: CGFloat = 3.0
     
-    
     override init() {
         super.init()
         minimumLineSpacing = innerSpace

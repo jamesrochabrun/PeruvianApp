@@ -48,7 +48,7 @@ class FilterView: BaseView {
     lazy var priceSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl()
         sc.selectedSegmentIndex = 0
-        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
+        sc.tintColor = Colors.appSecondaryColor.color()
         sc.insertSegment(withTitle: "$", at: 0, animated: true)
         sc.insertSegment(withTitle: "$$", at: 1, animated: true)
         sc.insertSegment(withTitle: "$$$", at: 2, animated: true)
@@ -62,7 +62,7 @@ class FilterView: BaseView {
     lazy var distanceSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl()
         sc.selectedSegmentIndex = 0
-        sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
+        sc.tintColor = Colors.appSecondaryColor.color()
         sc.insertSegment(withTitle: "5 M", at: 0, animated: true)
         sc.insertSegment(withTitle: "10 M", at: 1, animated: true)
         sc.insertSegment(withTitle: "15 M", at: 2, animated: true)

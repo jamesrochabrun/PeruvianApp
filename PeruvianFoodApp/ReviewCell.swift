@@ -9,42 +9,20 @@
 import Foundation
 import UIKit
 
-
 class ReviewCell: BaseCell {
     
-    let profileImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.layer.cornerRadius = 40
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
-    let ratingImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        return iv
-    }()
-    
+    //MARK: UI Elements
+    let profileImageView = ImageViewBuilder.imageView(radius: 40, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
+    let ratingImageView = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
     lazy var moreReviewsButton: UIButton = {
-        let b = UIButton(type: .custom)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor), for: .normal)
-        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor).cgColor
-        b.layer.borderWidth = 1.5
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("View More", for: .normal)
-        b.addTarget(self, action: #selector(performHandler), for: .touchUpInside)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        return b
+        return ButtonBuilder.buttonWithBorder(color: .appSecondaryColor, width: 1.5, text: "View More", textColor: .appSecondaryColor, target: self, selector: #selector(performHandler)).build()
     }()
     
     let reviewNameLabel = LabelBuilder.headerLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
     let reviewTextLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
     let reviewDateLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: .right, sizeToFit: true).build()
     
+    //MARK: Setup UI
     override func setUpViews() {
         selectionStyle = .none
         let marginGuide = contentView.layoutMarginsGuide
@@ -56,7 +34,7 @@ class ReviewCell: BaseCell {
         contentView.addSubview(ratingImageView)
         contentView.addSubview(moreReviewsButton)
         
-        //less than 251 contenthugging
+        //less than 251 content hugging
         reviewNameLabel.setContentHuggingPriority(250, for: .horizontal)
         //greater than 751 compression
         reviewDateLabel.setContentCompressionResistancePriority(751, for: .horizontal)
@@ -91,18 +69,17 @@ class ReviewCell: BaseCell {
             ])
     }
     
-    
+    //MARK: Helper method for set up cell data
     func setUp(with viewModel: ReviewViewModel) {
         
-        dump(viewModel)
-        
+        //Alamofire image
         if let profileImageURL = viewModel.profileImageURL {
-            profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
+            profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [unowned self] (response) in
                 guard let image = response.result.value else {
                     print("INVALID RESPONSE SETTING UP THE REVIEWCELL")
                     return
                 }
-                self?.profileImageView.image = image
+                self.profileImageView.image = image
             }
         }
         ratingImageView.image = viewModel.ratingImage

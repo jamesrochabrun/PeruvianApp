@@ -12,6 +12,7 @@ import UIKit
 
 class PhotoAlbumCell: BaseCell {
     
+    //MARK: dataSource
     var photos: [String]? {
         didSet {
             DispatchQueue.main.async {
@@ -20,13 +21,13 @@ class PhotoAlbumCell: BaseCell {
         }
     }
     
+    //MARK: UI Elements
     lazy var photoCollectionView: UICollectionView = {
         let layout = ListLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.dataSource = self
-        cv.delegate = self
         cv.alwaysBounceHorizontal = true
         cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
         cv.register(PhotoCell.self)
@@ -34,6 +35,7 @@ class PhotoAlbumCell: BaseCell {
         return cv
     }()
     
+    //MARK: Set Up UI
     override func setUpViews() {
         
         addSubview(photoCollectionView)
@@ -46,14 +48,11 @@ class PhotoAlbumCell: BaseCell {
     }
 }
 
-extension PhotoAlbumCell: UICollectionViewDataSource, UICollectionViewDelegate {
-    
+//MARK: UICollectionViewDataSource methods
+extension PhotoAlbumCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = photos?.count else {
-            return 0
-        }
-        return count
+        return photos?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,4 +63,8 @@ extension PhotoAlbumCell: UICollectionViewDataSource, UICollectionViewDelegate {
         return cell
     }
 }
+
+
+
+
 

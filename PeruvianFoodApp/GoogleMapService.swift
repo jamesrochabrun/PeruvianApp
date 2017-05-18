@@ -73,6 +73,7 @@ enum GoogleResult<T>{
 }
 
 enum GoogleError: Error {
+    
     case invalidURL
     case invalidJSON
     case statusCodeNot200

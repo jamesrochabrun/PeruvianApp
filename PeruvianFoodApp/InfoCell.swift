@@ -11,6 +11,7 @@ import UIKit
 
 class InfoCell: BaseCell {
     
+    //MARK: UI Elements
     let starIconIndicator: IconIndicatorView = {
         let siv = IconIndicatorView()
         siv.indicatorImageView.image = #imageLiteral(resourceName: "star").withRenderingMode(.alwaysTemplate)
@@ -39,16 +40,10 @@ class InfoCell: BaseCell {
         return v
     }()
     
+    //MARK: Setup UI
     override func setUpViews() {
         
         addSubview(dividerLine)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        //        addTopShadowWith(radius: 7.0, fromColor: UIColor.hexStringToUIColor(Constants.Colors.shadowColor), toColor: .white)
-//        gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: true, isFlipped: false)
-        
         let iconsStackView = UIStackView(arrangedSubviews: [starIconIndicator, priceIndicator, distanceIndicator])
         iconsStackView.translatesAutoresizingMaskIntoConstraints = false
         iconsStackView.axis = .horizontal
@@ -67,7 +62,8 @@ class InfoCell: BaseCell {
             iconsStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
     }
-    
+
+    //MARK: Helper method to set up cell data
     func setUp(with businessViewModel: BusinessViewModel) {
         
         starIconIndicator.indicatorLabel.text = businessViewModel.textRating

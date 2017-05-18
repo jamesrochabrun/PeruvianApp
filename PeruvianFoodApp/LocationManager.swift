@@ -15,15 +15,16 @@ protocol LocationManagerDelegate: class {
     func displayInVC(_ alertController: UIAlertController)
 }
 
-
 class LocationManager: NSObject {
     
+    //MARK: properties
     let manager = CLLocationManager()
     var locationTextable: String = ""
     var longitude: Double = 0
     var latitude: Double = 0
     weak var delegate: LocationManagerDelegate?
     
+    //MARK: Initialization
     override init() {
         super.init()
         manager.delegate = self
@@ -31,6 +32,7 @@ class LocationManager: NSObject {
         manager.startUpdatingLocation()
     }
     
+    //MARK: User access permission
     fileprivate func displayAlertAskingFoUserPermission() {
         
         let alertController = UIAlertController(title: "This app needs access to your location", message: "Allow to show you the best options around you!", preferredStyle: .alert)
@@ -65,6 +67,7 @@ class LocationManager: NSObject {
 
 }
 
+//MARK: CLLocationManagerDelegate methods
 extension LocationManager: CLLocationManagerDelegate {
     
     
@@ -91,7 +94,7 @@ extension LocationManager: CLLocationManagerDelegate {
         
         manager.stopUpdatingLocation()
         guard let location = locations.first else {
-            print("No location return")
+            print("No location returned")
             return
         }
         let geoCoder = CLGeocoder()

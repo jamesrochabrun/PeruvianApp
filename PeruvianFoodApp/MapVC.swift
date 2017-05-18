@@ -62,7 +62,7 @@ class MapVC: UIViewController {
         
         NSLayoutConstraint.activate([
             statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 22),
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.UI.statusBarHeight),
             statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
             statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             dismissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
@@ -99,7 +99,7 @@ class MapVC: UIViewController {
     }
 }
 
-//MARK: google maps handlers setup
+//MARK: Google Map handlers setup
 extension MapVC {
     
     fileprivate func setUpGoogleMapWith(_ viewModel: BusinessViewModel) {
@@ -136,6 +136,7 @@ extension MapVC {
     }
 }
 
+//MARK: GMSMapViewDelegate delegate methods
 extension MapVC: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -170,21 +171,21 @@ extension MapVC: GMSMapViewDelegate {
     }
 }
 
-//MARK: Trabsition delegate
+//MARK: UIViewControllerTransitioningDelegate, custom transition logic
 extension MapVC: UIViewControllerTransitioningDelegate {
     
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         circularTransition.transitionMode = .present
         circularTransition.startingPoint = transitionButton.center
-        circularTransition.circleColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor) //transitionButton.backgroundColor!
+        circularTransition.circleColor = Colors.streetViewBackgroundColor.color()//transitionButton.backgroundColor!
         return circularTransition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         circularTransition.transitionMode = .dismiss
         circularTransition.startingPoint = transitionButton.center
-        circularTransition.circleColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)//transitionButton.backgroundColor!
+        circularTransition.circleColor = Colors.streetViewBackgroundColor.color()//transitionButton.backgroundColor!
         return circularTransition
     }
 }

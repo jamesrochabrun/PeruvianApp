@@ -17,20 +17,23 @@ protocol CustomMapViewDelegate: class {
 
 class CustomMapView: BaseView {
     
-    var mapDataSource: BusinessViewModelDataSource? {
+    //MARK: Properties
+    var dataSource: BusinessViewModelDataSource? {
         didSet {
-            if let mapDataSource = mapDataSource {
+            if let mapDataSource = dataSource {
                 setUpMapWith(mapDataSource)
             }
         }
     }
-    lazy var markerArray = [GMSMarker]()
     weak var delegate: CustomMapViewDelegate?
     lazy var mapView = GMSMapView()
-    var dataSourceArray: [BusinessViewModel]?
+    lazy var markerArray = [GMSMarker]()
+    var dataSourceArray = [BusinessViewModel]()
     
+    //MARK: Setup UI
     override func setUpViews() {
         
+        addSubview(mapView)
         mapView.mapType = .normal
         mapView.isMyLocationEnabled = true
         mapView.settings.compassButton = true
@@ -39,7 +42,6 @@ class CustomMapView: BaseView {
         mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(mapView)
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: topAnchor),
             mapView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -48,30 +50,32 @@ class CustomMapView: BaseView {
             ])
     }
     
-    //MARK: getbusinessesformap function updates a new array every time the BusinessViewModelDataSource is setted
-    private func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
+    //MARK: uodates the dataSource
+    func setUpMapWith(_ dataSource: BusinessViewModelDataSource) {
         
         dataSourceArray = dataSource.getBusinessesForMap()
-        guard let closestBusiness = dataSourceArray?.first else {
+        guard let closestBusiness = dataSourceArray.first else {
             print("No first business founded")
             return
         }
         setUpCameraPositionFromClosestBusiness(closestBusiness)
-        resetAndDrawMarkersWith(dataSourceArray!)
+        resetMarkers(dataSourceArray)
     }
     
-    //MARK: Helper methods
+    //MARK: Helper methods. Marker LifeCycle
+    
+    //Update Camera position to the closest businees to the coordiantes
     private func setUpCameraPositionFromClosestBusiness(_ business: BusinessViewModel) {
         
         let camera = GMSCameraPosition.camera(withLatitude: business.coordinates.latitude, longitude: business.coordinates.longitude, zoom: 16)
         mapView.camera = camera
     }
     
-    private func resetAndDrawMarkersWith(_ dataSourceArray: [BusinessViewModel]) {
+    //Reset markers state
+    private func resetMarkers(_ dataSourceArray: [BusinessViewModel]) {
         
         if markerArray.count <= 0 {
-            _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-            // _ = markerArray.map{draw($0)}
+            _ = dataSourceArray.map{ setUpMarkerDataWith($0) }
         } else {
             for i in 0..<markerArray.count {
                 let marker = markerArray[i]
@@ -79,10 +83,9 @@ class CustomMapView: BaseView {
             }
             markerArray.removeAll()
             _ = dataSourceArray.map{setUpMarkerDataWith($0)}
-            // _ = markerArray.map{draw($0)}
         }
     }
-    
+    //Set up Markers
     private func setUpMarkerDataWith(_ viewModel: BusinessViewModel) {
         
         let marker = GMSMarker()
@@ -98,7 +101,7 @@ class CustomMapView: BaseView {
         markerArray.append(marker)
         draw(marker)
     }
-    
+    //Draw markers
     private func draw(_ marker: GMSMarker) {
         if marker.map == nil {
             marker.map = self.mapView
@@ -106,6 +109,7 @@ class CustomMapView: BaseView {
     }
 }
 
+//MARK: GMSMapViewDelegate delegate methods
 extension CustomMapView: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -114,11 +118,12 @@ extension CustomMapView: GMSMapViewDelegate {
         return MarkerDetailView(frame: frame, marker: marker)
     }
     
+    //comparing coordinates (like choosing a cell in a tableView, instead of index coordinates)
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
-        guard let filterArray = dataSourceArray?.filter({$0.coordinates.longitude == marker.position.longitude && $0.coordinates.latitude == marker.position.latitude}),
-            let businessViewModel = filterArray.first else {
-                return
+        let selectedItemArray = dataSourceArray.filter({$0.coordinates.longitude == marker.position.longitude && $0.coordinates.latitude == marker.position.latitude})
+        guard let businessViewModel = selectedItemArray.first else {
+            return
         }
         delegate?.presentDetailVCFromMarker(with: businessViewModel)
     }

@@ -11,15 +11,12 @@ import UIKit
 
 class IconIndicatorView: BaseView {
     
-    let indicatorImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.contentMode = .scaleToFill
-        return iv
-    }()
+    //MARK: UI Elements
+    let indicatorImageView = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleToFill, clipsToBounds: true, userInteractionEnabled: false).build()
+
+        let indicatorLabel = LabelBuilder.caption1(textColor: .white, textAlignment: .center, sizeToFit: true).build()
     
-    let indicatorLabel = LabelBuilder.caption1(textColor: .white, textAlignment: .center, sizeToFit: true).build()
-    
+    //MARK: Set up UI
     override func setUpViews() {
         
         addSubview(indicatorImageView)

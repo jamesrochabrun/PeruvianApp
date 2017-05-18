@@ -15,6 +15,7 @@ class BusinessDetailVC: UIViewController {
     var businessViewModel: BusinessViewModel? {
         didSet {
             if let businessViewModel = businessViewModel {
+                self.customIndicator.stopAnimating()
                 self.dataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
             }
         }
@@ -144,7 +145,7 @@ class BusinessDetailVC: UIViewController {
         self.dismiss(animated: true)
     }
     
-    func showReviews() {
+    @objc private func showReviews() {
         
         let reviewsVC = ReviewsVC()
         reviewsVC.businessViewModel = businessViewModel
@@ -177,6 +178,23 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
                 self?.gradientView.alpha = 1
             })
         }  
+    }
+    
+    func alertUserOfError() {
+        showAlertWith(title: "Sorry", message: "Something went wrong, try again please", style: .alert)
+    }
+    
+    //MARK: helper method
+    func showAlertWith(title: String, message: String, style: UIAlertControllerStyle) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(action)
+        DispatchQueue.main.async { [unowned self] in
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }
 

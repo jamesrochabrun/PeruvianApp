@@ -23,15 +23,7 @@ class StreetViewVC: UIViewController {
     
     //MARK: UI Elements
     lazy var dismissButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
-        b.layer.cornerRadius = 35
-        b.layer.masksToBounds = true
-        b.setTitle("X", for: .normal)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white) , for: .normal)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-        return b
+        return ButtonBuilder.buttonWithCorner(radius: 35, text: "X", target: self, selector: #selector(dismissView), backGroundColor: .appSecondaryColor, textColor: .white).build()
     }()
     
     let panoramaView: GMSPanoramaView = {
@@ -49,22 +41,20 @@ class StreetViewVC: UIViewController {
     //MARK: APP lyfe cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
+        view.backgroundColor = Colors.streetViewBackgroundColor.color()
         setUpViews()
     }
     
-    //MARK: Setup UI
-    fileprivate func setUpViews() {
-        view.addSubview(statusBarBackgroundView)
-        view.addSubview(panoramaView)
-        view.addSubview(dismissButton)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
         NSLayoutConstraint.activate([
             statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: 22),
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.UI.statusBarHeight),
             statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
             statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: 70),
-            dismissButton.widthAnchor.constraint(equalToConstant: 70),
+            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.circleButtonSize),
+            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.circleButtonSize),
             dismissButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             dismissButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             panoramaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -72,6 +62,13 @@ class StreetViewVC: UIViewController {
             panoramaView.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
             panoramaView.leftAnchor.constraint(equalTo: view.leftAnchor)
             ])
+    }
+    
+    //MARK: Setup UI
+    fileprivate func setUpViews() {
+        view.addSubview(statusBarBackgroundView)
+        view.addSubview(panoramaView)
+        view.addSubview(dismissButton)
     }
     
     //MARK: navigation
@@ -110,3 +107,6 @@ extension StreetViewVC {
             self.present(alertController, animated: true)
     }
 }
+
+
+

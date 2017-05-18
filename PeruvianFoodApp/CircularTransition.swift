@@ -11,6 +11,7 @@ import UIKit
 
 class CircularTransition: NSObject {
     
+    //MARK: Properties
     var circle = UIView()
     var startingPoint = CGPoint.zero {
         didSet {
