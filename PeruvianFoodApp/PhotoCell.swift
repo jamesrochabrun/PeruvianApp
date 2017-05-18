@@ -38,12 +38,12 @@ class PhotoCell: BaseCollectionViewCell {
             print("INVALID URL ON CREATION IN PHOTOCELL")
             return
         }
-        self.photoImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [unowned self] (response) in
+        self.photoImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
             guard let image = response.result.value else {
                 print("INVALID RESPONSE SETTING UP THE PHOTOCELL")
                 return
             }
-            self.photoImageView.image = image
+            self?.photoImageView.image = image
         }
     }
     

@@ -75,33 +75,12 @@ final class BusinessesVC: SearchVC {
         feedSearchBar.endEditing(true)
         performDismissFilterView()
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        NSLayoutConstraint.activate([
-            segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 35),
-            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            
-            alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            alertView.topAnchor.constraint(equalTo: view.topAnchor),
 
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            mapView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            ])
-    }
-    
     //MARK: Overriding SearchVC super class methods
     override func setUpTableView() {
         
         view.addSubview(tableView)
-        tableView.register(BusinesCell.self)
+        tableView.register(BusinessCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
         tableView.insertSubview(feedRefreshControl, at: 0)
@@ -142,6 +121,23 @@ final class BusinessesVC: SearchVC {
         filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
         filterViewTopAnchor?.isActive = true
+        
+        NSLayoutConstraint.activate([
+            segmentedControl.widthAnchor.constraint(equalTo: view.widthAnchor),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 35),
+            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            
+            alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            alertView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            mapView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            ])
     }
     
     //MARK: segmented control switch from map to list
@@ -162,8 +158,8 @@ final class BusinessesVC: SearchVC {
             
             guard let strongSelf = self else {
                 print("SELF IS NIL IN BUSINESSFEEDVC")
-                return }
-            
+                return
+            }
             switch result {
             case .Success(let businessViewModelDataSource):
                 DispatchQueue.main.async {
@@ -225,8 +221,11 @@ extension BusinessesVC: BusinessViewModelDataSourceDelegate {
         }
     }
     
-    func updateDataInMap() {
+    func updateUIandData() {
+        
         updateMapWithDataSource()
+        performDismissFilterView()
+        
     }
 }
 
@@ -239,8 +238,9 @@ extension BusinessesVC: FilterViewDelegate {
         //set selection property of filterView
         filterView.selection = selection
         filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
+        self.feedSearchBar.endEditing(true)
         UIView.animate(withDuration: 0.4, animations: { [weak self] in
-                self?.view.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         })
     }
     //MARK: methods triggered by delegation
@@ -282,10 +282,6 @@ extension BusinessesVC: CustomMapViewDelegate {
         performDismissFilterView()
     }
 }
-
-
-
-
 
 
 

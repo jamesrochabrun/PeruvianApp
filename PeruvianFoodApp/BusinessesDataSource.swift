@@ -13,7 +13,7 @@ import TRON
 
 protocol BusinessViewModelDataSourceDelegate: class {
     func handleNoResults()
-    func updateDataInMap()
+    func updateUIandData()
 }
 
 class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
@@ -53,7 +53,7 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         self.searchVC?.delegate = self
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinesCell
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinessCell
         let businessViewModel = getBusinessViewModelFrom(indexPath)
         cell.setUpCell(with: businessViewModel)
         return cell
@@ -78,7 +78,7 @@ extension BusinessViewModelDataSource: SearchVCDelegate {
     func updateDataInVC(_ vc: SearchVC) {
         
         searchActive = vc.searchActive
-        delegate?.updateDataInMap()
+        delegate?.updateUIandData()
     }
     
     func filterContentFor(textToSearch: String) {

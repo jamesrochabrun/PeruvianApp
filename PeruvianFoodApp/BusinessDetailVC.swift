@@ -15,7 +15,7 @@ class BusinessDetailVC: UIViewController {
     var businessViewModel: BusinessViewModel? {
         didSet {
             if let businessViewModel = businessViewModel {
-                self.customIndicator.stopAnimating()
+                self.customIndicator.startAnimating()
                 self.dataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
             }
         }
@@ -160,6 +160,8 @@ class BusinessDetailVC: UIViewController {
         //Cell binds data from Businessdatasource and pass it to the view controller from the HoursCell through notification
         if let openScheduleViewModelArray = notification.object as? [OpenScheduleViewModel] {
             calendarView.openScheduleViewModelArray = openScheduleViewModelArray
+        } else {
+            calendarView.scheduleLabel.text = "No schedule available"
         }
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.calendarView.alpha = 1
@@ -192,8 +194,8 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
             self.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(action)
-        DispatchQueue.main.async { [unowned self] in
-            self.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true, completion: nil)
         }
     }
 }

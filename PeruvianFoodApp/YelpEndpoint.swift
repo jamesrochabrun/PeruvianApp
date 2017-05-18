@@ -10,22 +10,14 @@ import Foundation
 
 //MARK: Yelp enum to help endpoint creation
 
-enum Yelp {
+enum YelpEndpoint {
     case searchBusinesses
     case searchWith(id: String)
     case reviews(id: String)
     case token
 }
 
-//MARK: Required variables for protocol creation of Endpoint
-protocol Endpoint  {
-    
-    static var base:  String { get }
-    var path: String { get }
-}
-
-
-extension Yelp: Endpoint {
+extension YelpEndpoint {
     
     static var base: String {
         return "https://api.yelp.com/"
@@ -44,8 +36,6 @@ extension Yelp: Endpoint {
         }
     }
 }
-
-
 
 
 

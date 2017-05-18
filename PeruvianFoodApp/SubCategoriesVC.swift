@@ -13,7 +13,7 @@ class SubCategoriesVC: SearchVC {
     
     //MARK: Properties
     var mainCategoryViewModel: MainCategoryViewModel? {
-        didSet {
+        didSet {            
             if let mainCategoryViewModel = mainCategoryViewModel {
                 self.dataSource.updateWith(mainCategoryViewModel)
                 self.dataSource.subCategoriesVC = self
@@ -21,6 +21,8 @@ class SubCategoriesVC: SearchVC {
             }
         }
     }
+    let locationManager = LocationManager()
+    
     fileprivate let dataSource = SubCategoriesDataSource()
     
     //MARK: App Lyfecycle
@@ -28,6 +30,7 @@ class SubCategoriesVC: SearchVC {
         
         setUpNavBar()
         setUpTableView()
+        locationManager.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +52,7 @@ class SubCategoriesVC: SearchVC {
     }
 
     override func setUpNavBar() {
-        super.setUpNavBar()
+        //super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndOpenResults))
     }
     
@@ -68,6 +71,20 @@ extension SubCategoriesVC {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+}
+
+//MARK: LocationManagerDelegate delegate methods
+extension SubCategoriesVC: LocationManagerDelegate {
+    
+    func displayInVC(_ alertController: UIAlertController) {
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
+    }
+    
+    func getCoordinates(_ coordinates: Coordinates) {
+        dataSource.updateSelectionWith(coordinates)
     }
 }
 

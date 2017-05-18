@@ -9,36 +9,67 @@
 import Foundation
 import UIKit
 
-class MainCategoriesVC: SearchVC {
+class MainCategoriesVC: UIViewController {
     
     //MARK: Properties
-    let dataSource = MainCategoriesDataSource()
-    let locationManager = LocationManager()
+    let dataSource = MainCategoriesDataSource(categoriesViewModelArray: [])
+    var mainCategoryViewModel = MainCategoryViewModel()
+    
+    //MARK: UI
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.delegate = self
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = .white
+        tv.estimatedRowHeight = 100
+        tv.rowHeight = UITableViewAutomaticDimension
+        tv.separatorStyle = .none
+        tv.register(CategoryCell.self)
+        tv.dataSource = self.dataSource
+        tv.bounces = false
+        return tv
+    }()
     
     //MARK: APP lyfecycle
     override func viewDidLoad() {
-        
-        setUpNavBar()
-        setUpTableView()
-        locationManager.delegate = self
+        super.viewDidLoad()
+        setUpViews()
+        loadCategories()
+        self.title = "Categories"
     }
     
-    //MARK: FeedVC super class methods
-    override func setUpTableView() {
-        super.setUpTableView()
+    func loadCategories() {
         
-        tableView.register(CategoryCell.self)
-        tableView.dataSource = dataSource
-        dataSource.mainCategoriesVC = self
+        mainCategoryViewModel.getMainCategories { [weak self] (mainCategoriesArray) in
+            self?.dataSource.update(with: mainCategoriesArray)
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+    }
+    
+    //MARK: Set up UI
+    private func setUpViews() {
+        view.addSubview(tableView)
     }
 }
 
 //MARK: tableview delegate
-extension MainCategoriesVC {
+extension MainCategoriesVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        feedSearchBar.endEditing(true)
         let mainCategoryViewModel = dataSource.getMainCategoryViewModelFrom(indexPath)
         let subCategoriesVC = SubCategoriesVC()
         subCategoriesVC.mainCategoryViewModel = mainCategoryViewModel
@@ -46,16 +77,7 @@ extension MainCategoriesVC {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-}
-
-extension MainCategoriesVC: LocationManagerDelegate {
-    
-    func displayInVC(_ alertController: UIAlertController) {
-        DispatchQueue.main.async {
-            self.present(alertController, animated: true)
-        }
+        return (self.view.frame.size.height - 64) / 3
     }
 }
 

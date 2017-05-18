@@ -61,12 +61,12 @@ class HeaderCell: BaseCell {
             print("INVALID URL ON CREATION HEADERCELL")
             return
         }
-        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [unowned self] (response) in
+        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
             guard let image = response.result.value else {
                 print("INVALID RESPONSE SETTING UP THE HEADERCELL")
                 return
             }
-            self.businessImageView.image = image
+            self?.businessImageView.image = image
         }
         businessNameLabel.text = businessViewModel.name
         ratingImageView.image = businessViewModel.ratingImage

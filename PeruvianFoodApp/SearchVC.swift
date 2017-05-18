@@ -15,7 +15,6 @@ protocol SearchVCDelegate: class {
 }
 
 //MARK: this class provides UI and methods for update Table View content base on search, also provides a custom Indicator for loading.
-
 class SearchVC: UIViewController, UITableViewDelegate {
     
     //MARK: properties
@@ -130,6 +129,10 @@ extension SearchVC: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         feedSearchBar.endEditing(true)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        delegate?.updateDataInVC(self)
     }
 }
 

@@ -13,29 +13,12 @@ import UIKit
 class MainCategoriesDataSource: NSObject, UITableViewDataSource {
     
     //Mark: properties
-    fileprivate var categoriesViewModelArray = [MainCategoryViewModel]()
-    fileprivate var searchResults = [MainCategoryViewModel]()
-    fileprivate var searchActive : Bool = false
-    
-    //MARK: binding the delegate on creation this delegate is in charge of the searchbar logic from SearchVC
-    weak var mainCategoriesVC: MainCategoriesVC? {
-        didSet {
-            self.mainCategoriesVC?.delegate = self
-        }
-    }
-    
+    fileprivate var categoriesViewModelArray: [MainCategoryViewModel]
+
     //MARK: Initializer
-    override init() {
+    init(categoriesViewModelArray: [MainCategoryViewModel]) {
+        self.categoriesViewModelArray = categoriesViewModelArray
         super.init()
-        loadData()
-    }
-    
-    func loadData() {
-        
-        let mainCategoryViewModel = MainCategoryViewModel()
-        mainCategoryViewModel.getMainCategories { [unowned self] (mainCategoriesArray) in
-            self.categoriesViewModelArray = mainCategoriesArray
-        }
     }
     
     //MARK: Tableview Datasource methods
@@ -48,7 +31,7 @@ class MainCategoriesDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchActive ? searchResults.count : categoriesViewModelArray.count
+        return categoriesViewModelArray.count
     }
 }
 
@@ -56,29 +39,13 @@ class MainCategoriesDataSource: NSObject, UITableViewDataSource {
 extension MainCategoriesDataSource {
     
     func getMainCategoryViewModelFrom(_ indexPath: IndexPath) -> MainCategoryViewModel {
-        
-        return searchActive ? searchResults[indexPath.row] : categoriesViewModelArray[indexPath.row]
-    }
-}
-
-//MARK: SearchVC delegation
-extension MainCategoriesDataSource: SearchVCDelegate {
-    
-    func updateDataInVC(_ vc: SearchVC) {
-        searchActive = vc.searchActive
+        return categoriesViewModelArray[indexPath.row]
     }
     
-    func filterContentFor(textToSearch: String) {
-        
-        self.searchResults = self.categoriesViewModelArray.filter({ (category) -> Bool in
-            let categoryNameToFind = category.mainCategory.rawValue.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            return (categoryNameToFind != nil)
-        })
+    func update(with viewModels: [MainCategoryViewModel]) {
+        self.categoriesViewModelArray = viewModels
     }
 }
-
-
-
 
 
 

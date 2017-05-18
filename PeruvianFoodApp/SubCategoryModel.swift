@@ -18,7 +18,6 @@ struct SubCategory: JSONDecodable {
     var parentsArray: [String]?
 }
 
-//MARK:
 
 extension SubCategory {
     
@@ -34,7 +33,6 @@ extension SubCategory {
     }
 }
 
-//MARK:
 extension SubCategory {
     
     init?(dict: [String : AnyObject]) {

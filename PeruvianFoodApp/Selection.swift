@@ -19,6 +19,7 @@ class Selection {
     var categoryItems = [String]()
     var radius: Radius?
     var price: Price?
+    var coordinates: Coordinates?
 }
 
 enum Radius: Int {
@@ -36,6 +37,9 @@ enum Price: String {
     case threeDollarIcon = "3"
     case fourDollarIcon = "4"
 }
+
+
+
 
 
 

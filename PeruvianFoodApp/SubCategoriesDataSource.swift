@@ -37,6 +37,11 @@ class SubCategoriesDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    //MARK: Updates user location
+    func updateSelectionWith(_ coordinates: Coordinates) {
+        self.selection.coordinates = coordinates
+    }
+    
     //MARK: Tableview Datasource methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
@@ -55,7 +60,6 @@ class SubCategoriesDataSource: NSObject, UITableViewDataSource {
 extension SubCategoriesDataSource {
     
     func getSubCategoryViewModelFrom(_ indexPath: IndexPath) -> SubCategoryViewModel {
-        
         return searchActive ? searchResults[indexPath.row] : itemsViewModelArray[indexPath.row]
     }
     

@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import CoreLocation
 
-
 protocol LocationManagerDelegate: class {
     func displayInVC(_ alertController: UIAlertController)
+    func getCoordinates(_ coordinates: Coordinates)
 }
 
 class LocationManager: NSObject {
@@ -93,17 +93,24 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         manager.stopUpdatingLocation()
+        manager.delegate = nil
         guard let location = locations.first else {
             print("No location returned")
             return
         }
         let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
+        geoCoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             
+            guard let strongSelf = self else {
+                print("SELF IS BEEN DEALLOCATED ON GEOCODER CALL")
+                return
+            }
             if let placemark = placemarks?.first {
-                self.locationTextable = placemark.name ?? ""
-                self.longitude = placemark.location?.coordinate.longitude ?? 0
-                self.latitude = placemark.location?.coordinate.latitude ?? 0
+                strongSelf.locationTextable = placemark.name ?? ""
+                strongSelf.longitude = placemark.location?.coordinate.longitude ?? 0
+                strongSelf.latitude = placemark.location?.coordinate.latitude ?? 0
+                let coordinates = Coordinates(latitude: NSNumber(value: strongSelf.latitude), longitude: NSNumber(value: strongSelf.longitude))
+                strongSelf.delegate?.getCoordinates(coordinates)
             }
         }
     }

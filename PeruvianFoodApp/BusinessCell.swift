@@ -12,7 +12,7 @@ import Alamofire
 import CoreImage
 import AlamofireImage
 
-class BusinesCell: BaseCell {
+class BusinessCell: BaseCell {
 
     //MARK: UI Elements
     var businessImageView: UIImageView = {
@@ -107,15 +107,16 @@ class BusinesCell: BaseCell {
             ratingView.image = viewModel.ratingImage
             guard let url = URL(string: viewModel.profileImageURL) else {
                 print("INVALID URL ON CREATION BASECELL")
+                self.businessImageView.image = #imageLiteral(resourceName: "placeholder")
                 return
             }
-            businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [unowned self] (response) in
+            businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
                 guard let image = response.result.value else {
-                    print("INVALID RESPONSE SETTING UP THE BASECELL")
+                    print("No image data in response Businesscell")
                     return
                 }
                 DispatchQueue.main.async {
-                    self.businessImageView.image = image
+                    self?.businessImageView.image = image
                 }
             }
     }

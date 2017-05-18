@@ -14,9 +14,6 @@ class ReviewCell: BaseCell {
     //MARK: UI Elements
     let profileImageView = ImageViewBuilder.imageView(radius: 40, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
     let ratingImageView = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
-    lazy var moreReviewsButton: UIButton = {
-        return ButtonBuilder.buttonWithBorder(color: .appSecondaryColor, width: 1.5, text: "View More", textColor: .appSecondaryColor, target: self, selector: #selector(performHandler)).build()
-    }()
     
     let reviewNameLabel = LabelBuilder.headerLabel(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
     let reviewTextLabel = LabelBuilder.caption1(textColor: .grayTextColor, textAlignment: nil, sizeToFit: true).build()
@@ -32,7 +29,6 @@ class ReviewCell: BaseCell {
         contentView.addSubview(reviewDateLabel)
         contentView.addSubview(reviewTextLabel)
         contentView.addSubview(ratingImageView)
-        contentView.addSubview(moreReviewsButton)
         
         //less than 251 content hugging
         reviewNameLabel.setContentHuggingPriority(250, for: .horizontal)
@@ -61,11 +57,7 @@ class ReviewCell: BaseCell {
             ratingImageView.widthAnchor.constraint(equalToConstant: 110),
             ratingImageView.topAnchor.constraint(equalTo: reviewTextLabel.bottomAnchor, constant: 8),
             ratingImageView.leftAnchor.constraint(equalTo: reviewNameLabel.leftAnchor),
-            
-            moreReviewsButton.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
-            moreReviewsButton.widthAnchor.constraint(equalToConstant: 110),
-            moreReviewsButton.topAnchor.constraint(equalTo: ratingImageView.topAnchor),
-            moreReviewsButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor)
+            ratingImageView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor)
             ])
     }
     
@@ -74,24 +66,24 @@ class ReviewCell: BaseCell {
         
         //Alamofire image
         if let profileImageURL = viewModel.profileImageURL {
-            profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [unowned self] (response) in
+            profileImageView.af_setImage(withURL: profileImageURL, placeholderImage: #imageLiteral(resourceName: "userPlaceholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.7), runImageTransitionIfCached: false) { [weak self] (response) in
                 guard let image = response.result.value else {
                     print("INVALID RESPONSE SETTING UP THE REVIEWCELL")
                     return
                 }
-                self.profileImageView.image = image
+                DispatchQueue.main.async {
+                self?.profileImageView.image = image
+                }
             }
+        } else {
+            self.profileImageView.image = #imageLiteral(resourceName: "userPlaceholder")
         }
         ratingImageView.image = viewModel.ratingImage
         reviewNameLabel.text = viewModel.userName
         reviewTextLabel.text = viewModel.text
         reviewDateLabel.text = viewModel.timeCreated
-        //open url missing
     }
     
-    @objc private func performHandler() {
-        //open url here
-    }
 }
 
 
