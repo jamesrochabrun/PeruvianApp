@@ -10,6 +10,7 @@
 		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
 		7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */; };
 		7B2CDE381ECD1C1200F56E3C /* HoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */; };
+		7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */; };
 		7B2E3D1D1ECB9788007911CA /* BubbleContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */; };
 		7B2E3D1F1ECB97C4007911CA /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */; };
 		7B2E3D211ECB9A4C007911CA /* BubbleContainerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */; };
@@ -101,6 +102,7 @@
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
 		7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursModel.swift; sourceTree = "<group>"; };
+		7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVCZoomLogic.swift; sourceTree = "<group>"; };
 		7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainer.swift; sourceTree = "<group>"; };
 		7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainerDataSource.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */,
 				7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
+				7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */,
 				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
 				7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */,
 				7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */,
@@ -668,6 +671,7 @@
 				7B8D82961E96D997005BF309 /* SubCategoriesVC.swift in Sources */,
 				7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */,
 				7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */,
+				7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */,
 				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,

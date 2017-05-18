@@ -16,6 +16,7 @@ enum ButtonBuilder {
     case buttonWithBorder(color: Colors, width: CGFloat, text: String, textColor: Colors, target: Any, selector:(Selector))
     case customButton(tintColor: Colors, image: UIImage, target: Any, selector: (Selector))
     case buttonWith(title: String ,target: Any, selector:(Selector), font: String, fontSize: CGFloat, color: Colors, titleColor: Colors)
+    case buttonWithCorner(radius: CGFloat, text: String, target: Any, selector: (Selector), backGroundColor: Colors, textColor: Colors)
     
     func build() -> UIButton {
         
@@ -26,6 +27,8 @@ enum ButtonBuilder {
             return createCustomButton(tintColor: tintColor, image: image, target: target, selector: selector)
         case .buttonWith(let title, let target, let selector, let font, let fontSize, let color, let titleColor):
             return createButtonWith(title: title, target: target, selector: selector, font: font, fontSize: fontSize, color: color, titleColor: titleColor)
+        case .buttonWithCorner(let radius, let text, let target, let selector, let backGroundColor, let textColor):
+            return createButtonWithCorner(radius: radius, text: text, target: target, selector: selector, backGroundColor: backGroundColor, textColor: textColor)
         }
     }
     
@@ -61,6 +64,18 @@ enum ButtonBuilder {
         b.addTarget(target, action: selector, for: .touchUpInside)
         b.backgroundColor = color.color()
         b.layer.masksToBounds = true
+        return b
+    }
+    
+    private func createButtonWithCorner(radius: CGFloat, text: String, target: Any, selector: (Selector), backGroundColor: Colors, textColor: Colors) -> UIButton {
+        let b = UIButton()
+        b.backgroundColor = backGroundColor.color()
+        b.layer.cornerRadius = radius
+        b.layer.masksToBounds = true
+        b.setTitle(text, for: .normal)
+        b.setTitleColor(textColor.color() , for: .normal)
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(target, action: selector, for: .touchUpInside)
         return b
     }
 }

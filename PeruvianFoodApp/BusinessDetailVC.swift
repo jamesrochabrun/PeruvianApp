@@ -144,7 +144,15 @@ class BusinessDetailVC: UIViewController {
         self.dismiss(animated: true)
     }
     
-    //MARK: Notification center
+    func showReviews() {
+        
+        let reviewsVC = ReviewsVC()
+        reviewsVC.businessViewModel = businessViewModel
+        let navController = UINavigationController(rootViewController: reviewsVC)
+        present(navController, animated: true, completion: nil)
+    }
+    
+    //MARK: Notification center shows calendarView
     @objc private func showSchedule(_ notification: NSNotification) {
         
         //Set the calendar datasource passing the array of scheduleViewModels from ..
@@ -156,17 +164,9 @@ class BusinessDetailVC: UIViewController {
             self?.calendarView.alpha = 1
         })
     }
-    
-    func showReviews() {
-        
-        let reviewsVC = ReviewsVC()
-        reviewsVC.businessViewModel = businessViewModel
-        let navController = UINavigationController(rootViewController: reviewsVC)
-        present(navController, animated: true, completion: nil)
-    }
 }
 
-//MARK: when datasource is fetched from server perform delegate methods to update UI in VC
+//MARK: BusinessDetailDataSourceDelegate delegate method to update UI
 extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     
     func reloadDataInVC() {
@@ -180,7 +180,7 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     }
 }
 
-//MARK: Tableview height
+//MARK: UITableViewDelegate delegate methods
 extension BusinessDetailVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -191,91 +191,13 @@ extension BusinessDetailVC: UITableViewDelegate {
         } else if indexPath.row == 5 {
             return self.view.frame.width / 3
         } else if indexPath.row == 3 {
-            return 140
+            return Constants.UI.mapCellHeight
         }
         return UITableViewAutomaticDimension
     }
 }
 
-//MARK: custom zoom logic
-extension BusinessDetailVC {
-    
-    func performZoomInForStartingImageView(_ notification: NSNotification) {
-        
-        guard let startingImageView = notification.object as? UIImageView  else {
-            return
-        }
-        self.startingImageView = startingImageView
-        self.startingImageView?.isHidden = true
-        if let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
-            
-            self.startingFrame = startingFrame
-            let zoomingImageView = getZoominImageViewWith(startingFrame)
-            zoomingImageView.image = startingImageView.image
-            
-            if let keyWindow = UIApplication.shared.keyWindow {
-                backgroundOverlay = UIView(frame: keyWindow.frame)
-                backgroundOverlay?.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.darkTextColor)
-                backgroundOverlay?.alpha = 0
-                
-                keyWindow.addSubview(backgroundOverlay!)
-                keyWindow.addSubview(zoomingImageView)
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
-                    
-                    self?.backgroundOverlay?.alpha = 0.7
-                    if let height = self?.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame) {
-                        zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
-                    }
-                    zoomingImageView.center = keyWindow.center
-    
-                }, completion: { (complete) in
-                    
-                })
-            }
-        }
-    }
-    
-    func handleZoomOut(tapGesture: UITapGestureRecognizer) {
-        
-        guard let startingFrame = self.startingFrame, let overlay = self.backgroundOverlay else {
-            return
-        }
-        if let zoomOutImageView = tapGesture.view {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                zoomOutImageView.frame = startingFrame
-                overlay.alpha = 0
-            }, completion: { (complete) in
-                
-                DispatchQueue.main.async { [weak self] in
-                    zoomOutImageView.removeFromSuperview()
-                    self?.startingImageView?.isHidden = false
-                }
-            })
-        }
-    }
-    
-    //MARK: helper method
-    func getTheHeight(frame1: CGRect, frame2: CGRect) -> CGFloat {
-        
-        //MATH?
-        //h2 / w2 = h1 /w1
-        //h2 = h1 / w1 * w2
-        return frame1.height / frame1.width * frame2.width
-    }
-    
-    func getZoominImageViewWith(_ frame: CGRect) -> UIImageView {
-        
-        let zoomingImageView = UIImageView(frame: frame)
-        zoomingImageView.contentMode = .scaleAspectFill
-        zoomingImageView.clipsToBounds = true
-        zoomingImageView.isUserInteractionEnabled = true
-        zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
-        return zoomingImageView
-    }
-}
-
-//MARK: Triggered by notification form Mapcell
+//MARK: Triggered by notification from Mapcell
 extension BusinessDetailVC {
     
     @objc fileprivate func goToMapVC() {

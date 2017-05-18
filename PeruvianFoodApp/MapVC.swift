@@ -27,7 +27,7 @@ class MapVC: UIViewController {
     //MARK: UI Elements
     let statusBarBackgroundView: BaseView = {
         let v = BaseView()
-        v.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
+        v.backgroundColor = Colors.appMainColor.color()
         return v
     }()
     
@@ -37,15 +37,7 @@ class MapVC: UIViewController {
     }()
     
     lazy var transitionButton: UIButton = {
-        let b = UIButton()
-        b.backgroundColor = UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
-        b.layer.cornerRadius = 35
-        b.layer.masksToBounds = true
-        b.setTitle("S", for: .normal)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white) , for: .normal)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.addTarget(self, action: #selector(goToStreetView), for: .touchUpInside)
-        return b
+        return ButtonBuilder.buttonWithCorner(radius: 35.0, text: "S", target: self, selector:  #selector(goToStreetView), backGroundColor: .streetViewBackgroundColor, textColor: .white).build()
     }()
     
     //MARK: APP lyfecycle
@@ -100,7 +92,6 @@ class MapVC: UIViewController {
     
     //MARK: setup UI
     fileprivate func setUpViews() {
-       // view.addSubview(googleMap)
         view = googleMap
         view.addSubview(statusBarBackgroundView)
         view.addSubview(dismissButton)

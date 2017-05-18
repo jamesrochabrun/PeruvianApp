@@ -30,6 +30,7 @@ struct Constants {
         static let filterViewButtonsWidth: CGFloat = 100
         static let customIndicatorDefault: CGFloat = 80.0
         static let bubbleContainerHeight: CGFloat = 150.0
+        static let mapCellHeight: CGFloat = 140.0
     }
     
     struct Colors {
@@ -63,6 +64,7 @@ enum Colors {
     case shadowColor
     case white
     case appSecondaryColor
+    case streetViewBackgroundColor
     
     func color() -> UIColor {
         switch self {
@@ -78,6 +80,9 @@ enum Colors {
             return UIColor.hexStringToUIColor(Constants.Colors.white)
         case .appSecondaryColor:
             return UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
+        case .streetViewBackgroundColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
+
         }
     }
 }
