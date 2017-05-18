@@ -14,15 +14,18 @@ import SwiftyJSON
 
 class ReviewsViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
+    //MARK: Properties
+    static let reviewsKey = "reviews"
     private var reviewsViewModel: [ReviewViewModel] = [ReviewViewModel]()
     
+    //MARK: initializers
     override init() {
         super.init()
     }
     
     required init(json: JSON) throws {
         
-        guard let reviewsArray = json["reviews"].array else {
+        guard let reviewsArray = json[ReviewsViewModelDataSource.reviewsKey].array else {
             throw NSError(domain: "com.yelp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Business JSON not valid structure"])
         }
         let reviews: [Review] = try reviewsArray.decode()

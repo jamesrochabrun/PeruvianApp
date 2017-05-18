@@ -15,11 +15,11 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         tabBar.barTintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        let nearbyVC = NearbyVC()
+        let nearbyVC = SearchVC()
         let nearbyNavController = UINavigationController(rootViewController: nearbyVC)
         nearbyNavController.tabBarItem.title = "Nearby"
         
-        let categoryVC = CategoryFeedVC()
+        let categoryVC = MainCategoriesVC()
         let categoryNavController = UINavigationController(rootViewController: categoryVC)
         categoryNavController.tabBarItem.title = "Categories"
         

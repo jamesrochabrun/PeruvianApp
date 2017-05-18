@@ -11,12 +11,13 @@ import UIKit
 
 class ReviewsVC: UITableViewController {
     
-    var reviewsDataSource = ReviewsViewModelDataSource()
+    //MARK: Properties
+    fileprivate var reviewsDataSource = ReviewsViewModelDataSource()
     
     var businessViewModel: BusinessViewModel? {
         didSet {
-            if let business = businessViewModel {
-                getReviewsFrom(business: business, fromService: YelpService.sharedInstance)
+            if let businessViewModel = businessViewModel {
+                getReviewsFrom(business: businessViewModel, fromService: YelpService.sharedInstance)
             }
         }
     }
@@ -33,20 +34,12 @@ class ReviewsVC: UITableViewController {
         return av
     }()
     
+    //MARK: App Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpNavBar()
         setUpViews()
         setUpTableView()
-    }
-    
-    private func setUpNavBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissView))
-    }
-    
-    //MARK: Navigation
-    @objc private func dismissView() {
-        self.dismiss(animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -62,6 +55,16 @@ class ReviewsVC: UITableViewController {
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
             alertView.topAnchor.constraint(equalTo: view.topAnchor)
             ])
+    }
+    
+    //MARK: Navigation
+    @objc private func dismissView() {
+        self.dismiss(animated: true)
+    }
+    
+    //MARK: Set UP UI
+    private func setUpNavBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissView))
     }
     
     func setUpViews() {

@@ -9,20 +9,18 @@ import UIKit
 import TRON
 import SwiftyJSON
 
-protocol FeedVCDelegate: class {
-    func updateDataInVC(_ vc: FeedVC)
+protocol SearchVCDelegate: class {
+    func updateDataInVC(_ vc: SearchVC)
     func filterContentFor(textToSearch: String)
 }
 
-//MARK: this class contains different elements that can be used by subclassess based on their own specifications.
-//this class provides UI and methods for update Table View content base on search, also provides a custom Indicator for loading.
+//MARK: this class provides UI and methods for update Table View content base on search, also provides a custom Indicator for loading.
 
-
-class FeedVC: UIViewController, UITableViewDelegate {
+class SearchVC: UIViewController, UITableViewDelegate {
     
     //MARK: properties
     var searchActive: Bool = false
-    weak var delegate: FeedVCDelegate?
+    weak var delegate: SearchVCDelegate?
     
     //MARK: UIElements
     //Search Bar
@@ -39,6 +37,7 @@ class FeedVC: UIViewController, UITableViewDelegate {
         tv.delegate = self
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = .white
+        tv.separatorStyle = .none
         return tv
     }()
     
@@ -71,13 +70,14 @@ class FeedVC: UIViewController, UITableViewDelegate {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            customIndicator.heightAnchor.constraint(equalToConstant: 80),
-            customIndicator.widthAnchor.constraint(equalToConstant: 80),
+            customIndicator.heightAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
+            customIndicator.widthAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
             customIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
             customIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
             ])
     }
     
+    //MARK: SetUP UI
     func setUpNavBar() {
         navigationItem.titleView = feedSearchBar
     }
@@ -85,21 +85,21 @@ class FeedVC: UIViewController, UITableViewDelegate {
     func setUpTableView() {
         
         view.addSubview(tableView)
-        tableView.addSubview(customIndicator)
+        view.addSubview(customIndicator)
     }
     
-    //MARK: Scrollview draggin 
+    //MARK: Scrollview helper method
     func scrollViewIsDragging() {
         feedSearchBar.endEditing(true)
     }
     
-    //MARK: Networking, override this method
+    //MARK: Networking, override method in case needed
     func refresh(_ refreshControl: UIRefreshControl) {
     }
 }
 
-//Reusable searchBar actions
-extension FeedVC: UISearchBarDelegate {
+//Reusable searchBar Logic
+extension SearchVC: UISearchBarDelegate {
     
     func reloadData() {
         DispatchQueue.main.async {

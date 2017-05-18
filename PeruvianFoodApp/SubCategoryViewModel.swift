@@ -11,18 +11,18 @@ import UIKit
 
 //MARK: this object holds the selection of the switch and provides the selected item to construct the selection object
 
-struct CategoryItemViewModel {
+struct SubCategoryViewModel {
     
     var itemTitle: String
     var itemAlias: String
     var isSelected: Bool
 }
 
-extension CategoryItemViewModel {
+extension SubCategoryViewModel {
     
-    init(categoryItem: CategoryItem) {
-        self.itemTitle = categoryItem.title
-        self.itemAlias = categoryItem.alias
+    init(subCategory: SubCategory) {
+        self.itemTitle = subCategory.title
+        self.itemAlias = subCategory.alias
         self.isSelected = false
     }
 }

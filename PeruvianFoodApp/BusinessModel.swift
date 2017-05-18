@@ -11,7 +11,10 @@ import SwiftyJSON
 import UIKit
 import TRON
 
-//MARK: Main Object for Business
+//MARK: Reference
+//https://www.yelp.es/developers/documentation/v3/business
+
+//MARK: Business Model
 struct Business: JSONDecodable {
     
     let businessID: String
@@ -23,7 +26,7 @@ struct Business: JSONDecodable {
     let is_closed: Bool
     let reviewsCount: NSNumber
     let url: String
-    let categories: [CategoryItem]
+    let categories: [SubCategory]
     let distance: NSNumber
     let location: Location
     let coordinates: Coordinates
@@ -75,29 +78,9 @@ extension Business {
     }
 }
 
-//MARK: Categories object
-struct CategoryItem: JSONDecodable {
-    
-    let alias: String
-    let title: String
-    var parentsArray: [String]?
-}
 
-extension CategoryItem {
-    
-    struct Key {
-        static let categoryAliasKey = "alias"
-        static let categoryTitleKey = "title"
-        static let categoryParentsKey = "parents"
-    }
-    
-    init(json: JSON) throws {
-        alias = json[Key.categoryAliasKey].stringValue
-        title = json[Key.categoryTitleKey].stringValue
-    }
-}
 
-//MARK: Location object
+//MARK: Location Model
 struct Location: JSONDecodable {
     
     let city: String
@@ -132,7 +115,7 @@ extension Location {
     }
 }
 
-//MARK: Coordinates object 
+//MARK: Coordinates Model
 struct Coordinates: JSONDecodable {
     
     let latitude: NSNumber
@@ -152,56 +135,6 @@ extension Coordinates {
     }
 }
 
-//MARK: Hours object
-struct Hours: JSONDecodable {
-    
-    let hours_type: String
-    let open: [OpenSchedule]
-    let is_openNow: Bool
-}
-
-extension Hours {
-    
-    private struct Key {
-        static let hours_typeKey = "hours_type"
-        static let openKey = "open"
-        static let is_openNowKey = "is_open_now"
-    }
-    
-    init(json: JSON) throws {
-        
-        hours_type = json[Key.hours_typeKey].stringValue
-        let openScheduleArray = json[Key.openKey].arrayValue
-        open = try openScheduleArray.decode()
-        is_openNow = json[Key.is_openNowKey].boolValue
-    }
-}
-
-struct OpenSchedule: JSONDecodable {
-
-    let is_overnight: Bool
-    let end: NSNumber
-    let day: NSNumber
-    let start: NSNumber
-}
-
-extension OpenSchedule {
-    
-    private struct Key {
-        static let is_overnightKey = "is_overnight"
-        static let endKey = "end"
-        static let daykey = "day"
-        static let startKey = "start"
-    }
-    
-    init(json: JSON) throws {
-        
-        is_overnight = json[Key.is_overnightKey].boolValue
-        end = json[Key.endKey].numberValue
-        day = json[Key.daykey].numberValue
-        start = json[Key.startKey].numberValue
-    }
-}
 
 
 

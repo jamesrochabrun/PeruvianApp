@@ -8,8 +8,34 @@
 
 import Foundation
 import UIKit
+import TRON
+import SwiftyJSON
 
-extension CategoryItem {
+struct SubCategory: JSONDecodable {
+    
+    let alias: String
+    let title: String
+    var parentsArray: [String]?
+}
+
+//MARK:
+
+extension SubCategory {
+    
+    struct Key {
+        static let categoryAliasKey = "alias"
+        static let categoryTitleKey = "title"
+        static let categoryParentsKey = "parents"
+    }
+    
+    init(json: JSON) throws {
+        alias = json[Key.categoryAliasKey].stringValue
+        title = json[Key.categoryTitleKey].stringValue
+    }
+}
+
+//MARK:
+extension SubCategory {
     
     init?(dict: [String : AnyObject]) {
         

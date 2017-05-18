@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-protocol MapManagerDelegate: class {
-    func openDetailVCFromMarkerViewWith(_ viewModel: BusinessViewModel)
+protocol CustomMapViewDelegate: class {
+    func presentDetailVCFromMarker(with viewModel: BusinessViewModel)
     func hideKeyBoard()
 }
 
-class MapManagerView: BaseView {
+class CustomMapView: BaseView {
     
     var mapDataSource: BusinessViewModelDataSource? {
         didSet {
@@ -25,13 +25,12 @@ class MapManagerView: BaseView {
         }
     }
     lazy var markerArray = [GMSMarker]()
-    weak var delegate: MapManagerDelegate?
+    weak var delegate: CustomMapViewDelegate?
     lazy var mapView = GMSMapView()
     var dataSourceArray: [BusinessViewModel]?
     
     override func setUpViews() {
         
-        // mapView = GMSMapView()
         mapView.mapType = .normal
         mapView.isMyLocationEnabled = true
         mapView.settings.compassButton = true
@@ -107,7 +106,7 @@ class MapManagerView: BaseView {
     }
 }
 
-extension MapManagerView: GMSMapViewDelegate {
+extension CustomMapView: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
@@ -121,7 +120,7 @@ extension MapManagerView: GMSMapViewDelegate {
             let businessViewModel = filterArray.first else {
                 return
         }
-        delegate?.openDetailVCFromMarkerViewWith(businessViewModel)
+        delegate?.presentDetailVCFromMarker(with: businessViewModel)
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {

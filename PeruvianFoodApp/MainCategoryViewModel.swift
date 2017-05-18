@@ -9,21 +9,21 @@
 import Foundation
 import UIKit
 
-struct CategoryViewModel {
+struct MainCategoryViewModel {
     
-    var items: [CategoryItem]?
+    var subCategories: [SubCategory]?
     var mainCategory = MainCategory()
     
     //Get one specific Main Category and convert it in a CategoryViewModel that contains ...
     //Main Category title
     //subCategories inside the Main Category
-    func getMainCategoryAsViewModel(for mainCategory: MainCategory, completion: @escaping (CategoryViewModel) -> ())  {
+    func getCategories(for mainCategory: MainCategory, completion: @escaping (MainCategoryViewModel) -> ())  {
         
         let categoryService = CategoryService()
         categoryService.get { (result) in
             switch result {
             case .Success(let categoryItemsArray):
-                var resultsArray = [CategoryItem]()
+                var resultsArray = [SubCategory]()
                 for categoryItem in categoryItemsArray {
                     if let resultCategory = categoryItem,
                         let parentArray = resultCategory.parentsArray {
@@ -33,7 +33,7 @@ struct CategoryViewModel {
                     }
                 }
                 DispatchQueue.main.async {
-                    completion(CategoryViewModel(items: resultsArray, mainCategory: mainCategory))
+                    completion(MainCategoryViewModel(subCategories: resultsArray, mainCategory: mainCategory))
                 }
             case .Error(let error):
                 print(error)
@@ -42,11 +42,11 @@ struct CategoryViewModel {
     }
     
     //Get all the subCategories as CategoryViewModel
-    func getAllCategoriesAsViewModel(completion: @escaping (_ categoryListViewModelArray: Array<CategoryViewModel>) -> ()) {
+    func getMainCategories(completion: @escaping (_ categoryListViewModelArray: Array<MainCategoryViewModel>) -> ()) {
         
-        var categoryViewModelArray = Array<CategoryViewModel>()
+        var categoryViewModelArray = Array<MainCategoryViewModel>()
         for category in MainCategory.categories {
-            self.getMainCategoryAsViewModel(for: category, completion: { (categoryViewModel) in
+            self.getCategories(for: category, completion: { (categoryViewModel) in
                 categoryViewModelArray.append(categoryViewModel)
                 if categoryViewModelArray.count == MainCategory.categories.count {
                     DispatchQueue.main.async {

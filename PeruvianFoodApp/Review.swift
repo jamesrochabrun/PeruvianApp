@@ -11,6 +11,10 @@ import SwiftyJSON
 import UIKit
 import TRON
 
+//MARK: Reference 
+//API returns 3 reviews
+//https://www.yelp.es/developers/documentation/v3/business_reviews
+
 struct Review: JSONDecodable {
     
     let rating: NSNumber
@@ -18,6 +22,9 @@ struct Review: JSONDecodable {
     let text: String
     let reviewURL: String
     let timeCreated: String
+}
+
+extension Review {
     
     private struct Key {
         static let ratingKey = "rating"
@@ -37,10 +44,14 @@ struct Review: JSONDecodable {
     }
 }
 
+//MARK: User that wrote the review
 struct User: JSONDecodable {
     
     var imageProfileURL: String?
     let name: String
+}
+
+extension User {
     
     private struct Key {
         static let imageProfileKey = "image_url"

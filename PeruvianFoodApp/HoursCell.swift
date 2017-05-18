@@ -13,44 +13,12 @@ class HoursCell: BaseCell {
     
     var openScheduleViewModelArray: [OpenScheduleViewModel]?
     
-//    lazy var scheduleButton: UIButton = {
-//        let b = UIButton()
-//        b.translatesAutoresizingMaskIntoConstraints = false
-//        b.setTitle("SHOW SCHEDULE", for: .normal)
-//        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
-//        b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
-//       // b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor).cgColor
-//      //  b.layer.borderWidth = 1.0
-//        b.layer.cornerRadius = 20
-//        b.layer.masksToBounds = true
-//        return b
-//    }()
-    
-    //MARK: UI Elements
     lazy var scheduleButton: UIButton = {
-        let b = UIButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("SHOW SCHEDULE", for: .normal)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
-        b.addTarget(self, action: #selector(showSchedule), for: .touchUpInside)
-        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.white).cgColor
-        b.layer.borderWidth = 1.0
-//        b.layer.cornerRadius = 20
-//        b.layer.masksToBounds = true
-        return b
+        return ButtonBuilder.buttonWithBorder(color: .white, width: 1.0, text: "SHOW SCHEDULE", textColor: .white, target: self, selector: #selector(showSchedule)).build()
     }()
     
     lazy var reviewsButton: UIButton = {
-        let b = UIButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitle("SHOW REVIEWS", for: .normal)
-        b.setTitleColor(UIColor.hexStringToUIColor(Constants.Colors.white), for: .normal)
-        b.addTarget(self, action: #selector(showReviews), for: .touchUpInside)
-        b.layer.borderColor = UIColor.hexStringToUIColor(Constants.Colors.white).cgColor
-        b.layer.borderWidth = 1.0
-        //        b.layer.cornerRadius = 20
-        //        b.layer.masksToBounds = true
-        return b
+        return ButtonBuilder.buttonWithBorder(color: .white, width: 1.0, text: "SHOW REVIEWS", textColor: .white, target: self, selector: #selector(showReviews)).build()
     }()
     
     let isOpenNowLabel = LabelBuilder.headerLabel(textColor: .white, textAlignment: .center, sizeToFit: true).build()
@@ -78,12 +46,7 @@ class HoursCell: BaseCell {
             reviewsButton.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -Constants.UI.hourcellHeightVerticalPadding)
             ])
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-      //  scheduleButton.gradient(withStartColor: .appMainColor, endColor: .appSecondaryColor, isHorizontal: true, isFlipped: false)
-    }
-    
+
     func setUp(with viewModel: BusinessViewModel) {
 
         if let hours = viewModel.hours?.first  {

@@ -8,15 +8,14 @@
 
 import TRON
 import SwiftyJSON
-
 import GoogleMaps
 
-class BusinessesFeedVC: FeedVC {
+final class BusinessesVC: SearchVC {
     
     //MARK: properties
-    var feedDataSource = BusinessViewModelDataSource() {
+    var dataSource = BusinessViewModelDataSource() { 
         didSet {
-            self.feedDataSource.delegate = self
+            self.dataSource.delegate = self
         }
     }
     var selection = Selection() {
@@ -27,14 +26,9 @@ class BusinessesFeedVC: FeedVC {
         }
     }
     
-    //MARK: reset radius and price state for default search
-    private func resetPriceAndRadius() {
-        selection.radius = nil
-        selection.price = nil
-    }
-    
+    //MARK: this property handles the layout change on animation.
     var filterViewTopAnchor: NSLayoutConstraint?
-    
+
     //MARK: UI elements
     private lazy var segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl()
@@ -60,20 +54,24 @@ class BusinessesFeedVC: FeedVC {
         return av
     }()
     
-    lazy var mapView: MapManagerView = {
-        let mv = MapManagerView()
-        mv.isHidden = true
-        mv.delegate = self
-        return mv
+    lazy var mapView: CustomMapView = {
+        let cmv = CustomMapView()
+        cmv.isHidden = true
+        cmv.delegate = self
+        return cmv
     }()
     
     //MARK: APP lifecycle
     override func viewDidLoad() {
-        super.viewDidLoad()
+        
+        setUpNavBar()
+        setUpTableView()
+        setUpViews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         feedSearchBar.endEditing(true)
         performDismissFilterView()
     }
@@ -86,55 +84,28 @@ class BusinessesFeedVC: FeedVC {
             segmentedControl.heightAnchor.constraint(equalToConstant: 35),
             segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor),
             segmentedControl.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            
             alertView.heightAnchor.constraint(equalTo: view.heightAnchor),
             alertView.leftAnchor.constraint(equalTo: view.leftAnchor),
             alertView.widthAnchor.constraint(equalTo: view.widthAnchor),
             alertView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
             mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            mapView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            mapView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
     }
     
-    //MARK: FeedVC super class methods
+    //MARK: Overriding SearchVC super class methods
     override func setUpTableView() {
+        super.setUpTableView()
         
-        view.addSubview(tableView)
-        //tableView.addSubview(customIndicator)
         tableView.register(BusinesCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
-        tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)
         tableView.contentInset = UIEdgeInsets(top: 35, left: 0, bottom: 0, right: 0)
-    }
-    
-    func setUpViews() {
-        
-        segmentedControl.selectedSegmentIndex = 0
-        view.addSubview(mapView)
-        view.addSubview(customIndicator)
-        view.addSubview(segmentedControl)
-        view.addSubview(alertView)
-        view.addSubview(filterView)
-        
-        //MARK: add the constraints here to avoid the call of layout if needed during animation
-        filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
-        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
-        filterViewTopAnchor?.isActive = true
-        
-        customIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-
     }
     
     override func setUpNavBar() {
@@ -149,12 +120,30 @@ class BusinessesFeedVC: FeedVC {
     
     override func scrollViewIsDragging() {
         super.scrollViewIsDragging()
+        
         performDismissFilterView()
     }
     
-    //MARK: Super class FeedVC methods End 
+    //MARK: Super class SearchVC methods End.
     
-    //MARK: segmented control trigger
+    //MARK: Set up UI.
+    private func setUpViews() {
+        
+        segmentedControl.selectedSegmentIndex = 0
+        view.addSubview(mapView)
+        view.addSubview(segmentedControl)
+        view.addSubview(alertView)
+        view.addSubview(filterView)
+        
+        //MARK: add the constraints of filterview outside layoutSubviews to avoid constraint issues on animation.
+        filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
+        filterView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        filterView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        filterViewTopAnchor = filterView.topAnchor.constraint(equalTo: view.bottomAnchor)
+        filterViewTopAnchor?.isActive = true
+    }
+    
+    //MARK: segmented control switch from map to list
     @objc private func switchPresentation() {
         
         feedSearchBar.endEditing(true)
@@ -164,17 +153,7 @@ class BusinessesFeedVC: FeedVC {
         }
     }
     
-    //MARK: update markers in map
-    fileprivate func updateMapWithDataSource() {
-        mapView.mapDataSource = feedDataSource
-    }
-    
-    //handle by delegation
-    func updateDataInMap() {
-        updateMapWithDataSource()
-    }
-    
-    //MARK: Networking
+    //MARK: Networking call 
     func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
         
         customIndicator.startAnimating()
@@ -187,12 +166,12 @@ class BusinessesFeedVC: FeedVC {
             switch result {
             case .Success(let businessViewModelDataSource):
                 DispatchQueue.main.async {
-                    strongSelf.feedDataSource = businessViewModelDataSource
+                    strongSelf.dataSource = businessViewModelDataSource
                     strongSelf.mapView.mapDataSource = businessViewModelDataSource
-                    //setting the feedVC property of the datasource object
-                    strongSelf.feedDataSource.feedVC = self
-                    //////////////////////////////////////////////////////
-                    strongSelf.tableView.registerDatasource(strongSelf.feedDataSource, completion: { (complete) in
+                    
+                    //setting the searchVC property of the datasource object to make the dataSource object adopt SearchVC delegation
+                    strongSelf.dataSource.searchVC = self
+                    strongSelf.tableView.registerDatasource(strongSelf.dataSource, completion: { (complete) in
                         strongSelf.feedRefreshControl.endRefreshing()
                         strongSelf.customIndicator.stopAnimating()
                     })
@@ -202,51 +181,71 @@ class BusinessesFeedVC: FeedVC {
             }
         }
     }
+    
+    //MARK: reset radius and price state for default search
+    private func resetPriceAndRadius() {
+        selection.radius = nil
+        selection.price = nil
+    }
 }
 
-//MARK: tableview delegate method
-extension BusinessesFeedVC {
+//MARK: Map markers logic
+extension BusinessesVC {
+    
+    //MARK: update markers in map
+    fileprivate func updateMapWithDataSource() {
+        mapView.mapDataSource = dataSource
+    }
+}
+
+//MARK: tableview delegate method/ triggers navigation
+extension BusinessesVC {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         feedSearchBar.endEditing(true)
-        let businessViewModel = feedDataSource.getBusinessViewModelFromIndexpath(indexPath)
+        let businessViewModel = dataSource.getBusinessViewModelFrom(indexPath)
         let businessDetailVC = BusinessDetailVC()
         businessDetailVC.businessViewModel = businessViewModel
         self.present(businessDetailVC, animated: true)
     }
 }
 
-//MARK: BusinessDatasourcedelegate
-extension BusinessesFeedVC: BusinessViewModelDataSourceDelegate {
+//MARK: BusinessViewModelDataSourceDelegate delegate methods
+extension BusinessesVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
         
-        alertView.alpha = 1
-        alertView.performAnimation()
+        DispatchQueue.main.async { [weak self] in
+            self?.alertView.alpha = 1
+            self?.alertView.performAnimation()
+        }
+    }
+    
+    func updateDataInMap() {
+        updateMapWithDataSource()
     }
 }
 
-//MARK: Show filter view
-
-extension BusinessesFeedVC: FilterViewDelegate {
+//MARK: FilterViewDelegate methods and FilterView actions
+extension BusinessesVC: FilterViewDelegate {
     
-    //triggered by vc nav bar button
+    //triggered by vc nav bar right button
     @objc fileprivate func showFilterView() {
         
+        //set selection property of filterView
         filterView.selection = selection
         filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
         UIView.animate(withDuration: 0.4, animations: { [weak self] in
-            self?.view.layoutIfNeeded()
+                self?.view.layoutIfNeeded()
         })
     }
-    //triggered by delegation
+    //MARK: methods triggered by delegation
     func cancelWasPressed() {
-        
         performDismissFilterView()
     }
     
-    func searchWasPressedToUpdateSelection(_ selection: Selection) {
+    func searchWasPressedWithUpdatedSelection(_ selection: Selection) {
         
         customIndicator.startAnimating()
         alertView.alpha = 0
@@ -254,7 +253,7 @@ extension BusinessesFeedVC: FilterViewDelegate {
         performDismissFilterView()
     }
     
-    //helper Method
+    //MARK: helper Method
     fileprivate func performDismissFilterView() {
         
         filterViewTopAnchor?.constant = view.frame.size.height
@@ -264,9 +263,10 @@ extension BusinessesFeedVC: FilterViewDelegate {
     }
 }
 
-extension BusinessesFeedVC: MapManagerDelegate {
-    
-    func openDetailVCFromMarkerViewWith(_ viewModel: BusinessViewModel) {
+//MARK: CustomMapViewDelegate delegate methods
+extension BusinessesVC: CustomMapViewDelegate {
+
+    func presentDetailVCFromMarker(with viewModel: BusinessViewModel) {
         
         feedSearchBar.endEditing(true)
         let businessDetailVC = BusinessDetailVC()

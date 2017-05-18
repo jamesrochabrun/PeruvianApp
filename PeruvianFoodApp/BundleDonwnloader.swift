@@ -13,14 +13,14 @@ import Alamofire
 struct JSONDownloader {
     
     typealias JSON = [[String: AnyObject]]
-    typealias JSONTaskCompletionHandler = (BundleResult<[CategoryItem?]>) -> Void
+    typealias JSONTaskCompletionHandler = (BundleResult<[SubCategory?]>) -> Void
     
     func jsonTaskFrom(path: String, completionHandler completion: @escaping JSONTaskCompletionHandler) {
         
         if let content = NSData.init(contentsOfFile: path) {
             do {
                 if let jsonArray = try JSONSerialization.jsonObject(with: content as Data, options: []) as? [[String: AnyObject]] {
-                    let categoryArray = jsonArray.map{CategoryItem(dict: $0)}
+                    let categoryArray = jsonArray.map{ SubCategory(dict: $0) }
                     completion(.Success(categoryArray))
                 }
             } catch {
@@ -44,7 +44,7 @@ struct CategoryService {
     
     let downloader = JSONDownloader()
     
-    typealias CategoryCompletionHandler = (BundleResult<[CategoryItem?]>) -> Void
+    typealias CategoryCompletionHandler = (BundleResult<[SubCategory?]>) -> Void
     
     func get(completion: @escaping CategoryCompletionHandler) {
         

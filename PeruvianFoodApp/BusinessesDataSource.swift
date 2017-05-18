@@ -18,26 +18,30 @@ protocol BusinessViewModelDataSourceDelegate: class {
 
 class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
+    //MARK: Properties
+    static let businessesKey = "businesses"
     fileprivate var businessesViewModel: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchResults: [BusinessViewModel] = [BusinessViewModel]()
     fileprivate var searchActive : Bool = false
-    weak var feedVC: FeedVC?
+    weak var searchVC: SearchVC?
     weak var delegate: BusinessViewModelDataSourceDelegate?
     
+    //MARK: Initialization
     override init() {
         super.init()
     }
     
     required init(json: JSON) throws {
         
-        guard let businessesArray = json["businesses"].array else {
+        guard let businessesArray = json[BusinessViewModelDataSource.businessesKey].array else {
             throw NSError(domain: "com.yelp", code: 1, userInfo: [NSLocalizedDescriptionKey: "Business JSON not valid structure"])
         }
         
         let businesses: [Business] = try businessesArray.decode()
-        self.businessesViewModel = businesses.map{BusinessViewModel(model: $0)}
+        self.businessesViewModel = businesses.map{ BusinessViewModel(model: $0) }
     }
     
+    //MARK: TableView DataSource methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if businessesViewModel.count == 0 {
@@ -48,9 +52,9 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        self.feedVC?.delegate = self
+        self.searchVC?.delegate = self
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as BusinesCell
-        let businessViewModel = getBusinessViewModelFromIndexpath(indexPath)
+        let businessViewModel = getBusinessViewModelFrom(indexPath)
         cell.setUpCell(with: businessViewModel)
         return cell
     }
@@ -59,7 +63,7 @@ class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodabl
 //MARK: Helper methods
 extension BusinessViewModelDataSource {
     
-    func getBusinessViewModelFromIndexpath(_ indexPath: IndexPath) -> BusinessViewModel {
+    func getBusinessViewModelFrom(_ indexPath: IndexPath) -> BusinessViewModel {
       return searchActive ? searchResults[indexPath.row] : businessesViewModel[indexPath.row]
     }
     
@@ -68,11 +72,11 @@ extension BusinessViewModelDataSource {
     }
 }
 
-//MARK: this delegate handles all the updates in VC from tableview and mapview
-extension BusinessViewModelDataSource: FeedVCDelegate {
+//MARK: SearchVC delegation
+extension BusinessViewModelDataSource: SearchVCDelegate {
     
-    //Main delegate method of superclass FeedVC
-    func updateDataInVC(_ vc: FeedVC) {
+    func updateDataInVC(_ vc: SearchVC) {
+        
         searchActive = vc.searchActive
         delegate?.updateDataInMap()
     }
@@ -81,9 +85,7 @@ extension BusinessViewModelDataSource: FeedVCDelegate {
         
         self.searchResults = self.businessesViewModel.filter({ (business) -> Bool in
             let businessNameToFind = business.name.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            //let typeToFind = place.type.range(of: textToSearch,  options: NSString.CompareOptions.caseInsensitive)
-            //let locationToFind = place.location.range(of: textToSearch, options: NSString.CompareOptions.caseInsensitive)
-            return (businessNameToFind != nil) //|| (typeToFind != nil) || (locationToFind != nil)
+            return (businessNameToFind != nil)
         })
     }
 }

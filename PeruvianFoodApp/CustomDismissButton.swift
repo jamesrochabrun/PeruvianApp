@@ -12,13 +12,7 @@ import UIKit
 class CustomDismissButton: BaseView {
     
     lazy var button: UIButton = {
-        let b = UIButton(type: .custom)
-        b.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.setImage(#imageLiteral(resourceName: "dismiss").withRenderingMode(.alwaysTemplate), for: .normal)
-        b.addTarget(self, action: #selector(performHandler), for: .touchUpInside)
-        b.translatesAutoresizingMaskIntoConstraints = false
-        return b
+        return ButtonBuilder.customButton(tintColor: .appMainColor , image:#imageLiteral(resourceName: "dismiss") , target: self, selector: #selector(performHandler)).build()
     }()
     
     let xView: UIImageView = {

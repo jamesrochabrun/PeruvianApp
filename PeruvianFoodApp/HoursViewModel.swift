@@ -49,6 +49,8 @@ extension OpenScheduleViewModel {
 }
 
 //MARK: enum that handles the day of the week in string format based on a number input
+//https://www.yelp.es/developers/documentation/v3/business
+//API returns days of the week as numbers
 enum DayOfTheWeek: NSNumber {
     
     case monday

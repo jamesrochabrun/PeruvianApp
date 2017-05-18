@@ -13,6 +13,7 @@ import Alamofire
 import TRON
 import SwiftyJSON
 
+//MARK: ViewModel for Business Model
 struct BusinessViewModel {
     
     let name: String
@@ -59,7 +60,9 @@ extension BusinessViewModel {
     }
 }
 
+//MARK: ViewModel for Coordinates Model
 struct CoordinateViewModel {
+    
     let latitude: Double
     let longitude: Double
 }
@@ -72,6 +75,7 @@ extension CoordinateViewModel {
     }
 }
 
+//MARK: Model for ReviewIcon
 enum ReviewIcon: NSNumber {
     
     case zeroStar
@@ -122,17 +126,6 @@ extension ReviewIcon {
         }
     }
 }
-
-//struct DistanceViewModel {
-//    var distancePresentable: String
-//    init(business: Business) {
-//        let d = CGFloat(business.distance) / 1000.0
-//        distancePresentable = String(format: "%.2f mi", d)
-//    }
-//}
-//
-//
-//
 
 
 

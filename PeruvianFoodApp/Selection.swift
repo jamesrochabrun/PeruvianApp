@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//MARK: this object is created based in different parameters its passed by dependency inhection through view controllers and finally passed as an argument to the API call.
+//MARK: this object is created based in different parameters its passed by dependency inhection through view controllers and Views and finally passed as an argument to the API call.
 class Selection {
     
     init() {
@@ -37,20 +37,5 @@ enum Price: String {
     case fourDollarIcon = "4"
 }
 
-//MARK: Main categories, default to restaurants
-enum MainCategory: String {
-
-    case restaurants
-    case bars
-    case food
-    
-    static var categories: [MainCategory] {
-        return [.restaurants, .bars, .food]
-    }
-    
-    init() {
-        self = .restaurants
-    }
-}
 
 

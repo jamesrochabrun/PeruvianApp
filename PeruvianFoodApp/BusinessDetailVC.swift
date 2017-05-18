@@ -15,16 +15,17 @@ class BusinessDetailVC: UIViewController {
     var businessViewModel: BusinessViewModel? {
         didSet {
             if let businessViewModel = businessViewModel {
-                self.businessDetailDataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
+                self.dataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
             }
         }
     }
     
-    private var businessDetailDataSource: BusinessDetailDataSource? {
+    var dataSource: BusinessDetailDataSource? {
         didSet {
-            self.businessDetailDataSource?.delegate = self
+            self.dataSource?.delegate = self
         }
     }
+    
     //MARK: Zoom frame UI
     var startingFrame: CGRect?
     var backgroundOverlay: UIView?
@@ -69,7 +70,8 @@ class BusinessDetailVC: UIViewController {
         tv.register(SubInfoCell.self)
         tv.register(HoursCell.self)
         tv.register(PhotoAlbumCell.self)
-        tv.dataSource = self.businessDetailDataSource
+        tv.register(MapCell.self)
+        tv.dataSource = self.dataSource
         return tv
     }()
     
@@ -81,12 +83,12 @@ class BusinessDetailVC: UIViewController {
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpTableView()
         setUpViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
@@ -126,18 +128,6 @@ class BusinessDetailVC: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: UI SetUP Tableview
-    private func setUpTableView() {
-        
-        tableView.register(HeaderCell.self)
-        tableView.register(InfoCell.self)
-        tableView.register(SubInfoCell.self)
-        tableView.register(HoursCell.self)
-        tableView.register(PhotoAlbumCell.self)
-        tableView.register(MapCell.self)
-        tableView.dataSource = businessDetailDataSource
-    }
-    
     private func setUpViews() {
         
         view.backgroundColor = .white
@@ -171,7 +161,6 @@ class BusinessDetailVC: UIViewController {
         
         let reviewsVC = ReviewsVC()
         reviewsVC.businessViewModel = businessViewModel
-        //add a navigation controller
         let navController = UINavigationController(rootViewController: reviewsVC)
         present(navController, animated: true, completion: nil)
     }
@@ -187,7 +176,7 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
             UIView.animate(withDuration: 0.3, animations: { 
                 self?.gradientView.alpha = 1
             })
-        }
+        }  
     }
 }
 

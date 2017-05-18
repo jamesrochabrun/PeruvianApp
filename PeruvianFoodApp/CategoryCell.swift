@@ -22,4 +22,8 @@ class CategoryCell: BaseCell {
             listNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
         ])
     }
+    
+    func setUpCell(with mainCategoryViewModel: MainCategoryViewModel) {
+        listNameLabel.text = mainCategoryViewModel.mainCategory.rawValue
+    }
 }

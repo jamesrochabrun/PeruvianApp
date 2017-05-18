@@ -21,16 +21,16 @@ class CustomActivityIndicator: BaseView {
     }()
     
     private let activityIndicator: UIActivityIndicatorView = {
-        let actInd = UIActivityIndicatorView()
-        actInd.hidesWhenStopped = true
-        actInd.translatesAutoresizingMaskIntoConstraints = false
-        actInd.activityIndicatorViewStyle = .whiteLarge
-      //  actInd.startAnimating()
-        return actInd
+        let aI = UIActivityIndicatorView()
+        aI.hidesWhenStopped = true
+        aI.translatesAutoresizingMaskIntoConstraints = false
+        aI.activityIndicatorViewStyle = .whiteLarge
+        return aI
     }()
     
     override func setUpViews() {
         
+        alpha = 0
         addSubview(containerView)
         containerView.addSubview(activityIndicator)
         

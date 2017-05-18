@@ -11,7 +11,7 @@ import UIKit
 
 protocol FilterViewDelegate: class {
     func cancelWasPressed()
-    func searchWasPressedToUpdateSelection(_ selection: Selection)
+    func searchWasPressedWithUpdatedSelection(_ selection: Selection)
 }
 
 class FilterView: BaseView {
@@ -20,7 +20,8 @@ class FilterView: BaseView {
     weak var delegate: FilterViewDelegate?
     var selection: Selection?
     
-    let toolsView: UIView = {
+    //MARK: UI Elements
+    let buttonsContainer: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.clipsToBounds = true
@@ -31,15 +32,11 @@ class FilterView: BaseView {
     }()
     
     lazy var cancelButton: UIButton = {
-        let cancelButton = UIButton()
-        cancelButton.with(title: "Cancel", target: self, selector: #selector(hideView), cornerRadius: 0, font: Constants.Font.regularFont, fontSize: 16, color: Constants.Colors.darkTextColor, titleColor: Constants.Colors.white)
-        return cancelButton
+        return ButtonBuilder.buttonWith(title: "Cancel" ,target: self, selector: #selector(hideView), font: Constants.Font.regularFont, fontSize: Constants.Font.h2FontSize, color: .darkTextColor, titleColor: .white).build()
     }()
     
-    lazy var doneButton: UIButton = {
-        let doneButton = UIButton()
-        doneButton.with(title: "Search", target: self, selector: #selector(hideViewWithData), cornerRadius: 0, font: Constants.Font.regularFont, fontSize: 16, color: Constants.Colors.darkTextColor, titleColor: Constants.Colors.appSecondaryColor)
-        return doneButton
+    lazy var searchButton: UIButton = {
+        return ButtonBuilder.buttonWith(title: "Search" ,target: self, selector: #selector(hideViewWithData), font: Constants.Font.regularFont, fontSize: Constants.Font.h2FontSize, color: .darkTextColor, titleColor: .appSecondaryColor).build()
     }()
     
     let containerView: BaseView = {
@@ -76,13 +73,15 @@ class FilterView: BaseView {
         return sc
     }()
     
+    //MARK: SetUp UI
     override func setUpViews() {
-        addSubview(toolsView)
-        toolsView.addSubview(cancelButton)
-        toolsView.addSubview(doneButton)
+        addSubview( buttonsContainer)
+        buttonsContainer.addSubview(cancelButton)
+        buttonsContainer.addSubview(searchButton)
         addSubview(containerView)
     }
     
+    //MARK: App lifeCycle
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -94,23 +93,23 @@ class FilterView: BaseView {
         containerView.addSubview(segmentsStackView)
         
         NSLayoutConstraint.activate([
-            toolsView.heightAnchor.constraint(equalToConstant: 44),
-            toolsView.widthAnchor.constraint(equalTo: widthAnchor),
-            toolsView.topAnchor.constraint(equalTo: topAnchor),
-            toolsView.leftAnchor.constraint(equalTo: leftAnchor),
+            buttonsContainer.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewButtonsContainerHeight),
+            buttonsContainer.widthAnchor.constraint(equalTo: widthAnchor),
+            buttonsContainer.topAnchor.constraint(equalTo: topAnchor),
+            buttonsContainer.leftAnchor.constraint(equalTo: leftAnchor),
             
-            cancelButton.heightAnchor.constraint(equalTo: toolsView.heightAnchor),
-            cancelButton.leftAnchor.constraint(equalTo: toolsView.leftAnchor),
-            cancelButton.widthAnchor.constraint(equalToConstant: 100),
-            cancelButton.topAnchor.constraint(equalTo: toolsView.topAnchor),
+            cancelButton.heightAnchor.constraint(equalTo: buttonsContainer.heightAnchor),
+            cancelButton.leftAnchor.constraint(equalTo: buttonsContainer.leftAnchor),
+            cancelButton.widthAnchor.constraint(equalToConstant: Constants.UI.filterViewButtonsWidth),
+            cancelButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
             
-            doneButton.heightAnchor.constraint(equalTo: toolsView.heightAnchor),
-            doneButton.rightAnchor.constraint(equalTo: toolsView.rightAnchor),
-            doneButton.widthAnchor.constraint(equalToConstant: 100),
-            doneButton.topAnchor.constraint(equalTo: toolsView.topAnchor),
+            searchButton.heightAnchor.constraint(equalTo: buttonsContainer.heightAnchor),
+            searchButton.rightAnchor.constraint(equalTo: buttonsContainer.rightAnchor),
+            searchButton.widthAnchor.constraint(equalToConstant: Constants.UI.filterViewButtonsWidth),
+            searchButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
             
             containerView.widthAnchor.constraint(equalTo: widthAnchor),
-            containerView.topAnchor.constraint(equalTo: toolsView.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: buttonsContainer.bottomAnchor),
             containerView.leftAnchor.constraint(equalTo: leftAnchor),
             containerView.rightAnchor.constraint(equalTo: rightAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -122,17 +121,18 @@ class FilterView: BaseView {
             ])
     }
     
+    //MARK: UI elements triggers
     @objc private func hideView() {
         delegate?.cancelWasPressed()
     }
     
     @objc private func hideViewWithData() {
-        //update the selection
         if let selection = selection {
-            delegate?.searchWasPressedToUpdateSelection(selection)
+            delegate?.searchWasPressedWithUpdatedSelection(selection)
         }
     }
     
+    //MARK: update selection
     @objc private func selectPrice() {
         
         switch  priceSegmentedControl.selectedSegmentIndex {

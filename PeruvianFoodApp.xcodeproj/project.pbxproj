@@ -8,19 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
+		7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */; };
+		7B2CDE381ECD1C1200F56E3C /* HoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */; };
 		7B2E3D1D1ECB9788007911CA /* BubbleContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */; };
 		7B2E3D1F1ECB97C4007911CA /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */; };
 		7B2E3D211ECB9A4C007911CA /* BubbleContainerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */; };
+		7B3409D51ECCAEB900B6AF9D /* MainCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3409D41ECCAEB900B6AF9D /* MainCategoryModel.swift */; };
 		7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567111E9D473D0073AD1F /* Blurrable.swift */; };
 		7B4567141E9D47450073AD1F /* Opaqueable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567131E9D47450073AD1F /* Opaqueable.swift */; };
 		7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567191E9D94680073AD1F /* Shadowable.swift */; };
 		7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */; };
 		7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */; };
-		7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */; };
+		7B7A81961E9836AD007608FC /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* SubCategoryModel.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
 		7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104931EC5474F001C1A2C /* Endpoint.swift */; };
 		7B8104961EC56E55001C1A2C /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104951EC56E55001C1A2C /* CustomTabBarController.swift */; };
-		7B8104991EC573F5001C1A2C /* NearbyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104981EC573F5001C1A2C /* NearbyVC.swift */; };
 		7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636671EA038450020EFC8 /* LabelBuilder.swift */; };
 		7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366B1EA152220020EFC8 /* Gradientable.swift */; };
 		7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366D1EA17F0F0020EFC8 /* Review.swift */; };
@@ -35,14 +37,14 @@
 		7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */; };
 		7B8D82921E96B2DE005BF309 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82911E96B2DE005BF309 /* BaseView.swift */; };
 		7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82931E96CE4B005BF309 /* SwitchCell.swift */; };
-		7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */; };
+		7B8D82961E96D997005BF309 /* SubCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */; };
 		7B8D82981E96E1C7005BF309 /* categories.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B8D82971E96E1C7005BF309 /* categories.json */; };
 		7B8D829B1E96E2BE005BF309 /* BundleDonwnloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */; };
 		7B9B5EF91E9E98A1008C8468 /* SubInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EF81E9E98A1008C8468 /* SubInfoCell.swift */; };
 		7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */; };
 		7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */; };
 		7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */; };
-		7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F011E9EA887008C8468 /* OpenScheduleViewModel.swift */; };
+		7B9B5F021E9EA887008C8468 /* HoursViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F011E9EA887008C8468 /* HoursViewModel.swift */; };
 		7B9B5F041E9EE7F3008C8468 /* BaseCollectionViewCelll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */; };
 		7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */; };
 		7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F081E9EFA05008C8468 /* GridLayout.swift */; };
@@ -50,12 +52,12 @@
 		7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */; };
 		7B9B5F0F1E9F16C5008C8468 /* ListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */; };
 		7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9ED4491EA1EC6900397946 /* ReviewViewModel.swift */; };
-		7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */; };
-		7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */; };
-		7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */; };
-		7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */; };
+		7BC6398E1E9AB29100EB4E16 /* MainCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */; };
+		7BC639901E9AB2F700EB4E16 /* MainCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */; };
+		7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */; };
+		7BC639941E9B147700EB4E16 /* SubCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */; };
 		7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */; };
-		7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* FeedVC.swift */; };
+		7BD8ED221E9546FE00E610B9 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* SearchVC.swift */; };
 		7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8ED261E9546FE00E610B9 /* Assets.xcassets */; };
 		7BD8ED2A1E9546FE00E610B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */; };
 		7BD8ED321E95473800E610B9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED311E95473800E610B9 /* Constants.swift */; };
@@ -71,8 +73,8 @@
 		7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */; };
 		7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */; };
 		7BE026C41EA8871E00CC701C /* MapManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C31EA8871E00CC701C /* MapManagerView.swift */; };
-		7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */; };
-		7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */; };
+		7BED73A81E9C12930084CA67 /* MainCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A71E9C12930084CA67 /* MainCategoryViewModel.swift */; };
+		7BED73AA1E9C12EC0084CA67 /* SubCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73A91E9C12EC0084CA67 /* SubCategoryViewModel.swift */; };
 		7BED73AC1E9C137C0084CA67 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AB1E9C137C0084CA67 /* Selection.swift */; };
 		7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */; };
 		7BED73B21E9C97720084CA67 /* CustomDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */; };
@@ -97,19 +99,21 @@
 
 /* Begin PBXFileReference section */
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
+		7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursModel.swift; sourceTree = "<group>"; };
 		7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainer.swift; sourceTree = "<group>"; };
 		7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleContainerDataSource.swift; sourceTree = "<group>"; };
+		7B3409D41ECCAEB900B6AF9D /* MainCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryModel.swift; sourceTree = "<group>"; };
 		7B4567111E9D473D0073AD1F /* Blurrable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blurrable.swift; sourceTree = "<group>"; };
 		7B4567131E9D47450073AD1F /* Opaqueable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Opaqueable.swift; sourceTree = "<group>"; };
 		7B4567191E9D94680073AD1F /* Shadowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadowable.swift; sourceTree = "<group>"; };
 		7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCell.swift; sourceTree = "<group>"; };
-		7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemExtension.swift; sourceTree = "<group>"; };
+		7B7A81951E9836AD007608FC /* SubCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		7B8104931EC5474F001C1A2C /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		7B8104951EC56E55001C1A2C /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
-		7B8104981EC573F5001C1A2C /* NearbyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyVC.swift; sourceTree = "<group>"; };
 		7B8636671EA038450020EFC8 /* LabelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		7B86366B1EA152220020EFC8 /* Gradientable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradientable.swift; sourceTree = "<group>"; };
 		7B86366D1EA17F0F0020EFC8 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -126,14 +130,14 @@
 		7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		7B8D82911E96B2DE005BF309 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7B8D82931E96CE4B005BF309 /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
-		7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemsFeedVC.swift; sourceTree = "<group>"; };
+		7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoriesVC.swift; sourceTree = "<group>"; };
 		7B8D82971E96E1C7005BF309 /* categories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = categories.json; sourceTree = "<group>"; };
 		7B8D829A1E96E2BE005BF309 /* BundleDonwnloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleDonwnloader.swift; sourceTree = "<group>"; };
 		7B9B5EF81E9E98A1008C8468 /* SubInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubInfoCell.swift; sourceTree = "<group>"; };
 		7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconIndicatorView.swift; sourceTree = "<group>"; };
 		7B9B5EFC1E9E98EC008C8468 /* InfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		7B9B5EFF1E9E994E008C8468 /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
-		7B9B5F011E9EA887008C8468 /* OpenScheduleViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenScheduleViewModel.swift; sourceTree = "<group>"; };
+		7B9B5F011E9EA887008C8468 /* HoursViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursViewModel.swift; sourceTree = "<group>"; };
 		7B9B5F031E9EE7F3008C8468 /* BaseCollectionViewCelll.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCelll.swift; sourceTree = "<group>"; };
 		7B9B5F051E9EF8A9008C8468 /* HoursCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursCell.swift; sourceTree = "<group>"; };
 		7B9B5F081E9EFA05008C8468 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
@@ -141,13 +145,13 @@
 		7B9B5F0C1E9F0BCF008C8468 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		7B9B5F0E1E9F16C5008C8468 /* ListLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListLayout.swift; sourceTree = "<group>"; };
 		7B9ED4491EA1EC6900397946 /* ReviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
-		7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryFeedVC.swift; sourceTree = "<group>"; };
-		7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
-		7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesFeedVC.swift; sourceTree = "<group>"; };
-		7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemsFeedDataSource.swift; sourceTree = "<group>"; };
+		7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesVC.swift; sourceTree = "<group>"; };
+		7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesDataSource.swift; sourceTree = "<group>"; };
+		7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesVC.swift; sourceTree = "<group>"; };
+		7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoriesDataSource.swift; sourceTree = "<group>"; };
 		7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeruvianFoodApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PeruvianFoodApp/AppDelegate.swift; sourceTree = "<group>"; };
-		7BD8ED211E9546FE00E610B9 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		7BD8ED211E9546FE00E610B9 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		7BD8ED261E9546FE00E610B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BD8ED291E9546FE00E610B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BD8ED2B1E9546FE00E610B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,8 +168,8 @@
 		7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewVC.swift; sourceTree = "<group>"; };
 		7BE026C31EA8871E00CC701C /* MapManagerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManagerView.swift; sourceTree = "<group>"; };
-		7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
-		7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItemViewModel.swift; sourceTree = "<group>"; };
+		7BED73A71E9C12930084CA67 /* MainCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoryViewModel.swift; sourceTree = "<group>"; };
+		7BED73A91E9C12EC0084CA67 /* SubCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryViewModel.swift; sourceTree = "<group>"; };
 		7BED73AB1E9C137C0084CA67 /* Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 		7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVC.swift; sourceTree = "<group>"; };
 		7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDismissButton.swift; sourceTree = "<group>"; };
@@ -211,7 +215,6 @@
 		7B8104971EC573E6001C1A2C /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
-				7B8104981EC573F5001C1A2C /* NearbyVC.swift */,
 				7B2E3D1C1ECB9788007911CA /* BubbleContainer.swift */,
 				7B2E3D1E1ECB97C4007911CA /* BubbleCell.swift */,
 				7B2E3D201ECB9A4C007911CA /* BubbleContainerDataSource.swift */,
@@ -276,11 +279,11 @@
 		7BD8ED1E1E9546FE00E610B9 /* PeruvianFoodApp */ = {
 			isa = PBXGroup;
 			children = (
+				7BD8ED401E957CFE00E610B9 /* Model */,
 				7BED73A61E9C12830084CA67 /* MVVM */,
 				7BD8ED4B1E95D81100E610B9 /* DataSource */,
-				7BD8ED401E957CFE00E610B9 /* Model */,
-				7BD8ED3F1E957CF300E610B9 /* View */,
 				7BD8ED3E1E957CE200E610B9 /* Controller */,
+				7BD8ED3F1E957CF300E610B9 /* View */,
 				7BD8ED3D1E957CD900E610B9 /* Service */,
 				7BD8ED3C1E957CCF00E610B9 /* Helpers */,
 				7BD8ED3B1E957CC400E610B9 /* Protocols */,
@@ -316,6 +319,7 @@
 				7BD8ED311E95473800E610B9 /* Constants.swift */,
 				7BD8ED431E957EE400E610B9 /* Extensions.swift */,
 				7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */,
+				7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -334,15 +338,15 @@
 		7BD8ED3E1E957CE200E610B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7B8104971EC573E6001C1A2C /* Nearby */,
-				7BD8ED211E9546FE00E610B9 /* FeedVC.swift */,
-				7BC6398D1E9AB29100EB4E16 /* CategoryFeedVC.swift */,
-				7B8D82951E96D997005BF309 /* CategoryItemsFeedVC.swift */,
-				7BC639911E9AB4E500EB4E16 /* BusinessesFeedVC.swift */,
+				7BD8ED211E9546FE00E610B9 /* SearchVC.swift */,
+				7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */,
+				7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */,
+				7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
 				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
 				7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */,
 				7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */,
+				7B8104971EC573E6001C1A2C /* Nearby */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -365,8 +369,10 @@
 		7BD8ED401E957CFE00E610B9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B3409D41ECCAEB900B6AF9D /* MainCategoryModel.swift */,
+				7B7A81951E9836AD007608FC /* SubCategoryModel.swift */,
 				7BD8ED391E957C2A00E610B9 /* BusinessModel.swift */,
-				7B7A81951E9836AD007608FC /* CategoryItemExtension.swift */,
+				7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */,
 				7B86366D1EA17F0F0020EFC8 /* Review.swift */,
 				7BED73AB1E9C137C0084CA67 /* Selection.swift */,
 			);
@@ -376,8 +382,8 @@
 		7BD8ED4B1E95D81100E610B9 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				7BC6398F1E9AB2F700EB4E16 /* CategoryDataSource.swift */,
-				7BC639931E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift */,
+				7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */,
+				7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */,
 				7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */,
 				7B86366F1EA19A890020EFC8 /* BusinessDetailDataSource.swift */,
 				7B8636751EA1A05C0020EFC8 /* ReviewsViewModelDataSource.swift */,
@@ -388,10 +394,10 @@
 		7BED73A61E9C12830084CA67 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				7BED73A71E9C12930084CA67 /* CategoryViewModel.swift */,
-				7BED73A91E9C12EC0084CA67 /* CategoryItemViewModel.swift */,
+				7BED73A71E9C12930084CA67 /* MainCategoryViewModel.swift */,
+				7BED73A91E9C12EC0084CA67 /* SubCategoryViewModel.swift */,
 				7BD8ED471E95BCA800E610B9 /* BusinessViewModel.swift */,
-				7B9B5F011E9EA887008C8468 /* OpenScheduleViewModel.swift */,
+				7B9B5F011E9EA887008C8468 /* HoursViewModel.swift */,
 				7B9ED4491EA1EC6900397946 /* ReviewViewModel.swift */,
 			);
 			name = MVVM;
@@ -621,19 +627,20 @@
 				7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
 				7B8104961EC56E55001C1A2C /* CustomTabBarController.swift in Sources */,
-				7BD8ED221E9546FE00E610B9 /* FeedVC.swift in Sources */,
+				7BD8ED221E9546FE00E610B9 /* SearchVC.swift in Sources */,
 				7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */,
 				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,
+				7B2CDE381ECD1C1200F56E3C /* HoursModel.swift in Sources */,
 				7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */,
 				7B9B5F0D1E9F0BCF008C8468 /* ScheduleCell.swift in Sources */,
 				7BFAB9C81EA7223A00294438 /* GoogleMapService.swift in Sources */,
-				7B7A81961E9836AD007608FC /* CategoryItemExtension.swift in Sources */,
+				7B7A81961E9836AD007608FC /* SubCategoryModel.swift in Sources */,
 				7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */,
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
 				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
-				7BED73A81E9C12930084CA67 /* CategoryViewModel.swift in Sources */,
-				7BC639921E9AB4E500EB4E16 /* BusinessesFeedVC.swift in Sources */,
+				7BED73A81E9C12930084CA67 /* MainCategoryViewModel.swift in Sources */,
+				7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */,
@@ -647,18 +654,20 @@
 				7B865B631EA480180048E513 /* AlertView.swift in Sources */,
 				7BD8ED341E95473E00E610B9 /* ColorHexable.swift in Sources */,
 				7B11D65C1EA55841002E851B /* FilterView.swift in Sources */,
-				7BC639901E9AB2F700EB4E16 /* CategoryDataSource.swift in Sources */,
+				7BC639901E9AB2F700EB4E16 /* MainCategoriesDataSource.swift in Sources */,
 				7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */,
 				7BD8ED421E957D2900E610B9 /* YelpAPI.swift in Sources */,
 				7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */,
 				7B9B5EF91E9E98A1008C8468 /* SubInfoCell.swift in Sources */,
-				7BC639941E9B147700EB4E16 /* CategoryItemsFeedDataSource.swift in Sources */,
+				7BC639941E9B147700EB4E16 /* SubCategoriesDataSource.swift in Sources */,
 				7BFAB9BE1EA6BA6600294438 /* MapCell.swift in Sources */,
-				7BC6398E1E9AB29100EB4E16 /* CategoryFeedVC.swift in Sources */,
+				7BC6398E1E9AB29100EB4E16 /* MainCategoriesVC.swift in Sources */,
+				7B3409D51ECCAEB900B6AF9D /* MainCategoryModel.swift in Sources */,
 				7B9B5F061E9EF8A9008C8468 /* HoursCell.swift in Sources */,
-				7B9B5F021E9EA887008C8468 /* OpenScheduleViewModel.swift in Sources */,
-				7B8D82961E96D997005BF309 /* CategoryItemsFeedVC.swift in Sources */,
+				7B9B5F021E9EA887008C8468 /* HoursViewModel.swift in Sources */,
+				7B8D82961E96D997005BF309 /* SubCategoriesVC.swift in Sources */,
 				7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */,
+				7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */,
 				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
@@ -672,7 +681,7 @@
 				7B2E3D211ECB9A4C007911CA /* BubbleContainerDataSource.swift in Sources */,
 				7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */,
 				7BD8ED381E95474A00E610B9 /* BusinesCell.swift in Sources */,
-				7BED73AA1E9C12EC0084CA67 /* CategoryItemViewModel.swift in Sources */,
+				7BED73AA1E9C12EC0084CA67 /* SubCategoryViewModel.swift in Sources */,
 				7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */,
 				7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */,
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
@@ -681,7 +690,6 @@
 				7B8104941EC5474F001C1A2C /* Endpoint.swift in Sources */,
 				7B2E3D1F1ECB97C4007911CA /* BubbleCell.swift in Sources */,
 				7B865B671EA480C00048E513 /* Flashable.swift in Sources */,
-				7B8104991EC573F5001C1A2C /* NearbyVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

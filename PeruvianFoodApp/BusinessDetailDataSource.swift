@@ -33,7 +33,6 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     }
     
     //MARK: Networking
-    
     func getBusinessFrom(_ businessViewModel: BusinessViewModel, fromService service: YelpService) {
       
         service.getBusinessFrom(businessViewModel) { [weak self] (result) in
@@ -48,6 +47,7 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    //MARK: TableView DataSource methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let businessViewModel = businessViewModel else {
