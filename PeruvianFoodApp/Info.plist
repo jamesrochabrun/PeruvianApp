@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow this app access your camera?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>&quot;We will use your location to show you the best results.&quot;</string>
+	<string>We will use your location to show you the best results.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>&quot;We will use your location to show you the best results&quot;</string>
+	<string>We will use your location to show you the best results</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>

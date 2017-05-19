@@ -32,7 +32,6 @@ struct YelpService: Gettable {
         
         let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(YelpEndpoint.searchBusinesses.path)
         request.headers = YelpHeader.authorization.headers
-
         request.parameters = YelpParameter.nearbyFrom(selection: selection).paramaters
         request.perform(withSuccess: { (businessDataSource) in
             DispatchQueue.main.async {

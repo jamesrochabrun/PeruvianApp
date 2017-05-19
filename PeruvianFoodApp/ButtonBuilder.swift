@@ -16,6 +16,7 @@ enum ButtonBuilder {
     case customButton(tintColor: Colors, image: UIImage, target: Any, selector: (Selector))
     case buttonWith(title: String ,target: Any, selector:(Selector), font: String, fontSize: CGFloat, color: Colors, titleColor: Colors)
     case buttonWithCorner(radius: CGFloat, text: String, target: Any, selector: (Selector), backGroundColor: Colors, textColor: Colors)
+    case buttonWithImage(image: UIImage, renderMode: Bool, tintColor: Colors, target: Any, selector: (Selector), radius: CGFloat?)
     
     func build() -> UIButton {
         
@@ -28,6 +29,8 @@ enum ButtonBuilder {
             return createButtonWith(title: title, target: target, selector: selector, font: font, fontSize: fontSize, color: color, titleColor: titleColor)
         case .buttonWithCorner(let radius, let text, let target, let selector, let backGroundColor, let textColor):
             return createButtonWithCorner(radius: radius, text: text, target: target, selector: selector, backGroundColor: backGroundColor, textColor: textColor)
+        case .buttonWithImage(let image, let renderMode, let tintColor, let target, let selector, let radius):
+            return createButtonWith(image: image, renderMode: renderMode, tintColor: tintColor, target: target, selector: selector, radius: radius)
         }
     }
     
@@ -77,6 +80,19 @@ enum ButtonBuilder {
         b.addTarget(target, action: selector, for: .touchUpInside)
         return b
     }
+    
+    private func createButtonWith(image: UIImage, renderMode: Bool, tintColor: Colors, target: Any, selector: (Selector), radius: CGFloat?) -> UIButton {
+        let b = UIButton()
+        b.layer.cornerRadius = radius ?? 0
+        b.layer.masksToBounds = true
+        b.translatesAutoresizingMaskIntoConstraints = false
+        b.addTarget(target, action: selector, for: .touchUpInside)
+        let inputImage = renderMode ? image.withRenderingMode(.alwaysTemplate) : image
+        b.setImage(inputImage, for: .normal)
+        b.tintColor = tintColor.color()
+        return b
+    }
+
 }
 
 

@@ -175,7 +175,29 @@ final class BusinessesVC: SearchVC {
                 }
             case .Error(let error) :
                 print("ERROR ON NETWORK REQUEST FROM BUSINESSFEEDVC: \(error)")
+                strongSelf.alertUserOfError()
             }
+        }
+    }
+    
+    func alertUserOfError() {
+        showAlertWith(title: "Sorry", message: "Something went wrong, pull to refresh or try later", style: .alert)
+    }
+    
+    //MARK: helper method
+    func showAlertWith(title: String, message: String, style: UIAlertControllerStyle) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
+            guard let strongSelf = self else { return }
+            strongSelf.dismiss(animated: true, completion: nil)
+            strongSelf.customIndicator.stopAnimating()
+            strongSelf.feedRefreshControl.endRefreshing()
+
+        }
+        alertController.addAction(action)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true, completion: nil)
         }
     }
     

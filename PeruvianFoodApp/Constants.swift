@@ -34,6 +34,8 @@ struct Constants {
         static let bubbleContainerHeight: CGFloat = 150.0
         static let mapCellHeight: CGFloat = 140.0
         static let circleButtonSize: CGFloat = 70.0
+        static let cameraButtonSize: CGFloat = 70.0
+        static let cameraButtonRadius = Constants.UI.cameraButtonSize / 2
     }
     
     struct Colors {
@@ -45,6 +47,7 @@ struct Constants {
         static let shadowColor: String = "#65737e"
         static let white: String  = "#ffffff"
         static let streetViewBackgroundColor: String = "#595959"
+        static let cameraButtonBackgroundColor: String = "#59e9d8"
     }
     
     struct Font {
@@ -69,6 +72,7 @@ enum Colors {
     case white
     case appSecondaryColor
     case streetViewBackgroundColor
+    case cameraButtonBackgroundColor
     
     func color() -> UIColor {
         switch self {
@@ -86,6 +90,8 @@ enum Colors {
             return UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)
         case .streetViewBackgroundColor:
             return UIColor.hexStringToUIColor(Constants.Colors.streetViewBackgroundColor)
+        case .cameraButtonBackgroundColor:
+            return UIColor.hexStringToUIColor(Constants.Colors.cameraButtonBackgroundColor)
 
         }
     }

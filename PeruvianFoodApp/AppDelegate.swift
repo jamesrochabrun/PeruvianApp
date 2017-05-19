@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleGoogleMap()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let categoryVC = MainCategoriesVC()
-        let categoryNavController = UINavigationController(rootViewController: categoryVC)
+        let horizontalScrollableVC = MainCategoriesVC()
+        let categoryNavController = UINavigationController(rootViewController: horizontalScrollableVC)
         window?.rootViewController = categoryNavController
         setUPAppereance()
         return true
