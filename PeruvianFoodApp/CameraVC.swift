@@ -8,13 +8,15 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class CameraVC: UIViewController {
     
     //MARK: UI elements
-    let cameraView: CameraView = {
+    lazy var cameraView: CameraView = {
         let v = CameraView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        v.delegate = self
         return v
     }()
     
@@ -49,7 +51,50 @@ class CameraVC: UIViewController {
     func dismissView() {
         self.dismiss(animated: true)
     }
-    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //        cameraView.didPressTakeAnother()
-    //    }
 }
+
+extension CameraVC: CameraViewDelegate {
+    
+    func showAlertAskingForSave(image: UIImage) {
+        
+        let alertController = UIAlertController(title: "Great photo", message: "Add to favorites?", preferredStyle:.alert)
+        let save = UIAlertAction(title: "save", style: .default) { [weak self] (action) in
+            self?.dismiss(animated: true, completion: nil)
+            self?.saveInCoreData(image)
+        }
+        let retake = UIAlertAction(title: "retake", style: .default) { [weak self] (action) in
+            self?.cameraView.retake()
+            alertController.dismiss(animated: true)
+        }
+        alertController.addAction(save)
+        alertController.addAction(retake)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true, completion: nil)
+        }
+    }
+    //MARK: helper methods
+
+    func saveInCoreData(_ image: UIImage) {
+        let context = CoreDataStack.sharedInstance.persistentContainer.viewContext
+        if let photoEntity = NSEntityDescription.insertNewObject(forEntityName: "Photo", into: context) as? Photo {
+            photoEntity.image = UIImageJPEGRepresentation(image, 0.75) as NSData?
+            photoEntity.date = NSDate()
+        }
+        do {
+            try CoreDataStack.sharedInstance.persistentContainer.viewContext.save()
+        } catch let error {
+            print(error)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

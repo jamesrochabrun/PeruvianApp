@@ -9,15 +9,20 @@
 import Foundation
 import UIKit
 import AVFoundation
+import CoreData
+
+protocol CameraViewDelegate: class {
+    func showAlertAskingForSave(image: UIImage)
+}
 
 class CameraView: BaseView  {
     
     //MARK: Properties
+    weak var delegate: CameraViewDelegate?
     fileprivate var movieFileOutput: AVCaptureMovieFileOutput?
     fileprivate var captureSession = AVCaptureSession()
     fileprivate var stillImageOutput = AVCapturePhotoOutput()
     fileprivate var previewLayer: AVCaptureVideoPreviewLayer?
-    fileprivate var didtakePhoto = Bool()
     fileprivate var isFront = false
 
     fileprivate let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil) // Communicate with the session and other session objects on this queue.
@@ -42,7 +47,7 @@ class CameraView: BaseView  {
     
     lazy var captureButton: UIButton = {
         let button = UIButton(frame: CGRect(x: (UIScreen.main.bounds.width - 85) / 2, y: UIScreen.main.bounds.height - 110, width: 85, height: 85))
-        button.addTarget(self, action: #selector(didPressTakeAnother), for: .touchUpInside)
+        button.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "whiteJoystick"), for: .normal)
         button.tintColor = .white
         return button
@@ -226,6 +231,7 @@ extension CameraView {
             self.tempImageView.image = image
             self.tempImageView.isHidden = false
             
+            self.delegate?.showAlertAskingForSave(image: image)
             //IMAGE SAVE IN COREDATA
             }, completed: { [unowned self] (photoCaptureDelegate) in
                 // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
@@ -241,20 +247,20 @@ extension CameraView {
         self.stillImageOutput.capturePhoto(with: settings, delegate: photoCaptureDelegate)
     }
     
-    func didPressTakeAnother() {
-        
-        if didtakePhoto {
-            tempImageView.isHidden = true
-            didtakePhoto = false
-            flipCameraButton.isEnabled = true
-        } else {
-            captureSession.startRunning()
-            didtakePhoto = true
-            flipCameraButton.isEnabled = false
-            didPressTakePhoto()
-        }
+    func takePhoto() {
+        captureSession.startRunning()
+        flipCameraButton.isEnabled = false
+        captureButton.isEnabled = false
+        didPressTakePhoto()
+    }
+    
+    func retake() {
+        tempImageView.isHidden = true
+        flipCameraButton.isEnabled = true
+        captureButton.isEnabled = true
     }
 }
+
 
 
 

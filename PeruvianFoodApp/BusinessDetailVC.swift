@@ -190,8 +190,8 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     func showAlertWith(title: String, message: String, style: UIAlertControllerStyle) {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        let action = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
+        let action = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
+            self?.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(action)
         DispatchQueue.main.async { [weak self] in

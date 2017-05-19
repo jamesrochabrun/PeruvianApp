@@ -89,7 +89,10 @@ class MainCategoriesVC: UIViewController {
     }
     
     @objc private func openFoodieVC() {
-    
+        
+        let foodieVC = FoodieFeedVC()
+        let navController = UINavigationController(rootViewController: foodieVC)
+        present(navController, animated: true, completion: nil)
     }
 }
 
@@ -126,9 +129,6 @@ extension MainCategoriesVC: UIViewControllerTransitioningDelegate {
         return circularTransition
     }
 }
-
-
-
 
 
 

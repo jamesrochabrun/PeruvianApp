@@ -49,7 +49,7 @@ final class BusinessesVC: SearchVC {
     }()
     
     let alertView: AlertView = {
-        let av = AlertView(message: "No food results", image: #imageLiteral(resourceName: "Jelly"))
+        let av = AlertView(message: "No Results, Sorry!", image: #imageLiteral(resourceName: "userPlaceholder"))
         av.alpha = 0
         return av
     }()
