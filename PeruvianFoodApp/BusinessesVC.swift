@@ -30,7 +30,7 @@ final class BusinessesVC: SearchVC {
     var filterViewTopAnchor: NSLayoutConstraint?
 
     //MARK: UI elements
-    private lazy var segmentedControl: UISegmentedControl = {
+    private lazy var segmentedControl: UISegmentedControl = { 
         let sc = UISegmentedControl()
         sc.selectedSegmentIndex = 0
         sc.tintColor = UIColor.hexStringToUIColor(Constants.Colors.appSecondaryColor)

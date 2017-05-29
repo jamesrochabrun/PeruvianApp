@@ -20,6 +20,7 @@
 		7B7A81961E9836AD007608FC /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* SubCategoryModel.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
 		7B8104941EC5474F001C1A2C /* YelpEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104931EC5474F001C1A2C /* YelpEndpoint.swift */; };
+		7B843E771ED7C6B700A95FC5 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B843E761ED7C6B700A95FC5 /* CustomTabBarController.swift */; };
 		7B8636681EA038450020EFC8 /* LabelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8636671EA038450020EFC8 /* LabelBuilder.swift */; };
 		7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366B1EA152220020EFC8 /* Gradientable.swift */; };
 		7B86366E1EA17F0F0020EFC8 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B86366D1EA17F0F0020EFC8 /* Review.swift */; };
@@ -122,6 +123,7 @@
 		7B7A81951E9836AD007608FC /* SubCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		7B8104931EC5474F001C1A2C /* YelpEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpEndpoint.swift; sourceTree = "<group>"; };
+		7B843E761ED7C6B700A95FC5 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		7B8636671EA038450020EFC8 /* LabelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelBuilder.swift; sourceTree = "<group>"; };
 		7B86366B1EA152220020EFC8 /* Gradientable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gradientable.swift; sourceTree = "<group>"; };
 		7B86366D1EA17F0F0020EFC8 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				7B11D65D1EA57B0F002E851B /* CollectionViewLayouts */,
 				7B9B5EFE1E9E9922008C8468 /* DetailVCCells */,
 				7BF5DC911EA900D2006C47D9 /* ActionViews */,
+				7B843E761ED7C6B700A95FC5 /* CustomTabBarController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				7B9ED44A1EA1EC6900397946 /* ReviewViewModel.swift in Sources */,
 				7B9B5F001E9E994E008C8468 /* HeaderCell.swift in Sources */,
 				7BD8ED221E9546FE00E610B9 /* SearchVC.swift in Sources */,
+				7B843E771ED7C6B700A95FC5 /* CustomTabBarController.swift in Sources */,
 				7B865B651EA4809B0048E513 /* Jitterable.swift in Sources */,
 				7B9B5F091E9EFA05008C8468 /* GridLayout.swift in Sources */,
 				7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */,

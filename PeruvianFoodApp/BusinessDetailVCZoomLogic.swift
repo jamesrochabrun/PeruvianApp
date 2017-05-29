@@ -27,7 +27,7 @@ extension BusinessDetailVC {
             
             if let keyWindow = UIApplication.shared.keyWindow {
                 backgroundOverlay = UIView(frame: keyWindow.frame)
-                backgroundOverlay?.backgroundColor = Colors.darkTextColor.color()
+                backgroundOverlay?.backgroundColor = Colors.darkTextColor.color
                 backgroundOverlay?.alpha = 0
                 
                 keyWindow.addSubview(backgroundOverlay!)

@@ -42,7 +42,7 @@ enum ImageViewBuilder {
         iv.clipsToBounds = clipsToBounds
         iv.isUserInteractionEnabled = userInteractionEnabled
         iv.image = #imageLiteral(resourceName: "category").withRenderingMode(.alwaysTemplate)
-        iv.tintColor = tintColor.color()
+        iv.tintColor = tintColor.color
         return iv
     }
 }

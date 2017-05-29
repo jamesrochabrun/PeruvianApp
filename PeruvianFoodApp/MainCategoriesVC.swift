@@ -21,7 +21,6 @@ class MainCategoriesVC: UIViewController {
         let tv = UITableView()
         tv.delegate = self
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = .white
         tv.estimatedRowHeight = 100
         tv.rowHeight = UITableViewAutomaticDimension
         tv.separatorStyle = .none
@@ -38,16 +37,18 @@ class MainCategoriesVC: UIViewController {
     //MARK: APP lyfecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        automaticallyAdjustsScrollViewInsets = false
         setUpViews()
         loadCategories()
         setUPNavBar()
         self.title = "Categories"
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            
             transitionButton.heightAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
             transitionButton.widthAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
             transitionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
@@ -64,12 +65,7 @@ class MainCategoriesVC: UIViewController {
             }
         }
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
 
-    }
-    
     //MARK: Set up UI
     private func setUpViews() {
         view.addSubview(tableView)
@@ -104,11 +100,12 @@ extension MainCategoriesVC: UITableViewDelegate {
         let mainCategoryViewModel = dataSource.getMainCategoryViewModelFrom(indexPath)
         let subCategoriesVC = SubCategoriesVC()
         subCategoriesVC.mainCategoryViewModel = mainCategoryViewModel
+        subCategoriesVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(subCategoriesVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (self.view.frame.size.height - 64) / 3
+        return (self.view.frame.size.height - Constants.Navigation.tabBarHeight - Constants.Navigation.navigationBarHeight) / 3
     }
 }
 
@@ -118,14 +115,14 @@ extension MainCategoriesVC: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         circularTransition.transitionMode = .present
         circularTransition.startingPoint = transitionButton.center
-        circularTransition.circleColor = Colors.cameraButtonBackgroundColor.color()
+        circularTransition.circleColor = Colors.cameraButtonBackgroundColor.color
         return circularTransition
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         circularTransition.transitionMode = .dismiss
         circularTransition.startingPoint = transitionButton.center
-        circularTransition.circleColor = Colors.cameraButtonBackgroundColor.color()
+        circularTransition.circleColor = Colors.cameraButtonBackgroundColor.color
         return circularTransition
     }
 }

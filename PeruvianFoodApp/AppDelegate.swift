@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleGoogleMap()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let horizontalScrollableVC = MainCategoriesVC()
-        let categoryNavController = UINavigationController(rootViewController: horizontalScrollableVC)
-        window?.rootViewController = categoryNavController
+      //  let mainCategoryVC = MainCategoriesVC()
+       // let categoryNavController = UINavigationController(rootViewController: mainCategoryVC)
+        window?.rootViewController = CustomTabBarController()//categoryNavController
         setUPAppereance()
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()
         return true

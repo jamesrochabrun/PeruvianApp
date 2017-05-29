@@ -20,18 +20,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Yelp_trademark_RGB_outline" translatesAutoresizingMaskIntoConstraints="NO" id="2SI-qg-a5o">
-                                <rect key="frame" x="0.0" y="191" width="375" height="285"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.40000000000000002" green="0.1764705882352941" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="2SI-qg-a5o" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="PpV-i4-y9e"/>
-                            <constraint firstAttribute="trailing" secondItem="2SI-qg-a5o" secondAttribute="trailing" id="iQp-m5-st1"/>
-                            <constraint firstItem="2SI-qg-a5o" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="171" id="mFG-cQ-qiW"/>
-                            <constraint firstItem="2SI-qg-a5o" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="wo9-12-0PQ"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.40000000000000002" green="0.1764705882" blue="0.54901960780000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -39,7 +28,4 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Yelp_trademark_RGB_outline" width="16" height="16"/>
-    </resources>
 </document>

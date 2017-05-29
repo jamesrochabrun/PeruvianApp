@@ -36,7 +36,7 @@ enum LabelBuilder {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
         l.font = UIFont(name: Constants.Font.regularFont, size: Constants.Font.h1FonstSize)
-        l.textColor = textColor.color()
+        l.textColor = textColor.color
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
             l.sizeToFit()
@@ -49,7 +49,7 @@ enum LabelBuilder {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
         l.font = UIFont(name: Constants.Font.regularFont, size: Constants.Font.h2FontSize)
-        l.textColor = textColor.color()
+        l.textColor = textColor.color
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
             l.sizeToFit()
@@ -62,7 +62,7 @@ enum LabelBuilder {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
         l.font = UIFont(name: Constants.Font.lightFont, size: Constants.Font.caption1)
-        l.textColor = textColor.color()
+        l.textColor = textColor.color
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
             l.sizeToFit()
@@ -75,7 +75,7 @@ enum LabelBuilder {
         l.translatesAutoresizingMaskIntoConstraints = false
         l.numberOfLines = 0
         l.font = UIFont(name: Constants.Font.lightFont, size: Constants.Font.caption2)
-        l.textColor = textColor.color()
+        l.textColor = textColor.color
         l.textAlignment = textAlignment ?? .left
         if sizeToFit {
             l.sizeToFit()

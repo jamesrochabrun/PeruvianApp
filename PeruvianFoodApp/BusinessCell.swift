@@ -32,7 +32,7 @@ class BusinessCell: BaseCell {
     let dividerLine: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = Colors.white.color()
+        v.backgroundColor = Colors.white.color
         return v
     }()
 

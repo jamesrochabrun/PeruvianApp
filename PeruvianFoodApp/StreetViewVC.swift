@@ -41,7 +41,7 @@ class StreetViewVC: UIViewController {
     //MARK: APP lyfe cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Colors.streetViewBackgroundColor.color()
+        view.backgroundColor = Colors.streetViewBackgroundColor.color
         setUpViews()
     }
     
@@ -50,7 +50,7 @@ class StreetViewVC: UIViewController {
         
         NSLayoutConstraint.activate([
             statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.UI.statusBarHeight),
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.Navigation.statusBarHeight),
             statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
             statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.circleButtonSize),

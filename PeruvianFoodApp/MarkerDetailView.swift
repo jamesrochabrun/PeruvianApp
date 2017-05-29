@@ -45,7 +45,7 @@ class MarkerDetailView: BaseView {
         }
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        backgroundColor = Colors.appMainColor.color() 
+        backgroundColor = Colors.appMainColor.color 
         alpha = 0.8
     }
     

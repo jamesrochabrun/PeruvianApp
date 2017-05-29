@@ -33,15 +33,6 @@ class SubCategoriesVC: SearchVC {
         locationManager.delegate = self
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
     //MARK: FeedVC super class methods
     //overriding method to avoid customindicator
     override func setUpTableView() {
@@ -62,6 +53,7 @@ class SubCategoriesVC: SearchVC {
         feedSearchBar.endEditing(true)
         let businesesVC = BusinessesVC()
         businesesVC.selection = dataSource.getSelection()
+        businesesVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(businesesVC, animated: true)
     }
 }

@@ -17,7 +17,7 @@ extension Gradientable where Self: UIView {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.isGeometryFlipped = isFlipped
-        gradient.colors = [startColor.color().cgColor , endColor.color().cgColor]
+        gradient.colors = [startColor.color.cgColor , endColor.color.cgColor]
         layer.insertSublayer(gradient, at: 0)
         if isHorizontal {
             gradient.startPoint = CGPoint(x: 0.0, y: 0.5)

@@ -16,7 +16,7 @@ class FoodiePhotoCell: BaseCell {
     
     let dividerLine: BaseView = {
         let v = BaseView()
-        v.backgroundColor = Colors.white.color()
+        v.backgroundColor = Colors.white.color
         return v
     }()
     

@@ -24,9 +24,9 @@ class SwitchCell: BaseCell {
         s.isOn = false
         s.sizeToFit()
         s.translatesAutoresizingMaskIntoConstraints = false
-        s.thumbTintColor = Colors.appSecondaryColor.color()
+        s.thumbTintColor = Colors.appSecondaryColor.color
         s.addTarget(self, action: #selector(switchValue), for: .valueChanged)
-        s.onTintColor = Colors.appMainColor.color()
+        s.onTintColor = Colors.appMainColor.color
         return s
     }()
     let swithCategoryLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: nil, sizeToFit: true).build()

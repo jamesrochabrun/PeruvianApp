@@ -39,9 +39,9 @@ enum ButtonBuilder {
         let b = UIButton()
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setTitle(text, for: .normal)
-        b.setTitleColor(textColor.color(), for: .normal)
+        b.setTitleColor(textColor.color, for: .normal)
         b.addTarget(target, action: selector, for: .touchUpInside)
-        b.layer.borderColor = color.color().cgColor
+        b.layer.borderColor = color.color.cgColor
         b.layer.borderWidth = width
         return b
     }
@@ -49,7 +49,7 @@ enum ButtonBuilder {
     private func createCustomButton(tintColor: Colors, image: UIImage, target: Any, selector: (Selector)) -> UIButton {
         
         let b = UIButton(type: .custom)
-        b.tintColor = tintColor.color()
+        b.tintColor = tintColor.color
         b.translatesAutoresizingMaskIntoConstraints = false
         b.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
         b.addTarget(target, action: selector, for: .touchUpInside)
@@ -61,21 +61,21 @@ enum ButtonBuilder {
         let b = UIButton()
         b.setTitle(title, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
-        b.setTitleColor(titleColor.color(), for: .normal)
+        b.setTitleColor(titleColor.color, for: .normal)
         b.titleLabel?.font = UIFont(name: font, size: fontSize)
         b.addTarget(target, action: selector, for: .touchUpInside)
-        b.backgroundColor = color.color()
+        b.backgroundColor = color.color
         b.layer.masksToBounds = true
         return b
     }
     
     private func createButtonWithCorner(radius: CGFloat, text: String, target: Any, selector: (Selector), backGroundColor: Colors, textColor: Colors) -> UIButton {
         let b = UIButton()
-        b.backgroundColor = backGroundColor.color()
+        b.backgroundColor = backGroundColor.color
         b.layer.cornerRadius = radius
         b.layer.masksToBounds = true
         b.setTitle(text, for: .normal)
-        b.setTitleColor(textColor.color() , for: .normal)
+        b.setTitleColor(textColor.color, for: .normal)
         b.translatesAutoresizingMaskIntoConstraints = false
         b.addTarget(target, action: selector, for: .touchUpInside)
         return b
@@ -89,7 +89,7 @@ enum ButtonBuilder {
         b.addTarget(target, action: selector, for: .touchUpInside)
         let inputImage = renderMode ? image.withRenderingMode(.alwaysTemplate) : image
         b.setImage(inputImage, for: .normal)
-        b.tintColor = tintColor.color()
+        b.tintColor = tintColor.color
         return b
     }
 

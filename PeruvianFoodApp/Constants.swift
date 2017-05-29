@@ -13,7 +13,6 @@ struct Constants {
     
     struct UI {
         
-        static let statusBarHeight: CGFloat = 22.0
         static let businessCellPadding: CGFloat = 8.0
         static let businessProfileImage: CGFloat = 64.0
         static let swicthCellPadding: CGFloat = 12.0
@@ -36,6 +35,15 @@ struct Constants {
         static let circleButtonSize: CGFloat = 70.0
         static let cameraButtonSize: CGFloat = 70.0
         static let cameraButtonRadius = Constants.UI.cameraButtonSize / 2
+    }
+    
+    //MARK: This constants are defined by apple design guidelines and must be used just for reference, not to set the actual size of the navigation elements
+    struct Navigation {
+        
+        static let statusBarHeight: CGFloat = 22.0
+        static let navigationBarItemHeight: CGFloat = 40.0
+        static let navigationBarHeight: CGFloat = Constants.Navigation.statusBarHeight + Constants.Navigation.navigationBarItemHeight
+        static let tabBarHeight: CGFloat = 49.0
     }
     
     struct Colors {
@@ -74,7 +82,7 @@ enum Colors {
     case streetViewBackgroundColor
     case cameraButtonBackgroundColor
     
-    func color() -> UIColor {
+    var color: UIColor {
         switch self {
         case .appMainColor:
             return UIColor.hexStringToUIColor(Constants.Colors.appMainColor)
