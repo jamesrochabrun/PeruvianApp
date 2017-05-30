@@ -12,6 +12,7 @@ enum YelpParameter {
     
     case nearbyFrom(selection: Selection)
     case token
+    case searchFrom(selection: Selection)
 }
 
 extension YelpParameter {
@@ -39,6 +40,7 @@ extension YelpParameter {
         static let client_id = "client_id"
         static let client_secret = "client_secret"
         static let clientType = "client_credentials"
+        static let text = "text"
     }
     
     var paramaters: [String: Any] {
@@ -52,11 +54,16 @@ extension YelpParameter {
             parametersDictionary[YelpParameter.Key.categories] = selectionParameters.categories
             parametersDictionary[YelpParameter.Key.radius] = selectionParameters.radius
             parametersDictionary[YelpParameter.Key.price] = selectionParameters.price
-            parametersDictionary[YelpParameter.Key.sort_by] = "distance"
+            parametersDictionary[YelpParameter.Key.sort_by] = YelpSortBy.distance
         case .token:
             parametersDictionary[YelpParameter.Key.client_id] = YelpParameter.ClientData.clientID
             parametersDictionary[YelpParameter.Key.client_secret] = YelpParameter.ClientData.clientSecret
             parametersDictionary[YelpParameter.Key.clientType] = YelpParameter.ClientData.clientType
+        case .searchFrom(let selection):
+            let selectionParameters = SelectionParameters(selection: selection)
+            parametersDictionary[YelpParameter.Key.latitude] = selectionParameters.latitude
+            parametersDictionary[YelpParameter.Key.longitude] = selectionParameters.longitude
+            parametersDictionary[YelpParameter.Key.text] = selectionParameters.text
         }
         return parametersDictionary
     }
@@ -70,6 +77,7 @@ struct SelectionParameters {
     var radius: Int
     var latitude: String
     var longitude: String
+    var text: String
 }
 
 extension SelectionParameters {
@@ -81,6 +89,7 @@ extension SelectionParameters {
         radius = selection.radius != nil ? selection.radius!.rawValue : 20000 //default distance
         latitude = selection.coordinates?.latitude != nil ? String(describing: selection.coordinates!.latitude) : "37.785771"
         longitude = selection.coordinates?.longitude != nil ? String(describing: selection.coordinates!.longitude) : "-122.406165" //default to San Francisco
+        text = selection.term
     }
 }
 

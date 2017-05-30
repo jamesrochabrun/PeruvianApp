@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class CameraVC: UIViewController {
+final class CameraVC: UIViewController {
     
     //MARK: UI elements
     lazy var cameraView: CameraView = {

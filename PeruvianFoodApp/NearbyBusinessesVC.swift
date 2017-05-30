@@ -10,7 +10,7 @@ import TRON
 import SwiftyJSON
 import GoogleMaps
 
-final class BusinessesVC: SearchVC {
+class NearbyBusinessesVC: SearchVC {
     
     //MARK: properties
     var dataSource = BusinessViewModelDataSource() { 
@@ -209,7 +209,7 @@ final class BusinessesVC: SearchVC {
 }
 
 //MARK: Map markers logic
-extension BusinessesVC {
+extension NearbyBusinessesVC {
     
     //MARK: update markers in map
     fileprivate func updateMapWithDataSource() {
@@ -218,7 +218,7 @@ extension BusinessesVC {
 }
 
 //MARK: tableview delegate method/ triggers navigation
-extension BusinessesVC {
+extension NearbyBusinessesVC {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -231,7 +231,7 @@ extension BusinessesVC {
 }
 
 //MARK: BusinessViewModelDataSourceDelegate delegate methods
-extension BusinessesVC: BusinessViewModelDataSourceDelegate {
+extension NearbyBusinessesVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
         
@@ -252,7 +252,7 @@ extension BusinessesVC: BusinessViewModelDataSourceDelegate {
 }
 
 //MARK: FilterViewDelegate methods and FilterView actions
-extension BusinessesVC: FilterViewDelegate {
+extension NearbyBusinessesVC: FilterViewDelegate {
     
     //triggered by vc nav bar right button
     @objc fileprivate func showFilterView() {
@@ -289,7 +289,7 @@ extension BusinessesVC: FilterViewDelegate {
 }
 
 //MARK: CustomMapViewDelegate delegate methods
-extension BusinessesVC: CustomMapViewDelegate {
+extension NearbyBusinessesVC: CustomMapViewDelegate {
 
     func presentDetailVCFromMarker(with viewModel: BusinessViewModel) {
         
@@ -304,7 +304,6 @@ extension BusinessesVC: CustomMapViewDelegate {
         performDismissFilterView()
     }
 }
-
 
 
 

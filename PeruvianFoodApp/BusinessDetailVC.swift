@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class BusinessDetailVC: UIViewController {
+final class BusinessDetailVC: UIViewController {
 
     //MARK: properties
     var businessViewModel: BusinessViewModel? {

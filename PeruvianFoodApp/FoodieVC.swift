@@ -10,14 +10,14 @@ import Foundation
 import CoreData
 import UIKit
 
-class FoodieFeedVC: UITableViewController {
+final class FoodieFeedVC: UITableViewController {
     
     //MARK: Main object for fetching objects from coredata
     lazy var fetchedhResultController: NSFetchedResultsController<NSFetchRequestResult> = {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Photo.self))
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.sharedInstance.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        frc.delegate = self
+       // frc.delegate = self
         return frc
     }()
     
@@ -75,28 +75,28 @@ extension FoodieFeedVC {
     }
 }
 
-extension FoodieFeedVC: NSFetchedResultsControllerDelegate {
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
-        case .delete:
-            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
-        default:
-            break
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.tableView.endUpdates()
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-}
+//extension FoodieFeedVC: NSFetchedResultsControllerDelegate {
+//    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        
+//        switch type {
+//        case .insert:
+//            self.tableView.insertRows(at: [newIndexPath!], with: .automatic)
+//        case .delete:
+//            self.tableView.deleteRows(at: [indexPath!], with: .automatic)
+//        default:
+//            break
+//        }
+//    }
+//    
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        self.tableView.endUpdates()
+//    }
+//    
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.beginUpdates()
+//    }
+//}
 
 
 

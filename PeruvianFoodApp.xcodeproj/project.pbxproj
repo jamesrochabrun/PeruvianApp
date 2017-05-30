@@ -63,7 +63,7 @@
 		7BB080AA1ECEAF5000232DFE /* FoodiePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB080A91ECEAF5000232DFE /* FoodiePhotoCell.swift */; };
 		7BC6398E1E9AB29100EB4E16 /* MainCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */; };
 		7BC639901E9AB2F700EB4E16 /* MainCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */; };
-		7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */; };
+		7BC639921E9AB4E500EB4E16 /* NearbyBusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */; };
 		7BC639941E9B147700EB4E16 /* SubCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */; };
 		7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */; };
 		7BD8ED221E9546FE00E610B9 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* SearchVC.swift */; };
@@ -79,6 +79,9 @@
 		7BD8ED481E95BCA800E610B9 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED471E95BCA800E610B9 /* BusinessViewModel.swift */; };
 		7BD8ED4A1E95C33A00E610B9 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED491E95C33A00E610B9 /* Reusable.swift */; };
 		7BD8ED4D1E95D82400E610B9 /* BusinessesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */; };
+		7BDB32B41EDCF25B00C905A0 /* SearchBusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB32B31EDCF25B00C905A0 /* SearchBusinessesVC.swift */; };
+		7BDB32B61EDCFE2300C905A0 /* YelpSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB32B51EDCFE2300C905A0 /* YelpSort.swift */; };
+		7BDB32B81EDD0A2D00C905A0 /* AutoCompleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDB32B71EDD0A2D00C905A0 /* AutoCompleteResponse.swift */; };
 		7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */; };
 		7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */; };
 		7BE026C41EA8871E00CC701C /* CustomMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE026C31EA8871E00CC701C /* CustomMapView.swift */; };
@@ -168,7 +171,7 @@
 		7BB080A91ECEAF5000232DFE /* FoodiePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodiePhotoCell.swift; sourceTree = "<group>"; };
 		7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesVC.swift; sourceTree = "<group>"; };
 		7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesDataSource.swift; sourceTree = "<group>"; };
-		7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesVC.swift; sourceTree = "<group>"; };
+		7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyBusinessesVC.swift; sourceTree = "<group>"; };
 		7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoriesDataSource.swift; sourceTree = "<group>"; };
 		7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeruvianFoodApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PeruvianFoodApp/AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +189,9 @@
 		7BD8ED471E95BCA800E610B9 /* BusinessViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 		7BD8ED491E95C33A00E610B9 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		7BD8ED4C1E95D82400E610B9 /* BusinessesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesDataSource.swift; sourceTree = "<group>"; };
+		7BDB32B31EDCF25B00C905A0 /* SearchBusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBusinessesVC.swift; sourceTree = "<group>"; };
+		7BDB32B51EDCFE2300C905A0 /* YelpSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpSort.swift; sourceTree = "<group>"; };
+		7BDB32B71EDD0A2D00C905A0 /* AutoCompleteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteResponse.swift; sourceTree = "<group>"; };
 		7BE026BF1EA7C6A500CC701C /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreetViewVC.swift; sourceTree = "<group>"; };
 		7BE026C31EA8871E00CC701C /* CustomMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMapView.swift; sourceTree = "<group>"; };
@@ -370,6 +376,7 @@
 				7B8104931EC5474F001C1A2C /* YelpEndpoint.swift */,
 				7BB0808F1ECE18E500232DFE /* YelpParameter.swift */,
 				7BB080911ECE1FC200232DFE /* YelpHeader.swift */,
+				7BDB32B51EDCFE2300C905A0 /* YelpSort.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -380,7 +387,7 @@
 				7BD8ED211E9546FE00E610B9 /* SearchVC.swift */,
 				7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */,
 				7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */,
-				7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */,
+				7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
 				7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */,
 				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
@@ -388,6 +395,7 @@
 				7BE026C11EA7E9C000CC701C /* StreetViewVC.swift */,
 				7BB080971ECE96D600232DFE /* CameraVC.swift */,
 				7BB080A71ECEA5F100232DFE /* FoodieVC.swift */,
+				7BDB32B31EDCF25B00C905A0 /* SearchBusinessesVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -417,6 +425,7 @@
 				7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */,
 				7B86366D1EA17F0F0020EFC8 /* Review.swift */,
 				7BED73AB1E9C137C0084CA67 /* Selection.swift */,
+				7BDB32B71EDD0A2D00C905A0 /* AutoCompleteResponse.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -688,16 +697,18 @@
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
 				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* MainCategoryViewModel.swift in Sources */,
-				7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */,
+				7BC639921E9AB4E500EB4E16 /* NearbyBusinessesVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */,
 				7BB080921ECE1FC200232DFE /* YelpHeader.swift in Sources */,
 				7BFAB9C61EA721BD00294438 /* MarkerDetailView.swift in Sources */,
 				7B8636701EA19A890020EFC8 /* BusinessDetailDataSource.swift in Sources */,
+				7BDB32B41EDCF25B00C905A0 /* SearchBusinessesVC.swift in Sources */,
 				7BF2148F1ECD96B5006297E8 /* AlertController.swift in Sources */,
 				7BD8ED3A1E957C2A00E610B9 /* BusinessModel.swift in Sources */,
 				7BE026C41EA8871E00CC701C /* CustomMapView.swift in Sources */,
+				7BDB32B61EDCFE2300C905A0 /* YelpSort.swift in Sources */,
 				7BF2148B1ECD6EFD006297E8 /* ImageViewBuilder.swift in Sources */,
 				7B8D82901E96B2B7005BF309 /* CustomActivityIndicator.swift in Sources */,
 				7B4567121E9D473D0073AD1F /* Blurrable.swift in Sources */,
@@ -729,6 +740,7 @@
 				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
+				7BDB32B81EDD0A2D00C905A0 /* AutoCompleteResponse.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
 				7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */,
 				7BED73AE1E9C334D0084CA67 /* BusinessDetailVC.swift in Sources */,

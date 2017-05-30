@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import GoogleMaps
 
-class StreetViewVC: UIViewController {
+final class StreetViewVC: UIViewController {
     
     //MARK: properties
     var businessViewModel: BusinessViewModel? {

@@ -11,7 +11,7 @@ import Foundation
 enum YelpHeader {
     
     case authorization
-    case ContentType
+    case contentType
 }
 
 extension YelpHeader {
@@ -26,7 +26,7 @@ extension YelpHeader {
         switch self {
         case .authorization:
             headersDictionary[YelpHeader.Key.authorizationKey] = "Bearer \(YelpParameter.accessToken)"
-        case .ContentType:
+        case .contentType:
             headersDictionary[YelpHeader.Key.contentTypeKey] = "application/x-www-form-urlencoded"
         }
         return headersDictionary

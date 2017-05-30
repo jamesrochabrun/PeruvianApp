@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MainCategoriesVC: UIViewController {
+final class MainCategoriesVC: UIViewController {
     
     //MARK: Properties
     let dataSource = MainCategoriesDataSource(categoriesViewModelArray: [])

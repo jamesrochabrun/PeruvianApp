@@ -9,11 +9,11 @@
 import Foundation
 
 //MARK: Yelp enum to help endpoint creation
-
 enum YelpEndpoint {
     case searchBusinesses
     case searchWith(id: String)
     case reviews(id: String)
+    case autoComplete
     case token
 }
 
@@ -33,6 +33,8 @@ extension YelpEndpoint {
             return "v3/businesses/\(id)/reviews"
         case .token:
             return "oauth2/token"
+        case .autoComplete:
+            return "v3/autocomplete"
         }
     }
 }

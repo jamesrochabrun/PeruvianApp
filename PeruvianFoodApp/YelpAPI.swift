@@ -19,15 +19,8 @@ struct YelpService: Gettable {
     //MARK: tron object
     let tron = TRON(baseURL: YelpEndpoint.base)
     
-    //MARK: TypeAliases for completion Handlers
-    typealias SearchBusinessCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
-    typealias TokenCompletionhandler = (Result<Token>) -> ()
-    typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
-    typealias SearchBusinessFromIDCompletion = (Result<Business>) -> ()
-    typealias BusinessReviewsCompletion = (Result<ReviewsViewModelDataSource>) -> ()
-    
-    
     //MARK: GET BUSINESSES FROM SELECTION
+    typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
     func getBusinessesFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
         let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(YelpEndpoint.searchBusinesses.path)
@@ -43,6 +36,7 @@ struct YelpService: Gettable {
     }
     
     //MARK: GET BUSINESS FROM ID
+    typealias SearchBusinessFromIDCompletion = (Result<Business>) -> ()
     func getBusinessWithID(_ id: String, completion: @escaping SearchBusinessFromIDCompletion) {
         
         let request: APIRequest<Business, JSONError> = tron.request(YelpEndpoint.searchWith(id: id).path)
@@ -58,6 +52,7 @@ struct YelpService: Gettable {
     }
     
     //MARK: GET BUSINESS REVIEW FROM ID
+    typealias BusinessReviewsCompletion = (Result<ReviewsViewModelDataSource>) -> ()
     func getReviewsFrom(businessID id: String, completion: @escaping BusinessReviewsCompletion) {
         
         let request: APIRequest<ReviewsViewModelDataSource, JSONError> = tron.request(YelpEndpoint.reviews(id: id).path)
@@ -72,13 +67,17 @@ struct YelpService: Gettable {
         })
     }
     
+    //MARK: GET AUTOCOMPLETE RESPONSE
+    typealias AutoCompleteCompletion = (Result<AutoCompleteResponse>) -> ()
+    
     //MARK: GET TOKEN
+    typealias TokenCompletionhandler = (Result<Token>) -> ()
     func getToken(completion: @escaping TokenCompletionhandler) {
         
         let request: APIRequest<Token, JSONError> = tron.request(YelpEndpoint.token.path)
         request.method = .post
         request.parameters = YelpParameter.token.paramaters
-        request.headers = YelpHeader.ContentType.headers
+        request.headers = YelpHeader.contentType.headers
         
         request.perform(withSuccess: { (token) in
             completion(.Success(token))
@@ -106,9 +105,6 @@ protocol Gettable {
     associatedtype T
     func getBusinessesFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
 }
-
-
-
 
 
 

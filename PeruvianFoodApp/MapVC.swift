@@ -10,7 +10,7 @@ import Foundation
 import GoogleMaps
 import UIKit
 
-class MapVC: UIViewController {
+final class MapVC: UIViewController {
     
     //MARK: Properties
     var businessViewModel: BusinessViewModel? {

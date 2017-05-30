@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ReviewsVC: UITableViewController {
+final class ReviewsVC: UITableViewController {
     
     //MARK: Properties
     fileprivate var reviewsDataSource = ReviewsViewModelDataSource()

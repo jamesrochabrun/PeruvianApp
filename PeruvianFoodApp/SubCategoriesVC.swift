@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SubCategoriesVC: SearchVC {
+final class SubCategoriesVC: SearchVC {
     
     //MARK: Properties
     var mainCategoryViewModel: MainCategoryViewModel? {
@@ -51,7 +51,7 @@ class SubCategoriesVC: SearchVC {
     func searchAndOpenResults() {
         
         feedSearchBar.endEditing(true)
-        let businesesVC = BusinessesVC()
+        let businesesVC = NearbyBusinessesVC()
         businesesVC.selection = dataSource.getSelection()
         businesesVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(businesesVC, animated: true)
