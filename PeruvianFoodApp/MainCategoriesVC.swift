@@ -41,19 +41,7 @@ final class MainCategoriesVC: UIViewController {
         setUpViews()
         loadCategories()
         setUPNavBar()
-        self.title = "Categories"
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
-            
-            transitionButton.heightAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
-            transitionButton.widthAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
-            transitionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
-            ])
+        self.title = "Categories"        
     }
     
     func loadCategories() {
@@ -68,8 +56,21 @@ final class MainCategoriesVC: UIViewController {
 
     //MARK: Set up UI
     private func setUpViews() {
+        
         view.addSubview(tableView)
         view.addSubview(transitionButton)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            
+            transitionButton.heightAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
+            transitionButton.widthAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
+            transitionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
+            ])
     }
     
     private func setUPNavBar() {

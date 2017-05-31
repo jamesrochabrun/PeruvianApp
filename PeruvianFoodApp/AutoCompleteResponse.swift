@@ -15,6 +15,14 @@ struct AutoCompleteResponse: JSONDecodable {
     let terms: [AutoCompleteTerm]
     let businesses: [AutoCompleteBusiness]
     let categories: [AutoCompleteCategory]
+    
+    var content: [[JSONDecodable]] {
+        return [self.businesses, self.terms, self.categories]
+    }
+    
+    var titles: [String] {
+        return ["Businesses", "Terms", "Categories"]
+    }
 }
 
 extension AutoCompleteResponse {
@@ -74,7 +82,7 @@ extension AutoCompleteBusiness {
 struct AutoCompleteCategory: JSONDecodable {
     
     let alias: String
-    let titile: String
+    let title: String
 }
 
 extension AutoCompleteCategory {
@@ -88,6 +96,6 @@ extension AutoCompleteCategory {
     init(json: JSON) throws {
         
         alias = json[Key.aliasKey].stringValue
-        titile = json[Key.titleKey].stringValue
+        title = json[Key.titleKey].stringValue
     }
 }

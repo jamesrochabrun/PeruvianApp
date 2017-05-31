@@ -111,6 +111,7 @@ extension LocationManager: CLLocationManagerDelegate {
                 strongSelf.latitude = placemark.location?.coordinate.latitude ?? 0
                 let coordinates = Coordinates(latitude: NSNumber(value: strongSelf.latitude), longitude: NSNumber(value: strongSelf.longitude))
                 strongSelf.delegate?.getCoordinates(coordinates)
+                
             }
         }
     }

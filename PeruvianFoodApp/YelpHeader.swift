@@ -27,7 +27,7 @@ extension YelpHeader {
         case .authorization:
             headersDictionary[YelpHeader.Key.authorizationKey] = "Bearer \(YelpParameter.accessToken)"
         case .contentType:
-            headersDictionary[YelpHeader.Key.contentTypeKey] = "application/x-www-form-urlencoded"
+            headersDictionary[YelpHeader.Key.contentTypeKey] = "application/x-www-form-urlencoded"            
         }
         return headersDictionary
     }

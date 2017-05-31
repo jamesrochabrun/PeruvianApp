@@ -69,6 +69,20 @@ struct YelpService: Gettable {
     
     //MARK: GET AUTOCOMPLETE RESPONSE
     typealias AutoCompleteCompletion = (Result<AutoCompleteResponse>) -> ()
+    func getAutoCompleteResponseFrom(selection: Selection, completion: @escaping AutoCompleteCompletion) {
+        
+        let request: APIRequest<AutoCompleteResponse, JSONError> = tron.request(YelpEndpoint.autoComplete.path)
+        request.headers = YelpHeader.authorization.headers
+        request.parameters = YelpParameter.searchFrom(selection: selection).paramaters
+
+        request.perform(withSuccess: { (autoCompleteResponse) in
+            DispatchQueue.main.async {
+                completion(.Success(autoCompleteResponse))
+            }
+        }, failure: { (error) in
+            completion(.Error(error))
+        })
+    }
     
     //MARK: GET TOKEN
     typealias TokenCompletionhandler = (Result<Token>) -> ()
