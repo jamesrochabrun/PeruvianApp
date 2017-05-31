@@ -13,6 +13,7 @@ struct Constants {
     
     struct UI {
         
+        static let reusableHeaderCellHeight: CGFloat = 40.0
         static let businessCellPadding: CGFloat = 8.0
         static let businessProfileImage: CGFloat = 64.0
         static let swicthCellPadding: CGFloat = 12.0

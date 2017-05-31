@@ -48,6 +48,13 @@ extension UITableView {
         }
         return cell
     }
+    
+    func dequeueReusableCell<T: UITableViewCell>() -> T where T: Reusable {
+        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier) as? T else {
+            fatalError("could not deque cell")
+        }
+        return cell
+    }
 }
 
 extension UICollectionView {

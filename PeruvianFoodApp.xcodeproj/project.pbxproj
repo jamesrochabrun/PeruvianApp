@@ -17,6 +17,8 @@
 		7B45671A1E9D94680073AD1F /* Shadowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4567191E9D94680073AD1F /* Shadowable.swift */; };
 		7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */; };
 		7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */; };
+		7B6DB6101EDE46A7006B4491 /* AutoCompleteBusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DB60F1EDE46A7006B4491 /* AutoCompleteBusinessCell.swift */; };
+		7B6DB6121EDE57E0006B4491 /* ReusableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6DB6111EDE57E0006B4491 /* ReusableHeaderCell.swift */; };
 		7B7A81961E9836AD007608FC /* SubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81951E9836AD007608FC /* SubCategoryModel.swift */; };
 		7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7A81991E986A9A007608FC /* CategoryCell.swift */; };
 		7B8104941EC5474F001C1A2C /* YelpEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8104931EC5474F001C1A2C /* YelpEndpoint.swift */; };
@@ -123,6 +125,8 @@
 		7B4567191E9D94680073AD1F /* Shadowable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shadowable.swift; sourceTree = "<group>"; };
 		7B5A42EB1E9FE60E00F187BE /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		7B5A42ED1E9FE64000F187BE /* PhotoAlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumCell.swift; sourceTree = "<group>"; };
+		7B6DB60F1EDE46A7006B4491 /* AutoCompleteBusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteBusinessCell.swift; sourceTree = "<group>"; };
+		7B6DB6111EDE57E0006B4491 /* ReusableHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableHeaderCell.swift; sourceTree = "<group>"; };
 		7B7A81951E9836AD007608FC /* SubCategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoryModel.swift; sourceTree = "<group>"; };
 		7B7A81991E986A9A007608FC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		7B8104931EC5474F001C1A2C /* YelpEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpEndpoint.swift; sourceTree = "<group>"; };
@@ -462,6 +466,8 @@
 				7B7A81991E986A9A007608FC /* CategoryCell.swift */,
 				7B8D82931E96CE4B005BF309 /* SwitchCell.swift */,
 				7BB080A91ECEAF5000232DFE /* FoodiePhotoCell.swift */,
+				7B6DB60F1EDE46A7006B4491 /* AutoCompleteBusinessCell.swift */,
+				7B6DB6111EDE57E0006B4491 /* ReusableHeaderCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -696,6 +702,7 @@
 				7B8636721EA19FD30020EFC8 /* ReviewCell.swift in Sources */,
 				7B9B5F0B1E9F0B6A008C8468 /* CalendarView.swift in Sources */,
 				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
+				7B6DB6101EDE46A7006B4491 /* AutoCompleteBusinessCell.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* MainCategoryViewModel.swift in Sources */,
 				7BC639921E9AB4E500EB4E16 /* NearbyBusinessesVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
@@ -754,6 +761,7 @@
 				7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */,
 				7BE026C01EA7C6A500CC701C /* CircularTransition.swift in Sources */,
 				7B8D82941E96CE4B005BF309 /* SwitchCell.swift in Sources */,
+				7B6DB6121EDE57E0006B4491 /* ReusableHeaderCell.swift in Sources */,
 				7B9B5EFB1E9E98C4008C8468 /* IconIndicatorView.swift in Sources */,
 				7B9B5EFD1E9E98EC008C8468 /* InfoCell.swift in Sources */,
 				7B8104941EC5474F001C1A2C /* YelpEndpoint.swift in Sources */,

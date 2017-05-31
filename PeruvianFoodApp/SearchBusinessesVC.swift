@@ -23,6 +23,7 @@ final class SearchBusinessesVC: UIViewController {
         tv.separatorStyle = .none
         tv.dataSource = self.dataSource
         tv.register(AutoCompleteBusinessCell.self)
+        tv.register(ReusableHeaderCell.self)
         tv.tableHeaderView = self.searchController.searchBar
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 100
@@ -60,7 +61,23 @@ final class SearchBusinessesVC: UIViewController {
 //MARK: tableview delegate methods
 extension SearchBusinessesVC: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let reusableHeaderCell = tableView.dequeueReusableCell() as ReusableHeaderCell
+        if let title = dataSource.getAutoCompleteResponse()?.titles[section] {
+            reusableHeaderCell.setUpWith(text: title)
+        }
+        return reusableHeaderCell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constants.UI.reusableHeaderCellHeight
+    }
 }
+
+
+import TRON
+import SwiftyJSON
 
 //MARK: Search updates protocol "delegate" gets triggered every time
 extension SearchBusinessesVC: UISearchResultsUpdating {
@@ -78,7 +95,6 @@ extension SearchBusinessesVC: UISearchResultsUpdating {
 
                 self.dataSource.update(with: response)
                 self.businessesTableView.reloadData()
-                dump(response)
             case .Error(let error):
                 print("\(error)")
             }
@@ -87,8 +103,6 @@ extension SearchBusinessesVC: UISearchResultsUpdating {
 }
 
 
-import TRON
-import SwiftyJSON
 
 final class AutoCompleteResultsDataSource: NSObject, UITableViewDataSource {
     
@@ -109,11 +123,30 @@ final class AutoCompleteResultsDataSource: NSObject, UITableViewDataSource {
     //MARK: Tableview Datasource methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as AutoCompleteBusinessCell
-        if let response = autoCompleteResponse {
-            let data: [JSONDecodable] = response.content[indexPath.section]
-            cell.setUpWith(data: data, atIndex: indexPath.row)
+//        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as AutoCompleteBusinessCell
+//        if let response = autoCompleteResponse {
+//            let data: [JSONDecodable] = response.content[indexPath.section]
+//            cell.setUpWith(data: data, atIndex: indexPath.row)
+//        }
+
+        
+        guard let response = autoCompleteResponse else {
+            print("HELP!!")
+            return UITableViewCell()
         }
+        
+        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as AutoCompleteBusinessCell
+        if indexPath.section == 0 {
+            cell.autoCompleteTextLabel.text = response.businesses[indexPath.row].name
+            cell.setBusinessImageViewFrom(id: response.businesses[indexPath.row].id)
+        } else if indexPath.section == 1 {
+            cell.autoCompleteTextLabel.text = response.terms[indexPath.row].text
+            cell.businessImageView.image = nil
+        } else {
+            cell.autoCompleteTextLabel.text = response.categories[indexPath.row].title
+            cell.businessImageView.image = nil
+        }
+        
         return cell
     }
     
@@ -124,103 +157,13 @@ final class AutoCompleteResultsDataSource: NSObject, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return autoCompleteResponse != nil ? autoCompleteResponse!.content.count : 0
     }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return autoCompleteResponse?.titles[section]
+    
+    //MARK: Helper method
+    func getAutoCompleteResponse() -> AutoCompleteResponse? {
+        return autoCompleteResponse
     }
 }
 
-class AutoCompleteBusinessCell: BaseCell {
-    
-    //MARK: UI elements
-    let autoCompleteTextLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: .left, sizeToFit: true).build()
-    var businessImageView = ImageViewBuilder.imageView(radius: 10.0, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
-    let dividerLine: UIView = {
-        let v = UIView()
-        v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = Colors.grayTextColor.color
-        return v
-    }()
-    
-    override func setUpViews() {
-        
-        let marginGuide = contentView.layoutMarginsGuide
-        
-        contentView.addSubview(autoCompleteTextLabel)
-        contentView.addSubview(businessImageView)
-        addSubview(dividerLine)
-
-        
-        NSLayoutConstraint.activate([
-            
-            businessImageView.topAnchor.constraint(equalTo: marginGuide.topAnchor),
-            businessImageView.leftAnchor.constraint(equalTo: marginGuide.leftAnchor),
-            businessImageView.widthAnchor.constraint(equalToConstant: 40),
-            businessImageView.heightAnchor.constraint(equalToConstant: 40),
-            
-            autoCompleteTextLabel.leftAnchor.constraint(equalTo: businessImageView.rightAnchor, constant: 15),
-            autoCompleteTextLabel.centerYAnchor.constraint(equalTo: businessImageView.centerYAnchor),
-            
-            autoCompleteTextLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -7),
-            autoCompleteTextLabel.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
-            
-            dividerLine.heightAnchor.constraint(equalToConstant: 0.3),
-            dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            dividerLine.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
-            dividerLine.rightAnchor.constraint(equalTo: rightAnchor)
-            ])
-    }
-    
-    func setUpWith(data: [JSONDecodable], atIndex index: Int) {
-
-        if let autoCompleteTerms = data as? [AutoCompleteTerm] {
-            autoCompleteTextLabel.text = autoCompleteTerms[index].text
-            businessImageView.image = nil
-        }
-        
-        if let autoCompleteBusinesses = data as? [AutoCompleteBusiness] {
-            autoCompleteTextLabel.text = autoCompleteBusinesses[index].name
-            setBusinessImageViewFrom(id: autoCompleteBusinesses[index].id)
-        }
-        
-        if let autoCompleteCategories = data as? [AutoCompleteCategory] {
-            autoCompleteTextLabel.text = autoCompleteCategories[index].title
-            businessImageView.image = nil
-        }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        businessImageView.image = nil
-
-    }
-    
-    //MARK: helper method
-    private func setBusinessImageViewFrom(id: String) {
-        
-        YelpService.sharedInstance.getBusinessWithID(id) { [weak self] (result) in
-            switch result {
-            case .Success(let business):
-                
-                guard let url = URL(string: business.imageURL) else {
-                    print("INVALID URL ON CREATION BASECELL")
-                    return
-                }
-                self?.businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
-                    guard let image = response.result.value else {
-                        print("No image data in response AutocompletCell")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.businessImageView.image = image
-                    }
-                }
-            case .Error(let error):
-                print("ERROR ON AUTOCOMPLETCELL FETCHING BUSINESS: \(error)")
-            }
-        }
-    }
-}
 
 
 
