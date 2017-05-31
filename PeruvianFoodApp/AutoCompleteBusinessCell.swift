@@ -11,7 +11,6 @@ import UIKit
 import TRON
 import SwiftyJSON
 
-
 class AutoCompleteBusinessCell: BaseCell {
     
     //MARK: UI elements
@@ -31,7 +30,6 @@ class AutoCompleteBusinessCell: BaseCell {
         contentView.addSubview(autoCompleteTextLabel)
         contentView.addSubview(businessImageView)
         addSubview(dividerLine)
-        
         
         NSLayoutConstraint.activate([
             
@@ -54,31 +52,10 @@ class AutoCompleteBusinessCell: BaseCell {
     }
     
     //MARK: setUp data based on type of object that conform to JSONDecodable protocol
-    func setUpWith(data: [JSONDecodable], atIndex index: Int) {
+    func setUpWith(_ autoCompleteBusiness: AutoCompleteBusiness) {
         
-        businessImageView.layer.borderWidth = 5.0
-        
-        if let autoCompleteBusinesses = data as? [AutoCompleteBusiness] {
-            
-            autoCompleteTextLabel.text = autoCompleteBusinesses[index].name
-            autoCompleteTextLabel.backgroundColor = .yellow
-            setBusinessImageViewFrom(id: autoCompleteBusinesses[index].id)
-            businessImageView.layer.borderColor = UIColor.yellow.cgColor
-            
-        } else if let autoCompleteTerms = data as? [AutoCompleteTerm] {
-            
-            autoCompleteTextLabel.text = autoCompleteTerms[index].text
-            autoCompleteTextLabel.backgroundColor = .green
-            businessImageView.layer.borderColor = UIColor.green.cgColor
-            businessImageView.image = nil
-            
-        } else if let autoCompleteCategories = data as? [AutoCompleteCategory] {
-            
-            autoCompleteTextLabel.text = autoCompleteCategories[index].title
-            autoCompleteTextLabel.backgroundColor = .red
-            businessImageView.layer.borderColor = UIColor.red.cgColor
-            businessImageView.image = nil
-        }
+        autoCompleteTextLabel.text = autoCompleteBusiness.name
+        getbusinessWith(id: autoCompleteBusiness.id)
     }
     
     override func prepareForReuse() {
@@ -87,29 +64,69 @@ class AutoCompleteBusinessCell: BaseCell {
     }
     
     //MARK: helper method
-    func setBusinessImageViewFrom(id: String) {
+    func getbusinessWith(id: String) {
         
         YelpService.sharedInstance.getBusinessWithID(id) { [weak self] (result) in
             switch result {
             case .Success(let business):
-                
-                guard let url = URL(string: business.imageURL) else {
-                    print("INVALID URL ON CREATION BASECELL")
-                    return
-                }
-                self?.businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
-                    guard let image = response.result.value else {
-                        print("No image data in response AutocompletCell")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        self?.businessImageView.image = image
-                    }
-                }
+                self?.setUpBusinessImageFrom(business)
             case .Error(let error):
                 print("ERROR ON AUTOCOMPLETCELL FETCHING BUSINESS: \(error)")
             }
         }
     }
+    
+    func setUpBusinessImageFrom(_ business: Business) {
+        
+        guard let url = URL(string: business.imageURL) else {
+            print("INVALID URL ON CREATION BASECELL")
+            return
+        }
+        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
+            guard let image = response.result.value else {
+                print("No image data in response AutocompletCell")
+                return
+            }
+            DispatchQueue.main.async {
+                self?.businessImageView.image = image
+            }
+        }
+    }
+}
+
+class AutoCompleteBusinessCellText: BaseCell {
+    
+    //MARK: UI elements
+    let autoCompleteTextLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: .left, sizeToFit: true).build()
+    
+    let dividerLine: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = Colors.grayTextColor.color
+        return v
+    }()
+    override func setUpViews() {
+        
+        let marginGuide = contentView.layoutMarginsGuide
+        contentView.addSubview(autoCompleteTextLabel)
+        addSubview(dividerLine)
+        
+        NSLayoutConstraint.activate([
+            
+            autoCompleteTextLabel.leftAnchor.constraint(equalTo: marginGuide.leftAnchor, constant: 7),
+            autoCompleteTextLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 7),
+            autoCompleteTextLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: -7),
+            autoCompleteTextLabel.rightAnchor.constraint(equalTo: marginGuide.rightAnchor),
+            
+            dividerLine.heightAnchor.constraint(equalToConstant: 0.3),
+            dividerLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dividerLine.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.UI.swicthCellPadding),
+            dividerLine.rightAnchor.constraint(equalTo: rightAnchor)
+            ])
+    }
+    
+    func setUpText(with text: String) {
+        autoCompleteTextLabel.text = text
+    }    
 }
 

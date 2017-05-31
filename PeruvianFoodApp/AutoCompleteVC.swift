@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-final class SearchBusinessesVC: UIViewController {
+final class AutoCompleteVC: UIViewController {
     
     //MARK: UI Properties
     let searchController = UISearchController(searchResultsController: nil)
-    let dataSource = AutoCompleteResultsDataSource()
+    let dataSource = AutoCompleteResponseDataSource()
    
     lazy var businessesTableView: UITableView = {
         let tv = UITableView()
@@ -24,6 +24,7 @@ final class SearchBusinessesVC: UIViewController {
         tv.dataSource = self.dataSource
         tv.register(AutoCompleteBusinessCell.self)
         tv.register(ReusableHeaderCell.self)
+        tv.register(AutoCompleteBusinessCellText.self)
         tv.tableHeaderView = self.searchController.searchBar
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 100
@@ -59,7 +60,7 @@ final class SearchBusinessesVC: UIViewController {
 }
 
 //MARK: tableview delegate methods
-extension SearchBusinessesVC: UITableViewDelegate {
+extension AutoCompleteVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -80,7 +81,7 @@ import TRON
 import SwiftyJSON
 
 //MARK: Search updates protocol "delegate" gets triggered every time
-extension SearchBusinessesVC: UISearchResultsUpdating {
+extension AutoCompleteVC: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -101,69 +102,6 @@ extension SearchBusinessesVC: UISearchResultsUpdating {
         }
     }
 }
-
-
-
-final class AutoCompleteResultsDataSource: NSObject, UITableViewDataSource {
-    
-    //MARK: Properties
-    fileprivate var selection = Selection()
-    fileprivate var autoCompleteResponse: AutoCompleteResponse?
-
-    //MARK: initializers
-    override init() {
-        super.init()
-    }
-    
-    //MARK: response updater 
-    func update(with response: AutoCompleteResponse) {
-        autoCompleteResponse = response
-    }
-    
-    //MARK: Tableview Datasource methods
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as AutoCompleteBusinessCell
-//        if let response = autoCompleteResponse {
-//            let data: [JSONDecodable] = response.content[indexPath.section]
-//            cell.setUpWith(data: data, atIndex: indexPath.row)
-//        }
-
-        
-        guard let response = autoCompleteResponse else {
-            print("HELP!!")
-            return UITableViewCell()
-        }
-        
-        let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as AutoCompleteBusinessCell
-        if indexPath.section == 0 {
-            cell.autoCompleteTextLabel.text = response.businesses[indexPath.row].name
-            cell.setBusinessImageViewFrom(id: response.businesses[indexPath.row].id)
-        } else if indexPath.section == 1 {
-            cell.autoCompleteTextLabel.text = response.terms[indexPath.row].text
-            cell.businessImageView.image = nil
-        } else {
-            cell.autoCompleteTextLabel.text = response.categories[indexPath.row].title
-            cell.businessImageView.image = nil
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return autoCompleteResponse != nil ? autoCompleteResponse!.content[section].count : 0
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return autoCompleteResponse != nil ? autoCompleteResponse!.content.count : 0
-    }
-    
-    //MARK: Helper method
-    func getAutoCompleteResponse() -> AutoCompleteResponse? {
-        return autoCompleteResponse
-    }
-}
-
 
 
 

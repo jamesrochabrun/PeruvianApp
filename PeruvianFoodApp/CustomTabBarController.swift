@@ -23,11 +23,10 @@ class CustomTabBarController: UITabBarController {
         categoryNavController.tabBarItem.title = "Nearby"
        // categoryNavController.tabBarItem.image = ""
         
-        let searchBusinessesVC = SearchBusinessesVC()
-        let searchBusinessesNavController = UINavigationController(rootViewController: searchBusinessesVC)
-        searchBusinessesNavController.tabBarItem.title = "Search"
+        let autoCompleteVC = AutoCompleteVC()
+        let autoCompleteVCNavController = UINavigationController(rootViewController: autoCompleteVC)
+        autoCompleteVCNavController.tabBarItem.title = "Search"
         
-        
-        viewControllers = [categoryNavController, searchBusinessesNavController]
+        viewControllers = [categoryNavController, autoCompleteVCNavController]
     }
 }
