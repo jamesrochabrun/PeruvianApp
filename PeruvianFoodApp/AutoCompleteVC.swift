@@ -83,15 +83,31 @@ extension AutoCompleteVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let textToSearch = searchController.searchBar.text else { return }
-        if textToSearch.characters.count <= 0 { return }
+        if textToSearch.characters.count <= 0 {
+            updateDataIfTextIsBlank()
+            return
+        } else {
+            updateSelectionWith(term: textToSearch)
+        }
+    }
+    
+    //MARK: helper methods
+    func updateDataIfTextIsBlank() {
+        
+        DispatchQueue.main.async {
+            self.dataSource.update(with: nil)
+            self.businessesTableView.reloadData()
+        }
+    }
+    
+    func updateSelectionWith(term: String) {
         
         let selection = Selection()
-        selection.term = textToSearch
+        selection.term = term
         
         YelpService.sharedInstance.getAutoCompleteResponseFrom(selection: selection) { (result) in
             switch result {
             case .Success(let response):
-
                 self.dataSource.update(with: response)
                 self.businessesTableView.reloadData()
             case .Error(let error):
