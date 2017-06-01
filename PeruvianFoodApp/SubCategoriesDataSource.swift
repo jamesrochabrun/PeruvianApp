@@ -32,8 +32,14 @@ class SubCategoriesDataSource: NSObject, UITableViewDataSource {
     func updateWith(_ mainCategoryViewModel: MainCategoryViewModel) {
         
         self.selection.mainCategory = mainCategoryViewModel.mainCategory
+        
         if let subCategories = mainCategoryViewModel.subCategories {
-            self.itemsViewModelArray = subCategories.map { SubCategoryViewModel(subCategory: $0) }
+            let items = subCategories.map { SubCategoryViewModel(subCategory: $0) }
+            for i in 0..<items.count {
+                var item = items[i]
+                item.index = i
+                self.itemsViewModelArray.append(item)
+            }
         }
     }
     
@@ -44,9 +50,10 @@ class SubCategoriesDataSource: NSObject, UITableViewDataSource {
     
     //MARK: Tableview Datasource methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as SwitchCell
-        let categoryItemViewModel = getSubCategoryViewModelFrom(indexPath)
-        cell.setUpCell(with: categoryItemViewModel)
+        let subCategoryItemViewModel = getSubCategoryViewModelFrom(indexPath)
+        cell.setUpCell(with: subCategoryItemViewModel)
         cell.delegate = self
         return cell
     }
@@ -89,14 +96,21 @@ extension SubCategoriesDataSource: SwitchCellDelegate {
     
     func switchCell(_ cell: SwitchCell) {
         
-        if let indexPath = subCategoriesVC?.tableView.indexPath(for: cell) {
-            itemsViewModelArray[indexPath.row].isSelected = cell.customSwitch.isOn
+        if let indexPath = subCategoriesVC?.tableView.indexPath(for: cell),
+            let index = searchActive ? searchResults[indexPath.row].index : itemsViewModelArray[indexPath.row].index {
             
-            let itemViewModelAlias = itemsViewModelArray[indexPath.row].itemAlias
+            //this handles the UI
+            itemsViewModelArray[index].isSelected = cell.customSwitch.isOn
+
+            //this handles the selection updater
+            let itemViewModelAlias = itemsViewModelArray[index].itemAlias
+            
             if cell.customSwitch.isOn {
                 selection.categoryItems.append(itemViewModelAlias)
             } else {
-                selection.categoryItems.removeLast()
+                if let selectionItemIndex = selection.categoryItems.index(of: itemViewModelAlias) {
+                    selection.categoryItems.remove(at: selectionItemIndex)
+                }
             }
         }
     }

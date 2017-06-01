@@ -22,6 +22,9 @@ class NearbyBusinessesVC: SearchVC {
         didSet {
             resetPriceAndRadius()
             self.filterView.selection = selection
+            
+            
+            print("categories", selection.categoryItems)
             getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
         }
     }

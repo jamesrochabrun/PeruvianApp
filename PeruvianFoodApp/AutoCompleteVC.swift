@@ -25,6 +25,8 @@ final class AutoCompleteVC: UIViewController {
         tv.register(AutoCompleteBusinessCell.self)
         tv.register(ReusableHeaderCell.self)
         tv.register(AutoCompleteBusinessCellText.self)
+        tv.register(UITableViewCell.self)
+        
         tv.tableHeaderView = self.searchController.searchBar
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 100
@@ -73,6 +75,12 @@ extension AutoCompleteVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Constants.UI.reusableHeaderCellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let something = dataSource.getAutoCompleteResponse()?.content[indexPath.section][indexPath.row]
+        print("Something: \(something)")
     }
 }
 

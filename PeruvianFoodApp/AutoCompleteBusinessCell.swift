@@ -131,7 +131,7 @@ class AutoCompleteBusinessCellText: BaseCell {
     
     func setUpText(with text: String) {
         autoCompleteTextLabel.text = text
-    }    
+    }
 }
 
 

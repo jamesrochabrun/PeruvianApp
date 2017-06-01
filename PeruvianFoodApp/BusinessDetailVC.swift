@@ -204,16 +204,19 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
 extension BusinessDetailVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        
+        switch indexPath.row {
+        case 0:
             return Constants.UI.headerCellHeight
-        } else if indexPath.row == 1 {
+        case 1:
             return Constants.UI.infoCellHeight
-        } else if indexPath.row == 5 {
-            return self.view.frame.width / 3
-        } else if indexPath.row == 3 {
+        case 3:
             return Constants.UI.mapCellHeight
+        case 5:
+            return self.view.frame.width / 3
+        default:
+            return UITableViewAutomaticDimension
         }
-        return UITableViewAutomaticDimension
     }
 }
 

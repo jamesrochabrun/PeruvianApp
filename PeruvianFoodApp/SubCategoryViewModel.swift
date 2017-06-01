@@ -16,6 +16,7 @@ struct SubCategoryViewModel {
     var itemTitle: String
     var itemAlias: String
     var isSelected: Bool
+    var index: Int?
 }
 
 extension SubCategoryViewModel {

@@ -43,7 +43,7 @@ final class SubCategoriesVC: SearchVC {
     }
 
     override func setUpNavBar() {
-        //super.setUpNavBar()
+        super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndOpenResults))
     }
     
