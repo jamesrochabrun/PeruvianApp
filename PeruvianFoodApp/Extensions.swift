@@ -27,6 +27,7 @@ extension Notification.Name {
     static let showReviewsNotification = Notification.Name("showReviews")
     static let performZoomNotification = Notification.Name("zoom")
     static let openMapVCNotification = Notification.Name("maps")
+
 }
 
 

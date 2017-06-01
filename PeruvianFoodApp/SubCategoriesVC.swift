@@ -33,6 +33,12 @@ final class SubCategoriesVC: SearchVC {
         locationManager.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        feedSearchBar.endEditing(true)
+    }
+    
     //MARK: FeedVC super class methods
     //overriding method to avoid customindicator
     override func setUpTableView() {

@@ -14,6 +14,7 @@ final class AutoCompleteVC: UIViewController {
     //MARK: UI Properties
     let searchController = UISearchController(searchResultsController: nil)
     let dataSource = AutoCompleteResponseDataSource()
+    var businessTableViewBottomAnchor: NSLayoutConstraint?
    
     lazy var businessesTableView: UITableView = {
         let tv = UITableView()
@@ -39,17 +40,17 @@ final class AutoCompleteVC: UIViewController {
         setUpViews()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        NSLayoutConstraint.activate([
-            businessesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            businessesTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            businessesTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            businessesTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            ])
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
     func setUpViews() {
         
         view.backgroundColor = .white
@@ -58,6 +59,15 @@ final class AutoCompleteVC: UIViewController {
         searchController.searchResultsUpdater = self
         //this hides the searchbar in the next vc
         definesPresentationContext = true
+        
+        businessTableViewBottomAnchor = businessesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        businessTableViewBottomAnchor?.isActive = true
+        
+        NSLayoutConstraint.activate([
+            businessesTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            businessesTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            businessesTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            ])
     }
 }
 
@@ -125,6 +135,34 @@ extension AutoCompleteVC: UISearchResultsUpdating {
     }
 }
 
+//MARK: Handle keyboard show and hide
+extension AutoCompleteVC {
+    
+    func handleKeyboardWillShow(notification: NSNotification) {
+        
+        let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
+        if let keyboardFrame = keyboardFrame {
+            businessTableViewBottomAnchor?.constant = -keyboardFrame.height
+        }
+        let keyboardDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        if let keyboardDuration = keyboardDuration {
+            UIView.animate(withDuration: keyboardDuration, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    func handleKeyboardWillHide(notification: NSNotification) {
+        
+        businessTableViewBottomAnchor?.constant = 0
+        let keyboardDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        if let keyboardDuration = keyboardDuration {
+            UIView.animate(withDuration: keyboardDuration, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+}
 
 
 
