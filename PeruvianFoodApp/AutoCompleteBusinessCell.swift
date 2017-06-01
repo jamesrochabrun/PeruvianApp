@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import TRON
 import SwiftyJSON
+import AlamofireImage
 
 class AutoCompleteBusinessCell: BaseCell {
     
@@ -69,9 +70,10 @@ class AutoCompleteBusinessCell: BaseCell {
         YelpService.sharedInstance.getBusinessWithID(id) { [weak self] (result) in
             switch result {
             case .Success(let business):
-                self?.setUpBusinessImageFrom(business)
+                    self?.setUpBusinessImageFrom(business)
             case .Error(let error):
-                print("ERROR ON AUTOCOMPLETCELL FETCHING BUSINESS: \(error)")
+                print("ERROR ON AUTOCOMPLETCELL FETCHING BUSINESS: \(error), id: \(id)")
+                
             }
         }
     }
@@ -82,13 +84,16 @@ class AutoCompleteBusinessCell: BaseCell {
             print("INVALID URL ON CREATION BASECELL")
             return
         }
-        businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
+        //let filter = AspectScaledToFillSizeFilter(size: self.businessImageView.frame.size)
+        self.businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
             guard let image = response.result.value else {
                 print("No image data in response AutocompletCell")
                 return
             }
+            
             DispatchQueue.main.async {
-                self?.businessImageView.image = image
+                self?.businessImageView.image = image.scaleTo(newSize: (self?.businessImageView.frame.size)!)
+                
             }
         }
     }
@@ -129,4 +134,14 @@ class AutoCompleteBusinessCellText: BaseCell {
         autoCompleteTextLabel.text = text
     }    
 }
+
+
+
+
+
+
+
+
+
+
 

@@ -77,15 +77,13 @@ extension AutoCompleteVC: UITableViewDelegate {
 }
 
 
-import TRON
-import SwiftyJSON
-
 //MARK: Search updates protocol "delegate" gets triggered every time
 extension AutoCompleteVC: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let textToSearch = searchController.searchBar.text else { return }
+        if textToSearch.characters.count <= 0 { return }
         
         let selection = Selection()
         selection.term = textToSearch
