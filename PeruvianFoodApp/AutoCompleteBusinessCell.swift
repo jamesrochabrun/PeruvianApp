@@ -90,10 +90,9 @@ class AutoCompleteBusinessCell: BaseCell {
                 print("No image data in response AutocompletCell")
                 return
             }
-            
             DispatchQueue.main.async {
-                self?.businessImageView.image = image.scaleTo(newSize: (self?.businessImageView.frame.size)!)
-                
+                let size = self?.businessImageView.frame.size != nil ? (self?.businessImageView.frame.size)! : CGSize(width: 50, height: 50)
+                self?.businessImageView.image = image.scaleTo(newSize: size)
             }
         }
     }

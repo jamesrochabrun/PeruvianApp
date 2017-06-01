@@ -83,9 +83,10 @@ extension AutoCompleteVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
         guard let textToSearch = searchController.searchBar.text else { return }
-        if textToSearch.characters.count <= 0 {
+        
+        if textToSearch.characters.count == 0 {
             updateDataIfTextIsBlank()
-            return
+            
         } else {
             updateSelectionWith(term: textToSearch)
         }
@@ -93,11 +94,9 @@ extension AutoCompleteVC: UISearchResultsUpdating {
     
     //MARK: helper methods
     func updateDataIfTextIsBlank() {
-        
-        DispatchQueue.main.async {
-            self.dataSource.update(with: nil)
-            self.businessesTableView.reloadData()
-        }
+
+        self.dataSource.update(with: nil)
+        self.businessesTableView.reloadData()
     }
     
     func updateSelectionWith(term: String) {
@@ -106,6 +105,7 @@ extension AutoCompleteVC: UISearchResultsUpdating {
         selection.term = term
         
         YelpService.sharedInstance.getAutoCompleteResponseFrom(selection: selection) { (result) in
+          
             switch result {
             case .Success(let response):
                 self.dataSource.update(with: response)

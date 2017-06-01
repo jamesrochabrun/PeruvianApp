@@ -21,7 +21,7 @@ final class AutoCompleteResponseDataSource: NSObject, UITableViewDataSource {
     }
     
     //MARK: response updater
-    func update(with response: AutoCompleteResponse?) {
+    func update(with response: AutoCompleteResponse?){
         autoCompleteResponse = response
     }
     
