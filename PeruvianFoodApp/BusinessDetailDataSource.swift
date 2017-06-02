@@ -28,15 +28,33 @@ class BusinessDetailDataSource: NSObject, UITableViewDataSource {
         super.init()
     }
     
+    //MARK: init from businessesVC
     convenience init(businessViewModel: BusinessViewModel) {
         self.init()
         getBusinessFrom(businessViewModel, fromService: YelpService.sharedInstance)
     }
     
+    //MARK: init from searchVC 
+    //NOTE: needs to be simplified once I decide how to handle location in multiple VC's
+    convenience init(businessID: String) {
+        self.init()
+        YelpService.sharedInstance.getBusinessWithID(businessID) { [weak self] (result) in
+            switch result {
+            case .Success(let business):
+                self?.businessViewModel = BusinessViewModel(model: business)
+               // self?.businessViewModel?.distance = businessViewModel.distance
+                self?.delegate?.reloadDataInVC()
+            case .Error(let error):
+                print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
+                self?.delegate?.alertUserOfError()
+            }
+        }
+    }
+    
     //MARK: Networking
     func getBusinessFrom(_ businessViewModel: BusinessViewModel, fromService service: YelpService) {
       
-        let id = businessViewModel.businessID
+        let id = businessViewModel.businessID //"ZJchvgEX6Pzy33DWpSRL6A" KFC test
         service.getBusinessWithID(id) { [weak self] (result) in
             switch result {
             case .Success(let business):

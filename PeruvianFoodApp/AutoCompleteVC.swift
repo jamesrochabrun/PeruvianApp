@@ -101,31 +101,37 @@ extension AutoCompleteVC: UITableViewDelegate {
         
         if indexPath.section == 0 {
             
+            if let businessID = autoCompleteResponse?.businesses[indexPath.row].id {
+                openBusinessDetailVCwith(businessID)
+            }
+            
         } else if indexPath.section == 1 {
             
-            let categoryTerm = autoCompleteResponse?.terms[indexPath.row].text
-            selection.term = categoryTerm!
-            dump(selection)
-            showOptionsBasedOnTermOrCategory()
-
+            if let categoryTerm = autoCompleteResponse?.terms[indexPath.row].text {
+                selection.term = categoryTerm
+            }
+            showBusinessesBasedOnTermOrCategory()
+            
         } else if indexPath.section == 2 {
             
-            let categoryAlias = autoCompleteResponse?.categories[indexPath.row].alias
-            selection.categoryItems.append(categoryAlias!)
-            showOptionsBasedOnTermOrCategory()
+            if let categoryAlias = autoCompleteResponse?.categories[indexPath.row].alias {
+                selection.categoryItems.append(categoryAlias)
+            }
+            showBusinessesBasedOnTermOrCategory()
         }
     }
     
     //MARK: helper methods
-    func openDetailVC() {
-        //this has an id
+    func openBusinessDetailVCwith(_ businessID: String) {
+        
+        let businesesVC = BusinessDetailVC()
+        businesesVC.businessID = businessID
+        businesesVC.hidesBottomBarWhenPushed = true
+        self.present(businesesVC, animated: true)
     }
     
-    func showOptionsBasedOnTermOrCategory() {
-    
-        //this has terms or category
-        //start with categories is just a selection
-       // feedSearchBar.endEditing(true)
+    func showBusinessesBasedOnTermOrCategory() {
+
         let businesesVC = NearbyBusinessesVC()
         businesesVC.selection = selection
         businesesVC.hidesBottomBarWhenPushed = true

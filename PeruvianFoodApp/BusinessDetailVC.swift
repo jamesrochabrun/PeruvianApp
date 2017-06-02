@@ -21,6 +21,15 @@ final class BusinessDetailVC: UIViewController {
         }
     }
     
+    var businessID: String? {
+        didSet {
+            if let businessID = businessID {
+                self.customIndicator.startAnimating()
+                self.dataSource = BusinessDetailDataSource(businessID: businessID)
+            }
+        }
+    }
+    
     var dataSource: BusinessDetailDataSource? {
         didSet {
             self.dataSource?.delegate = self

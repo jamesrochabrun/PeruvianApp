@@ -56,26 +56,7 @@ final class MapVC: UIViewController {
         googleMap?.selectedMarker = nil
         googleMap = nil
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        NSLayoutConstraint.activate([
-            
-            statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.Navigation.statusBarHeight),
-            statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            dismissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            dismissButton.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
-            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
-            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
-            transitionButton.heightAnchor.constraint(equalToConstant: 70),
-            transitionButton.widthAnchor.constraint(equalToConstant: 70),
-            transitionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
-            ])
-    }
+
     
     //MARK: Navigation
     @objc private func dismissView() {
@@ -97,6 +78,21 @@ final class MapVC: UIViewController {
         view.addSubview(statusBarBackgroundView)
         view.addSubview(dismissButton)
         view.addSubview(transitionButton)
+        NSLayoutConstraint.activate([
+            
+            statusBarBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: Constants.Navigation.statusBarHeight),
+            statusBarBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            dismissButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            dismissButton.topAnchor.constraint(equalTo: statusBarBackgroundView.bottomAnchor),
+            dismissButton.heightAnchor.constraint(equalToConstant: Constants.UI.dismissButtonHeight),
+            dismissButton.widthAnchor.constraint(equalToConstant: Constants.UI.dismissButtonWidth),
+            transitionButton.heightAnchor.constraint(equalToConstant: 70),
+            transitionButton.widthAnchor.constraint(equalToConstant: 70),
+            transitionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            ])
     }
 }
 
