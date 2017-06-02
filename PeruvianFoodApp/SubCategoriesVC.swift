@@ -22,7 +22,6 @@ final class SubCategoriesVC: SearchVC {
         }
     }
     let locationManager = LocationManager()
-    
     fileprivate let dataSource = SubCategoriesDataSource()
     
     //MARK: App Lyfecycle

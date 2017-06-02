@@ -15,6 +15,7 @@ class Selection {
     init() {
     }
     var term: String = ""
+    var text: String = ""
     var mainCategory: MainCategory = MainCategory()
     var categoryItems = [String]()
     var radius: Radius?

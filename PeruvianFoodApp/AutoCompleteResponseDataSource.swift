@@ -12,7 +12,6 @@ import UIKit
 final class AutoCompleteResponseDataSource: NSObject, UITableViewDataSource {
     
     //MARK: Properties
-    fileprivate var selection = Selection()
     fileprivate var autoCompleteResponse: AutoCompleteResponse?
     
     //MARK: initializers

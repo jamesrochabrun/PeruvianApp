@@ -40,7 +40,9 @@ extension YelpParameter {
         static let client_id = "client_id"
         static let client_secret = "client_secret"
         static let clientType = "client_credentials"
+        static let term = "term"
         static let text = "text"
+        
     }
     
     var paramaters: [String: Any] {
@@ -55,6 +57,7 @@ extension YelpParameter {
             parametersDictionary[YelpParameter.Key.radius] = selectionParameters.radius
             parametersDictionary[YelpParameter.Key.price] = selectionParameters.price
             parametersDictionary[YelpParameter.Key.sort_by] = YelpSortBy.distance
+            parametersDictionary[YelpParameter.Key.term] = selectionParameters.term
         case .token:
             parametersDictionary[YelpParameter.Key.client_id] = YelpParameter.ClientData.clientID
             parametersDictionary[YelpParameter.Key.client_secret] = YelpParameter.ClientData.clientSecret
@@ -78,6 +81,7 @@ struct SelectionParameters {
     var latitude: String
     var longitude: String
     var text: String
+    var term: String
 }
 
 extension SelectionParameters {
@@ -89,9 +93,16 @@ extension SelectionParameters {
         radius = selection.radius != nil ? selection.radius!.rawValue : 20000 //default distance
         latitude = selection.coordinates?.latitude != nil ? String(describing: selection.coordinates!.latitude) : "37.785771"
         longitude = selection.coordinates?.longitude != nil ? String(describing: selection.coordinates!.longitude) : "-122.406165" //default to San Francisco
-        text = selection.term
+        text = selection.text
+        term = selection.term
     }
 }
+
+
+
+
+
+
 
 
 

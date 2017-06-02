@@ -93,7 +93,7 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         manager.stopUpdatingLocation()
-        manager.delegate = nil
+       // manager.delegate = nil
         guard let location = locations.first else {
             print("No location returned")
             return

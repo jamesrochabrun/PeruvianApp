@@ -15,6 +15,8 @@ final class AutoCompleteVC: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     let dataSource = AutoCompleteResponseDataSource()
     var businessTableViewBottomAnchor: NSLayoutConstraint?
+    let locationManager = LocationManager()
+    let selection = Selection()
    
     lazy var businessesTableView: UITableView = {
         let tv = UITableView()
@@ -27,7 +29,6 @@ final class AutoCompleteVC: UIViewController {
         tv.register(ReusableHeaderCell.self)
         tv.register(AutoCompleteBusinessCellText.self)
         tv.register(UITableViewCell.self)
-        
         tv.tableHeaderView = self.searchController.searchBar
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 100
@@ -37,6 +38,7 @@ final class AutoCompleteVC: UIViewController {
     //MARK: app Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
         setUpViews()
     }
     
@@ -44,6 +46,12 @@ final class AutoCompleteVC: UIViewController {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        resetSelectionStatus()
+    }
+    
+    //MARK: helper method to reset state of categories for new results on next VC
+    func resetSelectionStatus() {
+        selection.categoryItems.removeAll()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -89,8 +97,39 @@ extension AutoCompleteVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let something = dataSource.getAutoCompleteResponse()?.content[indexPath.section][indexPath.row]
-        print("Something: \(something)")
+        let autoCompleteResponse = dataSource.getAutoCompleteResponse()
+        
+        if indexPath.section == 0 {
+            
+        } else if indexPath.section == 1 {
+            
+            let categoryTerm = autoCompleteResponse?.terms[indexPath.row].text
+            selection.term = categoryTerm!
+            dump(selection)
+            showOptionsBasedOnTermOrCategory()
+
+        } else if indexPath.section == 2 {
+            
+            let categoryAlias = autoCompleteResponse?.categories[indexPath.row].alias
+            selection.categoryItems.append(categoryAlias!)
+            showOptionsBasedOnTermOrCategory()
+        }
+    }
+    
+    //MARK: helper methods
+    func openDetailVC() {
+        //this has an id
+    }
+    
+    func showOptionsBasedOnTermOrCategory() {
+    
+        //this has terms or category
+        //start with categories is just a selection
+       // feedSearchBar.endEditing(true)
+        let businesesVC = NearbyBusinessesVC()
+        businesesVC.selection = selection
+        businesesVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(businesesVC, animated: true)
     }
 }
 
@@ -102,12 +141,12 @@ extension AutoCompleteVC: UISearchResultsUpdating {
         
         guard let textToSearch = searchController.searchBar.text else { return }
         
-        if textToSearch.characters.count == 0 {
-            updateDataIfTextIsBlank()
-            
-        } else {
-            updateSelectionWith(term: textToSearch)
-        }
+        textToSearch.characters.count == 0 ? updateDataIfTextIsBlank() : updateSelectionWith(text: textToSearch)
+//        if textToSearch.characters.count == 0 {
+//            updateDataIfTextIsBlank()
+//        } else {
+//            updateSelectionWith(term: textToSearch)
+//        }
     }
     
     //MARK: helper methods
@@ -117,11 +156,9 @@ extension AutoCompleteVC: UISearchResultsUpdating {
         self.businessesTableView.reloadData()
     }
     
-    func updateSelectionWith(term: String) {
+    func updateSelectionWith(text: String) {
         
-        let selection = Selection()
-        selection.term = term
-        
+        selection.text = text
         YelpService.sharedInstance.getAutoCompleteResponseFrom(selection: selection) { (result) in
           
             switch result {
@@ -164,7 +201,23 @@ extension AutoCompleteVC {
     }
 }
 
-
+//MARK: LocationManagerDelegate delegate methods
+extension AutoCompleteVC: LocationManagerDelegate {
+    
+    func displayInVC(_ alertController: UIAlertController) {
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
+    }
+    
+    func getCoordinates(_ coordinates: Coordinates) {
+        selection.coordinates = coordinates
+        
+        print("Coordinates", coordinates)
+        
+        //START FROM HERE
+    }
+}
 
 
 
