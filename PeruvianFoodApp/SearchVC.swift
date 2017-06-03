@@ -48,32 +48,17 @@ class SearchVC: UIViewController, UITableViewDelegate {
     }()
     
     //Loading Indicator
-    let customIndicator: CustomActivityIndicator = {
-        let indicator = CustomActivityIndicator()
-        return indicator
+    let animatedView: AnimatedLoadingView = {
+        let av = AnimatedLoadingView(name: Constants.AnimationFiles.bounchingBall, speed: 0.8, loop: true)
+        return av
     }()
     
     //MARK: APP lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpNavBar()
         setUpTableView()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        NSLayoutConstraint.activate([
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            customIndicator.heightAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
-            customIndicator.widthAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
-            customIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            customIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
-            ])
+        setUpViews()
     }
     
     //MARK: SetUP UI
@@ -82,9 +67,16 @@ class SearchVC: UIViewController, UITableViewDelegate {
     }
     
     func setUpTableView() {
-        
         view.addSubview(tableView)
-        view.addSubview(customIndicator)
+        NSLayoutConstraint.activate([
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            ])
+    }
+    
+    func setUpViews() {
     }
     
     //MARK: Scrollview helper method

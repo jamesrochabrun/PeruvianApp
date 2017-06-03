@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
 		7B24DDDC1EE25641001D31CC /* finish.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B24DDDB1EE25641001D31CC /* finish.json */; };
+		7B24DDDE1EE25913001D31CC /* bounching_ball.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B24DDDD1EE25913001D31CC /* bounching_ball.json */; };
+		7B24DDE01EE26475001D31CC /* AnimatedLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B24DDDF1EE26475001D31CC /* AnimatedLoadingView.swift */; };
+		7B24DDE21EE264B0001D31CC /* LottieAnimable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B24DDE11EE264B0001D31CC /* LottieAnimable.swift */; };
 		7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */; };
 		7B2CDE381ECD1C1200F56E3C /* HoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */; };
 		7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */; };
@@ -121,6 +124,9 @@
 /* Begin PBXFileReference section */
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		7B24DDDB1EE25641001D31CC /* finish.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = finish.json; sourceTree = "<group>"; };
+		7B24DDDD1EE25913001D31CC /* bounching_ball.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bounching_ball.json; sourceTree = "<group>"; };
+		7B24DDDF1EE26475001D31CC /* AnimatedLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoadingView.swift; sourceTree = "<group>"; };
+		7B24DDE11EE264B0001D31CC /* LottieAnimable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LottieAnimable.swift; sourceTree = "<group>"; };
 		7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
 		7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursModel.swift; sourceTree = "<group>"; };
 		7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVCZoomLogic.swift; sourceTree = "<group>"; };
@@ -344,6 +350,7 @@
 				7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */,
 				7B8D82971E96E1C7005BF309 /* categories.json */,
 				7B24DDDB1EE25641001D31CC /* finish.json */,
+				7B24DDDD1EE25913001D31CC /* bounching_ball.json */,
 				7BD8ED2B1E9546FE00E610B9 /* Info.plist */,
 			);
 			path = PeruvianFoodApp;
@@ -361,6 +368,7 @@
 				7B865B661EA480C00048E513 /* Flashable.swift */,
 				7B865B641EA4809B0048E513 /* Jitterable.swift */,
 				7B6F96A41EDF910F00B40894 /* Scalable.swift */,
+				7B24DDE11EE264B0001D31CC /* LottieAnimable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -498,6 +506,7 @@
 			children = (
 				7BB080991ECE973F00232DFE /* Camera */,
 				7B9B5EFA1E9E98C4008C8468 /* IconIndicatorView.swift */,
+				7B24DDDF1EE26475001D31CC /* AnimatedLoadingView.swift */,
 				7BED73B11E9C97720084CA67 /* CustomDismissButton.swift */,
 				7B9B5F0A1E9F0B6A008C8468 /* CalendarView.swift */,
 				7B8D828F1E96B2B7005BF309 /* CustomActivityIndicator.swift */,
@@ -621,6 +630,7 @@
 			files = (
 				7B24DDDC1EE25641001D31CC /* finish.json in Resources */,
 				7BD8ED2A1E9546FE00E610B9 /* LaunchScreen.storyboard in Resources */,
+				7B24DDDE1EE25913001D31CC /* bounching_ball.json in Resources */,
 				7B8D82981E96E1C7005BF309 /* categories.json in Resources */,
 				7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */,
 			);
@@ -759,10 +769,12 @@
 				7BF2148D1ECD901C006297E8 /* Token.swift in Sources */,
 				7BF8D5311EE2512E0060501B /* SplashVC.swift in Sources */,
 				7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */,
+				7B24DDE01EE26475001D31CC /* AnimatedLoadingView.swift in Sources */,
 				7BB080941ECE673B00232DFE /* CameraView.swift in Sources */,
 				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
 				7BD8ED361E95474500E610B9 /* BaseCell.swift in Sources */,
 				7B7A819A1E986A9A007608FC /* CategoryCell.swift in Sources */,
+				7B24DDE21EE264B0001D31CC /* LottieAnimable.swift in Sources */,
 				7BDB32B81EDD0A2D00C905A0 /* AutoCompleteResponse.swift in Sources */,
 				7BD8ED321E95473800E610B9 /* Constants.swift in Sources */,
 				7B5A42EE1E9FE64000F187BE /* PhotoAlbumCell.swift in Sources */,

@@ -26,9 +26,7 @@ final class SubCategoriesVC: SearchVC {
     
     //MARK: App Lyfecycle
     override func viewDidLoad() {
-        
-        setUpNavBar()
-        setUpTableView()
+        super.viewDidLoad()
         locationManager.delegate = self
     }
     
@@ -42,11 +40,11 @@ final class SubCategoriesVC: SearchVC {
     //overriding method to avoid customindicator
     override func setUpTableView() {
         super.setUpTableView()
-
+        
         tableView.register(SwitchCell.self)
         tableView.registerDatasource(dataSource, completion: { (complete) in })
     }
-
+    
     override func setUpNavBar() {
         super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndOpenResults))

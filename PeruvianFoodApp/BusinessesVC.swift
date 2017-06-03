@@ -22,9 +22,7 @@ class BusinessesVC: SearchVC {
         didSet {
             resetPriceAndRadius()
             self.filterView.selection = selection
-            
-            print("categories", selection.categoryItems)
-            getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+            getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: true)
         }
     }
     
@@ -63,12 +61,14 @@ class BusinessesVC: SearchVC {
         return cmv
     }()
     
+    let customIndicator: CustomActivityIndicator = {
+        let indicator = CustomActivityIndicator()
+        return indicator
+    }()
+    
     //MARK: APP lifecycle
     override func viewDidLoad() {
-        
-        setUpNavBar()
-        setUpTableView()
-        setUpViews()
+        super.viewDidLoad()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -79,9 +79,11 @@ class BusinessesVC: SearchVC {
     }
 
     //MARK: Overriding SearchVC super class methods
+    //MARK: Set up UI.
+
     override func setUpTableView() {
+        super.setUpTableView()
         
-        view.addSubview(tableView)
         tableView.register(BusinessCell.self)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
@@ -97,28 +99,15 @@ class BusinessesVC: SearchVC {
         }
     }
     
-    override func refresh(_ refreshControl: UIRefreshControl) {
-        
-        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
-    }
-    
-    override func scrollViewIsDragging() {
-        super.scrollViewIsDragging()
-        
-        performDismissFilterView()
-    }
-    
-    //MARK: Super class SearchVC methods End.
-    
-    //MARK: Set up UI.
-    private func setUpViews() {
+    override func setUpViews() {
         
         segmentedControl.selectedSegmentIndex = 0
         view.addSubview(mapView)
-        view.addSubview(customIndicator)
+        view.addSubview(animatedView)
         view.addSubview(segmentedControl)
         view.addSubview(alertView)
         view.addSubview(filterView)
+        view.addSubview(customIndicator)
         
         //MARK: add the constraints of filterview outside layoutSubviews to avoid constraint issues on animation.
         filterView.heightAnchor.constraint(equalToConstant: Constants.UI.filterViewHeight).isActive = true
@@ -142,8 +131,31 @@ class BusinessesVC: SearchVC {
             mapView.leftAnchor.constraint(equalTo: view.leftAnchor),
             mapView.heightAnchor.constraint(equalTo: view.heightAnchor),
             mapView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            animatedView.heightAnchor.constraint(equalToConstant: Constants.UI.animationViewSize),
+            animatedView.widthAnchor.constraint(equalToConstant: Constants.UI.animationViewSize),
+            animatedView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            animatedView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            
+            customIndicator.heightAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
+            customIndicator.widthAnchor.constraint(equalToConstant: Constants.UI.customIndicatorDefault),
+            customIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            customIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
             ])
     }
+    
+    override func refresh(_ refreshControl: UIRefreshControl) {
+        
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: true)
+    }
+    
+    override func scrollViewIsDragging() {
+        super.scrollViewIsDragging()
+        
+        performDismissFilterView()
+    }
+    
+    //MARK: Super class SearchVC methods End.
     
     //MARK: segmented control switch from map to list
     @objc private func switchPresentation() {
@@ -156,9 +168,9 @@ class BusinessesVC: SearchVC {
     }
     
     //MARK: Networking call 
-    func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection) where S.T == BusinessViewModelDataSource {
+    func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection, lottieIndicator: Bool) where S.T == BusinessViewModelDataSource {
         
-        customIndicator.startAnimating()
+        lottieIndicator == true ? animatedView.startAnimation() : customIndicator.startAnimating()
         service.getBusinessesFrom(selection: selection) { [weak self] (result) in
             
             guard let strongSelf = self else {
@@ -175,7 +187,7 @@ class BusinessesVC: SearchVC {
                     strongSelf.dataSource.searchVC = self
                     strongSelf.tableView.registerDatasource(strongSelf.dataSource, completion: { (complete) in
                         strongSelf.feedRefreshControl.endRefreshing()
-                        strongSelf.customIndicator.stopAnimating()
+                        lottieIndicator == true ?  strongSelf.animatedView.stopAnimation() : strongSelf.customIndicator.stopAnimating()
                     })
                 }
             case .Error(let error) :
@@ -196,7 +208,7 @@ class BusinessesVC: SearchVC {
         let action = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
             guard let strongSelf = self else { return }
             strongSelf.dismiss(animated: true, completion: nil)
-            strongSelf.customIndicator.stopAnimating()
+            strongSelf.animatedView.stopAnimation()
             strongSelf.feedRefreshControl.endRefreshing()
 
         }
@@ -252,7 +264,6 @@ extension BusinessesVC: BusinessViewModelDataSourceDelegate {
         
         updateMapWithDataSource()
         performDismissFilterView()
-        
     }
 }
 
@@ -266,8 +277,8 @@ extension BusinessesVC: FilterViewDelegate {
         filterView.selection = selection
         filterViewTopAnchor?.constant = -Constants.UI.filterViewHeight
         self.feedSearchBar.endEditing(true)
-        UIView.animate(withDuration: 0.4, animations: { [weak self] in
-            self?.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.layoutIfNeeded()
         })
     }
     //MARK: methods triggered by delegation
@@ -277,9 +288,8 @@ extension BusinessesVC: FilterViewDelegate {
     
     func searchWasPressedWithUpdatedSelection(_ selection: Selection) {
         
-        customIndicator.startAnimating()
         alertView.alpha = 0
-        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection)
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: false)
         performDismissFilterView()
     }
     
@@ -287,8 +297,8 @@ extension BusinessesVC: FilterViewDelegate {
     fileprivate func performDismissFilterView() {
         
         filterViewTopAnchor?.constant = view.frame.size.height
-            UIView.animate(withDuration: 0.8, animations: { [weak self] in
-                self?.view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.8, animations: {
+                self.view.layoutIfNeeded()
             })
     }
 }
@@ -300,7 +310,7 @@ extension BusinessesVC: CustomMapViewDelegate {
         
         feedSearchBar.endEditing(true)
         let businessDetailVC = BusinessDetailVC()
-        businessDetailVC.businessViewModel = viewModel
+        businessDetailVC.businessID = viewModel.businessID
         self.present(businessDetailVC, animated: true)
     }
     

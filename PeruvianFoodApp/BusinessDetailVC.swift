@@ -15,7 +15,7 @@ final class BusinessDetailVC: UIViewController {
     var businessID: String? {
         didSet {
             if let businessID = businessID {
-                self.customIndicator.startAnimating()
+                self.animatedView.startAnimation()
                 getBusinessWith(businessID)
             }
         }
@@ -72,9 +72,9 @@ final class BusinessDetailVC: UIViewController {
         return tv
     }()
     
-    fileprivate let customIndicator: CustomActivityIndicator = {
-        let indicator = CustomActivityIndicator()
-        return indicator
+    let animatedView: AnimatedLoadingView = {
+        let av = AnimatedLoadingView(name: Constants.AnimationFiles.bounchingBall, speed: 0.8, loop: true)
+        return av
     }()
     
     //MARK: Networking call
@@ -129,7 +129,7 @@ final class BusinessDetailVC: UIViewController {
         view.addSubview(statusBarBackgroundView)
         view.addSubview(dismissButton)
         view.addSubview(calendarView)
-        view.addSubview(customIndicator)
+        view.addSubview(animatedView)
         
         NSLayoutConstraint.activate([
             
@@ -148,10 +148,10 @@ final class BusinessDetailVC: UIViewController {
             calendarView.widthAnchor.constraint(equalTo: view.widthAnchor),
             calendarView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calendarView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            customIndicator.heightAnchor.constraint(equalToConstant: 80),
-            customIndicator.widthAnchor.constraint(equalToConstant: 80),
-            customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            animatedView.heightAnchor.constraint(equalToConstant: Constants.UI.animationViewSize),
+            animatedView.widthAnchor.constraint(equalToConstant: Constants.UI.animationViewSize),
+            animatedView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            animatedView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
     }
     
@@ -190,7 +190,7 @@ extension BusinessDetailVC {
     func reloadDataInVC() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            self.customIndicator.stopAnimating()
+            self.animatedView.stopAnimation()
             UIView.animate(withDuration: 0.3, animations: { 
                 self.gradientView.alpha = 1
             })

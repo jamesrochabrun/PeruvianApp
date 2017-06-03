@@ -36,6 +36,7 @@ struct Constants {
         static let circleButtonSize: CGFloat = 70.0
         static let cameraButtonSize: CGFloat = 70.0
         static let cameraButtonRadius = Constants.UI.cameraButtonSize / 2
+        static let animationViewSize: CGFloat = 250.0
     }
     
     //MARK: This constants are defined by apple design guidelines and must be used just for reference, not to set the actual size of the navigation elements
@@ -68,6 +69,12 @@ struct Constants {
         static let h2FontSize: CGFloat = 16.0
         static let caption1: CGFloat = 14.0
         static let caption2: CGFloat = 12.0
+    }
+    
+    struct AnimationFiles {
+        static let bounchingBall: String = "bounching_ball"
+        static let finishCheckMark: String = "finish"
+
     }
 }
 
