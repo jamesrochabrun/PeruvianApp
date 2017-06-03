@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class BusinessDetailDataSource: NSObject, UITableViewDataSource {
+final class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     //MARK: 2 main sources of data visual model setted in the networking call
     fileprivate var businessViewModel: BusinessViewModel?

@@ -50,13 +50,16 @@ final class SubCategoriesVC: SearchVC {
     override func setUpNavBar() {
         super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "SEARCH", style: .plain, target: self, action: #selector(searchAndOpenResults))
+        if let topItem = self.navigationController?.navigationBar.topItem {
+            topItem.title = ""
+        }
     }
     
     //MARK: navigation triggers
     func searchAndOpenResults() {
         
         feedSearchBar.endEditing(true)
-        let businesesVC = NearbyBusinessesVC()
+        let businesesVC = BusinessesVC()
         businesesVC.selection = dataSource.getSelection()
         businesesVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(businesesVC, animated: true)

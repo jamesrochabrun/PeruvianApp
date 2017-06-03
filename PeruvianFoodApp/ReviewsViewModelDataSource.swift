@@ -12,7 +12,7 @@ import TRON
 import SwiftyJSON
 
 
-class ReviewsViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
+final class ReviewsViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
     //MARK: Properties
     static let reviewsKey = "reviews"

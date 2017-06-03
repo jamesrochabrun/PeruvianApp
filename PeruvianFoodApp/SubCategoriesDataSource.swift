@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SubCategoriesDataSource: NSObject, UITableViewDataSource {
+final class SubCategoriesDataSource: NSObject, UITableViewDataSource {
     
     //MARK: Properties
     fileprivate var itemsViewModelArray = [SubCategoryViewModel]()

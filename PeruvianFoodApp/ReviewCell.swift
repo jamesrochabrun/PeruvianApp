@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ReviewCell: BaseCell {
+final class ReviewCell: BaseCell {
     
     //MARK: UI Elements
     let profileImageView = ImageViewBuilder.imageView(radius: 40, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()

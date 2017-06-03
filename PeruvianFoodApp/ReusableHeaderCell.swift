@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ReusableHeaderCell: BaseCell {
+final class ReusableHeaderCell: BaseCell {
     
     //MARK: UI elements
     let headerTextLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: .left, sizeToFit: true).build()

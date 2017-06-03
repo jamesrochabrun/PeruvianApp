@@ -69,7 +69,7 @@ final class MainCategoriesVC: UIViewController {
             transitionButton.heightAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
             transitionButton.widthAnchor.constraint(equalToConstant: Constants.UI.cameraButtonSize),
             transitionButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
+            transitionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -54)
             ])
     }
     

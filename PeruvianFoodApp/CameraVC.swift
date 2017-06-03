@@ -43,7 +43,7 @@ final class CameraVC: UIViewController {
             dismissButton.widthAnchor.constraint(equalToConstant: 60),
             dismissButton.heightAnchor.constraint(equalToConstant: 60),
             dismissButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            dismissButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
+            dismissButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -54)
             ])
     }
     
@@ -68,8 +68,8 @@ extension CameraVC: CameraViewDelegate {
         }
         alertController.addAction(save)
         alertController.addAction(retake)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     //MARK: helper methods

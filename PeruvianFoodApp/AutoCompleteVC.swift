@@ -128,7 +128,7 @@ extension AutoCompleteVC: UITableViewDelegate {
     
     func showBusinessesBasedOnTermOrCategory() {
 
-        let businesesVC = NearbyBusinessesVC()
+        let businesesVC = BusinessesVC()
         businesesVC.selection = selection
         businesesVC.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(businesesVC, animated: true)

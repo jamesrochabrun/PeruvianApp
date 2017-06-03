@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B11D65C1EA55841002E851B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11D65B1EA55841002E851B /* FilterView.swift */; };
+		7B24DDDC1EE25641001D31CC /* finish.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B24DDDB1EE25641001D31CC /* finish.json */; };
 		7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */; };
 		7B2CDE381ECD1C1200F56E3C /* HoursModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */; };
 		7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */; };
@@ -67,7 +68,7 @@
 		7BB080AA1ECEAF5000232DFE /* FoodiePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB080A91ECEAF5000232DFE /* FoodiePhotoCell.swift */; };
 		7BC6398E1E9AB29100EB4E16 /* MainCategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */; };
 		7BC639901E9AB2F700EB4E16 /* MainCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */; };
-		7BC639921E9AB4E500EB4E16 /* NearbyBusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */; };
+		7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */; };
 		7BC639941E9B147700EB4E16 /* SubCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */; };
 		7BD8ED201E9546FE00E610B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */; };
 		7BD8ED221E9546FE00E610B9 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD8ED211E9546FE00E610B9 /* SearchVC.swift */; };
@@ -97,6 +98,7 @@
 		7BF2148B1ECD6EFD006297E8 /* ImageViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2148A1ECD6EFD006297E8 /* ImageViewBuilder.swift */; };
 		7BF2148D1ECD901C006297E8 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2148C1ECD901C006297E8 /* Token.swift */; };
 		7BF2148F1ECD96B5006297E8 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2148E1ECD96B5006297E8 /* AlertController.swift */; };
+		7BF8D5311EE2512E0060501B /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF8D5301EE2512E0060501B /* SplashVC.swift */; };
 		7BFAB9BE1EA6BA6600294438 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9BD1EA6BA6600294438 /* MapCell.swift */; };
 		7BFAB9C01EA6C1BD00294438 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */; };
 		7BFAB9C21EA6D25400294438 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFAB9C11EA6D25400294438 /* LocationManager.swift */; };
@@ -118,6 +120,7 @@
 
 /* Begin PBXFileReference section */
 		7B11D65B1EA55841002E851B /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		7B24DDDB1EE25641001D31CC /* finish.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = finish.json; sourceTree = "<group>"; };
 		7B2CDE351ECD083A00F56E3C /* ButtonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBuilder.swift; sourceTree = "<group>"; };
 		7B2CDE371ECD1C1200F56E3C /* HoursModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursModel.swift; sourceTree = "<group>"; };
 		7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessDetailVCZoomLogic.swift; sourceTree = "<group>"; };
@@ -179,7 +182,7 @@
 		7BB080A91ECEAF5000232DFE /* FoodiePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodiePhotoCell.swift; sourceTree = "<group>"; };
 		7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesVC.swift; sourceTree = "<group>"; };
 		7BC6398F1E9AB2F700EB4E16 /* MainCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCategoriesDataSource.swift; sourceTree = "<group>"; };
-		7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyBusinessesVC.swift; sourceTree = "<group>"; };
+		7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesVC.swift; sourceTree = "<group>"; };
 		7BC639931E9B147700EB4E16 /* SubCategoriesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubCategoriesDataSource.swift; sourceTree = "<group>"; };
 		7BD8ED1C1E9546FE00E610B9 /* PeruvianFoodApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeruvianFoodApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD8ED1F1E9546FE00E610B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PeruvianFoodApp/AppDelegate.swift; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		7BF2148A1ECD6EFD006297E8 /* ImageViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewBuilder.swift; sourceTree = "<group>"; };
 		7BF2148C1ECD901C006297E8 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7BF2148E1ECD96B5006297E8 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		7BF8D5301EE2512E0060501B /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		7BFAB9BD1EA6BA6600294438 /* MapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		7BFAB9BF1EA6C1BD00294438 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		7BFAB9C11EA6D25400294438 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -339,6 +343,7 @@
 				7BD8ED261E9546FE00E610B9 /* Assets.xcassets */,
 				7BD8ED281E9546FE00E610B9 /* LaunchScreen.storyboard */,
 				7B8D82971E96E1C7005BF309 /* categories.json */,
+				7B24DDDB1EE25641001D31CC /* finish.json */,
 				7BD8ED2B1E9546FE00E610B9 /* Info.plist */,
 			);
 			path = PeruvianFoodApp;
@@ -393,10 +398,11 @@
 		7BD8ED3E1E957CE200E610B9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7BF8D5301EE2512E0060501B /* SplashVC.swift */,
 				7BD8ED211E9546FE00E610B9 /* SearchVC.swift */,
 				7BC6398D1E9AB29100EB4E16 /* MainCategoriesVC.swift */,
 				7B8D82951E96D997005BF309 /* SubCategoriesVC.swift */,
-				7BC639911E9AB4E500EB4E16 /* NearbyBusinessesVC.swift */,
+				7BC639911E9AB4E500EB4E16 /* BusinessesVC.swift */,
 				7BED73AD1E9C334D0084CA67 /* BusinessDetailVC.swift */,
 				7B2CDE391ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift */,
 				7B8636731EA1A0290020EFC8 /* ReviewsVC.swift */,
@@ -613,6 +619,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B24DDDC1EE25641001D31CC /* finish.json in Resources */,
 				7BD8ED2A1E9546FE00E610B9 /* LaunchScreen.storyboard in Resources */,
 				7B8D82981E96E1C7005BF309 /* categories.json in Resources */,
 				7BD8ED271E9546FE00E610B9 /* Assets.xcassets in Resources */,
@@ -711,7 +718,7 @@
 				7B5A42EC1E9FE60E00F187BE /* PhotoCell.swift in Sources */,
 				7B6DB6101EDE46A7006B4491 /* AutoCompleteBusinessCell.swift in Sources */,
 				7BED73A81E9C12930084CA67 /* MainCategoryViewModel.swift in Sources */,
-				7BC639921E9AB4E500EB4E16 /* NearbyBusinessesVC.swift in Sources */,
+				7BC639921E9AB4E500EB4E16 /* BusinessesVC.swift in Sources */,
 				7B86366C1EA152220020EFC8 /* Gradientable.swift in Sources */,
 				7BD8ED441E957EE400E610B9 /* Extensions.swift in Sources */,
 				7BE026C21EA7E9C000CC701C /* StreetViewVC.swift in Sources */,
@@ -750,6 +757,7 @@
 				7B2CDE361ECD083A00F56E3C /* ButtonBuilder.swift in Sources */,
 				7BB080A81ECEA5F100232DFE /* FoodieVC.swift in Sources */,
 				7BF2148D1ECD901C006297E8 /* Token.swift in Sources */,
+				7BF8D5311EE2512E0060501B /* SplashVC.swift in Sources */,
 				7B2CDE3A1ECD201D00F56E3C /* BusinessDetailVCZoomLogic.swift in Sources */,
 				7BB080941ECE673B00232DFE /* CameraView.swift in Sources */,
 				7B8636741EA1A0290020EFC8 /* ReviewsVC.swift in Sources */,
@@ -926,7 +934,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EECBB8D43C89EDF5E3111214 /* Pods-PeruvianFoodApp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;
@@ -941,7 +949,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC4C977B9744C94CE55CDD3E /* Pods-PeruvianFoodApp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ULU46F325W;
 				INFOPLIST_FILE = PeruvianFoodApp/Info.plist;

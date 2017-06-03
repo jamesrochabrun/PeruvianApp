@@ -12,7 +12,7 @@ import TRON
 import SwiftyJSON
 import AlamofireImage
 
-class AutoCompleteBusinessCell: BaseCell {
+final class AutoCompleteBusinessCell: BaseCell {
     
     //MARK: UI elements
     let autoCompleteTextLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: .left, sizeToFit: true).build()
@@ -104,7 +104,7 @@ class AutoCompleteBusinessCell: BaseCell {
     }
 }
 
-class AutoCompleteBusinessCellText: BaseCell {
+final class AutoCompleteBusinessCellText: BaseCell {
     
     //MARK: UI elements
     let autoCompleteTextLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: .left, sizeToFit: true).build()

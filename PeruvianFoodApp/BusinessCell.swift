@@ -12,7 +12,7 @@ import Alamofire
 import CoreImage
 import AlamofireImage
 
-class BusinessCell: BaseCell {
+final class BusinessCell: BaseCell {
 
     //MARK: UI Elements
     var businessImageView: UIImageView = {

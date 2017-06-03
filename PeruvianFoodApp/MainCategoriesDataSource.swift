@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-
-class MainCategoriesDataSource: NSObject, UITableViewDataSource {
+final class MainCategoriesDataSource: NSObject, UITableViewDataSource {
     
     //Mark: properties
     fileprivate var categoriesViewModelArray: [MainCategoryViewModel]

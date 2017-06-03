@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class FoodiePhotoCell: BaseCell {
+final class FoodiePhotoCell: BaseCell {
     
     //MARK: UI Elements
     let foodieImageview = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()

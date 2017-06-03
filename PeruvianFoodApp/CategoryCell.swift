@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CategoryCell: BaseCell {
+final class CategoryCell: BaseCell {
     
     //MARK: UI Elements
     let listNameLabel = LabelBuilder.headerLabel(textColor: .white , textAlignment: .center, sizeToFit: true).build()

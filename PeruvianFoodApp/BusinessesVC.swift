@@ -10,7 +10,7 @@ import TRON
 import SwiftyJSON
 import GoogleMaps
 
-class NearbyBusinessesVC: SearchVC {
+class BusinessesVC: SearchVC {
     
     //MARK: properties
     var dataSource = BusinessViewModelDataSource() { 
@@ -92,6 +92,9 @@ class NearbyBusinessesVC: SearchVC {
     override func setUpNavBar() {
         super.setUpNavBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "FILTER", style: .plain, target: self, action: #selector(showFilterView))
+        if let topItem = self.navigationController?.navigationBar.topItem {
+            topItem.title = ""
+        }
     }
     
     override func refresh(_ refreshControl: UIRefreshControl) {
@@ -211,7 +214,7 @@ class NearbyBusinessesVC: SearchVC {
 }
 
 //MARK: Map markers logic
-extension NearbyBusinessesVC {
+extension BusinessesVC {
     
     //MARK: update markers in map
     fileprivate func updateMapWithDataSource() {
@@ -220,7 +223,7 @@ extension NearbyBusinessesVC {
 }
 
 //MARK: tableview delegate method/ triggers navigation
-extension NearbyBusinessesVC {
+extension BusinessesVC {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -233,7 +236,7 @@ extension NearbyBusinessesVC {
 }
 
 //MARK: BusinessViewModelDataSourceDelegate delegate methods
-extension NearbyBusinessesVC: BusinessViewModelDataSourceDelegate {
+extension BusinessesVC: BusinessViewModelDataSourceDelegate {
     
     func handleNoResults() {
         
@@ -254,7 +257,7 @@ extension NearbyBusinessesVC: BusinessViewModelDataSourceDelegate {
 }
 
 //MARK: FilterViewDelegate methods and FilterView actions
-extension NearbyBusinessesVC: FilterViewDelegate {
+extension BusinessesVC: FilterViewDelegate {
     
     //triggered by vc nav bar right button
     @objc fileprivate func showFilterView() {
@@ -291,7 +294,7 @@ extension NearbyBusinessesVC: FilterViewDelegate {
 }
 
 //MARK: CustomMapViewDelegate delegate methods
-extension NearbyBusinessesVC: CustomMapViewDelegate {
+extension BusinessesVC: CustomMapViewDelegate {
 
     func presentDetailVCFromMarker(with viewModel: BusinessViewModel) {
         

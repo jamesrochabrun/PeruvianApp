@@ -13,7 +13,7 @@ protocol SwitchCellDelegate: class {
     func switchCell(_ cell: SwitchCell)
 }
 
-class SwitchCell: BaseCell {
+final class SwitchCell: BaseCell {
     
     //MARK: properties
     weak var delegate: SwitchCellDelegate?

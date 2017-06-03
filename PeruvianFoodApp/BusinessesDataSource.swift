@@ -16,7 +16,7 @@ protocol BusinessViewModelDataSourceDelegate: class {
     func updateUIandData()
 }
 
-class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
+final class BusinessViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {
     
     //MARK: Properties
     static let businessesKey = "businesses"

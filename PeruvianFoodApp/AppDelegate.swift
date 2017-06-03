@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         handleGoogleMap()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = CustomTabBarController()
+        let initialVC = SplashVC()
+        window?.rootViewController =  initialVC//CustomTabBarController()
         setUPAppereance()
         CoreDataStack.sharedInstance.applicationDocumentsDirectory()
         return true

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 //MARK: this object is created based in different parameters its passed by dependency inhection through view controllers and Views and finally passed as an argument to the API call.
-class Selection {
+final class Selection {
     
     init() {
     }

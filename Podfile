@@ -9,7 +9,7 @@ target 'PeruvianFoodApp' do
     pod 'TRON'
     pod 'AlamofireImage'
     pod 'GoogleMaps'
-
+    pod 'lottie-ios'
 
 
 end
