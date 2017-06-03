@@ -51,6 +51,7 @@ class PhotoCell: BaseCollectionViewCell {
     func handleTap(tapGesture: UITapGestureRecognizer) {
         
         guard let imageView = tapGesture.view as? UIImageView else {
+            print("problem in photocell")
             return
         }
         NotificationCenter.default.post(name: Notification.Name.performZoomNotification, object: imageView)
@@ -58,7 +59,7 @@ class PhotoCell: BaseCollectionViewCell {
     
     //MARK: Life Cycle
     override func prepareForReuse() {
-        photoImageView.image = nil
+       // photoImageView.image = nil
     }
 }
 

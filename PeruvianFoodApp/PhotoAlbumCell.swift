@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class PhotoAlbumCell: BaseCell {
+class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
     
     //MARK: dataSource
     var photos: [String]? {
@@ -46,13 +46,25 @@ class PhotoAlbumCell: BaseCell {
             photoCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let cell = collectionView.cellForItem(at: indexPath)
+    
+    }
 }
 
 //MARK: UICollectionViewDataSource methods
 extension PhotoAlbumCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos?.count ?? 0
+        
+        if let count = photos?.count {
+            print("count", count)
+            return count
+        }
+        
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

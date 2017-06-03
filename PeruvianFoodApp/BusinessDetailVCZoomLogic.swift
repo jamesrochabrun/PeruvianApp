@@ -15,6 +15,7 @@ extension BusinessDetailVC {
     func performZoomInForStartingImageView(_ notification: NSNotification) {
         
         guard let startingImageView = notification.object as? UIImageView  else {
+            print("Problem In business detailvc zoom action")
             return
         }
         self.startingImageView = startingImageView
@@ -22,6 +23,9 @@ extension BusinessDetailVC {
         if let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
             
             self.startingFrame = startingFrame
+            
+            print(self.startingFrame)
+            
             let zoomingImageView = getZoominImageViewWith(startingFrame)
             zoomingImageView.image = startingImageView.image
             
@@ -48,6 +52,7 @@ extension BusinessDetailVC {
     func handleZoomOut(tapGesture: UITapGestureRecognizer) {
         
         guard let startingFrame = self.startingFrame, let overlay = self.backgroundOverlay else {
+            print("something went wrong")
             return
         }
         if let zoomOutImageView = tapGesture.view {
@@ -61,6 +66,8 @@ extension BusinessDetailVC {
                     self.startingImageView?.isHidden = false
                 }
             })
+        } else {
+            print("something went wrong again")
         }
     }
     
