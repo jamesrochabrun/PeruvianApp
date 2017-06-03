@@ -111,12 +111,14 @@ class BusinessCell: BaseCell {
                 return
             }
             businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
+                
+                guard let strongSelf = self else { return }
                 guard let image = response.result.value else {
                     print("No image data in response Businesscell")
                     return
                 }
                 DispatchQueue.main.async {
-                    self?.businessImageView.image = image
+                    strongSelf.businessImageView.image = image
                 }
             }
     }

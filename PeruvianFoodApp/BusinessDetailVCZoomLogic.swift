@@ -33,16 +33,13 @@ extension BusinessDetailVC {
                 keyWindow.addSubview(backgroundOverlay!)
                 keyWindow.addSubview(zoomingImageView)
                 
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: { [weak self] in
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     
-                    self?.backgroundOverlay?.alpha = 0.7
-                    if let height = self?.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame) {
-                        zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
-                    }
+                    self.backgroundOverlay?.alpha = 0.7
+                    let height = self.getTheHeight(frame1: startingFrame, frame2: keyWindow.frame)
+                    zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
                     zoomingImageView.center = keyWindow.center
-                    
                     }, completion: { (complete) in
-                        
                 })
             }
         }
@@ -59,9 +56,9 @@ extension BusinessDetailVC {
                 overlay.alpha = 0
             }, completion: { (complete) in
                 
-                DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async {
                     zoomOutImageView.removeFromSuperview()
-                    self?.startingImageView?.isHidden = false
+                    self.startingImageView?.isHidden = false
                 }
             })
         }

@@ -68,12 +68,14 @@ class AutoCompleteBusinessCell: BaseCell {
     func getbusinessWith(id: String) {
         
         YelpService.sharedInstance.getBusinessWithID(id) { [weak self] (result) in
+            guard let strongSelf = self else {
+                print("self is nil on Autocomplete cell")
+                return }
             switch result {
             case .Success(let business):
-                    self?.setUpBusinessImageFrom(business)
+                    strongSelf.setUpBusinessImageFrom(business)
             case .Error(let error):
                 print("ERROR ON AUTOCOMPLETCELL FETCHING BUSINESS: \(error), id: \(id)")
-                
             }
         }
     }
@@ -86,13 +88,17 @@ class AutoCompleteBusinessCell: BaseCell {
         }
         //let filter = AspectScaledToFillSizeFilter(size: self.businessImageView.frame.size)
         self.businessImageView.af_setImage(withURL: url, placeholderImage: #imageLiteral(resourceName: "placeholder"), filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: .crossDissolve(0.4), runImageTransitionIfCached: true) { [weak self] (response) in
+            guard let strongSelf = self else {
+                print("SELF IS BEEN DEALLOCATED on autocomplete business cell")
+                return
+            }
             guard let image = response.result.value else {
                 print("No image data in response AutocompletCell")
                 return
             }
             DispatchQueue.main.async {
-                let size = self?.businessImageView.frame.size != nil ? (self?.businessImageView.frame.size)! : CGSize(width: 50, height: 50)
-                self?.businessImageView.image = image.scaleTo(newSize: size)
+                let size = strongSelf.businessImageView.frame.size
+                strongSelf.businessImageView.image = image.scaleTo(newSize: size)
             }
         }
     }

@@ -91,7 +91,7 @@ final class BusinessDetailVC: UIViewController {
                 // self?.businessViewModel?.distance = businessViewModel.distance
                 if let viewModel = strongSelf.businessViewModel {
                     strongSelf.dataSource.updateDataWith(viewModel)
-                    self?.reloadDataInVC()
+                    strongSelf.reloadDataInVC()
                 }
             case .Error(let error):
                 print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
@@ -178,8 +178,8 @@ final class BusinessDetailVC: UIViewController {
         } else {
             calendarView.scheduleLabel.text = "No schedule available"
         }
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            self?.calendarView.alpha = 1
+        UIView.animate(withDuration: 0.3, animations: {
+            self.calendarView.alpha = 1
         })
     }
 }
@@ -188,12 +188,11 @@ final class BusinessDetailVC: UIViewController {
 extension BusinessDetailVC {
     
     func reloadDataInVC() {
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-            self?.customIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.customIndicator.stopAnimating()
             UIView.animate(withDuration: 0.3, animations: { 
-                self?.gradientView.alpha = 1
+                self.gradientView.alpha = 1
             })
         }  
     }
@@ -210,8 +209,8 @@ extension BusinessDetailVC {
             self?.dismiss(animated: true, completion: nil)
         }
         alertController.addAction(action)
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }

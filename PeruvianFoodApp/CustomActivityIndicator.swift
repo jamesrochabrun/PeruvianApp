@@ -49,15 +49,15 @@ class CustomActivityIndicator: BaseView {
     
     func stopAnimating() {
         activityIndicator.stopAnimating()
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.alpha = 0
+        UIView.animate(withDuration: 0.4) {
+            self.alpha = 0
         }
     }
     
     func startAnimating() {
         activityIndicator.startAnimating()
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.alpha = 1
+        UIView.animate(withDuration: 0.4) {
+            self.alpha = 1
         }
     }
 }

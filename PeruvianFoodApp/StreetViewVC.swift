@@ -85,13 +85,14 @@ extension StreetViewVC {
         let panoramaService = GMSPanoramaService()
         let coordinate = CLLocationCoordinate2DMake(viewModel.coordinates.latitude, viewModel.coordinates.longitude)
         panoramaService.requestPanoramaNearCoordinate(coordinate) { [weak self] (panorama, error) in
-            
+           
+            guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 let camera = GMSPanoramaCamera.init(heading: 180, pitch: 0, zoom: 1, fov: 90)
-                self?.panoramaView.camera = camera
-                self?.panoramaView.panorama = panorama
-                if self?.panoramaView.panorama == nil {
-                    self?.alertUserIfPanoramaIsNil()
+                strongSelf.panoramaView.camera = camera
+                strongSelf.panoramaView.panorama = panorama
+                if strongSelf.panoramaView.panorama == nil {
+                    strongSelf.alertUserIfPanoramaIsNil()
                 }
             }
         }
