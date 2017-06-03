@@ -96,6 +96,11 @@ extension AutoCompleteCategory {
     init(json: JSON) throws {
         
         alias = json[Key.aliasKey].stringValue
-        title = json[Key.titleKey].stringValue
+        //MARK: Api title sometimes erturns blamk title
+        title = json[Key.titleKey].stringValue == "" ? alias : json[Key.titleKey].stringValue
     }
 }
+
+
+
+

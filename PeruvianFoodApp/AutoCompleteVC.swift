@@ -97,27 +97,23 @@ extension AutoCompleteVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let autoCompleteResponse = dataSource.getAutoCompleteResponse()
+        guard let autoCompleteResponse = dataSource.getAutoCompleteResponse() else {
+            print("autocompleteresponse is nil on selection")
+            return
+        }
         
-        if indexPath.section == 0 {
-            
-            if let businessID = autoCompleteResponse?.businesses[indexPath.row].id {
-                openBusinessDetailVCwith(businessID)
-            }
-            
-        } else if indexPath.section == 1 {
-            
-            if let categoryTerm = autoCompleteResponse?.terms[indexPath.row].text {
-                selection.term = categoryTerm
-            }
+        switch indexPath.section {
+        case 0:
+            openBusinessDetailVCwith(autoCompleteResponse.businesses[indexPath.row].id)
+        case 1:
+            selection.term = autoCompleteResponse.terms[indexPath.row].text
             showBusinessesBasedOnTermOrCategory()
-            
-        } else if indexPath.section == 2 {
-            
-            if let categoryAlias = autoCompleteResponse?.categories[indexPath.row].alias {
-                selection.categoryItems.append(categoryAlias)
-            }
+        case 2:
+            let categoryAlias = autoCompleteResponse.categories[indexPath.row].alias
+            selection.categoryItems.append(categoryAlias)
             showBusinessesBasedOnTermOrCategory()
+        default:
+            break
         }
     }
     

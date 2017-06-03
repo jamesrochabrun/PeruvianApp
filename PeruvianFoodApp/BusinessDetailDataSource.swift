@@ -9,63 +9,19 @@
 import Foundation
 import UIKit
 
-protocol BusinessDetailDataSourceDelegate: class {
-    func reloadDataInVC()
-    func alertUserOfError()
-}
 
 class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
-    //MARK : Properties
-    weak var delegate: BusinessDetailDataSourceDelegate?
-    
     //MARK: 2 main sources of data visual model setted in the networking call
     fileprivate var businessViewModel: BusinessViewModel?
-    //this is for the rocket icon
     
     //MARK: Initializers
     override init() {
         super.init()
     }
-    
-    //MARK: init from businessesVC
-    convenience init(businessViewModel: BusinessViewModel) {
-        self.init()
-        getBusinessFrom(businessViewModel, fromService: YelpService.sharedInstance)
-    }
-    
-    //MARK: init from searchVC 
-    //NOTE: needs to be simplified once I decide how to handle location in multiple VC's
-    convenience init(businessID: String) {
-        self.init()
-        YelpService.sharedInstance.getBusinessWithID(businessID) { [weak self] (result) in
-            switch result {
-            case .Success(let business):
-                self?.businessViewModel = BusinessViewModel(model: business)
-               // self?.businessViewModel?.distance = businessViewModel.distance
-                self?.delegate?.reloadDataInVC()
-            case .Error(let error):
-                print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
-                self?.delegate?.alertUserOfError()
-            }
-        }
-    }
-    
-    //MARK: Networking
-    func getBusinessFrom(_ businessViewModel: BusinessViewModel, fromService service: YelpService) {
-      
-        let id = businessViewModel.businessID //"ZJchvgEX6Pzy33DWpSRL6A" KFC test
-        service.getBusinessWithID(id) { [weak self] (result) in
-            switch result {
-            case .Success(let business):
-                self?.businessViewModel = BusinessViewModel(model: business)
-                self?.businessViewModel?.distance = businessViewModel.distance
-                self?.delegate?.reloadDataInVC()
-            case .Error(let error):
-                print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
-                self?.delegate?.alertUserOfError()
-            }
-        }
+
+    func updateDataWith(_ viewModel: BusinessViewModel) {
+        self.businessViewModel = viewModel
     }
     
     //MARK: TableView DataSource methods

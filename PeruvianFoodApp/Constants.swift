@@ -41,8 +41,8 @@ struct Constants {
     //MARK: This constants are defined by apple design guidelines and must be used just for reference, not to set the actual size of the navigation elements
     struct Navigation {
         
-        static let statusBarHeight: CGFloat = 22.0
-        static let navigationBarItemHeight: CGFloat = 40.0
+        static let statusBarHeight: CGFloat = 20.0
+        static let navigationBarItemHeight: CGFloat = 44.0
         static let navigationBarHeight: CGFloat = Constants.Navigation.statusBarHeight + Constants.Navigation.navigationBarItemHeight
         static let tabBarHeight: CGFloat = 49.0
     }

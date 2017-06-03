@@ -227,7 +227,7 @@ extension NearbyBusinessesVC {
         feedSearchBar.endEditing(true)
         let businessViewModel = dataSource.getBusinessViewModelFrom(indexPath)
         let businessDetailVC = BusinessDetailVC()
-        businessDetailVC.businessViewModel = businessViewModel
+        businessDetailVC.businessID = businessViewModel.businessID
         self.present(businessDetailVC, animated: true)
     }
 }

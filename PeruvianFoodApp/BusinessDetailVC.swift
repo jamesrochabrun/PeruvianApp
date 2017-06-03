@@ -12,29 +12,16 @@ import UIKit
 final class BusinessDetailVC: UIViewController {
 
     //MARK: properties
-    var businessViewModel: BusinessViewModel? {
-        didSet {
-            if let businessViewModel = businessViewModel {
-                self.customIndicator.startAnimating()
-                self.dataSource = BusinessDetailDataSource(businessViewModel: businessViewModel)
-            }
-        }
-    }
-    
     var businessID: String? {
         didSet {
             if let businessID = businessID {
                 self.customIndicator.startAnimating()
-                self.dataSource = BusinessDetailDataSource(businessID: businessID)
+                getBusinessWith(businessID)
             }
         }
     }
-    
-    var dataSource: BusinessDetailDataSource? {
-        didSet {
-            self.dataSource?.delegate = self
-        }
-    }
+    var businessViewModel: BusinessViewModel?
+    var dataSource = BusinessDetailDataSource()
     
     //MARK: Zoom frame UI
     var startingFrame: CGRect?
@@ -90,6 +77,29 @@ final class BusinessDetailVC: UIViewController {
         return indicator
     }()
     
+    //MARK: Networking call
+    func getBusinessWith(_ businessID: String) {
+        
+        YelpService.sharedInstance.getBusinessWithID(businessID) { [weak self] (result) in
+            guard let strongSelf = self else {
+                print("SELF IS BEEN DEALLOCATED ON NETWORKING CALL FOR BUSINEES DETAIL")
+                return
+            }
+            switch result {
+            case .Success(let business):
+                strongSelf.businessViewModel = BusinessViewModel(model: business)
+                // self?.businessViewModel?.distance = businessViewModel.distance
+                if let viewModel = strongSelf.businessViewModel {
+                    strongSelf.dataSource.updateDataWith(viewModel)
+                    self?.reloadDataInVC()
+                }
+            case .Error(let error):
+                print("ERROR ON BUSINES DETAIL DATASOURCE: \(error)")
+                strongSelf.alertUserOfError()
+            }
+        }
+    }
+    
     //MARK: App Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,8 +116,20 @@ final class BusinessDetailVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(goToMapVC), name: Notification.Name.openMapVCNotification, object: nil)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setUpViews() {
+        
+        view.backgroundColor = .white
+        view.addSubview(gradientView)
+        view.addSubview(tableView)
+        view.addSubview(statusBarBackgroundView)
+        view.addSubview(dismissButton)
+        view.addSubview(calendarView)
+        view.addSubview(customIndicator)
         
         NSLayoutConstraint.activate([
             
@@ -131,22 +153,6 @@ final class BusinessDetailVC: UIViewController {
             customIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             customIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    private func setUpViews() {
-        
-        view.backgroundColor = .white
-        view.addSubview(gradientView)
-        view.addSubview(tableView)
-        view.addSubview(statusBarBackgroundView)
-        view.addSubview(dismissButton)
-        view.addSubview(calendarView)
-        view.addSubview(customIndicator)
     }
     
     //MARK: Navigation
@@ -178,10 +184,11 @@ final class BusinessDetailVC: UIViewController {
     }
 }
 
-//MARK: BusinessDetailDataSourceDelegate delegate method to update UI
-extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
+//MARK: Updates
+extension BusinessDetailVC {
     
     func reloadDataInVC() {
+        
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
             self?.customIndicator.stopAnimating()
