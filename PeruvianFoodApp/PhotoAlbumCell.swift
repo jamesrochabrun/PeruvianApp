@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol PhotoAlbumCellDelegate: class {
-    func passImageViewToVC(_ iamgeView: UIImageView)
+    func passImageView(_ iamgeView: UIImageView)
 }
 
 class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
@@ -56,7 +56,7 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell
-        delegate?.passImageViewToVC(cell!.photoImageView)        
+        delegate?.passImageView(cell!.photoImageView)        
     }
 }
 
@@ -64,13 +64,7 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
 extension PhotoAlbumCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if let count = photos?.count {
-            print("count", count)
-            return count
-        }
-        
-        return 0
+        return photos?.count != nil ? (photos?.count)! : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

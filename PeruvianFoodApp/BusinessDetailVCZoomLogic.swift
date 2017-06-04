@@ -18,21 +18,21 @@ extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
 //    }
 //    func performZoomInForStartingImageView(_ notification: NSNotification) {
         
-        guard let startingImageView = notification.object as? UIImageView  else {
-            return
-        }
+//        guard let startingImageView = notification.object as? UIImageView  else {
+//            return
+//        }
         
-        print("memory address", Unmanaged.passUnretained(startingImageView).toOpaque())
-        self.startingImageView = startingImageView
+        print("memory address", Unmanaged.passUnretained(imageView).toOpaque())
+        self.startingImageView = imageView
         self.startingImageView?.layer.borderColor = UIColor.red.cgColor
         self.startingImageView?.layer.borderWidth = 5.0
         self.startingImageView?.isHidden = true
-        if let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
+        if let startingFrame = imageView.superview?.convert(imageView.frame, to: nil) {
             
             self.startingFrame = startingFrame
             
             let zoomingImageView = getZoominImageViewWith(startingFrame)
-            zoomingImageView.image = startingImageView.image
+            zoomingImageView.image = imageView.image
             
             if let keyWindow = UIApplication.shared.keyWindow {
                 backgroundOverlay = UIView(frame: keyWindow.frame)

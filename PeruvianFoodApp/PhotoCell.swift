@@ -14,7 +14,6 @@ class PhotoCell: BaseCollectionViewCell {
     //MARK: UI Elements
     lazy var photoImageView: UIImageView = {
         let iv = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
-        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         return iv
     }()
     
@@ -42,17 +41,10 @@ class PhotoCell: BaseCollectionViewCell {
                 print("INVALID RESPONSE SETTING UP THE PHOTOCELL")
                 return
             }
-            self?.photoImageView.image = image
+            DispatchQueue.main.async {
+                self?.photoImageView.image = image
+            }
         }
-    }
-    
-    //MARK: Tap gesture to perform zoom action through Notification Center
-    func handleTap(tapGesture: UITapGestureRecognizer) {
-        
-        guard let imageView = tapGesture.view as? UIImageView else {
-            return
-        }        
-//        NotificationCenter.default.post(name: Notification.Name.performZoomNotification, object: imageView)
     }
     
     //MARK: Life Cycle

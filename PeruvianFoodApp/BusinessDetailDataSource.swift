@@ -69,7 +69,7 @@ final class BusinessDetailDataSource: NSObject, UITableViewDataSource {
 
 extension BusinessDetailDataSource: PhotoAlbumCellDelegate {
     
-    func passImageViewToVC(_ imageView: UIImageView) {
+    func passImageView(_ imageView: UIImageView) {
         delegate?.passImageViewToVC(imageView)
     }
 }
