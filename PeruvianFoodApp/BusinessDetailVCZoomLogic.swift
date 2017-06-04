@@ -10,21 +10,26 @@ import Foundation
 import UIKit
 
 //MARK: custom zoom logic
-extension BusinessDetailVC {
+extension BusinessDetailVC: BusinessDetailDataSourceDelegate {
     
-    func performZoomInForStartingImageView(_ notification: NSNotification) {
+    func passImageViewToVC(_ imageView: UIImageView) {
+        
+//     print("imageview")
+//    }
+//    func performZoomInForStartingImageView(_ notification: NSNotification) {
         
         guard let startingImageView = notification.object as? UIImageView  else {
-            print("Problem In business detailvc zoom action")
             return
         }
+        
+        print("memory address", Unmanaged.passUnretained(startingImageView).toOpaque())
         self.startingImageView = startingImageView
+        self.startingImageView?.layer.borderColor = UIColor.red.cgColor
+        self.startingImageView?.layer.borderWidth = 5.0
         self.startingImageView?.isHidden = true
         if let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil) {
             
             self.startingFrame = startingFrame
-            
-            print(self.startingFrame)
             
             let zoomingImageView = getZoominImageViewWith(startingFrame)
             zoomingImageView.image = startingImageView.image
@@ -52,12 +57,13 @@ extension BusinessDetailVC {
     func handleZoomOut(tapGesture: UITapGestureRecognizer) {
         
         guard let startingFrame = self.startingFrame, let overlay = self.backgroundOverlay else {
-            print("something went wrong")
             return
         }
+        
         if let zoomOutImageView = tapGesture.view {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 zoomOutImageView.frame = startingFrame
+            
                 overlay.alpha = 0
             }, completion: { (complete) in
                 
@@ -66,8 +72,6 @@ extension BusinessDetailVC {
                     self.startingImageView?.isHidden = false
                 }
             })
-        } else {
-            print("something went wrong again")
         }
     }
     
@@ -82,9 +86,12 @@ extension BusinessDetailVC {
     
     func getZoominImageViewWith(_ frame: CGRect) -> UIImageView {
         
+        //this is the view zoomed
         let zoomingImageView = UIImageView(frame: frame)
         zoomingImageView.contentMode = .scaleAspectFill
         zoomingImageView.clipsToBounds = true
+        zoomingImageView.layer.borderColor = UIColor.green.cgColor
+        zoomingImageView.layer.borderWidth = 4.0
         zoomingImageView.isUserInteractionEnabled = true
         zoomingImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomOut)))
         return zoomingImageView

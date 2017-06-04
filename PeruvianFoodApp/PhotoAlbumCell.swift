@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+protocol PhotoAlbumCellDelegate: class {
+    func passImageViewToVC(_ iamgeView: UIImageView)
+}
 
 class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
     
@@ -20,6 +23,7 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
             }
         }
     }
+    weak var delegate: PhotoAlbumCellDelegate?
     
     //MARK: UI Elements
     lazy var photoCollectionView: UICollectionView = {
@@ -32,12 +36,14 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
         cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
         cv.register(PhotoCell.self)
         cv.isScrollEnabled = false
+        cv.delegate = self
         return cv
     }()
     
     //MARK: Set Up UI
     override func setUpViews() {
         
+        photoCollectionView.delegate = self
         addSubview(photoCollectionView)
         NSLayoutConstraint.activate([
             photoCollectionView.topAnchor.constraint(equalTo: topAnchor),
@@ -49,8 +55,8 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let cell = collectionView.cellForItem(at: indexPath)
-    
+        let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell
+        delegate?.passImageViewToVC(cell!.photoImageView)        
     }
 }
 
@@ -75,7 +81,6 @@ extension PhotoAlbumCell: UICollectionViewDataSource {
         return cell
     }
 }
-
 
 
 

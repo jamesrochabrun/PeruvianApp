@@ -9,11 +9,15 @@
 import Foundation
 import UIKit
 
+protocol BusinessDetailDataSourceDelegate: class {
+    func passImageViewToVC(_ imageView: UIImageView)
+}
 
 final class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     
     //MARK: 2 main sources of data visual model setted in the networking call
     fileprivate var businessViewModel: BusinessViewModel?
+    weak var delegate: BusinessDetailDataSourceDelegate?
     
     //MARK: Initializers
     override init() {
@@ -53,6 +57,7 @@ final class BusinessDetailDataSource: NSObject, UITableViewDataSource {
             return cell
         }
         let cell = tableView.dequeueReusableCell(forIndexPath: indexPath) as PhotoAlbumCell
+        cell.delegate = self
         cell.photos = businessViewModel.photos 
         return cell
     }
@@ -62,6 +67,12 @@ final class BusinessDetailDataSource: NSObject, UITableViewDataSource {
     }
 }
 
+extension BusinessDetailDataSource: PhotoAlbumCellDelegate {
+    
+    func passImageViewToVC(_ imageView: UIImageView) {
+        delegate?.passImageViewToVC(imageView)
+    }
+}
 
 
 

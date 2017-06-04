@@ -21,7 +21,11 @@ final class BusinessDetailVC: UIViewController {
         }
     }
     var businessViewModel: BusinessViewModel?
-    var dataSource = BusinessDetailDataSource()
+    lazy var dataSource: BusinessDetailDataSource = {
+        let ds = BusinessDetailDataSource()
+        ds.delegate = self
+        return ds
+    }()
     
     //MARK: Zoom frame UI
     var startingFrame: CGRect?
@@ -112,7 +116,7 @@ final class BusinessDetailVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(dismissView), name: NSNotification.Name.dismissViewNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSchedule(_ :)), name: NSNotification.Name.showScheduleNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showReviews), name: NSNotification.Name.showReviewsNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(performZoomInForStartingImageView(_ :)), name: NSNotification.Name.performZoomNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(performZoomInForStartingImageView(_ :)), name: NSNotification.Name.performZoomNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(goToMapVC), name: Notification.Name.openMapVCNotification, object: nil)
     }
     

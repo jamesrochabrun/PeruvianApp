@@ -9,12 +9,11 @@
 import Foundation
 import UIKit
 
-
 class PhotoCell: BaseCollectionViewCell {
     
     //MARK: UI Elements
     lazy var photoImageView: UIImageView = {
-        let iv = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: true).build()
+        let iv = ImageViewBuilder.imageView(radius: nil, contentMode: .scaleAspectFill, clipsToBounds: true, userInteractionEnabled: false).build()
         iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         return iv
     }()
@@ -51,10 +50,9 @@ class PhotoCell: BaseCollectionViewCell {
     func handleTap(tapGesture: UITapGestureRecognizer) {
         
         guard let imageView = tapGesture.view as? UIImageView else {
-            print("problem in photocell")
             return
-        }
-        NotificationCenter.default.post(name: Notification.Name.performZoomNotification, object: imageView)
+        }        
+//        NotificationCenter.default.post(name: Notification.Name.performZoomNotification, object: imageView)
     }
     
     //MARK: Life Cycle
