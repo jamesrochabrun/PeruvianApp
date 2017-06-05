@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol BusinessDetailDataSourceDelegate: class {
-    func passImageViewToVC(_ imageView: UIImageView)
+    func passImageViewToVC(_ startingImageView: UIImageView)
 }
 
 final class BusinessDetailDataSource: NSObject, UITableViewDataSource {

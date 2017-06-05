@@ -13,7 +13,7 @@ protocol PhotoAlbumCellDelegate: class {
     func passImageView(_ iamgeView: UIImageView)
 }
 
-class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
+class PhotoAlbumCell: BaseCell {
     
     //MARK: dataSource
     var photos: [String]? {
@@ -52,12 +52,6 @@ class PhotoAlbumCell: BaseCell, UICollectionViewDelegate {
             photoCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell
-        delegate?.passImageView(cell!.photoImageView)        
-    }
 }
 
 //MARK: UICollectionViewDataSource methods
@@ -76,6 +70,14 @@ extension PhotoAlbumCell: UICollectionViewDataSource {
     }
 }
 
-
+extension PhotoAlbumCell:  UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell {
+            delegate?.passImageView(cell.photoImageView)
+        }
+    }
+}
 
 
