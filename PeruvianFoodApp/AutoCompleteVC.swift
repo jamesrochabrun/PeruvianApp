@@ -161,7 +161,7 @@ extension AutoCompleteVC: UISearchResultsUpdating {
     func updateSelectionWith(text: String) {
         
         selection.text = text
-        YelpService.sharedInstance.getAutoCompleteResponseFrom(selection: selection) { (result) in
+        YelpService.sharedInstance.getAutoCompleteResponseFrom(selection: selection, completionQueue: DispatchQueue.main) { (result) in
           
             switch result {
             case .Success(let response):

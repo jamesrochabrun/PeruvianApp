@@ -84,7 +84,7 @@ final class BusinessDetailVC: UIViewController {
     //MARK: Networking call
     func getBusinessWith(_ businessID: String) {
         
-        YelpService.sharedInstance.getBusinessWithID(businessID) { [weak self] (result) in
+        YelpService.sharedInstance.getBusinessWithID(businessID, completionQueue: DispatchQueue.main) { [weak self] (result) in
             guard let strongSelf = self else {
                 print("SELF IS BEEN DEALLOCATED ON NETWORKING CALL FOR BUSINEES DETAIL")
                 return

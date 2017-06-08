@@ -22,7 +22,7 @@ class BusinessesVC: SearchVC {
         didSet {
             resetPriceAndRadius()
             self.filterView.selection = selection
-            getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: true)
+            getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, isLottieIndicator: true)
         }
     }
     
@@ -146,7 +146,7 @@ class BusinessesVC: SearchVC {
     
     override func refresh(_ refreshControl: UIRefreshControl) {
         
-        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: true)
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, isLottieIndicator: false)
     }
     
     override func scrollViewIsDragging() {
@@ -168,10 +168,10 @@ class BusinessesVC: SearchVC {
     }
     
     //MARK: Networking call 
-    func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection, lottieIndicator: Bool) where S.T == BusinessViewModelDataSource {
+    func getBusinesses<S: Gettable>(fromService service: S, withSelection selection: Selection, isLottieIndicator: Bool) where S.T == BusinessViewModelDataSource {
         
-        lottieIndicator == true ? animatedView.startAnimation() : customIndicator.startAnimating()
-        service.getBusinessesFrom(selection: selection) { [weak self] (result) in
+        isLottieIndicator == true ? animatedView.startAnimation() : customIndicator.startAnimating()
+        service.getBusinessesFrom(selection: selection, completionQueue: DispatchQueue.main) { [weak self] (result) in
             
             guard let strongSelf = self else {
                 print("SELF IS NIL IN BUSINESSFEEDVC")
@@ -187,7 +187,7 @@ class BusinessesVC: SearchVC {
                     strongSelf.dataSource.searchVC = self
                     strongSelf.tableView.registerDatasource(strongSelf.dataSource, completion: { (complete) in
                         strongSelf.feedRefreshControl.endRefreshing()
-                        lottieIndicator == true ?  strongSelf.animatedView.stopAnimation() : strongSelf.customIndicator.stopAnimating()
+                        isLottieIndicator == true ?  strongSelf.animatedView.stopAnimation() : strongSelf.customIndicator.stopAnimating()
                     })
                 }
             case .Error(let error) :
@@ -289,7 +289,7 @@ extension BusinessesVC: FilterViewDelegate {
     func searchWasPressedWithUpdatedSelection(_ selection: Selection) {
         
         alertView.alpha = 0
-        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, lottieIndicator: false)
+        getBusinesses(fromService: YelpService.sharedInstance, withSelection: selection, isLottieIndicator: false)
         performDismissFilterView()
     }
     

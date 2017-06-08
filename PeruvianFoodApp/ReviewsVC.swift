@@ -80,7 +80,8 @@ final class ReviewsVC: UITableViewController {
     
     private func getReviewsFrom(business: BusinessViewModel, fromService service: YelpService) {
         
-        service.getReviewsFrom(businessID: business.businessID) { (result) in
+        
+        service.getReviewsFrom(businessID: business.businessID, completionQueue: DispatchQueue.main) { (result) in
             switch result {
             case .Success(let reviewsDataSource):
                 self.reviewsDataSource = reviewsDataSource

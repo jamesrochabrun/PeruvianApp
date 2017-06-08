@@ -21,13 +21,13 @@ struct YelpService: Gettable {
     
     //MARK: GET BUSINESSES FROM SELECTION
     typealias SearchBusinessFromCategoriesCompletionHandler = (Result<BusinessViewModelDataSource>) -> ()
-    func getBusinessesFrom(selection: Selection, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
+    func getBusinessesFrom(selection: Selection, completionQueue: DispatchQueue, completion: @escaping SearchBusinessFromCategoriesCompletionHandler) {
         
         let request: APIRequest<BusinessViewModelDataSource, JSONError> = tron.request(YelpEndpoint.searchBusinesses.path)
         request.headers = YelpHeader.authorization.headers
         request.parameters = YelpParameter.nearbyFrom(selection: selection).paramaters
         request.perform(withSuccess: { (businessDataSource) in
-            DispatchQueue.main.async {
+            completionQueue.async {
                 completion(.Success(businessDataSource))
             }
         }, failure: { (error) in
@@ -37,13 +37,13 @@ struct YelpService: Gettable {
     
     //MARK: GET BUSINESS FROM ID
     typealias SearchBusinessFromIDCompletion = (Result<Business>) -> ()
-    func getBusinessWithID(_ id: String, completion: @escaping SearchBusinessFromIDCompletion) {
+    func getBusinessWithID(_ id: String, completionQueue: DispatchQueue, completion: @escaping SearchBusinessFromIDCompletion) {
         
         let request: APIRequest<Business, JSONError> = tron.request(YelpEndpoint.searchWith(id: id).path)
         request.headers = YelpHeader.authorization.headers
                 
         request.perform(withSuccess: { (business) in
-            DispatchQueue.main.async {
+            completionQueue.async {
                 completion(.Success(business))
             }
         }, failure: { (error) in
@@ -53,13 +53,14 @@ struct YelpService: Gettable {
     
     //MARK: GET BUSINESS REVIEW FROM ID
     typealias BusinessReviewsCompletion = (Result<ReviewsViewModelDataSource>) -> ()
-    func getReviewsFrom(businessID id: String, completion: @escaping BusinessReviewsCompletion) {
+    func getReviewsFrom(businessID id: String, completionQueue: DispatchQueue, completion: @escaping BusinessReviewsCompletion) {
         
         let request: APIRequest<ReviewsViewModelDataSource, JSONError> = tron.request(YelpEndpoint.reviews(id: id).path)
         request.headers = YelpHeader.authorization.headers
         
         request.perform(withSuccess: { (reviewsViewModel) in
-            DispatchQueue.main.async {
+            
+            completionQueue.async {
                 completion(.Success(reviewsViewModel))
             }
         }, failure: { (error) in
@@ -69,14 +70,14 @@ struct YelpService: Gettable {
     
     //MARK: GET AUTOCOMPLETE RESPONSE
     typealias AutoCompleteCompletion = (Result<AutoCompleteResponse>) -> ()
-    func getAutoCompleteResponseFrom(selection: Selection, completion: @escaping AutoCompleteCompletion) {
+    func getAutoCompleteResponseFrom(selection: Selection, completionQueue: DispatchQueue, completion: @escaping AutoCompleteCompletion) {
         
         let request: APIRequest<AutoCompleteResponse, JSONError> = tron.request(YelpEndpoint.autoComplete.path)
         request.headers = YelpHeader.authorization.headers
         request.parameters = YelpParameter.searchFrom(selection: selection).paramaters
-
+        
         request.perform(withSuccess: { (autoCompleteResponse) in
-            DispatchQueue.main.async {
+            completionQueue.async {
                 completion(.Success(autoCompleteResponse))
             }
         }, failure: { (error) in
@@ -86,7 +87,7 @@ struct YelpService: Gettable {
     
     //MARK: GET TOKEN
     typealias TokenCompletionhandler = (Result<Token>) -> ()
-    func getToken(completion: @escaping TokenCompletionhandler) {
+    func getToken(completionQueue: DispatchQueue, completion: @escaping TokenCompletionhandler) {
         
         let request: APIRequest<Token, JSONError> = tron.request(YelpEndpoint.token.path)
         request.method = .post
@@ -94,7 +95,9 @@ struct YelpService: Gettable {
         request.headers = YelpHeader.contentType.headers
         
         request.perform(withSuccess: { (token) in
-            completion(.Success(token))
+            completionQueue.async {
+                completion(.Success(token))
+            }
         }, failure: { (err) in
             completion(.Error(err))
         })
@@ -117,7 +120,7 @@ enum Result <T>{
 //MARK: Protocol for testing purposes
 protocol Gettable {
     associatedtype T
-    func getBusinessesFrom(selection: Selection, completion: @escaping (Result<T>) -> ())
+    func getBusinessesFrom(selection: Selection, completionQueue: DispatchQueue, completion: @escaping (Result<T>) -> ())
 }
 
 

@@ -67,7 +67,7 @@ final class AutoCompleteBusinessCell: BaseCell {
     //MARK: helper method
     func getbusinessWith(id: String) {
         
-        YelpService.sharedInstance.getBusinessWithID(id) { [weak self] (result) in
+        YelpService.sharedInstance.getBusinessWithID(id, completionQueue: DispatchQueue.main) { [weak self] (result) in
             guard let strongSelf = self else {
                 print("self is nil on Autocomplete cell")
                 return }
