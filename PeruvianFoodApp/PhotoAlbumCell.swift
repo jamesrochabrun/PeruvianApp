@@ -28,7 +28,7 @@ class PhotoAlbumCell: BaseCell {
         cv.dataSource = self
         cv.delegate = self
         cv.alwaysBounceHorizontal = true
-        cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
+        cv.contentInset = UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 5)
         cv.register(PhotoCell.self)
         cv.isScrollEnabled = false
         return cv

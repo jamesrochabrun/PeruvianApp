@@ -57,9 +57,9 @@ class ReviewCell: BaseCell {
         contentView.addSubview(moreReviewsButton)
         
         //less than 251 contenthugging
-        reviewNameLabel.setContentHuggingPriority(250, for: .horizontal)
+        reviewNameLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .horizontal)
         //greater than 751 compression
-        reviewDateLabel.setContentCompressionResistancePriority(751, for: .horizontal)
+        reviewDateLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
         
         NSLayoutConstraint.activate([
             

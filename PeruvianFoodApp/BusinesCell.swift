@@ -112,9 +112,9 @@ class BusinesCell: BaseCell {
     func layout1(_ marginGuide: UILayoutGuide) {
         
         //less than 251 contenthugging
-        businessNameLabel.setContentHuggingPriority(250, for: .horizontal)
+        businessNameLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .horizontal)
         //greater than 751 compression
-        distanceLabel.setContentCompressionResistancePriority(751, for: .horizontal)
+        distanceLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
         
         NSLayoutConstraint.activate([
             

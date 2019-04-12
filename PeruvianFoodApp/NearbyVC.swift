@@ -64,7 +64,7 @@ class NearbyVC: BusinessesFeedVC {
         
         view.addSubview(tableView)
         tableView.register(BusinesCell.self)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.separatorStyle = .none

@@ -43,7 +43,7 @@ class CustomDismissButton: BaseView {
         xView.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
-    func performHandler() {
+    @objc func performHandler() {
         NotificationCenter.default.post(name: Notification.Name.dismissViewNotification, object: nil)
     }
 }

@@ -31,7 +31,7 @@ class SwitchCell: BaseCell {
     
     let swithCategoryLabel = LabelBuilder.headerLabel(textColor: .darkTextColor, textAlignment: nil, sizeToFit: true).build()
     
-    func switchValue() {
+    @objc func switchValue() {
         delegate?.switchCell(self)
     }
     

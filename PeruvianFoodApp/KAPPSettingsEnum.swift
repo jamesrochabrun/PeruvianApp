@@ -35,7 +35,7 @@ enum kAppSettings {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:])
             } else {
-                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:])
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:])
             }
         }
     }

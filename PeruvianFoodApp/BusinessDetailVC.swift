@@ -62,7 +62,7 @@ class BusinessDetailVC: UIViewController {
         tv.backgroundColor = .clear
         tv.estimatedRowHeight = 100
         tv.allowsSelection = false
-        tv.rowHeight = UITableViewAutomaticDimension
+        tv.rowHeight = UITableView.automaticDimension
         tv.separatorStyle = .none
         tv.register(HeaderCell.self)
         tv.register(InfoCell.self)
@@ -167,7 +167,7 @@ class BusinessDetailVC: UIViewController {
         })
     }
     
-    func showReviews() {
+    @objc func showReviews() {
         
         let reviewsVC = ReviewsVC()
         reviewsVC.businessViewModel = businessViewModel
@@ -204,14 +204,14 @@ extension BusinessDetailVC: UITableViewDelegate {
         } else if indexPath.row == 3 {
             return 140
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 }
 
 //MARK: custom zoom logic
 extension BusinessDetailVC {
     
-    func performZoomInForStartingImageView(_ notification: NSNotification) {
+    @objc func performZoomInForStartingImageView(_ notification: NSNotification) {
         
         guard let startingImageView = notification.object as? UIImageView  else {
             return
@@ -247,7 +247,7 @@ extension BusinessDetailVC {
         }
     }
     
-    func handleZoomOut(tapGesture: UITapGestureRecognizer) {
+    @objc func handleZoomOut(tapGesture: UITapGestureRecognizer) {
         
         guard let startingFrame = self.startingFrame, let overlay = self.backgroundOverlay else {
             return

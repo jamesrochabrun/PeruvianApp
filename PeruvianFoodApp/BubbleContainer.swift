@@ -30,7 +30,7 @@ class BubbleContainer: BaseView {
         cv.dataSource = self.dataSource
         cv.delegate = self
         cv.alwaysBounceHorizontal = true
-        cv.contentInset = UIEdgeInsetsMake(0, 5, 0, 5)
+        cv.contentInset = UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 5)
         cv.register(BubbleCell.self)
         cv.isScrollEnabled = false
         return cv

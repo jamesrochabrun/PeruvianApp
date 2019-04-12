@@ -24,7 +24,7 @@ class CustomActivityIndicator: BaseView {
         let actInd = UIActivityIndicatorView()
         actInd.hidesWhenStopped = true
         actInd.translatesAutoresizingMaskIntoConstraints = false
-        actInd.activityIndicatorViewStyle = .whiteLarge
+        actInd.style = .whiteLarge
       //  actInd.startAnimating()
         return actInd
     }()

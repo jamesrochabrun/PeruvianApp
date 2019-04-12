@@ -48,7 +48,7 @@ class PhotoCell: BaseCollectionViewCell {
         }
     }
     
-    func handleTap(tapGesture: UITapGestureRecognizer) {
+    @objc func handleTap(tapGesture: UITapGestureRecognizer) {
         
         guard let imageView = tapGesture.view as? UIImageView else {
             return

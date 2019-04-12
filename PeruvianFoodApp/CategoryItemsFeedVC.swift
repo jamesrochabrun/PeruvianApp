@@ -59,7 +59,7 @@ class CategoryItemsFeedVC: FeedVC {
     }
     
     //MARK: navigation triggers
-    func searchAndOpenResults() {
+    @objc func searchAndOpenResults() {
         
         feedSearchBar.endEditing(true)
         let businessFeedVC = BusinessesFeedVC()

@@ -78,7 +78,7 @@ class CalendarView: BaseView {
     }
     
     //MARK: handle selectors
-    func hideSelf() {
+    @objc func hideSelf() {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.alpha = 0
         })

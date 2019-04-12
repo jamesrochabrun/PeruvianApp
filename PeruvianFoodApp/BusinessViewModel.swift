@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import AlamofireImage
 import Alamofire
-import TRON
-import SwiftyJSON
 
 struct BusinessViewModel {
     

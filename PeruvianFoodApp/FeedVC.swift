@@ -6,8 +6,6 @@
 //  Copyright © 2017 James Rochabrun. All rights reserved.
 //
 import UIKit
-import TRON
-import SwiftyJSON
 
 protocol FeedVCDelegate: class {
     func updateDataInVC(_ vc: FeedVC)
@@ -94,7 +92,7 @@ class FeedVC: UIViewController, UITableViewDelegate {
     }
     
     //MARK: Networking, override this method
-    func refresh(_ refreshControl: UIRefreshControl) {
+    @objc func refresh(_ refreshControl: UIRefreshControl) {
     }
 }
 

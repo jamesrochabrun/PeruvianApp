@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import TRON
-import SwiftyJSON
 
 
 class ReviewsViewModelDataSource: NSObject, UITableViewDataSource, JSONDecodable {

@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import SwiftyJSON
-import TRON
+
 
 
 //MARK: this generic method maps an array of json objects that conform to JSONDecodable and return an array of instantiated objects

@@ -71,7 +71,7 @@ class ReviewsVC: UITableViewController {
     
     func setUpTableView() {
         tableView.register(ReviewCell.self)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
     }
     

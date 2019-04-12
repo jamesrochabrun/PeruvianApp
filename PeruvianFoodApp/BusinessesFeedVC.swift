@@ -5,10 +5,6 @@
 //  Created by James Rochabrun on 4/9/17.
 //  Copyright © 2017 James Rochabrun. All rights reserved.
 //
-
-import TRON
-import SwiftyJSON
-
 import GoogleMaps
 
 class BusinessesFeedVC: FeedVC {
@@ -107,7 +103,7 @@ class BusinessesFeedVC: FeedVC {
         view.addSubview(tableView)
         //tableView.addSubview(customIndicator)
         tableView.register(BusinesCell.self)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.insertSubview(feedRefreshControl, at: 0)

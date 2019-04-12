@@ -89,7 +89,7 @@ class SubInfoCell: BaseCell {
         
         guard let numberText = phoneLabel.text else { return }
         guard let number = URL(string: "telprompt://" + numberText) else { return }
-        UIApplication.shared.open(number, options: [:], completionHandler: nil)
+        UIApplication.shared.open(number, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
 
     func setUp(with businessViewModel: BusinessViewModel) {
@@ -108,3 +108,8 @@ class SubInfoCell: BaseCell {
 
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}
